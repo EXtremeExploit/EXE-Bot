@@ -4,52 +4,52 @@ EXE Bot is a Discord bot created in Node.JS
 
 ## How-To
 
-Prefix: "/" 
-Help command: "/help"
-Invite link: "/invite"
+**Prefix:** "/" 
+**Help command:** "/help"
+**Invite link:** "/invite"
 
 ## Commands
 
 ### Support
-* Invite
+* **Invite**
 Invites me to your server
 
-* Info
+* **Info**
 Info about me
 
 ### Voice
-* join
+* **join**
 Joins to your current voice channel
 
-* play
+* **play**
 Plays audio into a voice channel from a Youtube video URL
 
-* skip
+* **skip**
 Skips the current song
 
-* stop
+* **stop**
 Leaves the current voice channel
 
 
 ### Info
-* server
+* **server**
 Info about the server
 
-* role
+* **role**
 Info about a role
 
 * **channel**
 Info about a channel
 
-* user
+* **user**
 Info about you
 
-* avatar
+* **avatar**
 Gets your AvatarURL
 
 ### Random
-* roll
+* **roll**
 Rolls a dice
 
-* rate
+* **rate**
 Rates something

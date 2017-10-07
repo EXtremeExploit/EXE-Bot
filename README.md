@@ -38,7 +38,7 @@ Info about the server
 * role
 Info about a role
 
-* channel
+* **channel**
 Info about a channel
 
 * user

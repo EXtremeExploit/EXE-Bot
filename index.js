@@ -4,7 +4,7 @@ const botSettings = require('./botSettings.json');
 const yt          = require('ytdl-core');
 const osu         = require("node-osu");
 const prefix      = botSettings.prefix;
-const osuApi      = new osu.Api("OSU_API_KEY"); // Get one at https://osu.ppy.sh/p/api
+const osuApi      = new osu.Api("OSU_API_KEY"); // Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const client      = new discord.Client({
                     apiRequestMethod: 'sequential',
                     messageCacheMaxSize: 200,

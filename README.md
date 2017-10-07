@@ -4,9 +4,10 @@ EXE Bot is a Discord bot created in Node.JS
 
 ## How-To
 
-**Prefix:** "/" \n
-**Help command:** "/help" \n
-**Invite link:** "/invite" \n
+**Prefix:** "/" 
+**Help command:** "/help" 
+**Invite link:** "/invite"
+
 
 ## Commands
 
@@ -48,9 +49,35 @@ Info about you
 * **avatar**
 Gets your AvatarURL
 
+
 ### Random
 * **roll**
 Rolls a dice
 
 * **rate**
 Rates something
+
+
+## Fun
+* **say** Says whatever you want
+
+* **lenny** Sends the lenny face
+
+
+## Osu
+* **osuStdUser** 
+Gets info about an user in the Standard mode
+
+* **osuTaikoUser** 
+Gets info about an user in the Taiko mode
+
+* **osuCtbUser** 
+Gets info about an user in the CatchTheBeat mode
+
+* **osuManiaUser** 
+Gets info about an user in the Mania mode
+
+
+## Misc
+* **ping**
+Pings the bot and the discord API

@@ -1,5 +1,5 @@
 {
-    "token": "TOKEN", //Bot token
-    "prefix": "PREFIX", // Bot Prefix
-    "osuApiKey": "API_KEY" //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
+    "token": "TOKEN",
+    "prefix": "PREFIX",
+    "osuApiKey": "OSU_API_KEY"
 }

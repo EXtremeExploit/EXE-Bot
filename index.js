@@ -4,7 +4,7 @@ const botSettings = require('./botSettings.json');
 const yt          = require('ytdl-core');
 const osu         = require("node-osu");
 const prefix      = botSettings.prefix;
-const osuApi      = new osu.Api("OSU_API_KEY"); // Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
+const osuApi      = new osu.Api(botSettings.osuApiKey);
 const client      = new discord.Client({
                     apiRequestMethod: 'sequential',
                     messageCacheMaxSize: 200,
@@ -429,33 +429,6 @@ client.on("message", async msg => {
         })
 
     }
-    
-    
-    /*else if(command === prefix + "osuStdUserBest"){
-        var argswocommas = args.toString().replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ");
-        osuApi.apiCall("/get_user_best",{
-            u: argswocommas,
-            m: 0,
-            limit: 1,
-            type: "string"
-        }).then(playf =>{
-            var play = play[0];
-            let embed = new discord.RichEmbed()
-            .setColor("#ff3aff")
-            .setTitle("osu!user Best")
-            .addField("PP", play.pp)
-            .addField("BeatmapID", play.beatmap_id)
-            .addField("Score", play.score)
-            .addField("Max Combo", play.maxcombo)
-            .addField("Date", play.date)
-            .addField("Grade", play.rank)
-            .addField("FC", play.perfect)
-            .addField("Count Notes", "300: "+ play.count300 + "\n" + "Geki: " + play.countgeki + "\n" + "100: " + play.count100 + "\n" + "Katu: " + play.countkatu + "\n" + "50:" + play.count50 + "\n" + "Misses" + play.countmiss);
-
-
-            msg.channel.send(embed);
-        })
-    }*/
 
     //Bot Owner
 

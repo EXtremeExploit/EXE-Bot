@@ -1,83 +1,16 @@
 # EXE-Bot
 
-EXE Bot is a Discord bot created in Node.JS
+## Discord
+* Join the discord server!
 
-## How-To
+<p align="center">
+  <a href="https://discordapp.com/invite/">
+    <img alt="Logo" src="https://canary.discordapp.com/api/guilds/353336806189563904/widget.json?style=banner2">
+  </a>
+</p>
 
-**Prefix:** "e!" 
-**Help command:** "e!help" 
-**Invite link:** "e!invite"
-
+if you have any question go to **#questions**
+if you have any suggestion go to **#suggestions**
 
 ## Commands
-
-### Support
-* **Invite**
-Invites me to your server
-
-* **Info**
-Info about me
-
-
-### Voice
-* **join**
-Joins to your current voice channel
-
-* **play**
-Plays audio into a voice channel from a Youtube video URL
-
-* **skip**
-Skips the current song
-
-* **stop**
-Leaves the current voice channel
-
-
-### Info
-* **server**
-Info about the server
-
-* **role**
-Info about a role
-
-* **channel**
-Info about a channel
-
-* **user**
-Info about you
-
-* **avatar**
-Gets your AvatarURL
-
-
-### Random
-* **roll**
-Rolls a dice
-
-* **rate**
-Rates something
-
-
-## Fun
-* **say** Says whatever you want
-
-* **lenny** Sends the lenny face
-
-
-## Osu
-* **osuStdUser** 
-Gets info about an user in the Standard mode
-
-* **osuTaikoUser** 
-Gets info about an user in the Taiko mode
-
-* **osuCtbUser** 
-Gets info about an user in the CatchTheBeat mode
-
-* **osuManiaUser** 
-Gets info about an user in the Mania mode
-
-
-## Misc
-* **ping**
-Pings the bot and the discord API
+* Visit the [wiki](https://github.com/EXtremeExploit/EXE-Bot/wiki) to get all the commands and info.

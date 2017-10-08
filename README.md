@@ -4,9 +4,9 @@ EXE Bot is a Discord bot created in Node.JS
 
 ## How-To
 
-**Prefix:** "/" 
-**Help command:** "/help" 
-**Invite link:** "/invite"
+**Prefix:** "e!" 
+**Help command:** "e!help" 
+**Invite link:** "e!invite"
 
 
 ## Commands

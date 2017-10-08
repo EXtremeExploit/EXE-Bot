@@ -259,12 +259,7 @@ client.on("message", async msg => {
         msg.channel.send('( ͡° ͜ʖ ͡°)')
     }else if(command=== prefix + "cookie"){
         console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
-        if(msg.mentions.users || msg.mentions.members){
         msg.channel.send(":cookie:  | <@" + msg.author.id + "> Has given a cookie to <@" + msg.mentions.members.first().user.id + ">");
-        }else{
-            msg.channel.send(":negative_squared_cross_mark:  |  <@" + msg.author.id + ">, the correct usage is:  /cookie <user>" +
-            `:white_small_square:  |  e.g. ${prefix}cookie @somebody`);
-        }
     }
 
     //Misc

@@ -1,4 +1,6 @@
+<p align="center">
 # EXE-Bot
+  </p>
 
 ## Discord
 * Join the discord server!

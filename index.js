@@ -4,7 +4,7 @@ const botSettings = require('./botSettings.json');
 const yt          = require('ytdl-core');
 const osu         = require("node-osu");
 const prefix      = botSettings.prefix;
-const osuApi      = new osu.Api(botSettings.osuApiKey);
+const osuApi      = new osu.Api(botSettings.osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const client      = new discord.Client({
                     apiRequestMethod: 'sequential',
                     messageCacheMaxSize: 200,
@@ -146,7 +146,7 @@ client.on("message", async msg => {
             console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
             msg.channel.send(`I am **${client.user.username}**\n`+
         `Im made by \`EXtremeExploit#1133\` in Node.JS on the discord.js 11.2.1 library\n`+
-        `To see a full list of my commands type \`/help\``);
+        `To see a full list of my commands type \`${prefix}help\``);
         }
 
         //Info
@@ -263,7 +263,7 @@ client.on("message", async msg => {
         msg.channel.send(":cookie:  | <@" + msg.author.id + "> Has given a cookie to <@" + msg.mentions.members.first().user.id + ">");
         }else{
             msg.channel.send(":negative_squared_cross_mark:  |  <@" + msg.author.id + ">, the correct usage is:  /cookie <user>" +
-            ":white_small_square:  |  e.g. /cookie @somebody");
+            `:white_small_square:  |  e.g. ${prefix}cookie @somebody`);
         }
     }
 

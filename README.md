@@ -1,6 +1,4 @@
-<p align="center">
 # EXE-Bot
-  </p>
 
 ## Discord
 * Join the discord server!
@@ -12,6 +10,7 @@
 
 if you have any question go to **#questions**
 if you have any suggestion go to **#suggestions**
+For support **#support**
 
 ## Commands
 * Visit the [wiki](https://github.com/EXtremeExploit/EXE-Bot/wiki) to get all the commands and info.

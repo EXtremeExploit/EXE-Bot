@@ -487,4 +487,4 @@ client.on("message", async msg => {
         }
     }
 });
-client.login(botSettings.token);
+client.login(procces.env.BOT_TOKEN);

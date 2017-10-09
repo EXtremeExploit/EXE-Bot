@@ -7,6 +7,8 @@ const prefix      = botSettings.prefix;
 const osuApi      = new osu.Api(botSettings.osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const client      = new discord.Client({
                     apiRequestMethod: 'sequential',
+                    shardId: 0,
+                    shardCount: 0,
                     messageCacheMaxSize: 200,
                     messageCacheLifetime: 0,
                     messageSweepInterval: 0,
@@ -14,12 +16,23 @@ const client      = new discord.Client({
                     disableEveryone: false,
                     sync: false,
                     restWsBridgeTimeout: 5000,
-                    restTimeOffset: 500
+                    restTimeOffset: 500,
+                    disabledEvents: [],
+                    ws: {
+                        large_threshold: 250,
+                        compress: true
+                    }
                     });
 var servers       = {};
 var serversCount  = client.guilds.size;
 
-
+function clean(text) {
+    if (typeof(text) === "string")
+      return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+    else
+        return text;
+}
+  
 function play(connection, message) {
     var server = servers[message.guild.id];
 
@@ -47,7 +60,10 @@ client.on("ready",() => {
 });
 client.on("disconnect", () =>{
     console.log(`Disconnected.`)
-})
+});
+client.on("debug", (info) =>{
+    console.log(info)
+});
 client.on("reconnecting", () =>{
     console.log(`Reconnecting...`)
 });
@@ -203,8 +219,9 @@ client.on("message", async msg => {
     }else if(command === `${prefix}user`){
         console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         if(args === "" || args == null){
+            var user = msg.member;
             let embed = new discord.RichEmbed()        
-            .setDescription(`${msg.author.username} info`)
+            .setDescription(`${user.user.username} info`)
             .setColor("#ff0000")
             .addField("Full Username", msg.author.username + "#" + msg.author.discriminator)
             .addField("ID", msg.author.id)
@@ -231,9 +248,14 @@ client.on("message", async msg => {
             .setThumbnail(user.avatarURL);
             msg.channel.send(embed);
         }        
-    }else if(command == "avatar") {
+    }else if(command == prefix + "avatar") {
         console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
-        msg.channel.send(msg.author.avatarURL);
+        let embed = new discord.RichEmbed()
+        .setImage(msg.author.displayAvatarURL)
+        .setColor("#ff0000")
+        .setURL(msg.author.displayAvatarURL)
+        .setDescription(msg.author.username + "'s Avatar");
+        msg.channel.send();
     }
 
     //Random
@@ -258,21 +280,23 @@ client.on("message", async msg => {
             "Yes, definitely", //6
             "Better not tell you now"
         ];
-        msg.channel.send(":8ball: | "+ response[Math.floor(Math.random() * response.length)] + msg.author.username);
+        msg.channel.send(":8ball: | "+ response[Math.floor(Math.random() * response.length)] + " | "+ msg.author.username);
     }
 
     //Fun
 
     else if(command=== `${prefix}say`){
         console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
-        let thing2say = args.toString(); 
-        msg.channel.send(thing2say.replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," "));
+        let thing2say = args.join(" "); 
+        msg.channel.send(thing2say);
     }else if(command===`${prefix}lenny`){
         console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         msg.channel.send('( ͡° ͜ʖ ͡°)')
     }else if(command=== prefix + "cookie"){
         console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         msg.channel.send(":cookie:  | <@" + msg.author.id + "> Has given a cookie to <@" + msg.mentions.members.first().user.id + ">");
+    }else if(command === prefix + ""){
+
     }
 
     //Misc
@@ -441,9 +465,25 @@ client.on("message", async msg => {
     //Bot Owner
 
     else if(command === `${prefix}disconnect`) {
-        if(msg.author.id == 257556050213994516) {
+        if(msg.author.id == botSettings.ownerID){
             client.destroy();
             process.exit();
+        }
+    }else if(command === prefix + "eval"){
+        
+        if(msg.author.id == botSettings.ownerID){
+            console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);            
+            try {
+                const code = args.join(" ");
+                let evaled = eval(code);
+          
+                if (typeof evaled !== "string")
+                  evaled = require("util").inspect(evaled);
+          
+                msg.channel.send(clean(evaled), {code:"xl"});
+              } catch (err) {
+                msg.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+              }
         }
     }
 });

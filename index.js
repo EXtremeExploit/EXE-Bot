@@ -1,8 +1,12 @@
 const discord     = require('discord.js');
+const ffmpeg      = require("ffmpeg-binaries");
+//const nodeOpus    = require("node-opus");
+const osu         = require("node-osu");
+const opusscript  = require("opusscript")
+const yt          = require('ytdl-core');
+
 const fs          = require('fs');
 const botSettings = require('./botSettings.json');
-const yt          = require('ytdl-core');
-const osu         = require("node-osu");
 const prefix      = botSettings.prefix;
 const osuApi      = new osu.Api(botSettings.osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const client      = new discord.Client({
@@ -95,9 +99,10 @@ client.on("message", async msg => {
         .addField("Support","**invite:** Invite me to your server \n**info:** Info about me")
         .addField("Info","**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you \n**avatar:** Gets your AvatarURL")
         .addField("Random","**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question")
-        .addField("Fun","**say:** Says whatever you want \n**lenny:** Sends the lenny face")
-        .addField("Osu", "**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n")
-        .addField("Misc","**ping:** Pings the bot and the discord API");
+        .addField("Fun","**say:** Says whatever you want \n**lenny:** Sends the lenny face\n**cookie**: Gives a cookie to someone")
+        .addField("Osu", "**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuBeatmap**: Gets info about an osu!beatmap")
+        .addField("Misc","**ping:** Pings the bot and the discord API")
+        .addField("Wiki","To see a full description & usage of all commands visit the wiki: \nhttps://github.com/EXtremeExploit/EXE-Bot/wiki/ ");
         msg.channel.send(embed);
         console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
     }
@@ -152,7 +157,7 @@ client.on("message", async msg => {
 
         //Support
 
-        else if(command === `${prefix}invite`){
+        else if(command === prefix +"invite"){
             console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
             client.generateInvite(["ADMINISTRATOR"]).then(link =>{
                 msg.channel.send(`**Invite me to your server :p**\n` +
@@ -487,4 +492,4 @@ client.on("message", async msg => {
         }
     }
 });
-client.login(procces.env.BOT_TOKEN);
+client.login(botSettings.token).catch(e => console.log(e));

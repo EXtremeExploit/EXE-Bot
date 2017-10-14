@@ -1,12 +1,12 @@
 {
-  "name": "java",
+  "name": "EXE-Bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Discord Bot made in Node.JS",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "",
+  "author": "EXtremeExploit",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.2.1",

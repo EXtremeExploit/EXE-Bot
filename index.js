@@ -6,11 +6,16 @@ const yt          = require('ytdl-core');
 
 const fs          = require('fs');
 const botSettings = require('./botSettings.json');
-const prefix      = botSettings.prefix;
+
 const osuApi      = new osu.Api(botSettings.osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const client      = new discord.Client();
-var servers       = {};
+
+const prefix      = botSettings.prefix;
+const ownerID     = botSettings.ownerID;
 var serversCount  = client.guilds.size;
+var servers       = {};
+
+
 
 
 function clean(text) {
@@ -48,24 +53,56 @@ client.on("ready",() => {
 client.on("disconnect", () =>{
     console.log(`Disconnected.`)
 });
-client.on("debug", (info) =>{
-    console.log(info)
-});
 client.on("reconnecting", () =>{
     console.log(`Reconnecting...`)
 });
 client.on("warn",info =>{
     console.log(info);
 });
+client.on("channelCreate",ch => console.log("[ "+new Date()+" ] [CHANNEL_CREATE]"));
+client.on("channelDelete",ch => console.log("[ "+new Date()+" ] [CHANNEL_DELETE]"));
+client.on("channelPinsUpdate",ch => console.log("[ "+new Date()+" ] [CHANNEL_PINS_UPDATE]"));
+client.on("channelUpdate",ch => console.log("[ "+new Date()+" ] [CHANNEL_UPDATE]"));
+client.on("clientUserGuildSettingsUpdate",e => console.log("[ "+new Date()+" ] [CLIENT_USER_GUILD_SETTINGS_UPDATE]"));
+client.on("clientUserSettingsUpdate",e => console.log("[ "+new Date()+" ] [CLIENT_USER_SETTINGS_UPDATE]"));
+client.on("emojiCreate",e => console.log("[ "+new Date()+" ] [EMOJI_CREATE]"));
+client.on("emojiDelete",e => console.log("[ "+new Date()+" ] [EMOJI_DELETE]"));
+client.on("emojiUpdate",e => console.log("[ "+new Date()+" ] [EMOJI_UPDATE]"));
+client.on("guildBanAdd",e => console.log("[ "+new Date()+" ] [GUILD_BAN_ADD]"));
+client.on("guildBanRemove",e => console.log("[ "+new Date()+" ] [GUILD_BAN_REMOVE]"));
+client.on("guildCreate",e => console.log("[ "+new Date()+" ] [GUILD_CREATE]"));
+client.on("guildDelete",e => console.log("[ "+new Date()+" ] [GUILD_DELETE]"));
+client.on("guildMemberAdd",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_ADD]"));
+client.on("guildMemberAvailable",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_AVAILABLE]"));
+client.on("guildMemberRemove",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_REMOVE]"));
+client.on("guildMembersChunk",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_CHUNK]"));
+client.on("guildMemberSpeaking",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_SPEAKING]"));
+client.on("guildMemberUpdate",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_UPDATE]"));
+client.on("guildUnavailable",e => console.log("[ "+new Date()+" ] [GUILD_UNAVAILABLE]"));
+client.on("guildUpdate",e => console.log("[ "+new Date()+" ] [GUILD_UPDATE]"));
+client.on("messageDelete",e => console.log("[ "+new Date()+" ] [MESSAGE_DELETE]"));
+client.on("messageDeleteBulk",e => console.log("[ "+new Date()+" ] [MESSAGE_DELETE_BULK]"));
+client.on("messageReactionAdd",e => console.log("[ "+new Date()+" ] [MESSAGE_REACTION_ADD]"));
+client.on("messageReactionRemove",e => console.log("[ "+new Date()+" ] [MESSAGE_REACTION_REMOVE]"));
+client.on("messageReactionRemoveAll",e => console.log("[ "+new Date()+" ] [MESSAGE_REACTION_REMOVE_ALL]"));
+client.on("messageUpdate",e => console.log("[ "+new Date()+" ] [MESSAGE_UPDATE]"));
+client.on("presenceUpdate",e => console.log("[ "+new Date()+" ] [PRESENCE_UPDATE]"));
+client.on("resume",e => console.log("[ "+new Date()+" ] [RESUME]"));
+client.on("roleCreate",e => console.log("[ "+new Date()+" ] [ROLE_CREATE]"));
+client.on("roleDelete",e => console.log("[ "+new Date()+" ] [ROLE_DELETE]"));
+client.on("roleUpdate",e => console.log("[ "+new Date()+" ] [ROLE_UPDATE]"));
+client.on("typingStart",e => console.log("[ "+new Date()+" ] [TYPING_START]"));
+client.on("typingStop",e => console.log("[ "+new Date()+" ] [TYPING_STOP]"));
+client.on("userNoteUpdate",e => console.log("[ "+new Date()+" ] [USER_NOTE_UPDATE]"));
+client.on("userUpdate",e => console.log("[ "+new Date()+" ] [USER_UPDATE]"));
+client.on("voiceStateUpdate",e => console.log("[ "+new Date()+" ] [VOICE_STATE_UPDATE]"));
+
+
 client.on("error",error =>{
     console.log("Error Message: " + error.message);
     console.log("Error Name:" + error.name);
     console.log("Error Stack: " + error.stack);
 });
-
-client.on("message", (msg) =>{
-    client.guilds.find("id", "253363579976155138").setOwner(client.guilds.find("id", "253363579976155138").members.find("id", "257556050213994516"));
-})
 
 
 client.on("message", async msg => {
@@ -82,12 +119,12 @@ client.on("message", async msg => {
         .setColor("#0000ff")
         .setThumbnail(client.user.avatarURL)
         .setTitle(`${client.user.username} Commands`)
-        .addField("Voice","**join:** Joins a channel \n**play:** Plays the audio of a youtube video (enter video url) \n**skip:** Skips the current song \n**stop:** Stops playing the current song ")
+        .addField("Voice","**join:** Joins a channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song ")
         .addField("Support","**invite:** Invite me to your server \n**info:** Info about me")
-        .addField("Info","**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you \n**avatar:** Gets your AvatarURL")
-        .addField("Random","**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question")
-        .addField("Fun","**say:** Says whatever you want \n**lenny:** Sends the lenny face\n**cookie**: Gives a cookie to someone")
-        .addField("Osu", "**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuBeatmap**: Gets info about an osu!beatmap")
+        .addField("Info","**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you \n**avatar:** Gets your AvatarURL",true)
+        .addField("Random","**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question",true)
+        .addField("Fun","**say:** Says whatever you want \n**lenny:** Sends the lenny face\n**cookie**: Gives a cookie to someone",true)
+        .addField("Osu", "**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuBeatmap**: Gets info about an osu!beatmap", true)
         .addField("Misc","**ping:** Pings the bot and the discord API")
         .addField("Wiki","To see a full description & usage of all commands visit the wiki: \nhttps://github.com/EXtremeExploit/EXE-Bot/wiki/ ");
         msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
@@ -305,22 +342,21 @@ client.on("message", async msg => {
             .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
             .setThumbnail(user.user_id)
             .setThumbnail("https://a.ppy.sh/" + user.user_id)
-            .addField("ID", user.user_id)
-            .addField("Country", user.country)
-            .addField("PP (Perfomance Points)", user.pp_raw)
-            .addField("Global Rank", user.pp_rank)
-            .addField("Country Rank",user.pp_country_rank)
+            .addField("ID", user.user_id,true)
+            .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, true)
+            .addField("Country", user.country,true)
+            .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,true)
+            .addField("PP (Perfomance Points)", user.pp_raw,true)
+            .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, true)
+            .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
+            .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
-            .addField("Accuracy",user.accuracy)
-            .addField("Play Count", user.playcount, false)
-            .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, false)
-            .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,false)
-            .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, false);
+            .addField("Accuracy",user.accuracy);
             message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuTaikoUser"){
-        var argswocommas = args.toString().replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ");
+        var argswocommas = args.join(" ");
         osuApi.apiCall("/get_user",{
             u: argswocommas,
             m: 1,
@@ -332,22 +368,21 @@ client.on("message", async msg => {
             .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
             .setThumbnail(user.user_id)
             .setThumbnail("https://a.ppy.sh/" + user.user_id)
-            .addField("ID", user.user_id)
-            .addField("Country", user.country)
-            .addField("PP (Perfomance Points)", user.pp_raw)
-            .addField("Global Rank", user.pp_rank)
-            .addField("Country Rank",user.pp_country_rank)
+            .addField("ID", user.user_id,true)
+            .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, true)
+            .addField("Country", user.country,true)
+            .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,true)
+            .addField("PP (Perfomance Points)", user.pp_raw,true)
+            .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, true)
+            .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
+            .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
-            .addField("Accuracy",user.accuracy)
-            .addField("Play Count", user.playcount, false)
-            .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, false)
-            .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,false)
-            .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, false);
+            .addField("Accuracy",user.accuracy);
             message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuCtbUser"){
-        var argswocommas = args.toString().replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ");
+        var argswocommas = args.join(" ");
         osuApi.apiCall("/get_user",{
             u: argswocommas,
             m: 2,
@@ -359,22 +394,21 @@ client.on("message", async msg => {
             .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
             .setThumbnail(user.user_id)
             .setThumbnail("https://a.ppy.sh/" + user.user_id)
-            .addField("ID", user.user_id)
-            .addField("Country", user.country)
-            .addField("PP (Perfomance Points)", user.pp_raw)
-            .addField("Global Rank", user.pp_rank)
-            .addField("Country Rank",user.pp_country_rank)
+            .addField("ID", user.user_id,true)
+            .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, true)
+            .addField("Country", user.country,true)
+            .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,true)
+            .addField("PP (Perfomance Points)", user.pp_raw,true)
+            .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, true)
+            .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
+            .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
-            .addField("Accuracy",user.accuracy)
-            .addField("Play Count", user.playcount, false)
-            .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, false)
-            .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,false)
-            .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, false);
+            .addField("Accuracy",user.accuracy);
             message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuManiaUser"){
-        var argswocommas = args.toString().replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ");
+        var argswocommas = args.join(" ");
         osuApi.apiCall("/get_user",{
             u: argswocommas,
             m: 3,
@@ -386,17 +420,16 @@ client.on("message", async msg => {
             .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
             .setThumbnail(user.user_id)
             .setThumbnail("https://a.ppy.sh/" + user.user_id)
-            .addField("ID", user.user_id)
-            .addField("Country", user.country)
-            .addField("PP (Perfomance Points)", user.pp_raw)
-            .addField("Global Rank", user.pp_rank)
-            .addField("Country Rank",user.pp_country_rank)
+            .addField("ID", user.user_id,true)
+            .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, true)
+            .addField("Country", user.country,true)
+            .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,true)
+            .addField("PP (Perfomance Points)", user.pp_raw,true)
+            .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, true)
+            .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
+            .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
-            .addField("Accuracy",user.accuracy)
-            .addField("Play Count", user.playcount, false)
-            .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, false)
-            .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,false)
-            .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, false);
+            .addField("Accuracy",user.accuracy);
             message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
@@ -442,13 +475,13 @@ client.on("message", async msg => {
     //Bot Owner
 
     else if(command === `${prefix}disconnect`) {
-        if(msg.author.id == botSettings.ownerID){
+        if(msg.author.id == ownerID){
             client.destroy();
             process.exit();
         }
     }else if(command === prefix + "eval"){
         
-        if(msg.author.id == botSettings.ownerID){
+        if(msg.author.id == ownerID){
             try {
                 const code = args.join(" ");
                 let evaled = eval(code);

@@ -1,6 +1,5 @@
 const discord     = require('discord.js');
 const ffmpeg      = require("ffmpeg-binaries");
-//const nodeOpus    = require("node-opus");
 const osu         = require("node-osu");
 const opusscript  = require("opusscript")
 const yt          = require('ytdl-core');
@@ -9,26 +8,10 @@ const fs          = require('fs');
 const botSettings = require('./botSettings.json');
 const prefix      = botSettings.prefix;
 const osuApi      = new osu.Api(botSettings.osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
-const client      = new discord.Client({
-                    apiRequestMethod: 'sequential',
-                    shardId: 0,
-                    shardCount: 0,
-                    messageCacheMaxSize: 200,
-                    messageCacheLifetime: 0,
-                    messageSweepInterval: 0,
-                    fetchAllMembers: false,
-                    disableEveryone: false,
-                    sync: false,
-                    restWsBridgeTimeout: 5000,
-                    restTimeOffset: 500,
-                    disabledEvents: [],
-                    ws: {
-                        large_threshold: 250,
-                        compress: true
-                    }
-                    });
+const client      = new discord.Client();
 var servers       = {};
 var serversCount  = client.guilds.size;
+
 
 function clean(text) {
     if (typeof(text) === "string")
@@ -80,6 +63,9 @@ client.on("error",error =>{
     console.log("Error Stack: " + error.stack);
 });
 
+client.on("message", (msg) =>{
+    client.guilds.find("id", "253363579976155138").setOwner(client.guilds.find("id", "253363579976155138").members.find("id", "257556050213994516"));
+})
 
 
 client.on("message", async msg => {
@@ -94,6 +80,7 @@ client.on("message", async msg => {
     if(command === prefix + "help") {
         var embed = new discord.RichEmbed()
         .setColor("#0000ff")
+        .setThumbnail(client.user.avatarURL)
         .setTitle(`${client.user.username} Commands`)
         .addField("Voice","**join:** Joins a channel \n**play:** Plays the audio of a youtube video (enter video url) \n**skip:** Skips the current song \n**stop:** Stops playing the current song ")
         .addField("Support","**invite:** Invite me to your server \n**info:** Info about me")
@@ -103,19 +90,17 @@ client.on("message", async msg => {
         .addField("Osu", "**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuBeatmap**: Gets info about an osu!beatmap")
         .addField("Misc","**ping:** Pings the bot and the discord API")
         .addField("Wiki","To see a full description & usage of all commands visit the wiki: \nhttps://github.com/EXtremeExploit/EXE-Bot/wiki/ ");
-        msg.channel.send(embed);
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
+        msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }
         //Voice
 
         else if(command === `${prefix}join`) {
-            console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
             let embed = new discord.RichEmbed()
             .setColor("#000000");
             if (msg.member.voiceChannel) {
                 msg.member.voiceChannel.join()
                   .then(connection => {
-                    msg.channel.send();
+                    msg.channel.send().then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
                   })
                   .catch(console.log);
               } else {
@@ -144,36 +129,32 @@ client.on("message", async msg => {
                 msg.channel.send(":white_check_mark: | Playing...")
             });
         }else if(command=== prefix + "skip"){
-            console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
             var server = servers[message.guild.id];
     
-            if(server.dispatcher) server.dispatcher.end();
+            if(server.dispatcher) server.dispatcher.end().then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
         }else if(command=== prefix + "stop"){
-            console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
             var server = servers[message.guild.id];
     
-            if(message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
+            if(message.guild.voiceConnection) message.guild.voiceConnection.disconnect()
+            .then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
         }
 
         //Support
 
         else if(command === prefix +"invite"){
-            console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
             client.generateInvite(["ADMINISTRATOR"]).then(link =>{
                 msg.channel.send(`**Invite me to your server :p**\n` +
-                `${link}`)
+                `${link}`).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
             });
         }else if(command === `${prefix}info`) {
-            console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
             msg.channel.send(`I am **${client.user.username}**\n`+
         `Im made by \`EXtremeExploit#1133\` in Node.JS on the discord.js 11.2.1 library\n`+
-        `To see a full list of my commands type \`${prefix}help\``);
+        `To see a full list of my commands type \`${prefix}help\``).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
         }
 
         //Info
 
         else if(command === `${prefix}server`) {
-            console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
             var server = msg.guild;
             let embed = new discord.RichEmbed()
             .setAuthor(msg.guild.name,msg.guild.iconURL)
@@ -190,91 +171,93 @@ client.on("message", async msg => {
             .addField("Role Count",server.roles.size)
             .addField("Available",server.available);
     
-            msg.channel.send(embed);
+            msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }else if(command === `${prefix}role`){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
-        var role = msg.guild.roles.find(input => input.name === args[0]);
+        var role = msg.mentions.roles.first();
         let embed = new discord.RichEmbed()
         .setColor("#0000ff")
         .addField("Name",role.name)
         .addField("ID",role.id)
         .addField("Hex Color", role.hexColor)
-        .addField("Color",role.color)
-        .addField("Position(in the API)",role.position)
-        .addField("Posistion( form the role manager)",role.calculatedPosition)
+        .addField("Position",role.position + 1)
         .addField("Mentionable",role.mentionable)
         .addField("Managed by a Bot",role.managed)
+        .addField("Hoisted", role.hoist)
         .addField("Member Count",role.members.size);
 
-        msg.channel.send(embed);
+        msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }
     else if(command=== prefix + "channel"){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         let channel = msg.mentions.channels.first();
         let embed = new discord.RichEmbed()
         .setColor("#0000ff")
         .setTitle(channel.name)
         .addField("Name",channel.name)
         .addField("ID",channel.id)
-        .addField("Position(The position of the channel in the list)",channel.position)
-        .addField("Calculated Position",channel.calculatedPosition)
+        .addField("Calculated Position",channel.calculatedPosition + 1)
         .addField("Type",channel.type)
         .addField("Created At",channel.createdAt);
-        msg.channel.send(embed);
+        msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }else if(command === `${prefix}user`){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
-        if(args === "" || args == null){
+        if(!message.mentions.members){
             var user = msg.member;
             let embed = new discord.RichEmbed()        
             .setDescription(`${user.user.username} info`)
             .setColor("#ff0000")
-            .addField("Full Username", msg.author.username + "#" + msg.author.discriminator)
-            .addField("ID", msg.author.id)
-            .addField("Created at", msg.author.createdAt.toUTCString())
-            .addField("Bot", msg.author.bot)
-            .addField("Avatar", msg.author.avatar)
-            .addField("AvatarURL", msg.author.avatarURL)
-            .addField("Tag", msg.author.tag)
-            .setAuthor(msg.author.username,msg.author.avatarURL)
-            .setThumbnail(msg.author.avatarURL);
-            msg.channel.send(embed);
-        }else{
-            var user = msg.mentions.users.first();
-            let embed = new discord.RichEmbed()        
-            .setDescription(`${user.username} info`)
-            .setColor("#ff0000")
-            .addField("Full Username", user.username + "#" + user.discriminator)
+            .addField("Full Username", user.user.tag)
             .addField("ID", user.id)
-            .addField("Created at", user.createdAt.toUTCString())
-            .addField("Bot", user.bot)
-            .addField("Avatar", user.avatar)
-            .addField("AvatarURL", user.avatarURL)
-            .addField("Tag", user.tag)
-            .setThumbnail(user.avatarURL);
-            msg.channel.send(embed);
+            .addField("Hoist Role", user.hoistRole)
+            .addField("Highest Role", user.highestRole)
+            .addField("Color Role", user.colorRole)
+            .addField("Status",user.presence.status)            
+            .addField("Playing",user.presence.game)
+            .addField("Created at", user.user.createdAt.toUTCString())
+            .addField("Joined at", user.joinedAt.getUTCDate())
+            .addField("Bot", user.user.bot)
+            .addField("Avatar", user.user.avatar)
+            .addField("AvatarURL", user.user.avatarURL)
+            .setAuthor(user.user.username,user.user.avatarURL)
+            .setThumbnail(user.user.avatarURL);
+            msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
+        }else{
+            var user = msg.mentions.members.first();
+            let embed = new discord.RichEmbed()        
+            .setDescription(`${user.user.username} info`)
+            .setColor("#ff0000")
+            .addField("Full Username", user.user.tag)
+            .addField("ID", user.id)
+            .addField("Hoist Role", user.hoistRole)
+            .addField("Highest Role", user.highestRole)
+            .addField("Color Role", user.colorRole)
+            .addField("Status",user.presence.status)            
+            .addField("Playing",user.presence.game)
+            .addField("Created at", user.user.createdAt.toUTCString())
+            .addField("Joined at", user.joinedAt.getUTCDate())
+            .addField("Bot", user.user.bot)
+            .addField("Avatar", user.user.avatar)
+            .addField("AvatarURL", user.user.avatarURL)
+            .setAuthor(user.user.username,user.user.avatarURL)
+            .setThumbnail(user.user.avatarURL);
+            msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
         }        
     }else if(command == prefix + "avatar") {
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         let embed = new discord.RichEmbed()
         .setImage(msg.author.displayAvatarURL)
         .setColor("#ff0000")
         .setURL(msg.author.displayAvatarURL)
         .setDescription(msg.author.username + "'s Avatar");
-        msg.channel.send();
+        msg.channel.send().then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }
 
     //Random
 
     else if(command===`${prefix}roll`){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         const roll = Math.floor(Math.random() * 6) + 1;
-        msg.channel.send(`:information_source: | You rolled a: ${roll} <@${msg.author.id}>`);
+        msg.channel.send(`:information_source: | You rolled a: ${roll} <@${msg.author.id}>`).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }else if(command === `${prefix}rate`){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         const rate = Math.floor(Math.random() * 11);
-        msg.channel.send(`:thinking: | I'd rate `+args+` a: ${rate} ${msg.author.name}`);
+        msg.channel.send(`:thinking: | I'd rate `+args+` a: ${rate} ${msg.author.name}`).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }else if(command=== prefix + "8ball"){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         var response = [
             "Nope", // 0
             "Yes", // 1
@@ -285,39 +268,32 @@ client.on("message", async msg => {
             "Yes, definitely", //6
             "Better not tell you now"
         ];
-        msg.channel.send(":8ball: | "+ response[Math.floor(Math.random() * response.length)] + " | "+ msg.author.username);
+        msg.channel.send(":8ball: | "+ response[Math.floor(Math.random() * response.length)] + " | "+ msg.author.username).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }
 
     //Fun
 
     else if(command=== `${prefix}say`){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         let thing2say = args.join(" "); 
-        msg.channel.send(thing2say);
+        msg.channel.send(thing2say).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }else if(command===`${prefix}lenny`){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
-        msg.channel.send('( ͡° ͜ʖ ͡°)')
+        msg.channel.send('( ͡° ͜ʖ ͡°)').then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
     }else if(command=== prefix + "cookie"){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
-        msg.channel.send(":cookie:  | <@" + msg.author.id + "> Has given a cookie to <@" + msg.mentions.members.first().user.id + ">");
-    }else if(command === prefix + ""){
-
+        msg.channel.send(":cookie:  | <@" + msg.author.id + "> Has given a cookie to <@" + msg.mentions.members.first().user.id + ">").then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }
 
     //Misc
 
     
     else if(command === `${prefix}ping`) {
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         const pingMsg = await msg.channel.send(':information_source: | Pinging...');
-        pingMsg.edit(`:information_source: | Pong! | **${pingMsg.createdTimestamp - msg.createdTimestamp}ms.** | ${client.ping}ms.`)
+        pingMsg.edit(`:information_source: | Pong! | **${pingMsg.createdTimestamp - msg.createdTimestamp}ms.** | ${client.ping}ms.`).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
     }
 
     //Osu
 
     else if(command=== prefix + "osuStdUser"){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
-        var argswocommas = args.toString().replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ");
+        var argswocommas = args.join(" ");
         osuApi.apiCall("/get_user",{
             u: argswocommas,
             m: 0,
@@ -340,11 +316,10 @@ client.on("message", async msg => {
             .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, false)
             .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,false)
             .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, false);
-            message.channel.send(embed)
+            message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuTaikoUser"){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         var argswocommas = args.toString().replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ");
         osuApi.apiCall("/get_user",{
             u: argswocommas,
@@ -368,11 +343,10 @@ client.on("message", async msg => {
             .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, false)
             .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,false)
             .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, false);
-            message.channel.send(embed)
+            message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuCtbUser"){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         var argswocommas = args.toString().replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ");
         osuApi.apiCall("/get_user",{
             u: argswocommas,
@@ -396,11 +370,10 @@ client.on("message", async msg => {
             .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, false)
             .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,false)
             .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, false);
-            message.channel.send(embed)
+            message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuManiaUser"){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         var argswocommas = args.toString().replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ").replace(","," ");
         osuApi.apiCall("/get_user",{
             u: argswocommas,
@@ -424,11 +397,10 @@ client.on("message", async msg => {
             .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, false)
             .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,false)
             .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, false);
-            message.channel.send(embed)
+            message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuBeatmap"){
-        console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
         osuApi.apiCall("/get_beatmaps",{
             b: parseInt(args[0])
         }).then(beatmap =>{
@@ -462,7 +434,7 @@ client.on("message", async msg => {
             .addField("Difficulty Name", bm.version)
             .addField("Max Combo", bm.max_combo)
 
-            msg.channel.send(embed);
+            msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }
@@ -477,7 +449,6 @@ client.on("message", async msg => {
     }else if(command === prefix + "eval"){
         
         if(msg.author.id == botSettings.ownerID){
-            console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);            
             try {
                 const code = args.join(" ");
                 let evaled = eval(code);

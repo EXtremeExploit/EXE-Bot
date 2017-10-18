@@ -59,6 +59,7 @@ client.on("reconnecting", () =>{
 client.on("warn",info =>{
     console.log(info);
 });
+if(botSettings.allEvents == true){
 client.on("channelCreate",ch => console.log("[ "+new Date()+" ] [CHANNEL_CREATE]"));
 client.on("channelDelete",ch => console.log("[ "+new Date()+" ] [CHANNEL_DELETE]"));
 client.on("channelPinsUpdate",ch => console.log("[ "+new Date()+" ] [CHANNEL_PINS_UPDATE]"));
@@ -96,6 +97,7 @@ client.on("typingStop",e => console.log("[ "+new Date()+" ] [TYPING_STOP]"));
 client.on("userNoteUpdate",e => console.log("[ "+new Date()+" ] [USER_NOTE_UPDATE]"));
 client.on("userUpdate",e => console.log("[ "+new Date()+" ] [USER_UPDATE]"));
 client.on("voiceStateUpdate",e => console.log("[ "+new Date()+" ] [VOICE_STATE_UPDATE]"));
+}
 
 
 client.on("error",error =>{
@@ -351,7 +353,7 @@ client.on("message", async msg => {
             .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
             .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
-            .addField("Accuracy",user.accuracy);
+            .addField("Accuracy",(parseInt(user.accuracy)) + "%");
             message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 

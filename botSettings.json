@@ -1,6 +1,7 @@
 {
     "token": "TOKEN",
     "prefix": "PREFIX",
-    "osuApiKey": "OSU_API_KEY",
-    "ownerID": (BOT_OWNER_ID(put your ID in int, not string))
+    "osuApiKey": "API_KEY",
+    "ownerID": "YOUR_USERID_HERE(SHOULD BE INT)",
+    "allEvents": false
 }

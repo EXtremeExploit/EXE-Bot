@@ -59,7 +59,7 @@ client.on("reconnecting", () =>{
 client.on("warn",info =>{
     console.log(info);
 });
-if(botSettings.allEvents == true){
+if(botSettings.allEvents){
 client.on("channelCreate",ch => console.log("[ "+new Date()+" ] [CHANNEL_CREATE]"));
 client.on("channelDelete",ch => console.log("[ "+new Date()+" ] [CHANNEL_DELETE]"));
 client.on("channelPinsUpdate",ch => console.log("[ "+new Date()+" ] [CHANNEL_PINS_UPDATE]"));
@@ -98,7 +98,9 @@ client.on("userNoteUpdate",e => console.log("[ "+new Date()+" ] [USER_NOTE_UPDAT
 client.on("userUpdate",e => console.log("[ "+new Date()+" ] [USER_UPDATE]"));
 client.on("voiceStateUpdate",e => console.log("[ "+new Date()+" ] [VOICE_STATE_UPDATE]"));
 }
-
+if(botSettings.debug){
+    client.on("debug",e => console.log(e));
+}
 
 client.on("error",error =>{
     console.log("Error Message: " + error.message);

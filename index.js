@@ -8,11 +8,33 @@ const fs          = require('fs');
 const botSettings = require('./botSettings.json');
 
 const osuApi      = new osu.Api(botSettings.osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
-const client      = new discord.Client();
+const client      = new discord.Client({
+    apiRequestMethod: 'sequential',
+    shardId: 0,
+    shardCount: 0,
+    messageCacheMaxSize: 200,
+    messageCacheLifetime: 0,
+    messageSweepInterval: 0,
+    fetchAllMembers: false,
+    disableEveryone: false,
+    sync: false,
+    restWsBridgeTimeout: 5000,
+    restTimeOffset: 500,
+    disabledEvents: [],
+    ws: {
+        large_threshold: 100,
+        compress: false
+    },
+    http: {
+        version: 7,
+        //host: "",
+        cdn: 'https://cdn.discordapp.com'
+    }
+
+});
 
 const prefix      = botSettings.prefix;
 const ownerID     = botSettings.ownerID;
-var serversCount  = client.guilds.size;
 var servers       = {};
 
 
@@ -32,7 +54,7 @@ function play(connection, message) {
 
     server.queue.shift();
 
-    server.dispatcher.on("end", () =>{
+    server.dispatcher.on("end", () => {
         if(server.queue[0]) play(connection, message);
         else connection.disconnect();
     });
@@ -41,6 +63,7 @@ function play(connection, message) {
 
 client.on("ready",() => {
     var me = client.user;
+    var serversCount  = client.guilds.size;
     console.clear();
     console.log("JavaScript Node.JS discord.js 11.2.1");
     console.log('Username: ' + me.tag);
@@ -48,7 +71,10 @@ client.on("ready",() => {
     console.log(`Verified: ${me.verified}`);
     console.log(`Bot: ${me.bot}`);
     console.log(`Status: ${me.presence.status}`);
+    console.log("Servers: "+serversCount);
+    console.log(client.guilds.forEach(guild => console.log(guild.name))+"\n");
     console.log(`Connected. \n`);
+    me.setGame("e!help | e!invite | "+serversCount+" Servers")
 });
 client.on("disconnect", () =>{
     console.log(`Disconnected.`)
@@ -124,13 +150,13 @@ client.on("message", async msg => {
         .setThumbnail(client.user.avatarURL)
         .setTitle(`${client.user.username} Commands`)
         .addField("Voice","**join:** Joins a channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song ")
-        .addField("Support","**invite:** Invite me to your server \n**info:** Info about me")
+        .addField("Support","**invite:** Invite me to your server \n**info:** Info about me",true)
         .addField("Info","**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you \n**avatar:** Gets your AvatarURL",true)
         .addField("Random","**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question",true)
         .addField("Fun","**say:** Says whatever you want \n**lenny:** Sends the lenny face\n**cookie**: Gives a cookie to someone",true)
         .addField("Osu", "**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuBeatmap**: Gets info about an osu!beatmap", true)
-        .addField("Misc","**ping:** Pings the bot and the discord API")
-        .addField("Wiki","To see a full description & usage of all commands visit the wiki: \nhttps://github.com/EXtremeExploit/EXE-Bot/wiki/ ");
+        .addField("Misc","**ping:** Pings the bot and the discord API",true)
+        .addField("Wiki","[Wiki](https://github.com/EXtremeExploit/EXE-Bot/wiki/)\n[Wiki: Commands](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)");
         msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }
         //Voice
@@ -166,8 +192,6 @@ client.on("message", async msg => {
             server.queue.push(args[0])
             if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(connection =>{
                 play(connection,message);
-                msg.channel.send(":white_check_mark: | SUCCesfully connected to the channel");
-                msg.channel.send(":white_check_mark: | Playing...")
             });
         }else if(command=== prefix + "skip"){
             var server = servers[message.guild.id];
@@ -184,10 +208,17 @@ client.on("message", async msg => {
 
         else if(command === prefix +"invite"){
             client.generateInvite(["ADMINISTRATOR"]).then(link =>{
-                msg.channel.send(`**Invite me to your server :p**\n` +
-                `${link}`).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
+                msg.channel.send(`**Invite me to your server :p**\n${link}`)
+                .then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
             });
         }else if(command === `${prefix}info`) {
+            let embed = new discord.RichEmbed()
+            .setAuthor(client.user.username,client.user.avatarURL)
+            .setColor("#ff0000")
+            .setFooter(client.user.username + "By" + client.fetchUser(ownerID).then(user => user.username))
+            .setThumbnail(client.user.avatarURL)
+            .addField("Libraries & languge", "JavaScript: Node.JS\n**Libraries**\ndiscord.js\nnode-osu\nytdl-core",true)
+            .addField("", "**CPU Usage:** " + process.cpuUsage + "\n**Memory Usage:** " + process.memoryUsage,true)
             msg.channel.send(`I am **${client.user.username}**\n`+
         `Im made by \`EXtremeExploit#1133\` in Node.JS on the discord.js 11.2.1 library\n`+
         `To see a full list of my commands type \`${prefix}help\``).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
@@ -338,7 +369,8 @@ client.on("message", async msg => {
         osuApi.apiCall("/get_user",{
             u: argswocommas,
             m: 0,
-            type: "string"
+            type: "string",
+            event_days: 4
         }).then(userf =>{
             var user = userf[0];
             let embed = new discord.RichEmbed()
@@ -355,8 +387,8 @@ client.on("message", async msg => {
             .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
             .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
-            .addField("Accuracy",(parseInt(user.accuracy)) + "%");
-            message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
+            .addField("Accuracy",(Math.round(parseInt(user.accuracy)) + "%"));
+            message.channel.send(embed).catch(e => msg.channel.send(":no_entry: | Could not found user")).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuTaikoUser"){
@@ -381,8 +413,8 @@ client.on("message", async msg => {
             .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
             .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
-            .addField("Accuracy",user.accuracy);
-            message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
+            .addField("Accuracy",(Math.round(parseInt(user.accuracy)) + "%"));
+            message.channel.send(embed).catch(e => msg.channel.send(":no_entry: | Could not found user")).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuCtbUser"){
@@ -407,8 +439,8 @@ client.on("message", async msg => {
             .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
             .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
-            .addField("Accuracy",user.accuracy);
-            message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
+            .addField("Accuracy",(Math.round(parseInt(user.accuracy)) + "%"));
+            message.channel.send(embed).catch(e => msg.channel.send(":no_entry: | Could not found user")).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuManiaUser"){
@@ -419,22 +451,41 @@ client.on("message", async msg => {
             type: "string"
         }).then(userf =>{
             var user = userf[0];
+            if(!user == undefined){
+                let embed = new discord.RichEmbed()
+                .setColor("#ff3aff")
+                .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
+                .setThumbnail(user.user_id)
+                .setThumbnail("https://a.ppy.sh/" + user.user_id)
+                .addField("ID", user.user_id,true)
+                .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, true)
+                .addField("Country", user.country,true)
+                .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,true)
+                .addField("PP (Perfomance Points)", user.pp_raw,true)
+                .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, true)
+                .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
+                .addField("Play Count", user.playcount,true)
+                .addField("Level", user.level)
+                .addField("Accuracy",(Math.round(parseInt(user.accuracy)) + "%"));
+            message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
+            }else{
+                msg.channel.send("Could not found user...");
+            }
+        })
+
+    }else if(command == prefix + "osuStdBest"){
+        var argswocommas = args.join(" ");
+        osuApi.apiCall("/get_user_best",{
+            u: argswocommas,
+            m: 0,
+            limit: 1,
+            type: "string"
+        }).then(playF =>{
+            var play = playF[0];
             let embed = new discord.RichEmbed()
             .setColor("#ff3aff")
-            .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
-            .setThumbnail(user.user_id)
-            .setThumbnail("https://a.ppy.sh/" + user.user_id)
-            .addField("ID", user.user_id,true)
-            .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, true)
-            .addField("Country", user.country,true)
-            .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,true)
-            .addField("PP (Perfomance Points)", user.pp_raw,true)
-            .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, true)
-            .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
-            .addField("Play Count", user.playcount,true)
-            .addField("Level", user.level)
-            .addField("Accuracy",user.accuracy);
-            message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
+
+            msg.channel.send(embed)
         })
 
     }else if(command=== prefix + "osuBeatmap"){
@@ -442,29 +493,25 @@ client.on("message", async msg => {
             b: parseInt(args[0])
         }).then(beatmap =>{
             var bm = beatmap[0];
-            if(bm.status == -2){
-                bm.status = "Graveyard"
-            }else if(bm.status == -1){
-                bm.status = "WIP"
-            }else if(bm.status == 0){
-                bm.status = "Pending"
-            }else if(bm.status == 1){
-                bm.status = "Ranked"
-            }else if(bm.status == 2){
-                bm.status = "approved"
-            }else if(bm.status == 3){
-                bm.status = "qualified"
-            }else if(bm.status == 4){
-                bm.status = "Loved"
-            }
+            if(bm.status == -2) bm.status = "Graveyard";
+            else if(bm.status == -1) bm.status = "WIP";
+            else if(bm.status == 0) bm.status = "Pending";
+            else if(bm.status == 1) bm.status = "Ranked";
+            else if(bm.status == 2) bm.status = "Approved";
+            else if(bm.status == 3) bm.status = "Qualified";
+            else if(bm.status == 4) bm.status = "Loved";
+            if(bm.source == "" || bm.source == null) bm.source = "*null*";
+            if(bm.tags == "" || bm.tags == null) bm.tags = "*null*";
 
             let embed = new discord.RichEmbed()
             .setColor("#ff3aff")
+            .setThumbnail("https://b.ppy.sh/thumb/" + bm.beatmapset_id + "l.jpg")
             .setTitle("osu!Beatmap")
             .addField("Title", bm.title)
             .addField("Artist", bm.artist)
             .addField("Creator", bm.creator)
             .addField("Status", bm.status)
+            .addField("IDs", "**BeatmapSet:** "+bm.beatmap_id+"\n**Beatmap:** "+bm.beatmap_id)
             .addField("BPM", bm.bpm)
             .addField("Difficulty", "Stars: " + bm.difficultyrating + "\n" + "HP: " + bm.diff_drain + "\n" + "OD: " + bm.diff_overall + "\n" + "AR: " + bm.diff_approach + "\n" + "CS: " + bm.diff_size)
             .addField("Source", bm.source)
@@ -480,8 +527,7 @@ client.on("message", async msg => {
 
     else if(command === `${prefix}disconnect`) {
         if(msg.author.id == ownerID){
-            client.destroy();
-            process.exit();
+            client.destroy().then(() => process.exit());
         }
     }else if(command === prefix + "eval"){
         

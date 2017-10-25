@@ -484,7 +484,80 @@ client.on("message", async msg => {
             var play = playF[0];
             let embed = new discord.RichEmbed()
             .setColor("#ff3aff")
+            //.setThumbnail("https://b.ppy.sh/thumb/" + play.beatmap_id + "l.jpg")
+            .addField("Score", play.score)
+            .addField("Combo", play.maxcombo)
+            .addField("BeatmapID", play.beatmap_id)
+            .addField("PP", play.pp)
+            .addField("Rank", play.rank)
+            .addField("Count Notes", "300: " + play.count300 + "\n" + "100: " + play.count100 + "\n" + "50: " + play.count50,true)
+            .addField("Date", play.date)
+            msg.channel.send(embed)
+        })
 
+    }else if(command == prefix + "osuTaikoBest"){
+        var argswocommas = args.join(" ");
+        osuApi.apiCall("/get_user_best",{
+            u: argswocommas,
+            m: 0,
+            limit: 1,
+            type: "string"
+        }).then(playF =>{
+            var play = playF[0];
+            let embed = new discord.RichEmbed()
+            .setColor("#ff3aff")
+            //.setThumbnail("https://b.ppy.sh/thumb/" + play.beatmap_id + "l.jpg")
+            .addField("Score", play.score)
+            .addField("Combo", play.maxcombo)
+            .addField("BeatmapID", play.beatmap_id)
+            .addField("PP", play.pp)
+            .addField("Rank", play.rank)
+            .addField("Count Notes", "300: " + play.count300 + "\n" + "100: " + play.count100 + "\n" + "50: " + play.count50,true)
+            .addField("Date", play.date)
+            msg.channel.send(embed)
+        })
+
+    }else if(command == prefix + "osuCtbBest"){
+        var argswocommas = args.join(" ");
+        osuApi.apiCall("/get_user_best",{
+            u: argswocommas,
+            m: 0,
+            limit: 1,
+            type: "string"
+        }).then(playF =>{
+            var play = playF[0];
+            let embed = new discord.RichEmbed()
+            .setColor("#ff3aff")
+            //.setThumbnail("https://b.ppy.sh/thumb/" + play.beatmap_id + "l.jpg")
+            .addField("Score", play.score)
+            .addField("Combo", play.maxcombo)
+            .addField("BeatmapID", play.beatmap_id)
+            .addField("PP", play.pp)
+            .addField("Rank", play.rank)
+            .addField("Count Notes", "300: " + play.count300 + "\n" + "100: " + play.count100 + "\n" + "50: " + play.count50,true)
+            .addField("Date", play.date)
+            msg.channel.send(embed)
+        })
+
+    }else if(command == prefix + "osuManiaBest"){
+        var argswocommas = args.join(" ");
+        osuApi.apiCall("/get_user_best",{
+            u: argswocommas,
+            m: 0,
+            limit: 1,
+            type: "string"
+        }).then(playF =>{
+            var play = playF[0];
+            let embed = new discord.RichEmbed()
+            .setColor("#ff3aff")
+            //.setThumbnail("https://b.ppy.sh/thumb/" + play.beatmap_id + "l.jpg")
+            .addField("Score", play.score)
+            .addField("Combo", play.maxcombo)
+            .addField("BeatmapID", play.beatmap_id)
+            .addField("PP", play.pp)
+            .addField("Rank", play.rank)
+            .addField("Count Notes", "300: " + play.count300 + "\n" + "100: " + play.count100 + "\n" + "50: " + play.count50,true)
+            .addField("Date", play.date)
             msg.channel.send(embed)
         })
 

@@ -1,9 +1,8 @@
-
 {
     "token": "TOKEN",
     "prefix": "PREFIX",
     "osuApiKey": "OSU_API_KEY",
-    "ownerID": "YOUR_USERID_HERE(SHOULD BE INT)",
+    "ownerID": 123456789,
     "allEvents": false,
     "debug": false
 }

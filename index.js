@@ -5,9 +5,18 @@ const opusscript  = require("opusscript")
 const yt          = require('ytdl-core');
 
 const fs          = require('fs');
-const botSettings = require('./botSettings.json');
+const _settings   = require("./botSettings.js");
+const settings    = new _settings;
 
-const osuApi      = new osu.Api(botSettings.osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
+var token         = settings.token();
+var prefix        = settings.prefix();
+var osuApiKey     = settings.osuApiKey();
+var ownerID       = settings.ownerID();
+var allEvents     = settings.allEvents();
+var debug         = settings.debug();
+var servers       = {};
+
+const osuApi      = new osu.Api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const client      = new discord.Client({
     apiRequestMethod: 'sequential',
     shardId: 0,
@@ -32,12 +41,6 @@ const client      = new discord.Client({
     }
 
 });
-
-const prefix      = botSettings.prefix;
-const ownerID     = botSettings.ownerID;
-var servers       = {};
-
-
 
 
 function clean(text) {
@@ -85,7 +88,7 @@ client.on("reconnecting", () =>{
 client.on("warn",info =>{
     console.log(info);
 });
-if(botSettings.allEvents){
+if(allEvents){
 client.on("channelCreate",ch => console.log("[ "+new Date()+" ] [CHANNEL_CREATE]"));
 client.on("channelDelete",ch => console.log("[ "+new Date()+" ] [CHANNEL_DELETE]"));
 client.on("channelPinsUpdate",ch => console.log("[ "+new Date()+" ] [CHANNEL_PINS_UPDATE]"));
@@ -124,7 +127,7 @@ client.on("userNoteUpdate",e => console.log("[ "+new Date()+" ] [USER_NOTE_UPDAT
 client.on("userUpdate",e => console.log("[ "+new Date()+" ] [USER_UPDATE]"));
 client.on("voiceStateUpdate",e => console.log("[ "+new Date()+" ] [VOICE_STATE_UPDATE]"));
 }
-if(botSettings.debug){
+if(debug){
     client.on("debug",e => console.log(e));
 }
 
@@ -135,7 +138,7 @@ client.on("error",error =>{
 });
 
 
-client.on("message", async msg => {
+client.on("message", async (msg) => {
     let messageArray = msg.content.split(" ");
     let command = messageArray[0];
     let args = messageArray.slice(1);
@@ -611,12 +614,17 @@ client.on("message", async msg => {
           
                 if (typeof evaled !== "string")
                   evaled = require("util").inspect(evaled);
-          
-                msg.channel.send(clean(evaled), {code:"xl"});
+                
+                var embed = new discord.RichEmbed()
+                .setColor("#ff0000")
+                .setTitle("Eval Command")
+                .addField("Input", `\`\`\`${code}\`\`\``)
+                .addField("Output:", `\`\`\`xl\n${clean(evaled)}\`\`\``)
+                msg.channel.send(embed);
               } catch (err) {
                 msg.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
               }
         }
     }
 });
-client.login(botSettings.token).catch(e => console.log(e));
+client.login(token).catch(e => console.log(e));

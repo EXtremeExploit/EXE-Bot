@@ -1,4 +1,4 @@
-const json = require("./settings.json");
+const json = require("../json/settings.json");
 class settings {
     token(){
         return json.token;
@@ -18,4 +18,6 @@ class settings {
     debug(){
         return json.debug;
     }
-}module.exports = settings;
+}
+
+module.exports = settings;

@@ -1,19 +1,20 @@
 const discord     = require('discord.js');
 const ffmpeg      = require("ffmpeg-binaries");
 const osu         = require("node-osu");
-const opusscript  = require("opusscript")
+const opusscript  = require("opusscript");
+const randomCat   = require("random-cat");
 const yt          = require('ytdl-core');
 
 const fs          = require('fs');
-const _settings   = require("./scripts/data.js");
+const _data   = require("./scripts/data.js");
 const events      = require("./scripts/events");
-const settings    = new _settings();
-var token         = settings.token();
-var prefix        = settings.prefix();
-var osuApiKey     = settings.osuApiKey();
-var ownerID       = settings.ownerID();
-var allEvents     = settings.allEvents();
-var debug         = settings.debug();
+const data    = new _data();
+var token         = data.token();
+var prefix        = data.prefix();
+var osuApiKey     = data.osuApiKey();
+var ownerID       = data.ownerID();
+var allEvents     = data.allEvents();
+var debug         = data.debug();
 var servers       = {};
 
 const osuApi      = new osu.Api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
@@ -86,7 +87,7 @@ client.on("message", async (msg) => {
         .addField("Voice","**join:** Joins a channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song ")
         .addField("Support","**invite:** Invite me to your server \n**info:** Info about me",true)
         .addField("Info","**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you \n**avatar:** Gets your AvatarURL",true)
-        .addField("Random","**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question",true)
+        .addField("Random","**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image",true)
         .addField("Moderation", "**kick:** Kicks someone \n**ban:** Bans someone \n**purge:** Deletes a count of messages in a channel")
         .addField("Fun","**say:** Says whatever you want \n**lenny:** Sends the lenny face\n**cookie**: Gives a cookie to someone",true)
         .addField("Osu", "**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap", true)
@@ -281,6 +282,9 @@ client.on("message", async (msg) => {
             "Better not tell you now"
         ];
         msg.channel.send(":8ball: | "+ response[Math.floor(Math.random() * response.length)] + " | "+ msg.author.username).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
+    }else if(command === prefix + "cat"){
+        var cat = randomCat.get();
+        msg.channel.send(cat);
     }
 
     //Moderation

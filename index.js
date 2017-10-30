@@ -2,13 +2,15 @@ const discord     = require('discord.js');
 const ffmpeg      = require("ffmpeg-binaries");
 const osu         = require("node-osu");
 const opusscript  = require("opusscript");
-const randomCat   = require("random-cat");
+const _randomCat   = require("./scripts/randomCat");
 const yt          = require('ytdl-core');
 
 const fs          = require('fs');
-const _data   = require("./scripts/data.js");
-const events      = require("./scripts/events");
-const data    = new _data();
+const _data       = require("./scripts/data.js");
+const events      = require("./scripts/events.js");
+
+const randomCat   = new _randomCat();
+const data        = new _data();
 var token         = data.token();
 var prefix        = data.prefix();
 var osuApiKey     = data.osuApiKey();
@@ -37,15 +39,11 @@ const client      = new discord.Client({
     },
     http: {
         version: 7,
-        //host: "",
         cdn: 'https://cdn.discordapp.com'
     }
 
 });
-
-
-new events(client,debug,allEvents)
-
+new events(client,debug,allEvents,prefix);
 
 function clean(text) {
     if (typeof(text) === "string")
@@ -68,6 +66,7 @@ function play(connection, message) {
 }
 
 console.log("Starting...");
+
 
 
 client.on("message", async (msg) => {
@@ -112,11 +111,17 @@ client.on("message", async (msg) => {
         }else if (command === prefix + "play"){
             console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content);
             if(!args[0] || args[0] === "https://" || args[0] === "http://" ) {
-                message.channel.send(":no_entry_sign: | Please provide a link");
+                var embed = new discord.RichEmbed()
+                .setColor("#ff0000")
+                .setDescription("Please provide a link!")
+                message.channel.send(embed);
                 return;
             }
             if(!message.member.voiceChannel) {
-                message.channel.send(":no_entry_sign: | You need to join a voice channel first")
+                var embed = new discord.RichEmbed()
+                .setColor("#ff0000")
+                .setDescription("You need to join a voice channel first")
+                message.channel.send(embed)
                 return;
             }
     
@@ -144,7 +149,11 @@ client.on("message", async (msg) => {
 
         else if(command === prefix +"invite"){
             client.generateInvite(["ADMINISTRATOR"]).then(link =>{
-                msg.channel.send(`**Invite me to your server :p**\n${link}`)
+                var embed = new discord.RichEmbed()
+                .setTitle("Invite me to your server")
+                .setURL(link)
+                .setDescription(link);
+                msg.channel.send(embed)
                 .then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
             });
         }else if(command === prefix + "info") {
@@ -209,82 +218,82 @@ client.on("message", async (msg) => {
         .addField("ID",channel.id)
         .addField("Calculated Position",channel.calculatedPosition + 1)
         .addField("Type",channel.type)
-        .addField("Created At",channel.createdAt.getUTCDate());
+        .addField("Created At",channel.createdAt.toUTCString());
         msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }else if(command === prefix + "user"){
-        if(!message.mentions.members){
-            var user = msg.member;
-            let embed = new discord.RichEmbed()        
-            .setDescription(`${user.user.username} info`)
-            .setColor("#ff0000")
-            .addField("Full Username", user.user.tag)
-            .addField("ID", user.id)
-            .addField("Hoist Role", user.hoistRole)
-            .addField("Highest Role", user.highestRole)
-            .addField("Color Role", user.colorRole)
-            .addField("Status",user.presence.status)            
-            .addField("Playing",user.presence.game)
-            .addField("Created at", user.user.createdAt.getUTCDate())
-            .addField("Joined at", user.joinedAt.getUTCDate())
-            .addField("Bot", user.user.bot)
-            .addField("Avatar", user.user.avatar)
-            .addField("AvatarURL", user.user.avatarURL)
-            .setAuthor(user.user.username,user.user.avatarURL)
-            .setThumbnail(user.user.avatarURL);
-            msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
-        }else{
             var user = msg.mentions.members.first();
+            if(user.presence.status == "online") user.presence.status = "Online";
+            else if(user.presence.status == "dnd") user.presence.status = "Do Not Disturb";
+            else if(user.presence.status == "idle") user.presence.status = "AFK";
+            else if(user.presence.status == "offline") user.presence.status = "Offline/Disconnected";
+            if(user.presence.game == null) user.presence.game.name = "*null*";
             let embed = new discord.RichEmbed()        
             .setDescription(`${user.user.username} info`)
             .setColor("#ff0000")
-            .addField("Full Username", user.user.tag)
-            .addField("ID", user.id)
-            .addField("Hoist Role", user.hoistRole)
-            .addField("Highest Role", user.highestRole)
-            .addField("Color Role", user.colorRole)
-            .addField("Status",user.presence.status)
-            .addField("Playing",user.presence.game)
-            .addField("Created at", user.user.createdAt.getUTCDate())
-            .addField("Joined at", user.joinedAt.getUTCDate())
-            .addField("Bot", user.user.bot)
-            .addField("Avatar", user.user.avatar)
-            .addField("AvatarURL", user.user.avatarURL)
+            .addField("Full Username", user.user.tag,true)
+            .addField("ID", user.id,true)
+            .addField("Roles", "**Hoist:** "+ user.hoistRole+ "\n**Highest:** "+user.highestRole+ "\n**Color:** "+ user.colorRole,true)
+            .addField("Presence", "**Playing:** "+ user.presence.game.name +"\n**Streaming:** "+ user.presence.game.streaming+ "\n**Status:** "+ user.presence.status,true)
+            .addField("Created at", user.user.createdAt.toUTCString(),true)
+            .addField("Joined at", user.joinedAt.toUTCString(),true)
+            .addField("Bot", user.user.bot,true)
+            .addField("Avatar","**Avatar Hash:** "+user.user.avatar +"\n**AvatarURL:** "+ user.user.displayAvatarURL,true)
             .setAuthor(user.user.username,user.user.avatarURL)
             .setThumbnail(user.user.avatarURL);
-            msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
-        }        
+            msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));    
     }else if(command == prefix + "avatar") {
         let embed = new discord.RichEmbed()
         .setImage(msg.author.displayAvatarURL)
         .setColor("#ff0000")
         .setURL(msg.author.displayAvatarURL)
         .setDescription(msg.author.username + "'s Avatar");
-        msg.channel.send().then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
+        msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }
 
     //Random
 
     else if(command=== prefix + "roll"){
         const roll = Math.floor(Math.random() * 6) + 1;
-        msg.channel.send(`:information_source: | You rolled a: ${roll} <@${msg.author.id}>`).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
+        var embed = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setTitle("Roll")
+        .setAuthor(msg.member.user.username,msg.author.displayAvatarURL)
+        .setDescription("You Rolled a: **"+roll+"**");
+        msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }else if(command === prefix + "rate"){
         const rate = Math.floor(Math.random() * 11);
-        msg.channel.send(`:thinking: | I'd rate `+args+` a: ${rate} ${msg.author.name}`).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
+        var embed = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setTitle("Rate")
+        .setAuthor(msg.member.user.username,msg.author.displayAvatarURL)
+        .setDescription("I'd rate "+args+"a: "+rate);
+        msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }else if(command=== prefix + "8ball"){
         var response = [
-            "Nope", // 0
-            "Yes", // 1
-            "Of Course", //2
-            "Never", // 3
-            "Not looking so good...", //4
-            "Concentrate and ask again", //5
-            "Yes, definitely", //6
+            "Nope",
+            "Yes", 
+            "Of Course", 
+            "Never",
+            "Not looking so good...", 
+            "Concentrate and ask again", 
+            "Yes, definitely", 
             "Better not tell you now"
         ];
-        msg.channel.send(":8ball: | "+ response[Math.floor(Math.random() * response.length)] + " | "+ msg.author.username).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
+        var embed = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setTitle("8ball")
+        .setAuthor(msg.member.user.username,msg.author.avatarURL)
+        .setDescription(response[Math.floor(Math.random() * response.length)]);
+        msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }else if(command === prefix + "cat"){
-        var cat = randomCat.get();
-        msg.channel.send(cat);
+        randomCat.getCat().then(o => {
+            var embed = new discord.RichEmbed()
+            .setImage(o.file)
+            .setColor("#ff0000")
+            .setTitle("Random Cat")
+            .setAuthor(msg.author.username,msg.author.displayAvatarURL);
+            msg.channel.send(embed);
+        });
     }
 
     //Moderation
@@ -303,17 +312,28 @@ client.on("message", async (msg) => {
         let thing2say = args.join(" "); 
         msg.channel.send(thing2say).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }else if(command=== prefix + "lenny"){
-        msg.channel.send('( ͡° ͜ʖ ͡°)').then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
+        msg.channel.send("( ͡° ͜ʖ ͡°)").then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
     }else if(command=== prefix + "cookie"){
-        msg.channel.send(":cookie:  | <@" + msg.author.id + "> Has given a cookie to <@" + msg.mentions.members.first().user.id + ">").then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
+        var embed = new discord.RichEmbed()
+        .setTitle(msg.author.username + " Has given a cookie to " + msg.mentions.members.first().user.username)
+        .setImage("https://pa1.narvii.com/5899/43e61495729fd10dda05c313545a57d43ebb1dee_hq.gif")
+        msg.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));;
     }
 
     //Misc
 
     
     else if(command === prefix + "ping") {
-        const pingMsg = await msg.channel.send(':information_source: | Pinging...');
-        pingMsg.edit(`:information_source: | Pong! | **${pingMsg.createdTimestamp - msg.createdTimestamp}ms.** | ${client.ping}ms.`).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
+        var embed1 = new discord.RichEmbed()
+        .setTitle("Pinging...")
+        .setColor("#0000ff");
+        const pingMsg = await msg.channel.send(embed1);
+        var embed2 = new discord.RichEmbed()
+        .setColor("#ff0000")
+        .setTitle("Pong!")
+        .addField("Bot", `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
+        .addField("API", `**${client.ping}ms.**`, true);
+        pingMsg.edit(embed2).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
     }
 
     //Osu
@@ -342,7 +362,7 @@ client.on("message", async (msg) => {
             .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
             .addField("Accuracy",(Math.round(parseInt(user.accuracy)) + "%"));
-            message.channel.send(embed).catch(e => msg.channel.send(":no_entry: | Could not found user")).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
+            message.channel.send(embed);
         })
 
     }else if(command=== prefix + "osuTaikoUser"){
@@ -368,8 +388,8 @@ client.on("message", async (msg) => {
             .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
             .addField("Accuracy",(Math.round(parseInt(user.accuracy)) + "%"));
-            message.channel.send(embed).catch(e => msg.channel.send(":no_entry: | Could not found user")).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
-        })
+            message.channel.send(embed);
+                })
 
     }else if(command=== prefix + "osuCtbUser"){
         var argswocommas = args.join(" ");
@@ -394,7 +414,7 @@ client.on("message", async (msg) => {
             .addField("Play Count", user.playcount,true)
             .addField("Level", user.level)
             .addField("Accuracy",(Math.round(parseInt(user.accuracy)) + "%"));
-            message.channel.send(embed).catch(e => msg.channel.send(":no_entry: | Could not found user")).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
+            message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
         })
 
     }else if(command=== prefix + "osuManiaUser"){
@@ -405,26 +425,22 @@ client.on("message", async (msg) => {
             type: "string"
         }).then(userf =>{
             var user = userf[0];
-            if(!user == undefined){
-                let embed = new discord.RichEmbed()
-                .setColor("#ff3aff")
-                .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
-                .setThumbnail(user.user_id)
-                .setThumbnail("https://a.ppy.sh/" + user.user_id)
-                .addField("ID", user.user_id,true)
-                .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, true)
-                .addField("Country", user.country,true)
-                .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,true)
-                .addField("PP (Perfomance Points)", user.pp_raw,true)
-                .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, true)
-                .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
-                .addField("Play Count", user.playcount,true)
-                .addField("Level", user.level)
-                .addField("Accuracy",(Math.round(parseInt(user.accuracy)) + "%"));
+            let embed = new discord.RichEmbed()
+            .setColor("#ff3aff")
+            .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
+            .setThumbnail(user.user_id)
+            .setThumbnail("https://a.ppy.sh/" + user.user_id)
+            .addField("ID", user.user_id,true)
+            .addField("Count Ranks","SS: " + user.count_rank_ss + "\n" + "S: " + user.count_rank_s + "\n" + "A: " + user.count_rank_a, true)
+            .addField("Country", user.country,true)
+            .addField("Count Notes", "300: " + user.count300 + "\n" + "100: " + user.count100 + "\n" + "50: " + user.count50,true)
+            .addField("PP (Perfomance Points)", user.pp_raw,true)
+            .addField("Scores","Total: " + user.total_score + "\n" + "Ranked: " + user.ranked_score, true)
+            .addField("Global Ranks","**Global: **" + user.pp_rank + "\n**Country:** " + user.pp_country_rank, true)
+            .addField("Play Count", user.playcount,true)
+            .addField("Level", user.level)
+            .addField("Accuracy",(Math.round(parseInt(user.accuracy)) + "%"));
             message.channel.send(embed).then(() => console.log("[" + new Date + "] [" + msg.guild.name + "] [" + msg.channel.name + "] " + msg.author.username + ": " + msg.content));
-            }else{
-                msg.channel.send("Could not found user...");
-            }
         })
 
     }else if(command == prefix + "osuStdBest"){
@@ -573,7 +589,10 @@ client.on("message", async (msg) => {
                 .addField("Output:", `\`\`\`xl\n${clean(evaled)}\`\`\``)
                 msg.channel.send(embed);
               } catch (err) {
-                msg.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+                  var embed = new discord.RichEmbed()
+                  .setTitle("ERROR")
+                  .setDescription("\`\`\`xl\n"+clean(err)+"\`\`\`");
+                msg.channel.send(embed);
               }
         }
     }

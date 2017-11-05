@@ -1,6 +1,5 @@
 class Events {
-    constructor(client,debug,allEvents) {
-
+    constructor(client,debug,allEvents,prefix) {
         client.on("ready",() => {
             var me = client.user;
             console.clear();
@@ -17,13 +16,13 @@ class Events {
                 status: "online",
                 afk: false,
                 game: {
-                    name: "e!help | e!invite",
-                    url: "https://go.twitch.tv/extremeexploit_"
+                    name: prefix+"help | "+prefix+"invite",
+                    url: "https://www.twitch.tv/extremeexploit_"
                 }
             });
         });
-        client.on("disconnect", () => console.log(`Disconnected.`));
-        client.on("reconnecting", () => console.log(`Reconnecting...`));
+        client.on("disconnect", () => console.log("[ "+ new Date +" ] [DISCONNECTED]"));
+        client.on("reconnecting", () => console.log("[ "+ new Date +" ] [RECONNECTING...]"));
         client.on("warn",info => console.log(info));
         if(allEvents){
         client.on("channelCreate",ch => console.log("[ "+new Date()+" ] [CHANNEL_CREATE]"));

@@ -2,7 +2,6 @@ class Events {
     constructor(client,debug,allEvents,prefix) {
         client.on("ready",() => {
             var me = client.user;
-            console.clear();
             console.log("JavaScript Node.JS discord.js 11.2.1");
             console.log('Username: ' + me.tag);
             console.log(`ID: ${me.id}`);

@@ -1,16 +1,16 @@
 const request = require('superagent');
 class Api {
     constructor() {
-        this.baseUrl = 'http://random.dog';
+        this.baseUrl = 'https://random.dog';
     }
     apiCall(endpoint) {
         return new Promise((resolve, reject) => {
             request.get(this.baseUrl + endpoint)
-                .end((error, response) => {
-                    if (!error && response.status === 200)
-                        resolve(response.body);
-                    else
-                        reject(new Error(error.status || error.response));
+            .end((error, response) => {
+                if (!error && response.status === 200)
+                    resolve(response.body);
+                else
+                    reject(new Error(error.status || error.response));
                 });
         });
     }

@@ -337,7 +337,7 @@ client.on('message', (msg) => {
         .setDescription(user.username + '\'s Avatar');
         msg.channel.send(embed);
         }else{
-            var user = msg.member.user;
+            var user = msg.mentions.members.first().user;
             var embed = new discord.RichEmbed()
             .setImage(user.displayAvatarURL)
             .setColor([255,0,0])

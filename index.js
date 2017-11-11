@@ -12,7 +12,6 @@ var osuApiKey     = data.osuApiKey();
 var ownerID       = data.ownerID();
 var allEvents     = data.allEvents();
 var debug         = data.debug();
-__dirname
 /************************************************
 *                                               *
 *                    MODULES                    *
@@ -26,6 +25,7 @@ const yt          = require('ytdl-core');
 
 
 const _randomCat  = require("./scripts/randomCat");
+const _randomDog  = require("./scripts/randomDog");
 const events      = require("./scripts/events.js");
 
 const client      = new discord.Client({
@@ -53,15 +53,10 @@ const client      = new discord.Client({
 
 const osuApi      = new osu.Api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const randomCat   = new _randomCat();
+const randomDog   = new _randomDog();
 
 
 new events(client,debug,allEvents,prefix);
-
-/************************************************
-*                                               *
-*                   GLOBAL                      *
-*                                               *
-************************************************/
 
 /************************************************
 *                                               *
@@ -96,7 +91,6 @@ function reverseString(string) {
     var joinArray = reverseArray.join("");
     return joinArray;
 }
-
 /************************************************
 *                                               *
 *                   COMMANDS                    *
@@ -104,9 +98,9 @@ function reverseString(string) {
 ************************************************/
 
 client.on("message", (msg) => {
-    let messageArray = msg.content.split(" ");
-    let command = messageArray[0];
-    let args = messageArray.slice(1).join(" ");
+    var messageArray = msg.content.split(" ");
+    var command = messageArray[0];
+    var args = messageArray.slice(1).join(" ");
     var message = msg;
     if(msg.author.bot) return;
     if(msg.channel.type === "dm" || msg.channel.type == "group") return;
@@ -122,9 +116,9 @@ client.on("message", (msg) => {
         .addField("Info","**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you \n**avatar:** Gets your AvatarURL",true)
         .addField("Random","**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image",true)
         .addField("Moderation", "**kick:** Kicks someone \n**ban:** Bans someone \n**purge:** Deletes a count of messages in a channel")
-        .addField("Fun","**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone",true)
+        .addField("Fun","**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**reverse:** Reverses text",true)
         .addField("Osu", "**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap", true)
-        .addField("Misc","**ping:** Pings the bot and the discord API",true)
+        .addField("Misc","**ping:** Pings the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event",true)
         .addField("Wiki","[Wiki](https://github.com/EXtremeExploit/EXE-Bot/wiki/)\n[Wiki: Commands](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)");
         msg.channel.send(embed);
     }
@@ -143,7 +137,7 @@ client.on("message", (msg) => {
                   })
                   .catch(console.log);
               } else {
-                  let embed = new discord.RichEmbed()
+                  var embed = new discord.RichEmbed()
                   .setColor([255,0,0])
                   .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
                   .setDescription("You need to join a voice channel first")
@@ -189,7 +183,7 @@ client.on("message", (msg) => {
                 ;
             });
         }else if(command === prefix + "info") {
-            let embed = new discord.RichEmbed()
+            var embed = new discord.RichEmbed()
             .setAuthor(client.user.username,client.user.avatarURL)
             .setColor([255,0,0])
             .setThumbnail(client.user.avatarURL)
@@ -212,8 +206,8 @@ client.on("message", (msg) => {
             }if(msg.guild.verificationLevel == 4){
                 msg.guild.verificationLevel = "High: Must have a phone on their discord account";
             }
-
-            let embed = new discord.RichEmbed()
+            if(msg.guild.available){
+            var embed = new discord.RichEmbed()
             .setAuthor(msg.guild.name,msg.guild.iconURL)
             .setColor([0,0,255])
             .setThumbnail(msg.guild.iconURL)
@@ -224,11 +218,15 @@ client.on("message", (msg) => {
             .addField("Owner","**Owner:** "+msg.guild.owner+ "\n**OwnerID:** "+ msg.guild.ownerID)
             .addField("Verification Level",msg.guild.verificationLevel)
             .addField("Available",msg.guild.available);
-    
             msg.channel.send(embed);
+            }else{
+                var embed = new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setDescription("Server not available")
+            }
     }else if(command === prefix + "role"){
         var role = msg.mentions.roles.first();
-        let embed = new discord.RichEmbed()
+        var embed = new discord.RichEmbed()
         .setColor([0,0,255])
         .addField("Name",role.name)
         .addField("ID",role.id)
@@ -242,8 +240,8 @@ client.on("message", (msg) => {
         msg.channel.send(embed);
     }
     else if(command=== prefix + "channel"){
-        let channel = msg.mentions.channels.first();
-        let embed = new discord.RichEmbed()
+        var channel = msg.mentions.channels.first();
+        var embed = new discord.RichEmbed()
         .setColor([0,0,255])
         .setTitle(channel.name)
         .addField("Name",channel.name)
@@ -264,7 +262,7 @@ client.on("message", (msg) => {
                 type: 0,
                 url: null
             };
-            let embed = new discord.RichEmbed()        
+            var embed = new discord.RichEmbed()        
             .setDescription(`${user.user.username} info`)
             .setColor([255,0,0])
             .addField("Full Username", user.user.tag,true)
@@ -279,7 +277,7 @@ client.on("message", (msg) => {
             .setThumbnail(user.user.displayAvatarURL);
             msg.channel.send(embed);    
     }else if(command == prefix + "avatar") {
-        let embed = new discord.RichEmbed()
+        var embed = new discord.RichEmbed()
         .setImage(msg.author.displayAvatarURL)
         .setColor([255,0,0])
         .setURL(msg.author.displayAvatarURL)
@@ -331,6 +329,15 @@ client.on("message", (msg) => {
             .setAuthor(msg.author.username,msg.author.displayAvatarURL);
             msg.channel.send(embed);
         });
+    }else if(command === prefix + "dog"){
+        randomDog.getDog().then(dog => {
+            var embed = new discord.RichEmbed()
+            .setImage(dog.url)
+            .setColor([255,0,0])
+            .setTitle("Random Dog")
+            .setAuthor(msg.author.username,msg.author.displayAvatarURL);
+            msg.channel.send(embed);
+        });
     }
 
     //Moderation
@@ -374,7 +381,7 @@ client.on("message", (msg) => {
     //Fun
 
     else if(command=== prefix + "say"){
-        let thing2say = args; 
+        var thing2say = args; 
         var embed = new discord.RichEmbed()
         .setDescription(thing2say)
         .setColor([255,0,0])
@@ -415,6 +422,19 @@ client.on("message", (msg) => {
         .addField("API", `**${client.ping}ms.**`, true);
         pingMsg.edit(embed2)
         });
+    }else if(command == prefix + "uptime"){
+        var seconds = Math.floor(client.uptime / 1000);
+        var minutes = Math.floor(seconds / 60);
+        var hours = Math.floor(minutes /60);
+        var days = Math.floor(hours / 24);
+        var embed = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setAuthor(client.user.username, client.user.avatarURL)
+        .addField("Days", days)
+        .addField("Hours", hours)
+        .addField("Minutes", minutes)
+        .addField("Seconds", seconds);
+        msg.channel.send(embed);
     }
 
     //Osu
@@ -428,7 +448,7 @@ client.on("message", (msg) => {
             event_days: 4
         }).then(userf =>{
             var user = userf[0];
-            let embed = new discord.RichEmbed()
+            var embed = new discord.RichEmbed()
             .setColor([255, 58, 255])
             .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
             .setThumbnail(user.user_id)
@@ -454,7 +474,7 @@ client.on("message", (msg) => {
             type: "string"
         }).then(userf =>{
             var user = userf[0];
-            let embed = new discord.RichEmbed()
+            var embed = new discord.RichEmbed()
             .setColor([255, 58, 255])
             .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
             .setThumbnail(user.user_id)
@@ -480,7 +500,7 @@ client.on("message", (msg) => {
             type: "string"
         }).then(userf =>{
             var user = userf[0];
-            let embed = new discord.RichEmbed()
+            var embed = new discord.RichEmbed()
             .setColor([255, 58, 255])
             .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
             .setThumbnail(user.user_id)
@@ -506,7 +526,7 @@ client.on("message", (msg) => {
             type: "string"
         }).then(userf =>{
             var user = userf[0];
-            let embed = new discord.RichEmbed()
+            var embed = new discord.RichEmbed()
             .setColor([255, 58, 255])
             .setAuthor(user.username,"https://a.ppy.sh/" + user.user_id)
             .setThumbnail(user.user_id)
@@ -533,7 +553,7 @@ client.on("message", (msg) => {
             type: "string"
         }).then(playF =>{
             var play = playF[0];
-            let embed = new discord.RichEmbed()
+            var embed = new discord.RichEmbed()
             .setColor([255, 58, 255])
             .addField("Score", play.score)
             .addField("Combo", play.maxcombo)
@@ -554,7 +574,7 @@ client.on("message", (msg) => {
             type: "string"
         }).then(playF =>{
             var play = playF[0];
-            let embed = new discord.RichEmbed()
+            var embed = new discord.RichEmbed()
             .setColor([255, 58, 255])
             .addField("Score", play.score)
             .addField("Combo", play.maxcombo)
@@ -575,7 +595,7 @@ client.on("message", (msg) => {
             type: "string"
         }).then(playF =>{
             var play = playF[0];
-            let embed = new discord.RichEmbed()
+            var embed = new discord.RichEmbed()
             .setColor([255, 58, 255])
             .addField("Score", play.score)
             .addField("Combo", play.maxcombo)
@@ -596,7 +616,7 @@ client.on("message", (msg) => {
             type: "string"
         }).then(playF =>{
             var play = playF[0];
-            let embed = new discord.RichEmbed()
+            var embed = new discord.RichEmbed()
             .setColor([255, 58, 255])
             .addField("Score", play.score)
             .addField("Combo", play.maxcombo)
@@ -605,8 +625,8 @@ client.on("message", (msg) => {
             .addField("Rank", play.rank)
             .addField("Count Notes", "300: " + play.count300 + "\n" + "100: " + play.count100 + "\n" + "50: " + play.count50,true)
             .addField("Date", play.date)
-            msg.channel.send(embed)
-        })
+            msg.channel.send(embed);
+        });
 
     }else if(command=== prefix + "osuBeatmap"){
         osuApi.apiCall("/get_beatmaps",{
@@ -625,7 +645,7 @@ client.on("message", (msg) => {
             if(bm.tags == "" || bm.tags == null) bm.tags = "*null*";
             if(bm.artist == "" || bm.artist == null) bm.artist = "*null*";
 
-            let embed = new discord.RichEmbed()
+            var embed = new discord.RichEmbed()
             .setColor([255, 58, 255])
             .setThumbnail("https://b.ppy.sh/thumb/" + bm.beatmapset_id + "l.jpg")
             .setTitle("osu!Beatmap")
@@ -665,7 +685,7 @@ client.on("message", (msg) => {
         if(msg.author.id == ownerID){
             try {
                 const code = args;
-                let evaled = eval(code);
+                var evaled = eval(code);
           
                 if (typeof evaled !== "string")
                   evaled = require("util").inspect(evaled);

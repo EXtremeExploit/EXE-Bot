@@ -97,6 +97,7 @@ function reverseString(string) {
 *                                               *
 ************************************************/
 
+
 client.on('message', (msg) => {
     var messageArray = msg.content.split(' ');
     var command = messageArray[0];
@@ -225,6 +226,7 @@ client.on('message', (msg) => {
                 .setDescription('Server not available')
             }
     }else if(command === prefix + 'role'){
+        if(msg.mentions.roles.first()){
         var role = msg.mentions.roles.first();
         var embed = new discord.RichEmbed()
         .setColor([0,0,255])
@@ -238,8 +240,15 @@ client.on('message', (msg) => {
         .addField('Member Count',role.members.size);
 
         msg.channel.send(embed);
+        }else{
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription("Pleace specify a role!");
+            msg.channel.send(embed);
+        }
     }
     else if(command=== prefix + 'channel'){
+        if(msg.mentions.channels.first()){
         var channel = msg.mentions.channels.first();
         var embed = new discord.RichEmbed()
         .setColor([0,0,255])
@@ -250,7 +259,14 @@ client.on('message', (msg) => {
         .addField('Type',channel.type)
         .addField('Created At',channel.createdAt.toUTCString());
         msg.channel.send(embed);
+        }else{
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription("Pleace specify a channel!");
+            msg.channel.send(embed);
+        }
     }else if(command === prefix + 'user'){
+        if(msg.mentions.members.first()){
             var user = msg.mentions.members.first();
             if(user.presence.status == 'online') user.presence.status = 'Online';
             else if(user.presence.status == 'dnd') user.presence.status = 'Do Not Disturb';
@@ -275,7 +291,34 @@ client.on('message', (msg) => {
             .addField('Avatar','**Avatar Hash:** '+user.user.avatar +'\n**AvatarURL:** '+ user.user.displayAvatarURL,true)
             .setAuthor(user.user.username,user.user.displayAvatarURL)
             .setThumbnail(user.user.displayAvatarURL);
-            msg.channel.send(embed);    
+            msg.channel.send(embed);
+        }else{
+            var user = msg.member;
+            if(user.presence.status == 'online') user.presence.status = 'Online';
+            else if(user.presence.status == 'dnd') user.presence.status = 'Do Not Disturb';
+            else if(user.presence.status == 'idle') user.presence.status = 'AFK';
+            else if(user.presence.status == 'offline') user.presence.status = 'Offline/Disconnected';
+            if(user.presence.game == null) user.presence.game = {
+                name: '*null*',
+                streaming: false,
+                type: 0,
+                url: null
+            };
+            var embed = new discord.RichEmbed()        
+            .setDescription(`${user.user.username} info`)
+            .setColor([255,0,0])
+            .addField('Full Username', user.user.tag,true)
+            .addField('ID', user.id,true)
+            .addField('Roles', '**Hoist:** '+ user.hoistRole+ '\n**Highest:** '+user.highestRole+ '\n**Color:** '+ user.colorRole,true)
+            .addField('Presence', '**Playing:** '+ user.presence.game.name +'\n**Streaming:** '+ user.presence.game.streaming+ '\n**Status:** '+ user.presence.status,true)
+            .addField('Created at', user.user.createdAt.toUTCString(),true)
+            .addField('Joined at', user.joinedAt.toUTCString(),true)
+            .addField('Bot', user.user.bot,true)
+            .addField('Avatar','**Avatar Hash:** '+user.user.avatar +'\n**AvatarURL:** '+ user.user.displayAvatarURL,true)
+            .setAuthor(user.user.username,user.user.displayAvatarURL)
+            .setThumbnail(user.user.displayAvatarURL);
+            msg.channel.send(embed);
+        }
     }else if(command == prefix + 'avatar') {
         var embed = new discord.RichEmbed()
         .setImage(msg.author.displayAvatarURL)
@@ -297,12 +340,19 @@ client.on('message', (msg) => {
         msg.channel.send(embed);
     }else if(command === prefix + 'rate'){
         const rate = Math.floor(Math.random() * 11);
+        if(args == ""|| args == null){
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
         .setTitle('Rate')
         .setAuthor(msg.member.user.username,msg.author.displayAvatarURL)
         .setDescription('I\'d rate '+args+'a: '+rate);
         msg.channel.send(embed);
+        }else{
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription("Pleace specify something to rate!");
+            msg.channel.send(embed);
+        }
     }else if(command=== prefix + '8ball'){
         var response = [
             'Nope',
@@ -344,7 +394,14 @@ client.on('message', (msg) => {
 
     else if(command == prefix + 'kick'){
         if(msg.member.hasPermissions(['KICK_MEMBERS','ADMINISTRATOR'])) {
-            msg.mentions.members.first().kick();
+            if(msg.mentions.members.first())
+                msg.mentions.members.first().kick();
+            else{
+                var embed = new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setDescription("Pleace specify an user!");
+                msg.channel.send(embed);
+            }
         }else{
             var embed = new discord.RichEmbed()
             .setAuthor(msg.author.username,msg.author.displayAvatarURL)
@@ -355,7 +412,14 @@ client.on('message', (msg) => {
         }
     }else if(command == prefix + 'ban'){
         if(msg.member.hasPermissions(['BAN_MEMBERS','ADMINISTRATOR'])){
+            if(msg.mentions.members.first())
             msg.mentions.members.first().ban();
+        else{
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription("Pleace specify an user!");
+            msg.channel.send(embed);
+        }
         }else{
             var embed = new discord.RichEmbed()
             .setAuthor(msg.author.username,msg.author.displayAvatarURL)
@@ -381,12 +445,20 @@ client.on('message', (msg) => {
     //Fun
 
     else if(command=== prefix + 'say'){
-        var thing2say = args; 
-        var embed = new discord.RichEmbed()
-        .setDescription(thing2say)
-        .setColor([255,0,0])
-        .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
-        msg.channel.send(embed);
+        var thing2say = args;
+        if(!thing2say == "" || thing2say == null){
+            var embed = new discord.RichEmbed()
+            .setDescription(thing2say)
+            .setColor([255,0,0])
+            .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
+            msg.channel.send(embed);
+        }else{
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription("Pleace specify something to say!");
+            msg.channel.send(embed);
+        }
+        
     }else if(command=== prefix + 'lenny'){
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
@@ -394,11 +466,26 @@ client.on('message', (msg) => {
         .setDescription('( ͡° ͜ʖ ͡°)');
         msg.channel.send(embed);
     }else if(command=== prefix + 'cookie'){
+        var images = [
+            'https://pa1.narvii.com/5899/43e61495729fd10dda05c313545a57d43ebb1dee_hq.gif',
+            'http://i.giphy.com/E77F8BfvntOq4.gif',
+            'https://media1.tenor.com/images/9a684862dd6a95ca16c5ecd6b02b119f/tenor.gif?itemid=5446986',
+            'http://i.imgur.com/bYVl2.gif'
+        ];
+        var cookieImg = images[Math.floor(Math.random() * images.length)];
+        if(msg.mentions.members.first()){
         var embed = new discord.RichEmbed()
         .setTitle(msg.author.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
-        .setImage('https://pa1.narvii.com/5899/43e61495729fd10dda05c313545a57d43ebb1dee_hq.gif')
+        .setImage(cookieImg);
         msg.channel.send(embed);
+        }else{
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription("Pleace specify an user!");
+            msg.channel.send(embed);
+        }
     }else if(command == prefix + 'reverse'){
+        if(!args == ""|| args == null){
         var reversedText = reverseString(args);
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
@@ -406,6 +493,12 @@ client.on('message', (msg) => {
         .setDescription(reversedText)
         .setTitle('Reverse');
         msg.channel.send(embed);
+        }else{
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription("Pleace specify something to reverse!");
+            msg.channel.send(embed);
+        }
     }
 
     //Misc
@@ -423,10 +516,10 @@ client.on('message', (msg) => {
         pingMsg.edit(embed2)
         });
     }else if(command == prefix + 'uptime'){
-        var seconds = Math.floor(client.uptime / 1000);
-        var minutes = Math.floor(seconds / 60);
-        var hours = Math.floor(minutes /60);
-        var days = Math.floor(hours / 24);
+        var seconds = Math.floor(client.uptime / 1000) % 59;
+        var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 59;
+        var hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) % 23;
+        var days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) / 24);
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
         .setAuthor(client.user.username, client.user.avatarURL)
@@ -440,9 +533,8 @@ client.on('message', (msg) => {
     //Osu
 
     else if(command=== prefix + 'osuStdUser'){
-        var argswocommas = args;
         osuApi.apiCall('/get_user',{
-            u: argswocommas,
+            u: args,
             m: 0,
             type: 'string',
             event_days: 4
@@ -467,11 +559,11 @@ client.on('message', (msg) => {
         })
 
     }else if(command=== prefix + 'osuTaikoUser'){
-        var argswocommas = args;
         osuApi.apiCall('/get_user',{
-            u: argswocommas,
+            u: args,
             m: 1,
-            type: 'string'
+            type: 'string',
+            event_days: 4
         }).then(userf =>{
             var user = userf[0];
             var embed = new discord.RichEmbed()
@@ -493,11 +585,11 @@ client.on('message', (msg) => {
                 })
 
     }else if(command=== prefix + 'osuCtbUser'){
-        var argswocommas = args;
         osuApi.apiCall('/get_user',{
-            u: argswocommas,
+            u: args,
             m: 2,
-            type: 'string'
+            type: 'string',
+            event_days: 4
         }).then(userf =>{
             var user = userf[0];
             var embed = new discord.RichEmbed()
@@ -519,11 +611,11 @@ client.on('message', (msg) => {
         })
 
     }else if(command=== prefix + 'osuManiaUser'){
-        var argswocommas = args;
         osuApi.apiCall('/get_user',{
-            u: argswocommas,
-            m: 3,
-            type: 'string'
+            u: args,
+            m: 4,
+            type: 'string',
+            event_days: 4
         }).then(userf =>{
             var user = userf[0];
             var embed = new discord.RichEmbed()

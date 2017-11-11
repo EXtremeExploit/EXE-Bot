@@ -1,3 +1,5 @@
+// STARTING
+console.log('Starting...');
 /************************************************
 *                                               *
 *                     DATA                      *
@@ -91,6 +93,7 @@ function reverseString(string) {
     var joinArray = reverseArray.join('');
     return joinArray;
 }
+
 /************************************************
 *                                               *
 *                   COMMANDS                    *
@@ -797,5 +800,33 @@ client.on('message', (msg) => {
         }
     }
 });
-console.log('Starting...');
+
+/************************************************
+*                                               *
+*                   REPLIES                     *
+*                                               *
+************************************************/
+
+client.on("message", (msg) =>{
+    if(msg.author.bot) return;
+    if(msg.channel.type === 'dm' || msg.channel.type == 'group') return;
+
+    var message = msg.content.toLowerCase();
+
+    if(message == "ayy")
+        msg.channel.send('lmao')
+    if(message == 'omaewa mou shindeiru' || message == 'omae wa mou shindeiru')
+        msg.channel.send('NANI!?!')
+    if(message == 'おまえ わ もう しんでいる')
+        msg.channel.send('なに！？')
+    if(message == 'o/')
+        msg.channel.send('\\o');
+    if(message == '\\o')
+        msg.channel.send('o/');
+    if(message == 'top')
+        msg.channel.send('kek');
+    if(message == 'ok'|| message == 'oke')
+        msg.channel.send('oke');
+});
+
 client.login(token).catch(e => console.log(e));

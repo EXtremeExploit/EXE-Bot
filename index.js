@@ -323,12 +323,23 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         }
     }else if(command == prefix + 'avatar') {
+        if(!msg.mentions.members.first()){
+        var user = msg.author;
         var embed = new discord.RichEmbed()
-        .setImage(msg.author.displayAvatarURL)
+        .setImage(user.displayAvatarURL)
         .setColor([255,0,0])
-        .setURL(msg.author.displayAvatarURL)
-        .setDescription(msg.author.username + '\'s Avatar');
+        .setURL(user.displayAvatarURL)
+        .setDescription(user.username + '\'s Avatar');
         msg.channel.send(embed);
+        }else{
+            var user = msg.member.user;
+            var embed = new discord.RichEmbed()
+            .setImage(user.displayAvatarURL)
+            .setColor([255,0,0])
+            .setURL(user.displayAvatarURL)
+            .setDescription(user.username + '\'s Avatar');
+            msg.channel.send(embed);
+        }
     }
 
     //Random
@@ -640,9 +651,8 @@ client.on('message', (msg) => {
         })
 
     }else if(command == prefix + 'osuStdBest'){
-        var argswocommas = args;
         osuApi.apiCall('/get_user_best',{
-            u: argswocommas,
+            u: args,
             m: 0,
             limit: 1,
             type: 'string'
@@ -661,9 +671,8 @@ client.on('message', (msg) => {
         })
 
     }else if(command == prefix + 'osuTaikoBest'){
-        var argswocommas = args;
         osuApi.apiCall('/get_user_best',{
-            u: argswocommas,
+            u: args,
             m: 0,
             limit: 1,
             type: 'string'
@@ -682,9 +691,8 @@ client.on('message', (msg) => {
         })
 
     }else if(command == prefix + 'osuCtbBest'){
-        var argswocommas = args;
         osuApi.apiCall('/get_user_best',{
-            u: argswocommas,
+            u: args,
             m: 0,
             limit: 1,
             type: 'string'
@@ -703,9 +711,8 @@ client.on('message', (msg) => {
         })
 
     }else if(command == prefix + 'osuManiaBest'){
-        var argswocommas = args;
         osuApi.apiCall('/get_user_best',{
-            u: argswocommas,
+            u: args,
             m: 0,
             limit: 1,
             type: 'string'

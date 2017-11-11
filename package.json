@@ -1,6 +1,12 @@
 {
   "name": "exe-bot",
   "version": "2.0.1",
+  "description": "A Discord Bot made in Node.JS",
+  "author": "EXtremeExploit",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/EXtremeExploit/EXE-Bot"
@@ -8,17 +14,22 @@
   "bugs": {
     "url": "https://github.com/EXtremeExploit/EXE-Bot/issues"
   },
-  "description": "A Discord Bot made in Node.JS",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "os": [
-    "android",
-    "win32"
+  "keywords": [
+    "discord",
+    "exe",
+    "bot",
+    "extreme",
+    "exploit",
+    "extremeexploit",
+    "EXtremeExploit",
+    "EXE",
+    "Bot",
+    "EXE Bot",
+    "exe bot",
+    "exe-bot",
+    "nodejs",
+    "javascript"
   ],
-  "author": "EXtremeExploit",
-  "license": "ISC",
   "dependencies": {
     "discord.js": "^11.2.1",
     "ffmpeg-binaries": "^3.2.2-3",
@@ -43,5 +54,21 @@
     "ultron": "^1.1.0",
     "ws": "^3.3.1",
     "ytdl-core": "^0.17.1"
-  }
+  },
+
+
+  
+  "homepage": "https://extremeexploit.github.io/EXE-Bot/",
+  "license": "ISC",
+  "engines": {
+    "node": "^8"
+  },
+  "os": [
+    "android",
+    "win32"
+  ],
+  "readme": "General Info",
+  "categories": [
+    "Other"
+  ]
 }

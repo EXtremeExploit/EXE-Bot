@@ -199,30 +199,35 @@ client.on('message', (msg) => {
         //Info
 
         else if(command === prefix + 'server'){
-            if(msg.guild.verificationLevel == 0){
-                msg.guild.verificationLevel = 'None';
-            }if(msg.guild.verificationLevel == 1){
-                msg.guild.verificationLevel = 'Low: Must have a verified e-mail on their Discord account';
-            }if(msg.guild.verificationLevel == 2){
-                msg.guild.verificationLevel = 'Medium: Must have a verified e-mail and be registreder for longer than 5 minutes';
-            }if(msg.guild.verificationLevel == 3){
-                msg.guild.verificationLevel = '(╯°□°）╯︵ ┻━┻: Must be in the server for longer than 10 minutes';
-            }if(msg.guild.verificationLevel == 4){
-                msg.guild.verificationLevel = 'High: Must have a phone on their discord account';
-            }
             if(msg.guild.available){
-            var embed = new discord.RichEmbed()
-            .setAuthor(msg.guild.name,msg.guild.iconURL)
-            .setColor([0,0,255])
-            .setThumbnail(msg.guild.iconURL)
-            .addField('ID', msg.guild.id)
-            .addField('Region',msg.guild.region)
-            .addField('AFK',msg.guild.afkChannel + '\n' + msg.guild.afkTimeout + ' seconds')
-            .addField('Counts','**Members:** '+msg.guild.memberCount+'\n**Roles:** '+ msg.guild.roles.size)
-            .addField('Owner','**Owner:** '+msg.guild.owner+ '\n**OwnerID:** '+ msg.guild.ownerID)
-            .addField('Verification Level',msg.guild.verificationLevel)
-            .addField('Available',msg.guild.available);
-            msg.channel.send(embed);
+                if(msg.guild.verificationLevel == 0){
+                    msg.guild.verificationLevel = 'None';
+                }
+                if(msg.guild.verificationLevel == 1){
+                    msg.guild.verificationLevel = 'Low: Must have a verified e-mail on their Discord account';
+                }
+                if(msg.guild.verificationLevel == 2){
+                    msg.guild.verificationLevel = 'Medium: Must have a verified e-mail and be registreder for longer than 5 minutes';
+                }
+                if(msg.guild.verificationLevel == 3){
+                    msg.guild.verificationLevel = '(╯°□°）╯︵ ┻━┻: Must be in the server for longer than 10 minutes';
+                }
+                if(msg.guild.verificationLevel == 4){
+                    msg.guild.verificationLevel = 'High: Must have a phone on their discord account';
+                }
+
+                var embed = new discord.RichEmbed()
+                .setAuthor(msg.guild.name,msg.guild.iconURL)
+                .setColor([0,0,255])
+                .setThumbnail(msg.guild.iconURL)
+                .addField('ID', msg.guild.id)
+                .addField('Region',msg.guild.region)
+                .addField('AFK',msg.guild.afkChannel + '\n' + msg.guild.afkTimeout + ' seconds')
+                .addField('Counts','**Members:** '+msg.guild.memberCount+'\n**Roles:** '+ msg.guild.roles.size)
+                .addField('Owner','**Owner:** '+msg.guild.owner+ '\n**OwnerID:** '+ msg.guild.ownerID)
+                .addField('Verification Level',msg.guild.verificationLevel)
+                .addField('Available',msg.guild.available);
+                msg.channel.send(embed);
             }else{
                 var embed = new discord.RichEmbed()
                 .setColor([255,0,0])

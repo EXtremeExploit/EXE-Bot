@@ -1,6 +1,6 @@
 {
   "name": "exe-bot",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "A Discord Bot made in Node.JS",
   "author": "EXtremeExploit",
   "scripts": {
@@ -16,6 +16,7 @@
   },
   "keywords": [
     "discord",
+    "discordapp",
     "exe",
     "bot",
     "extreme",
@@ -70,5 +71,19 @@
   "readme": "General Info",
   "categories": [
     "Other"
+  ],
+  "files": [
+    "index.js",
+    "json/settings.json",
+    "scripts/data.js",
+    "scripts/events.js",
+    "scripts/randomCat.js",
+    "scripts/randomDog.js",
+    "node_modules/"
+  ],
+  "cpu": [
+    "x32",
+    "x64",
+    "x86"
   ]
 }

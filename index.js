@@ -189,7 +189,7 @@ client.on('message', (msg) => {
         .addField('Info','**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you/someone \n**avatar:** Gets your/someone \'s Avatar',true)
         .addField('Random','**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image\n**dog:** Gets a random dog image',true)
         .addField('Moderation', '**kick:** Kicks someone \n**ban:** Bans someone \n**prune:** Deletes a count of messages in a channel')
-        .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**pat**: Gives a headpat to someone\n**reverse:** Reverses text',true)
+        .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**sandwich:** Gives a sandwich to someone\n**pat**: Gives a headpat to someone\n**reverse:** Reverses text',true)
         .addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap', true)
         .addField('Misc','**ping:** Pings the bot and the discord API\n**pong:** Pongs the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event',true)
         .addField('Wiki','[Wiki](https://github.com/EXtremeExploit/EXE-Bot/wiki/)\n[Wiki: Commands](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)\n[Wiki: Replies](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)');
@@ -597,7 +597,7 @@ client.on('message', (msg) => {
         msg.channel.bulkDelete(parseInt(args)).then(() =>{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
-            .setDescription('Deleted '+ args[0]+ ' Messages.');
+            .setDescription('Deleted '+ args+ ' Messages.');
             msg.channel.send(embed);
         });
         }else{
@@ -646,6 +646,28 @@ client.on('message', (msg) => {
         .setTitle(msg.member.user.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
         .setColor([255,0,0])
         .setImage(cookieImg);
+        msg.channel.send(embed);
+        }else{
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription('Pleace specify an user!');
+            msg.channel.send(embed);
+        }
+    }else if(command == prefix + 'sandwich'){
+        var images = [
+            'https://pa1.narvii.com/6272/7beb194348fefb46bfdd519cb1ef0e530a621247_hq.gif',
+            'https://i.imgur.com/325tm32.gif',
+            'https://mayraissenpai.files.wordpress.com/2016/12/tumblr_m6krnt7ghk1qk46vzo1_500.gif?w=656',
+            'https://78.media.tumblr.com/66405e70b83061ec312ba553eb577847/tumblr_n6k8kv9AK21r4kkpvo1_500.gif',
+            'https://78.media.tumblr.com/c4ced24d4ffaba84b430a9faca23d206/tumblr_opnapuxv531vviqkjo1_500.gif',
+            'https://i.pinimg.com/originals/c5/b6/94/c5b694dbce3e8662b01adb6771463aa1.gif'
+        ];
+        var sandwichImg = images[Math.floor(Math.random() * images.length)];
+        if(msg.mentions.members.first()){
+        var embed = new discord.RichEmbed()
+        .setTitle(msg.member.user.username + ' Has given a sandwich to ' + msg.mentions.members.first().user.username)
+        .setColor([255,0,0])
+        .setImage(sandwichImg);
         msg.channel.send(embed);
         }else{
             var embed = new discord.RichEmbed()

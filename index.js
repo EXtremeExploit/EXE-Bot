@@ -233,13 +233,25 @@ client.on('message', (msg) => {
             });
         }else if(command=== prefix + 'skip'){
             var server = servers[message.guild.id];
-    
-            if(server.dispatcher) server.dispatcher.end();
+            
+            if(server.dispatcher){
+                server.dispatcher.end();
+                var embed = new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setDescription('Skipped!');
+                msg.channel.send(embed);
+            }
         }else if(command=== prefix + 'stop'){
             var server = servers[message.guild.id];
     
-            if(message.guild.voiceConnection) message.guild.voiceConnection.disconnect()
-            ;
+            if(message.guild.voiceConnection) {
+                message.guild.voiceConnection.disconnect();
+                var embed = new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setDescription('Disconnected!');
+                msg.channel.send(embed);
+
+            }
         }
 
         //Support

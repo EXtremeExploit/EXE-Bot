@@ -172,7 +172,7 @@ client.on('message', (msg) => {
     var command = messageArray[0];
     var args = messageArray.slice(1).join(' ');
     var message = msg;
-    if(msg.author.bot) return;
+    if(msg.member.user.bot) return;
     if(msg.channel.type === 'dm' || msg.channel.type == 'group') return;
     if(!command.startsWith(prefix)) return;
 
@@ -183,10 +183,10 @@ client.on('message', (msg) => {
         .setTitle(`${client.user.username} Commands`)
         .addField('Voice','**join:** Joins a voice channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song ')
         .addField('Support','**invite:** Invite me to your server \n**info:** Info about me',true)
-        .addField('Info','**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you \n**avatar:** Gets your AvatarURL',true)
+        .addField('Info','**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you/someone \n**avatar:** Gets your/someone \'s Avatar',true)
         .addField('Random','**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image\n**dog:** Gets a random dog image',true)
         .addField('Moderation', '**kick:** Kicks someone \n**ban:** Bans someone \n**prune:** Deletes a count of messages in a channel')
-        .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**reverse:** Reverses text',true)
+        .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**pat**: Gives a headpat to someone\n**reverse:** Reverses text',true)
         .addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap', true)
         .addField('Misc','**ping:** Pings the bot and the discord API\n**pong:** Pongs the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event',true)
         .addField('Wiki','[Wiki](https://github.com/EXtremeExploit/EXE-Bot/wiki/)\n[Wiki: Commands](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)\n[Wiki: Replies](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)');
@@ -393,7 +393,7 @@ client.on('message', (msg) => {
                 type: 0,
                 url: null
             };
-            var embed = new discord.RichEmbed()        
+            var embed = new discord.RichEmbed()
             .setDescription(`${user.user.username} info`)
             .setColor([255,0,0])
             .addField('Full Username', user.user.tag,true)
@@ -410,7 +410,7 @@ client.on('message', (msg) => {
         }
     }else if(command == prefix + 'avatar') {
         if(!msg.mentions.members.first()){
-        var user = msg.author;
+        var user = msg.member.user;
         var embed = new discord.RichEmbed()
         .setImage(user.displayAvatarURL)
         .setColor([255,0,0])
@@ -435,7 +435,7 @@ client.on('message', (msg) => {
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
         .setTitle('Roll')
-        .setAuthor(msg.member.user.username,msg.author.displayAvatarURL)
+        .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
         .setDescription('You Rolled a: **'+roll+'**');
         msg.channel.send(embed);
     }else if(command === prefix + 'rate'){
@@ -444,7 +444,7 @@ client.on('message', (msg) => {
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
         .setTitle('Rate')
-        .setAuthor(msg.member.user.username,msg.author.displayAvatarURL)
+        .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
         .setDescription('I\'d rate '+args+' a: '+rate);
         msg.channel.send(embed);
         }else{
@@ -467,7 +467,7 @@ client.on('message', (msg) => {
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
         .setTitle('8ball')
-        .setAuthor(msg.member.user.username,msg.author.displayAvatarURL)
+        .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
         .setDescription(response[Math.floor(Math.random() * response.length)]);
         msg.channel.send(embed);
     }else if(command === prefix + 'cat'){
@@ -476,7 +476,7 @@ client.on('message', (msg) => {
             .setImage(cat.file)
             .setColor([255,0,0])
             .setTitle('Random Cat')
-            .setAuthor(msg.author.username,msg.author.displayAvatarURL);
+            .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
     }else if(command === prefix + 'dog'){
@@ -485,7 +485,7 @@ client.on('message', (msg) => {
             .setImage(dog.url)
             .setColor([255,0,0])
             .setTitle('Random Dog')
-            .setAuthor(msg.author.username,msg.author.displayAvatarURL);
+            .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
     }
@@ -495,7 +495,7 @@ client.on('message', (msg) => {
     else if(command == prefix + 'kick'){
         if(msg.member.hasPermission(['KICK_MEMBERS']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
             if(msg.mentions.members.first()){
-                if(msg.author.id == msg.mentions.members.first().id){
+                if(msg.member.user.id == msg.mentions.members.first().id){
                     var embed = new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setDescription('Why do you want to kick yourself...?')
@@ -508,7 +508,7 @@ client.on('message', (msg) => {
                         .setDescription('You got kicked from '+ msg.guild.name)
                         .setColor([255,0,0])
                         .setTitle('Kicked')
-                        .addField('Kicked by', msg.author.tag);
+                        .addField('Kicked by', msg.member.user.tag);
                         member.send(embed);
 
                         var embed = new discord.RichEmbed()
@@ -534,7 +534,7 @@ client.on('message', (msg) => {
         }
     }else{
         var embed = new discord.RichEmbed()
-        .setAuthor(msg.author.username,msg.author.displayAvatarURL)
+        .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
         .setTitle('ERROR')
         .setDescription('You dont have permissions to run that command.')
         .setColor([255,0,0]);
@@ -543,7 +543,7 @@ client.on('message', (msg) => {
     }else if(command == prefix + 'ban'){
         if(msg.member.hasPermission(['BAN_MEMBERS']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
             if(msg.mentions.members.first()){
-                if(msg.author.id == msg.mentions.members.first().id){
+                if(msg.member.user.id == msg.mentions.members.first().id){
                     var embed = new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setDescription('Why do you want to ban yourself...?')
@@ -556,7 +556,7 @@ client.on('message', (msg) => {
                         .setDescription('You got banned from '+ msg.guild.name)
                         .setColor([255,0,0])
                         .setTitle('Banned')
-                        .addField('Banned by', msg.author.tag);
+                        .addField('Banned by', msg.member.user.tag);
                         member.send(embed);
 
                         var embed = new discord.RichEmbed()
@@ -582,7 +582,7 @@ client.on('message', (msg) => {
         }
     }else{
         var embed = new discord.RichEmbed()
-        .setAuthor(msg.author.username,msg.author.displayAvatarURL)
+        .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
         .setTitle('ERROR')
         .setDescription('You dont have permissions to run that command.')
         .setColor([255,0,0]);
@@ -599,7 +599,7 @@ client.on('message', (msg) => {
         });
         }else{
             var embed = new discord.RichEmbed()
-            .setAuthor(msg.author.username,msg.author.displayAvatarURL)
+            .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
             .setTitle('ERROR')
             .setDescription('You dont have permissions to run that command.')
             .setColor([255,0,0]);
@@ -640,7 +640,7 @@ client.on('message', (msg) => {
         var cookieImg = images[Math.floor(Math.random() * images.length)];
         if(msg.mentions.members.first()){
         var embed = new discord.RichEmbed()
-        .setTitle(msg.author.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
+        .setTitle(msg.member.user.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
         .setColor([255,0,0])
         .setImage(cookieImg);
         msg.channel.send(embed);
@@ -650,6 +650,32 @@ client.on('message', (msg) => {
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         }
+    }else if(command == prefix + 'pat'){
+        var images = [
+            'https://pa1.narvii.com/6490/e9649d41af555774b0bd62ed43c050dc036ed6c9_hq.gif',
+            'http://i0.kym-cdn.com/photos/images/original/001/142/787/396.gif',
+            'https://media.giphy.com/media/SvQ7tWn8zeY2k/source.gif',
+            'https://78.media.tumblr.com/18e1fdcde34edf0cf03c588162fbd0ea/tumblr_npeccq4y3H1rzk6edo1_500.gif',
+            'https://pa1.narvii.com/6353/60e5d2c9721de7f3f3b1946acfa3acc2f3d43b9e_hq.gif',
+            'http://i.imgur.com/laEy6LU.gif',
+            'https://funnypictures1.fjcdn.com/funny_gifs/Head_389b42_6102763.gif',
+            'https://memestatic4.fjcdn.com/thumbnails/comments/She+deserves+all+the+head+pats+_952b94cc7a9bfd9107e28ece64b158de.gif'
+        ];
+        var patImg = images[Math.floor(Math.random() * images.length)];
+        if(msg.mentions.members.first()){
+        var embed = new discord.RichEmbed()
+        .setTitle(msg.member.user.username + ' Has given a headpat to ' + msg.mentions.members.first().user.username)
+        .setColor([255,0,0])
+        .setAuthor('>///<')
+        .setImage(patImg);
+        msg.channel.send(embed);
+        }else{
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription('Pleace specify an user!');
+            msg.channel.send(embed);
+        }
+
     }else if(command == prefix + 'reverse'){
         if(!args == ''|| args == null){
         var reversedText = reverseString(args);
@@ -666,7 +692,6 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         }
     }
-
     //Misc
     
     else if(command == prefix + 'pong'){
@@ -725,7 +750,7 @@ client.on('message', (msg) => {
             .setColor([255,0,0])
             .setTitle('Error')
             .setDescription('User does not exists')
-            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
 
@@ -744,7 +769,7 @@ client.on('message', (msg) => {
                 .setColor([255,0,0])
                 .setTitle('Error')
                 .setDescription('User does not exists')
-                .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
                 msg.channel.send(embed);
             });
 
@@ -763,7 +788,7 @@ client.on('message', (msg) => {
             .setColor([255,0,0])
             .setTitle('Error')
             .setDescription('User does not exists')
-            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
 
@@ -782,7 +807,7 @@ client.on('message', (msg) => {
             .setColor([255,0,0])
             .setTitle('Error')
             .setDescription('User does not exists')
-            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
 
@@ -801,7 +826,7 @@ client.on('message', (msg) => {
             .setColor([255,0,0])
             .setTitle('Error')
             .setDescription('User does not exists')
-            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
 
@@ -820,7 +845,7 @@ client.on('message', (msg) => {
             .setColor([255,0,0])
             .setTitle('Error')
             .setDescription('User does not exists')
-            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
 
@@ -839,7 +864,7 @@ client.on('message', (msg) => {
             .setColor([255,0,0])
             .setTitle('Error')
             .setDescription('User does not exists')
-            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
 
@@ -858,7 +883,7 @@ client.on('message', (msg) => {
             .setColor([255,0,0])
             .setTitle('Error')
             .setDescription('User does not exists')
-            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
 
@@ -874,7 +899,7 @@ client.on('message', (msg) => {
             .setColor([255,0,0])
             .setTitle('Error')
             .setDescription('Beatmap does not exists')
-            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
     }
@@ -882,7 +907,7 @@ client.on('message', (msg) => {
     //Bot Owner
 
     else if(command === prefix + 'disconnect') {
-        if(msg.author.id == ownerID){
+        if(msg.member.user.id == ownerID){
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setAuthor(client.user.username,client.user.avatarURL)
@@ -896,7 +921,7 @@ client.on('message', (msg) => {
         }
     }else if(command === prefix + 'eval'){
         
-        if(msg.author.id == ownerID){
+        if(msg.member.user.id == ownerID){
             try {
                 const code = args;
                 var evaled = eval(code);
@@ -919,7 +944,7 @@ client.on('message', (msg) => {
               }
         }
     }
-});
+})
 
 /************************************************
 *                                               *
@@ -927,18 +952,18 @@ client.on('message', (msg) => {
 *                                               *
 ************************************************/
 
-client.on('message', (msg) =>{
-    if(msg.author.bot) return;
+.on('message', (msg) =>{
+    if(msg.member.user.bot) return;
     if(msg.channel.type === 'dm' || msg.channel.type == 'group') return;
 
     var message = msg.content.toLowerCase();
 
     if(message == 'ayy')
-        msg.channel.send('lmao')
+        msg.channel.send('lmao');
     if(message == 'omaewa mou shindeiru' || message == 'omae wa mou shindeiru')
-        msg.channel.send('NANI!?!')
+        msg.channel.send('NANI!?!');
     if(message == 'おまえ わ もう しんでいる')
-        msg.channel.send('なに！？')
+        msg.channel.send('なに！？');
     if(message == 'o/')
         msg.channel.send('\\o');
     if(message == '\\o')

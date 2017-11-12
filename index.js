@@ -49,13 +49,15 @@ const client      = new discord.Client({
     },
     http: {
         version: 7,
-        cdn: 'https://cdn.discordapp.com'
+        cdn: 'https://cdn.discordapp.com',
+        host: 'https://discordapp.com'
     }
 });
 
 const osuApi      = new osu.Api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const randomCat   = new _randomCat();
 const randomDog   = new _randomDog();
+var servers       = {};
 
 
 new events(client,debug,allEvents,prefix);
@@ -73,7 +75,6 @@ function clean(text) {
         return text;
 }
 
-var servers       = {};
 function play(connection, message) {
     var server = servers[message.guild.id];
 
@@ -953,7 +954,7 @@ client.on('message', (msg) => {
 ************************************************/
 
 .on('message', (msg) =>{
-    if(msg.member.user.bot) return;
+    if(msg.author.bot) return;
     if(msg.channel.type === 'dm' || msg.channel.type == 'group') return;
 
     var message = msg.content.toLowerCase();

@@ -332,7 +332,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
-            .setDescription("Pleace specify a role!");
+            .setDescription('Pleace specify a role!');
             msg.channel.send(embed);
         }
     }
@@ -351,7 +351,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
-            .setDescription("Pleace specify a channel!");
+            .setDescription('Pleace specify a channel!');
             msg.channel.send(embed);
         }
     }else if(command === prefix + 'user'){
@@ -440,7 +440,7 @@ client.on('message', (msg) => {
         msg.channel.send(embed);
     }else if(command === prefix + 'rate'){
         const rate = Math.floor(Math.random() * 11);
-        if(!args == ""|| !args == null){
+        if(!args == ''|| !args == null){
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
         .setTitle('Rate')
@@ -450,7 +450,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
-            .setDescription("Pleace specify something to rate!");
+            .setDescription('Pleace specify something to rate!');
             msg.channel.send(embed);
         }
     }else if(command=== prefix + '8ball'){
@@ -528,7 +528,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
-            .setDescription("Pleace specify an user!");
+            .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         
         }
@@ -576,7 +576,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
-            .setDescription("Pleace specify an user!");
+            .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         
         }
@@ -594,8 +594,8 @@ client.on('message', (msg) => {
         msg.channel.bulkDelete(parseInt(args)).then(() =>{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
-            .setDescription('Deleted '+ args[0]+ ' Messages.')
-            msg.channel.send(embed)
+            .setDescription('Deleted '+ args[0]+ ' Messages.');
+            msg.channel.send(embed);
         });
         }else{
             var embed = new discord.RichEmbed()
@@ -611,7 +611,7 @@ client.on('message', (msg) => {
 
     else if(command=== prefix + 'say'){
         var thing2say = args;
-        if(!thing2say == "" || thing2say == null){
+        if(!thing2say == '' || thing2say == null){
             var embed = new discord.RichEmbed()
             .setDescription(thing2say)
             .setColor([255,0,0])
@@ -620,7 +620,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
-            .setDescription("Pleace specify something to say!");
+            .setDescription('Pleace specify something to say!');
             msg.channel.send(embed);
         }
         
@@ -647,11 +647,11 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
-            .setDescription("Pleace specify an user!");
+            .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         }
     }else if(command == prefix + 'reverse'){
-        if(!args == ""|| args == null){
+        if(!args == ''|| args == null){
         var reversedText = reverseString(args);
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
@@ -662,12 +662,13 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
-            .setDescription("Pleace specify something to reverse!");
+            .setDescription('Pleace specify something to reverse!');
             msg.channel.send(embed);
         }
     }
 
     //Misc
+    
     else if(command == prefix + 'pong'){
         var embed1 = new discord.RichEmbed()
         .setTitle('Pinging...')
@@ -678,10 +679,9 @@ client.on('message', (msg) => {
         .setTitle('Ping!')
         .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
         .addField('API', `**${client.ping}ms.**`, true);
-        pingMsg.edit(embed2)
+        pingMsg.edit(embed2);
         });
-    }
-    else if(command === prefix + 'ping') {
+    }else if(command === prefix + 'ping') {
         var embed1 = new discord.RichEmbed()
         .setTitle('Pinging...')
         .setColor([0,0,255]);
@@ -691,7 +691,7 @@ client.on('message', (msg) => {
         .setTitle('Pong!')
         .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
         .addField('API', `**${client.ping}ms.**`, true);
-        pingMsg.edit(embed2)
+        pingMsg.edit(embed2);
         });
     }else if(command == prefix + 'uptime'){
         var seconds = Math.floor(client.uptime / 1000) % 59;
@@ -927,13 +927,13 @@ client.on('message', (msg) => {
 *                                               *
 ************************************************/
 
-client.on("message", (msg) =>{
+client.on('message', (msg) =>{
     if(msg.author.bot) return;
     if(msg.channel.type === 'dm' || msg.channel.type == 'group') return;
 
     var message = msg.content.toLowerCase();
 
-    if(message == "ayy")
+    if(message == 'ayy')
         msg.channel.send('lmao')
     if(message == 'omaewa mou shindeiru' || message == 'omae wa mou shindeiru')
         msg.channel.send('NANI!?!')

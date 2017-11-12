@@ -428,12 +428,12 @@ client.on('message', (msg) => {
         msg.channel.send(embed);
     }else if(command === prefix + 'rate'){
         const rate = Math.floor(Math.random() * 11);
-        if(args == ""|| args == null){
+        if(!args == ""|| !args == null){
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
         .setTitle('Rate')
         .setAuthor(msg.member.user.username,msg.author.displayAvatarURL)
-        .setDescription('I\'d rate '+args+'a: '+rate);
+        .setDescription('I\'d rate '+args+' a: '+rate);
         msg.channel.send(embed);
         }else{
             var embed = new discord.RichEmbed()

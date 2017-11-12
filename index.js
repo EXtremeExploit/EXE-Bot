@@ -172,7 +172,7 @@ client.on('message', (msg) => {
     var command = messageArray[0];
     var args = messageArray.slice(1).join(' ');
     var message = msg;
-    if(msg.member.user.bot) return;
+    if(msg.author.bot) return;
     if(msg.channel.type === 'dm' || msg.channel.type == 'group') return;
     if(!command.startsWith(prefix)) return;
 

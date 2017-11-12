@@ -70,7 +70,9 @@ new events(client,debug,allEvents,prefix);
 
 function clean(text) {
     if (typeof(text) === 'string')
-      return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));
+      return text
+      .replace(token, '*TOKEN*')
+      .replace(osuApiKey, '*OSUAPIKEY*');
     else
         return text;
 }

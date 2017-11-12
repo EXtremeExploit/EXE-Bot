@@ -94,6 +94,72 @@ function reverseString(string) {
     return joinArray;
 }
 
+
+function osuUser(userf){
+    var user = userf[0];
+    var embed = new discord.RichEmbed()
+    .setColor([255, 58, 255])
+    .setAuthor(user.username,'https://a.ppy.sh/' + user.user_id)
+    .setThumbnail(user.user_id)
+    .setThumbnail('https://a.ppy.sh/' + user.user_id)
+    .addField('ID', user.user_id,true)
+    .addField('Count Ranks','SS: ' + user.count_rank_ss + '\n' + 'S: ' + user.count_rank_s + '\n' + 'A: ' + user.count_rank_a, true)
+    .addField('Country', user.country,true)
+    .addField('Count Notes', '300: ' + user.count300 + '\n' + '100: ' + user.count100 + '\n' + '50: ' + user.count50,true)
+    .addField('PP (Perfomance Points)', user.pp_raw,true)
+    .addField('Scores','Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
+    .addField('Global Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
+    .addField('Play Count', user.playcount,true)
+    .addField('Level', user.level)
+    .addField('Accuracy',(Math.round(parseInt(user.accuracy)) + '%'));
+    return embed;
+}
+
+function osuBest(playF){
+    var play = playF[0];
+    var embed = new discord.RichEmbed()
+    .setColor([255, 58, 255])
+    .addField('Score', play.score)
+    .addField('Combo', play.maxcombo)
+    .addField('BeatmapID', play.beatmap_id)
+    .addField('PP', play.pp)
+    .addField('Rank', play.rank)
+    .addField('Count Notes', '300: ' + play.count300 + '\n' + '100: ' + play.count100 + '\n' + '50: ' + play.count50,true)
+    .addField('Date', play.date);
+    return embed;
+}
+
+function osuBeatmap(beatmap){
+    var bm = beatmap[0];
+    if(bm.approved == -2) bm.approved = 'Graveyard';
+    else if(bm.approved == -1) bm.approved = 'WIP';
+    else if(bm.approved == 0) bm.approved = 'Pending';
+    else if(bm.approved == 1) bm.approved = 'Ranked';
+    else if(bm.approved == 2) bm.approved = 'Approved';
+    else if(bm.approved == 3) bm.approved = 'Qualified';
+    else if(bm.approved == 4) bm.approved = 'Loved';
+    if(bm.approved_date == null) bm.approved_date = '*null*';
+    if(bm.source == '' || bm.source == null) bm.source = '*null*';
+    if(bm.tags == '' || bm.tags == null) bm.tags = '*null*';
+    if(bm.artist == '' || bm.artist == null) bm.artist = '*null*';
+
+    var embed = new discord.RichEmbed()
+    .setColor([255, 58, 255])
+    .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')
+    .setTitle('osu!Beatmap')
+    .addField('Title', bm.title)
+    .addField('Artist', bm.artist)
+    .addField('Creator', bm.creator)
+    .addField('Status', bm.approved)
+    .addField('IDs', '**BeatmapSet:** '+bm.beatmap_id+'\n**Beatmap:** '+bm.beatmap_id)
+    .addField('BPM', bm.bpm)
+    .addField('Difficulty', 'Stars: ' + bm.difficultyrating + '\n' + 'HP: ' + bm.diff_drain + '\n' + 'OD: ' + bm.diff_overall + '\n' + 'AR: ' + bm.diff_approach + '\n' + 'CS: ' + bm.diff_size)
+    .addField('Source', bm.source)
+    .addField('Difficulty Name', bm.version)
+    .addField('Max Combo', bm.max_combo);
+    return embed;
+}
+
 /************************************************
 *                                               *
 *                   COMMANDS                    *
@@ -115,14 +181,14 @@ client.on('message', (msg) => {
         .setColor([0,0,255])
         .setThumbnail(client.user.avatarURL)
         .setTitle(`${client.user.username} Commands`)
-        .addField('Voice','**join:** Joins a channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song ')
+        .addField('Voice','**join:** Joins a voice channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song ')
         .addField('Support','**invite:** Invite me to your server \n**info:** Info about me',true)
         .addField('Info','**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you \n**avatar:** Gets your AvatarURL',true)
         .addField('Random','**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image\n**dog:** Gets a random dog image',true)
-        .addField('Moderation', '**kick:** Kicks someone \n**ban:** Bans someone \n**purge:** Deletes a count of messages in a channel')
+        .addField('Moderation', '**kick:** Kicks someone \n**ban:** Bans someone \n**prune:** Deletes a count of messages in a channel')
         .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**reverse:** Reverses text',true)
         .addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap', true)
-        .addField('Misc','**ping:** Pings the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event',true)
+        .addField('Misc','**ping:** Pings the bot and the discord API\n**pong:** Pongs the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event',true)
         .addField('Wiki','[Wiki](https://github.com/EXtremeExploit/EXE-Bot/wiki/)\n[Wiki: Commands](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)\n[Wiki: Replies](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)');
         msg.channel.send(embed);
     }
@@ -182,6 +248,9 @@ client.on('message', (msg) => {
             client.generateInvite(['ADMINISTRATOR']).then(link =>{
                 var embed = new discord.RichEmbed()
                 .setTitle('Invite me to your server!')
+                .setAuthor(client.user.username, client.user.displayAvatarURL)
+                .setColor([255,0,0])
+                .setDescription(link)
                 .setURL(link)
                 msg.channel.send(embed)
                 ;
@@ -412,45 +481,110 @@ client.on('message', (msg) => {
     //Moderation
 
     else if(command == prefix + 'kick'){
-        if(msg.member.hasPermissions(['KICK_MEMBERS','ADMINISTRATOR'])) {
-            if(msg.mentions.members.first())
-                msg.mentions.members.first().kick();
-            else{
-                var embed = new discord.RichEmbed()
-                .setColor([255,0,0])
-                .setDescription("Pleace specify an user!");
-                msg.channel.send(embed);
+        if(msg.member.hasPermission(['KICK_MEMBERS']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
+            if(msg.mentions.members.first()){
+                if(msg.author.id == msg.mentions.members.first().id){
+                    var embed = new discord.RichEmbed()
+                    .setColor([255,0,0])
+                    .setDescription('Why do you want to kick yourself...?')
+                    .setTitle('Are you serious?');
+                    msg.channel.send(embed);
+                }else{
+                    if(msg.mentions.members.first().kickable){
+                        msg.mentions.members.first().kick().then((member) => {
+                        var embed = new discord.RichEmbed()
+                        .setDescription('You got kicked from '+ msg.guild.name)
+                        .setColor([255,0,0])
+                        .setTitle('Kicked')
+                        .addField('Kicked by', msg.author.tag);
+                        member.send(embed);
+
+                        var embed = new discord.RichEmbed()
+                        .setColor([255,0,0])
+                        .setTitle('Kicked')
+                        .setDescription('Succesfully kicked: '+member.user.tag);
+                        msg.channel.send(embed);
+                    });
+                }else{
+                    var embed = new discord.RichEmbed()
+                    .setColor([255,0,0])
+                    .setTitle('Kick Error')
+                    .setDescription('I cannot kick owner/admins/role higher than me');
+                    msg.channel.send(embed);
+                }
             }
         }else{
-            var embed = new discord.RichEmbed()
-            .setAuthor(msg.author.username,msg.author.displayAvatarURL)
-            .setTitle('ERROR')
-            .setDescription('You dont have permissions to run that command.')
-            .setColor([255,0,0]);
-            msg.channel.send(embed);
-        }
-    }else if(command == prefix + 'ban'){
-        if(msg.member.hasPermissions(['BAN_MEMBERS','ADMINISTRATOR'])){
-            if(msg.mentions.members.first())
-            msg.mentions.members.first().ban();
-        else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setDescription("Pleace specify an user!");
             msg.channel.send(embed);
+        
         }
+    }else{
+        var embed = new discord.RichEmbed()
+        .setAuthor(msg.author.username,msg.author.displayAvatarURL)
+        .setTitle('ERROR')
+        .setDescription('You dont have permissions to run that command.')
+        .setColor([255,0,0]);
+        msg.channel.send(embed);
+        }
+    }else if(command == prefix + 'ban'){
+        if(msg.member.hasPermission(['BAN_MEMBERS']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
+            if(msg.mentions.members.first()){
+                if(msg.author.id == msg.mentions.members.first().id){
+                    var embed = new discord.RichEmbed()
+                    .setColor([255,0,0])
+                    .setDescription('Why do you want to ban yourself...?')
+                    .setTitle('Are you serious?');
+                    msg.channel.send(embed);
+                }else{
+                    if(msg.mentions.members.first().bannable){
+                        msg.mentions.members.first().ban().then((member) => {
+                        var embed = new discord.RichEmbed()
+                        .setDescription('You got banned from '+ msg.guild.name)
+                        .setColor([255,0,0])
+                        .setTitle('Banned')
+                        .addField('Banned by', msg.author.tag);
+                        member.send(embed);
+
+                        var embed = new discord.RichEmbed()
+                        .setColor([255,0,0])
+                        .setTitle('Banned')
+                        .setDescription('Succesfully banned: '+member.user.tag);
+                        msg.channel.send(embed);
+                    });
+                }else{
+                    var embed = new discord.RichEmbed()
+                    .setColor([255,0,0])
+                    .setTitle('Ban Error')
+                    .setDescription('I cannot ban owner/admins/role higher than me');
+                    msg.channel.send(embed);
+                }
+            }
         }else{
             var embed = new discord.RichEmbed()
-            .setAuthor(msg.author.username,msg.author.displayAvatarURL)
-            .setTitle('ERROR')
-            .setDescription('You dont have permissions to run that command.')
-            .setColor([255,0,0]);
+            .setColor([255,0,0])
+            .setDescription("Pleace specify an user!");
             msg.channel.send(embed);
-        }
         
+        }
+    }else{
+        var embed = new discord.RichEmbed()
+        .setAuthor(msg.author.username,msg.author.displayAvatarURL)
+        .setTitle('ERROR')
+        .setDescription('You dont have permissions to run that command.')
+        .setColor([255,0,0]);
+        msg.channel.send(embed);
+        }
     }else if(command == prefix + 'prune'){
-        if(msg.member.hasPermissions(['MANAGE_MESSAGES', 'ADMINISTRATOR'])){
-        msg.channel.bulkDelete(parseInt(args[0]));
+
+        if(msg.member.hasPermission(['MANAGE_MESSAGES']) || msg.member.hasPermission(['ADMINISTRATOR'])){
+        msg.channel.bulkDelete(parseInt(args)).then(() =>{
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription('Deleted '+ args[0]+ ' Messages.')
+            msg.channel.send(embed)
+        });
         }else{
             var embed = new discord.RichEmbed()
             .setAuthor(msg.author.username,msg.author.displayAvatarURL)
@@ -495,6 +629,7 @@ client.on('message', (msg) => {
         if(msg.mentions.members.first()){
         var embed = new discord.RichEmbed()
         .setTitle(msg.author.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
+        .setColor([255,0,0])
         .setImage(cookieImg);
         msg.channel.send(embed);
         }else{
@@ -521,7 +656,19 @@ client.on('message', (msg) => {
     }
 
     //Misc
-    
+    else if(command == prefix + 'pong'){
+        var embed1 = new discord.RichEmbed()
+        .setTitle('Pinging...')
+        .setColor([0,0,255]);
+         msg.channel.send(embed1).then( pingMsg => {
+        var embed2 = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setTitle('Ping!')
+        .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
+        .addField('API', `**${client.ping}ms.**`, true);
+        pingMsg.edit(embed2)
+        });
+    }
     else if(command === prefix + 'ping') {
         var embed1 = new discord.RichEmbed()
         .setTitle('Pinging...')
@@ -557,25 +704,18 @@ client.on('message', (msg) => {
             m: 0,
             type: 'string',
             event_days: 4
-        }).then(userf =>{
-            var user = userf[0];
-            var embed = new discord.RichEmbed()
-            .setColor([255, 58, 255])
-            .setAuthor(user.username,'https://a.ppy.sh/' + user.user_id)
-            .setThumbnail(user.user_id)
-            .setThumbnail('https://a.ppy.sh/' + user.user_id)
-            .addField('ID', user.user_id,true)
-            .addField('Count Ranks','SS: ' + user.count_rank_ss + '\n' + 'S: ' + user.count_rank_s + '\n' + 'A: ' + user.count_rank_a, true)
-            .addField('Country', user.country,true)
-            .addField('Count Notes', '300: ' + user.count300 + '\n' + '100: ' + user.count100 + '\n' + '50: ' + user.count50,true)
-            .addField('PP (Perfomance Points)', user.pp_raw,true)
-            .addField('Scores','Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
-            .addField('Global Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
-            .addField('Play Count', user.playcount,true)
-            .addField('Level', user.level)
-            .addField('Accuracy',(Math.round(parseInt(user.accuracy)) + '%'));
+        }).then(userf => {
+            var embed = osuUser(userf);
             message.channel.send(embed);
         })
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            msg.channel.send(embed);
+        });
 
     }else if(command=== prefix + 'osuTaikoUser'){
         osuApi.apiCall('/get_user',{
@@ -584,24 +724,17 @@ client.on('message', (msg) => {
             type: 'string',
             event_days: 4
         }).then(userf =>{
-            var user = userf[0];
-            var embed = new discord.RichEmbed()
-            .setColor([255, 58, 255])
-            .setAuthor(user.username,'https://a.ppy.sh/' + user.user_id)
-            .setThumbnail(user.user_id)
-            .setThumbnail('https://a.ppy.sh/' + user.user_id)
-            .addField('ID', user.user_id,true)
-            .addField('Count Ranks','SS: ' + user.count_rank_ss + '\n' + 'S: ' + user.count_rank_s + '\n' + 'A: ' + user.count_rank_a, true)
-            .addField('Country', user.country,true)
-            .addField('Count Notes', '300: ' + user.count300 + '\n' + '100: ' + user.count100 + '\n' + '50: ' + user.count50,true)
-            .addField('PP (Perfomance Points)', user.pp_raw,true)
-            .addField('Scores','Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
-            .addField('Global Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
-            .addField('Play Count', user.playcount,true)
-            .addField('Level', user.level)
-            .addField('Accuracy',(Math.round(parseInt(user.accuracy)) + '%'));
+            var embed = osuUser(userf);
             message.channel.send(embed);
-                })
+            })
+            .catch(err => {
+                var embed = new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setTitle('Error')
+                .setDescription('User does not exists')
+                .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+                msg.channel.send(embed);
+            });
 
     }else if(command=== prefix + 'osuCtbUser'){
         osuApi.apiCall('/get_user',{
@@ -610,24 +743,17 @@ client.on('message', (msg) => {
             type: 'string',
             event_days: 4
         }).then(userf =>{
-            var user = userf[0];
-            var embed = new discord.RichEmbed()
-            .setColor([255, 58, 255])
-            .setAuthor(user.username,'https://a.ppy.sh/' + user.user_id)
-            .setThumbnail(user.user_id)
-            .setThumbnail('https://a.ppy.sh/' + user.user_id)
-            .addField('ID', user.user_id,true)
-            .addField('Count Ranks','SS: ' + user.count_rank_ss + '\n' + 'S: ' + user.count_rank_s + '\n' + 'A: ' + user.count_rank_a, true)
-            .addField('Country', user.country,true)
-            .addField('Count Notes', '300: ' + user.count300 + '\n' + '100: ' + user.count100 + '\n' + '50: ' + user.count50,true)
-            .addField('PP (Perfomance Points)', user.pp_raw,true)
-            .addField('Scores','Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
-            .addField('Global Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
-            .addField('Play Count', user.playcount,true)
-            .addField('Level', user.level)
-            .addField('Accuracy',(Math.round(parseInt(user.accuracy)) + '%'));
+            var embed = osuUser(userf);
             message.channel.send(embed);
         })
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            msg.channel.send(embed);
+        });
 
     }else if(command=== prefix + 'osuManiaUser'){
         osuApi.apiCall('/get_user',{
@@ -636,24 +762,17 @@ client.on('message', (msg) => {
             type: 'string',
             event_days: 4
         }).then(userf =>{
-            var user = userf[0];
-            var embed = new discord.RichEmbed()
-            .setColor([255, 58, 255])
-            .setAuthor(user.username,'https://a.ppy.sh/' + user.user_id)
-            .setThumbnail(user.user_id)
-            .setThumbnail('https://a.ppy.sh/' + user.user_id)
-            .addField('ID', user.user_id,true)
-            .addField('Count Ranks','SS: ' + user.count_rank_ss + '\n' + 'S: ' + user.count_rank_s + '\n' + 'A: ' + user.count_rank_a, true)
-            .addField('Country', user.country,true)
-            .addField('Count Notes', '300: ' + user.count300 + '\n' + '100: ' + user.count100 + '\n' + '50: ' + user.count50,true)
-            .addField('PP (Perfomance Points)', user.pp_raw,true)
-            .addField('Scores','Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
-            .addField('Global Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
-            .addField('Play Count', user.playcount,true)
-            .addField('Level', user.level)
-            .addField('Accuracy',(Math.round(parseInt(user.accuracy)) + '%'));
+            var embed = osuUser(userf);
             message.channel.send(embed);
         })
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            msg.channel.send(embed);
+        });
 
     }else if(command == prefix + 'osuStdBest'){
         osuApi.apiCall('/get_user_best',{
@@ -662,18 +781,17 @@ client.on('message', (msg) => {
             limit: 1,
             type: 'string'
         }).then(playF =>{
-            var play = playF[0];
-            var embed = new discord.RichEmbed()
-            .setColor([255, 58, 255])
-            .addField('Score', play.score)
-            .addField('Combo', play.maxcombo)
-            .addField('BeatmapID', play.beatmap_id)
-            .addField('PP', play.pp)
-            .addField('Rank', play.rank)
-            .addField('Count Notes', '300: ' + play.count300 + '\n' + '100: ' + play.count100 + '\n' + '50: ' + play.count50,true)
-            .addField('Date', play.date)
+            var embed = osuBest(playF);
             msg.channel.send(embed)
         })
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            msg.channel.send(embed);
+        });
 
     }else if(command == prefix + 'osuTaikoBest'){
         osuApi.apiCall('/get_user_best',{
@@ -682,18 +800,17 @@ client.on('message', (msg) => {
             limit: 1,
             type: 'string'
         }).then(playF =>{
-            var play = playF[0];
-            var embed = new discord.RichEmbed()
-            .setColor([255, 58, 255])
-            .addField('Score', play.score)
-            .addField('Combo', play.maxcombo)
-            .addField('BeatmapID', play.beatmap_id)
-            .addField('PP', play.pp)
-            .addField('Rank', play.rank)
-            .addField('Count Notes', '300: ' + play.count300 + '\n' + '100: ' + play.count100 + '\n' + '50: ' + play.count50,true)
-            .addField('Date', play.date)
+            var embed = osuBest(playF);
             msg.channel.send(embed)
         })
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            msg.channel.send(embed);
+        });
 
     }else if(command == prefix + 'osuCtbBest'){
         osuApi.apiCall('/get_user_best',{
@@ -702,18 +819,17 @@ client.on('message', (msg) => {
             limit: 1,
             type: 'string'
         }).then(playF =>{
-            var play = playF[0];
-            var embed = new discord.RichEmbed()
-            .setColor([255, 58, 255])
-            .addField('Score', play.score)
-            .addField('Combo', play.maxcombo)
-            .addField('BeatmapID', play.beatmap_id)
-            .addField('PP', play.pp)
-            .addField('Rank', play.rank)
-            .addField('Count Notes', '300: ' + play.count300 + '\n' + '100: ' + play.count100 + '\n' + '50: ' + play.count50,true)
-            .addField('Date', play.date)
+            var embed = osuBest(playF);
             msg.channel.send(embed)
         })
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            msg.channel.send(embed);
+        });
 
     }else if(command == prefix + 'osuManiaBest'){
         osuApi.apiCall('/get_user_best',{
@@ -722,16 +838,15 @@ client.on('message', (msg) => {
             limit: 1,
             type: 'string'
         }).then(playF =>{
-            var play = playF[0];
+            var embed = osuBest(playF);
+            msg.channel.send(embed);
+        })
+        .catch(err => {
             var embed = new discord.RichEmbed()
-            .setColor([255, 58, 255])
-            .addField('Score', play.score)
-            .addField('Combo', play.maxcombo)
-            .addField('BeatmapID', play.beatmap_id)
-            .addField('PP', play.pp)
-            .addField('Rank', play.rank)
-            .addField('Count Notes', '300: ' + play.count300 + '\n' + '100: ' + play.count100 + '\n' + '50: ' + play.count50,true)
-            .addField('Date', play.date)
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
             msg.channel.send(embed);
         });
 
@@ -739,37 +854,17 @@ client.on('message', (msg) => {
         osuApi.apiCall('/get_beatmaps',{
             b: parseInt(args[0])
         }).then(beatmap =>{
-            var bm = beatmap[0];
-            if(bm.approved == -2) bm.approved = 'Graveyard';
-            else if(bm.approved == -1) bm.approved = 'WIP';
-            else if(bm.approved == 0) bm.approved = 'Pending';
-            else if(bm.approved == 1) bm.approved = 'Ranked';
-            else if(bm.approved == 2) bm.approved = 'Approved';
-            else if(bm.approved == 3) bm.approved = 'Qualified';
-            else if(bm.approved == 4) bm.approved = 'Loved';
-            if(bm.approved_date == null) bm.approved_date = '*null*';
-            if(bm.source == '' || bm.source == null) bm.source = '*null*';
-            if(bm.tags == '' || bm.tags == null) bm.tags = '*null*';
-            if(bm.artist == '' || bm.artist == null) bm.artist = '*null*';
-
-            var embed = new discord.RichEmbed()
-            .setColor([255, 58, 255])
-            .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')
-            .setTitle('osu!Beatmap')
-            .addField('Title', bm.title)
-            .addField('Artist', bm.artist)
-            .addField('Creator', bm.creator)
-            .addField('Status', bm.approved)
-            .addField('IDs', '**BeatmapSet:** '+bm.beatmap_id+'\n**Beatmap:** '+bm.beatmap_id)
-            .addField('BPM', bm.bpm)
-            .addField('Difficulty', 'Stars: ' + bm.difficultyrating + '\n' + 'HP: ' + bm.diff_drain + '\n' + 'OD: ' + bm.diff_overall + '\n' + 'AR: ' + bm.diff_approach + '\n' + 'CS: ' + bm.diff_size)
-            .addField('Source', bm.source)
-            .addField('Difficulty Name', bm.version)
-            .addField('Max Combo', bm.max_combo)
-
+            var embed = osuBeatmap(beatmap);
             msg.channel.send(embed);
         })
-
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('Beatmap does not exists')
+            .setAuthor(msg.author.username, msg.author.displayAvatarURL);
+            msg.channel.send(embed);
+        });
     }
 
     //Bot Owner
@@ -806,6 +901,7 @@ client.on('message', (msg) => {
               } catch (err) {
                   var embed = new discord.RichEmbed()
                   .setTitle('ERROR')
+                  .setColor([255,0,0])
                   .setDescription('\`\`\`xl\n'+clean(err)+'\`\`\`');
                 msg.channel.send(embed);
               }

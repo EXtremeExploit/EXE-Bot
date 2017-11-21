@@ -11,7 +11,7 @@ const data        = new _data();
 var token         = data.token();
 var prefix        = data.prefix();
 var osuApiKey     = data.osuApiKey();
-var owner       = data.owner();
+var owner         = data.owner();
 var allEvents     = data.allEvents();
 var debug         = data.debug();
 /************************************************
@@ -940,10 +940,9 @@ client.on('message', (msg) => {
             try {
                 const code = args;
                 var evaled = eval(code);
-          
+                evaled = clean(evaled);
                 if (typeof evaled !== 'string')
                   evaled = require('util').inspect(evaled);
-                
                 var embed = new discord.RichEmbed()
                 .setColor([255,0,0])
                 .setTitle('Eval Command')

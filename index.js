@@ -59,7 +59,6 @@ const randomCat   = new _randomCat();
 const randomDog   = new _randomDog();
 var servers       = {};
 
-
 new events(client,debug,allEvents,prefix);
 
 /************************************************
@@ -97,13 +96,37 @@ function reverseString(string) {
     return joinArray;
 }
 
+function userInfo(user){
+    if(user.presence.status == 'online') user.presence.status = 'Online';
+    else if(user.presence.status == 'dnd') user.presence.status = 'Do Not Disturb';
+    else if(user.presence.status == 'idle') user.presence.status = 'AFK';
+    else if(user.presence.status == 'offline') user.presence.status = 'Offline/Disconnected';
+    if(user.presence.game == null) user.presence.game = {
+        name: '*null*',
+        streaming: false,
+        type: 0,
+        url: null
+    };
+    return new discord.RichEmbed()        
+    .setDescription(`${user.user.username} info`)
+    .setColor([255,0,0])
+    .addField('Full Username', user.user.tag,true)
+    .addField('ID', user.id,true)
+    .addField('Roles', '**Hoist:** '+ user.hoistRole+ '\n**Highest:** '+user.highestRole+ '\n**Color:** '+ user.colorRole,true)
+    .addField('Presence', '**Playing:** '+ user.presence.game.name +'\n**Streaming:** '+ user.presence.game.streaming+ '\n**Status:** '+ user.presence.status,true)
+    .addField('Created at', user.user.createdAt.toUTCString(),true)
+    .addField('Joined at', user.joinedAt.toUTCString(),true)
+    .addField('Bot', user.user.bot,true)
+    .addField('Avatar','**Avatar Hash:** '+user.user.avatar +'\n**AvatarURL:** '+ user.user.displayAvatarURL,true)
+    .setAuthor(user.user.username,user.user.displayAvatarURL)
+    .setThumbnail(user.user.displayAvatarURL);
+}
 
 function osuUser(userf){
     var user = userf[0];
     var embed = new discord.RichEmbed()
     .setColor([255, 58, 255])
     .setAuthor(user.username,'https://a.ppy.sh/' + user.user_id)
-    .setThumbnail(user.user_id)
     .setThumbnail('https://a.ppy.sh/' + user.user_id)
     .addField('ID', user.user_id,true)
     .addField('Count Ranks','SS: ' + user.count_rank_ss + '\n' + 'S: ' + user.count_rank_s + '\n' + 'A: ' + user.count_rank_a, true)
@@ -114,7 +137,7 @@ function osuUser(userf){
     .addField('Global Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
     .addField('Play Count', user.playcount,true)
     .addField('Level', user.level)
-    .addField('Accuracy',(Math.round(parseInt(user.accuracy)) + '%'));
+    .addField('Accuracy',(parseFloat(user.accuracy).toFixed(2) + '%'));
     return embed;
 }
 
@@ -297,20 +320,20 @@ client.on('message', (msg) => {
                     msg.guild.verificationLevel = '(╯°□°）╯︵ ┻━┻: Must be in the server for longer than 10 minutes';
                 }
                 if(msg.guild.verificationLevel == 4){
-                    msg.guild.verificationLevel = 'High: Must have a phone on their discord account';
+                    msg.guild.verificationLevel = '┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻: Must have a phone on their discord account';
                 }
 
                 var embed = new discord.RichEmbed()
                 .setAuthor(msg.guild.name,msg.guild.iconURL)
                 .setColor([0,0,255])
                 .setThumbnail(msg.guild.iconURL)
-                .addField('ID', msg.guild.id)
-                .addField('Region',msg.guild.region)
-                .addField('AFK',msg.guild.afkChannel + '\n' + msg.guild.afkTimeout + ' seconds')
-                .addField('Counts','**Members:** '+msg.guild.memberCount+'\n**Roles:** '+ msg.guild.roles.size)
-                .addField('Owner','**Owner:** '+msg.guild.owner+ '\n**OwnerID:** '+ msg.guild.ownerID)
-                .addField('Verification Level',msg.guild.verificationLevel)
-                .addField('Available',msg.guild.available);
+                .addField('ID', msg.guild.id, true)
+                .addField('Region',msg.guild.region, true)
+                .addField('AFK',msg.guild.afkChannel + '\n' + msg.guild.afkTimeout + ' seconds', true)
+                .addField('Counts','**Members:** '+msg.guild.memberCount+'\n**Roles:** '+ msg.guild.roles.size, true)
+                .addField('Owner','**Owner:** '+msg.guild.owner+ '\n**OwnerID:** '+ msg.guild.ownerID, true)
+                .addField('Verification Level',msg.guild.verificationLevel, true)
+                .addField('Icon', '**Icon Hash:** '+msg.guild.icon+'\n**Icon URL:** '+ msg.guild.iconURL, true);
                 msg.channel.send(embed);
             }else{
                 var embed = new discord.RichEmbed()
@@ -360,56 +383,12 @@ client.on('message', (msg) => {
     }else if(command === prefix + 'user'){
         if(msg.mentions.members.first()){
             var user = msg.mentions.members.first();
-            if(user.presence.status == 'online') user.presence.status = 'Online';
-            else if(user.presence.status == 'dnd') user.presence.status = 'Do Not Disturb';
-            else if(user.presence.status == 'idle') user.presence.status = 'AFK';
-            else if(user.presence.status == 'offline') user.presence.status = 'Offline/Disconnected';
-            if(user.presence.game == null) user.presence.game = {
-                name: '*null*',
-                streaming: false,
-                type: 0,
-                url: null
-            };
-            var embed = new discord.RichEmbed()        
-            .setDescription(`${user.user.username} info`)
-            .setColor([255,0,0])
-            .addField('Full Username', user.user.tag,true)
-            .addField('ID', user.id,true)
-            .addField('Roles', '**Hoist:** '+ user.hoistRole+ '\n**Highest:** '+user.highestRole+ '\n**Color:** '+ user.colorRole,true)
-            .addField('Presence', '**Playing:** '+ user.presence.game.name +'\n**Streaming:** '+ user.presence.game.streaming+ '\n**Status:** '+ user.presence.status,true)
-            .addField('Created at', user.user.createdAt.toUTCString(),true)
-            .addField('Joined at', user.joinedAt.toUTCString(),true)
-            .addField('Bot', user.user.bot,true)
-            .addField('Avatar','**Avatar Hash:** '+user.user.avatar +'\n**AvatarURL:** '+ user.user.displayAvatarURL,true)
-            .setAuthor(user.user.username,user.user.displayAvatarURL)
-            .setThumbnail(user.user.displayAvatarURL);
-            msg.channel.send(embed);
+            var embed = userInfo(user);
+        msg.channel.send(embed);
         }else{
             var user = msg.member;
-            if(user.presence.status == 'online') user.presence.status = 'Online';
-            else if(user.presence.status == 'dnd') user.presence.status = 'Do Not Disturb';
-            else if(user.presence.status == 'idle') user.presence.status = 'AFK';
-            else if(user.presence.status == 'offline') user.presence.status = 'Offline/Disconnected';
-            if(user.presence.game == null) user.presence.game = {
-                name: '*null*',
-                streaming: false,
-                type: 0,
-                url: null
-            };
-            var embed = new discord.RichEmbed()
-            .setDescription(`${user.user.username} info`)
-            .setColor([255,0,0])
-            .addField('Full Username', user.user.tag,true)
-            .addField('ID', user.id,true)
-            .addField('Roles', '**Hoist:** '+ user.hoistRole+ '\n**Highest:** '+user.highestRole+ '\n**Color:** '+ user.colorRole,true)
-            .addField('Presence', '**Playing:** '+ user.presence.game.name +'\n**Streaming:** '+ user.presence.game.streaming+ '\n**Status:** '+ user.presence.status,true)
-            .addField('Created at', user.user.createdAt.toUTCString(),true)
-            .addField('Joined at', user.joinedAt.toUTCString(),true)
-            .addField('Bot', user.user.bot,true)
-            .addField('Avatar','**Avatar Hash:** '+user.user.avatar +'\n**AvatarURL:** '+ user.user.displayAvatarURL,true)
-            .setAuthor(user.user.username,user.user.displayAvatarURL)
-            .setThumbnail(user.user.displayAvatarURL);
-            msg.channel.send(embed);
+            var embed = userInfo(user);
+            msg.channel.send(embed)
         }
     }else if(command == prefix + 'avatar') {
         if(!msg.mentions.members.first()){
@@ -591,6 +570,17 @@ client.on('message', (msg) => {
         .setColor([255,0,0]);
         msg.channel.send(embed);
         }
+    }else if(command == prefix + 'unban'){
+        if(msg.member.hasPermission(['ADMINISTRATOR']) || msg.member.hasPermission(['BAN_MEMBERS'])){
+            if(args == "" || args == null){
+                msg.channel.send('no args')
+            }else{
+                var usertoban = msg.guild.fetchBans().then((users) => users.find("tag", args).id);
+            msg.guild.unban(usertoban).then(user => {
+                msg.channel.send('unbanned: ' + user.tag);
+            }).catch((reason) => {msg.channel.send(reason); console.log(reason)});
+        }
+    }
     }else if(command == prefix + 'prune'){
 
         if(msg.member.hasPermission(['MANAGE_MESSAGES']) || msg.member.hasPermission(['ADMINISTRATOR'])){

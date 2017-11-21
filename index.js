@@ -68,7 +68,7 @@ new events(client,debug,allEvents,prefix);
 ************************************************/
 
 function clean(text) {
-    if (typeof(text) === 'string')
+    if (typeof(text) == 'string')
       return text
       .replace(token, '*TOKEN*')
       .replace(osuApiKey, '*OSUAPIKEY*');
@@ -199,10 +199,10 @@ client.on('message', (msg) => {
     var args = messageArray.slice(1).join(' ');
     var message = msg;
     if(msg.author.bot) return;
-    if(msg.channel.type === 'dm' || msg.channel.type == 'group') return;
+    if(msg.channel.type == 'dm' || msg.channel.type == 'group') return;
     if(!command.startsWith(prefix)) return;
 
-    if(command === prefix + 'help') {
+    if(command == prefix + 'help') {
         var embed = new discord.RichEmbed()
         .setColor([0,0,255])
         .setThumbnail(client.user.avatarURL)
@@ -220,7 +220,7 @@ client.on('message', (msg) => {
     }
         //Voice
 
-        else if(command === prefix + 'join') {
+        else if(command == prefix + 'join') {
             if (msg.member.voiceChannel) {
                 msg.member.voiceChannel.join()
                   .then(connection => {
@@ -239,7 +239,7 @@ client.on('message', (msg) => {
                   .setDescription('You need to join a voice channel first')
                 msg.channel.send(embed);
               }
-        }else if (command === prefix + 'play'){
+        }else if (command == prefix + 'play'){
             if(!message.member.voiceChannel) {
                 var embed = new discord.RichEmbed()
                 .setColor([255,0,0])
@@ -257,7 +257,7 @@ client.on('message', (msg) => {
             if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(connection =>{
                 play(connection,message);
             });
-        }else if(command=== prefix + 'skip'){
+        }else if(command == prefix + 'skip'){
             var server = servers[message.guild.id];
             
             if(server.dispatcher){
@@ -267,7 +267,7 @@ client.on('message', (msg) => {
                 .setDescription('Skipped!');
                 msg.channel.send(embed);
             }
-        }else if(command=== prefix + 'stop'){
+        }else if(command == prefix + 'stop'){
             var server = servers[message.guild.id];
     
             if(message.guild.voiceConnection) {
@@ -282,7 +282,7 @@ client.on('message', (msg) => {
 
         //Support
 
-        else if(command === prefix +'invite'){
+        else if(command == prefix +'invite'){
             client.generateInvite(['ADMINISTRATOR']).then(link =>{
                 var embed = new discord.RichEmbed()
                 .setTitle('Invite me to your server!')
@@ -293,7 +293,7 @@ client.on('message', (msg) => {
                 msg.channel.send(embed)
                 ;
             });
-        }else if(command === prefix + 'info') {
+        }else if(command == prefix + 'info') {
             var embed = new discord.RichEmbed()
             .setAuthor(client.user.username,client.user.avatarURL)
             .setColor([255,0,0])
@@ -305,7 +305,7 @@ client.on('message', (msg) => {
 
         //Info
 
-        else if(command === prefix + 'server'){
+        else if(command == prefix + 'server'){
             if(msg.guild.available){
                 if(msg.guild.verificationLevel == 0){
                     msg.guild.verificationLevel = 'None';
@@ -340,7 +340,7 @@ client.on('message', (msg) => {
                 .setColor([255,0,0])
                 .setDescription('Server not available')
             }
-    }else if(command === prefix + 'role'){
+    }else if(command == prefix + 'role'){
         if(msg.mentions.roles.first()){
         var role = msg.mentions.roles.first();
         var embed = new discord.RichEmbed()
@@ -362,7 +362,7 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         }
     }
-    else if(command=== prefix + 'channel'){
+    else if(command == prefix + 'channel'){
         if(msg.mentions.channels.first()){
         var channel = msg.mentions.channels.first();
         var embed = new discord.RichEmbed()
@@ -380,7 +380,7 @@ client.on('message', (msg) => {
             .setDescription('Pleace specify a channel!');
             msg.channel.send(embed);
         }
-    }else if(command === prefix + 'user'){
+    }else if(command == prefix + 'user'){
         if(msg.mentions.members.first()){
             var user = msg.mentions.members.first();
             var embed = userInfo(user);
@@ -412,7 +412,7 @@ client.on('message', (msg) => {
 
     //Random
 
-    else if(command=== prefix + 'roll'){
+    else if(command == prefix + 'roll'){
         const roll = Math.floor(Math.random() * 6) + 1;
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
@@ -420,7 +420,7 @@ client.on('message', (msg) => {
         .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
         .setDescription('You Rolled a: **'+roll+'**');
         msg.channel.send(embed);
-    }else if(command === prefix + 'rate'){
+    }else if(command == prefix + 'rate'){
         const rate = Math.floor(Math.random() * 11);
         if(!args == ''|| !args == null){
         var embed = new discord.RichEmbed()
@@ -435,7 +435,7 @@ client.on('message', (msg) => {
             .setDescription('Pleace specify something to rate!');
             msg.channel.send(embed);
         }
-    }else if(command=== prefix + '8ball'){
+    }else if(command == prefix + '8ball'){
         var response = [
             'Nope',
             'Yes', 
@@ -452,7 +452,7 @@ client.on('message', (msg) => {
         .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
         .setDescription(response[Math.floor(Math.random() * response.length)]);
         msg.channel.send(embed);
-    }else if(command === prefix + 'cat'){
+    }else if(command == prefix + 'cat'){
         randomCat.getCat().then(cat => {
             var embed = new discord.RichEmbed()
             .setImage(cat.file)
@@ -461,7 +461,7 @@ client.on('message', (msg) => {
             .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
-    }else if(command === prefix + 'dog'){
+    }else if(command == prefix + 'dog'){
         randomDog.getDog().then(dog => {
             var embed = new discord.RichEmbed()
             .setImage(dog.url)
@@ -602,7 +602,7 @@ client.on('message', (msg) => {
 
     //Fun
 
-    else if(command=== prefix + 'say'){
+    else if(command == prefix + 'say'){
         var thing2say = args;
         if(!thing2say == '' || thing2say == null){
             var embed = new discord.RichEmbed()
@@ -617,13 +617,13 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         }
         
-    }else if(command=== prefix + 'lenny'){
+    }else if(command == prefix + 'lenny'){
         var embed = new discord.RichEmbed()
         .setColor([255,0,0])
         .setTitle('Lenny')
         .setDescription('( ͡° ͜ʖ ͡°)');
         msg.channel.send(embed);
-    }else if(command=== prefix + 'cookie'){
+    }else if(command == prefix + 'cookie'){
         var images = [
             'https://pa1.narvii.com/5899/43e61495729fd10dda05c313545a57d43ebb1dee_hq.gif',
             'http://i.giphy.com/E77F8BfvntOq4.gif',
@@ -721,7 +721,7 @@ client.on('message', (msg) => {
         .addField('API', `**${client.ping}ms.**`, true);
         pingMsg.edit(embed2);
         });
-    }else if(command === prefix + 'ping') {
+    }else if(command == prefix + 'ping') {
         var embed1 = new discord.RichEmbed()
         .setTitle('Pinging...')
         .setColor([0,0,255]);
@@ -750,7 +750,7 @@ client.on('message', (msg) => {
 
     //Osu
 
-    else if(command=== prefix + 'osuStdUser'){
+    else if(command == prefix + 'osuStdUser'){
         osuApi.apiCall('/get_user',{
             u: args,
             m: 0,
@@ -769,7 +769,7 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         });
 
-    }else if(command=== prefix + 'osuTaikoUser'){
+    }else if(command == prefix + 'osuTaikoUser'){
         osuApi.apiCall('/get_user',{
             u: args,
             m: 1,
@@ -788,7 +788,7 @@ client.on('message', (msg) => {
                 msg.channel.send(embed);
             });
 
-    }else if(command=== prefix + 'osuCtbUser'){
+    }else if(command == prefix + 'osuCtbUser'){
         osuApi.apiCall('/get_user',{
             u: args,
             m: 2,
@@ -807,7 +807,7 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         });
 
-    }else if(command=== prefix + 'osuManiaUser'){
+    }else if(command == prefix + 'osuManiaUser'){
         osuApi.apiCall('/get_user',{
             u: args,
             m: 4,
@@ -902,7 +902,7 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         });
 
-    }else if(command=== prefix + 'osuBeatmap'){
+    }else if(command == prefix + 'osuBeatmap'){
         osuApi.apiCall('/get_beatmaps',{
             b: parseInt(args[0])
         }).then(beatmap =>{
@@ -921,7 +921,7 @@ client.on('message', (msg) => {
 
     //Bot Owner
 
-    else if(command === prefix + 'disconnect') {
+    else if(command == prefix + 'disconnect') {
         if(msg.member.user.id == owner.id){
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
@@ -934,7 +934,7 @@ client.on('message', (msg) => {
                 process.exit();
             });
         }
-    }else if(command === prefix + 'eval'){
+    }else if(command == prefix + 'eval'){
         
         if(msg.member.user.id == owner.id){
             try {
@@ -969,7 +969,7 @@ client.on('message', (msg) => {
 
 .on('message', (msg) =>{
     if(msg.author.bot) return;
-    if(msg.channel.type === 'dm' || msg.channel.type == 'group') return;
+    if(msg.channel.type == 'dm' || msg.channel.type == 'group') return;
 
     var message = msg.content.toLowerCase();
 

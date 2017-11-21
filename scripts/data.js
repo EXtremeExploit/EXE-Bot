@@ -9,8 +9,8 @@ class settings {
     osuApiKey(){
         return json.osuApiKey;
     }
-    ownerID(){
-        return json.ownerID;
+    owner(){
+        return json.owner;
     }
     allEvents(){
         return json.allEvents;

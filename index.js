@@ -11,7 +11,7 @@ const data        = new _data();
 var token         = data.token();
 var prefix        = data.prefix();
 var osuApiKey     = data.osuApiKey();
-var ownerID       = data.ownerID();
+var owner       = data.owner();
 var allEvents     = data.allEvents();
 var debug         = data.debug();
 /************************************************
@@ -922,7 +922,7 @@ client.on('message', (msg) => {
     //Bot Owner
 
     else if(command === prefix + 'disconnect') {
-        if(msg.member.user.id == ownerID){
+        if(msg.member.user.id == owner.id){
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setAuthor(client.user.username,client.user.avatarURL)
@@ -936,7 +936,7 @@ client.on('message', (msg) => {
         }
     }else if(command === prefix + 'eval'){
         
-        if(msg.member.user.id == ownerID){
+        if(msg.member.user.id == owner.id){
             try {
                 const code = args;
                 var evaled = eval(code);

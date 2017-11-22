@@ -1,3 +1,5 @@
+import { EHOSTUNREACH } from 'constants';
+
 // STARTING
 console.log('Starting...');
 /************************************************
@@ -152,6 +154,19 @@ function osuBest(playF){
     .addField('Rank', play.rank)
     .addField('Count Notes', '300: ' + play.count300 + '\n' + '100: ' + play.count100 + '\n' + '50: ' + play.count50,true)
     .addField('Date', play.date);
+    return embed;
+}
+
+function osuRecent(playF){
+    var play = playF[0];
+    var embed = new discord.RichEmbed()
+    .setColor([255,58,255])
+    .addField('Score', play.score,true)
+    .addField('Combo', play.maxcombo, true)
+    .addField('BeatmapID', play.beatmap_id, true)
+    .addField('Rank', play.rank, true)
+    .addField('Count Notes', '300: ' + play.count300 + '\n' + '100: ' + play.count100 + '\n' + '50: ' + play.count50,true)
+    .addField('Date', play.date,true);
     return embed;
 }
 
@@ -902,6 +917,78 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         });
 
+    }else if(command == prefix + 'osuStdRecent'){
+        osuApi.getUserRecent({
+            u: args,
+            m: 0,
+            limit: 1,
+            type: 'string'
+        }).then(playF =>{
+            var embed = osuRecent(playF);
+            msg.channel.send(embed);
+        })
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
+            msg.channel.send(embed);
+        });
+    }else if(command == prefix + 'osuTaikoRecent'){
+        osuApi.getUserRecent({
+            u: args,
+            m: 1,
+            limit: 1,
+            type: 'string'
+        }).then(playF =>{
+            var embed = osuRecent(playF);
+            msg.channel.send(embed);
+        })
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
+            msg.channel.send(embed);
+        });
+    }else if(command == prefix + 'osuCtbRecent'){
+        osuApi.getUserRecent({
+            u: args,
+            m: 2,
+            limit: 1,
+            type: 'string'
+        }).then(playF =>{
+            var embed = osuRecent(playF);
+            msg.channel.send(embed);
+        })
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
+            msg.channel.send(embed);
+        });
+    }else if(command == prefix + 'osuManiaRecent'){
+        osuApi.getUserRecent({
+            u: args,
+            m: 3,
+            limit: 1,
+            type: 'string'
+        }).then(playF =>{
+            var embed = osuRecent(playF);
+            msg.channel.send(embed);
+        })
+        .catch(err => {
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setTitle('Error')
+            .setDescription('User does not exists')
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
+            msg.channel.send(embed);
+        });
     }else if(command == prefix + 'osuBeatmap'){
         osuApi.apiCall('/get_beatmaps',{
             b: parseInt(args[0])

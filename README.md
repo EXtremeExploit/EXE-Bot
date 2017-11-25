@@ -3,10 +3,13 @@
 ## Discord server
 * Join the [discord server](https://discord.gg/jG23JTz)!
 
-<p>Oh, it seems that you have a question, go to <strong>#questions</strong> pls</p>
-<p>You have a suggestion? Then go to <strong>#suggestions</strong></p>
-* For support <strong>#support</strong>
+* Oh, it seems that you have a question, go to **#questions** pls
+* You have a suggestion? Then go to **#suggestions**
+* For support #support
 * Have you founded a bug/error/glitch? Report it on the [issues page](https://github.com/EXtremeExploit/EXE-Bot/issues)
 
 ## Commands & Info
-* Visit the [wiki](https://github.com/EXtremeExploit/EXE-Bot/wiki) to get all the commands and info.
+* [Home](https://github.com/EXtremeExploit/EXE-Bot/wiki)
+* [Commands](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)
+* [Replies](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)
+* [FAQ](https://github.com/EXtremeExploit/EXE-Bot/wiki/FAQ)

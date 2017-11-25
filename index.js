@@ -1,5 +1,3 @@
-import { EHOSTUNREACH } from 'constants';
-
 // STARTING
 console.log('Starting...');
 /************************************************
@@ -9,6 +7,7 @@ console.log('Starting...');
 ************************************************/
 
 const _data       = require('./scripts/data.js');
+const customCode  = require('./scripts/customCode');
 const data        = new _data();
 var token         = data.token();
 var prefix        = data.prefix();
@@ -61,7 +60,9 @@ const randomCat   = new _randomCat();
 const randomDog   = new _randomDog();
 var servers       = {};
 
+
 new events(client,debug,allEvents,prefix);
+new customCode(client,discord);
 
 /************************************************
 *                                               *
@@ -78,15 +79,15 @@ function clean(text) {
         return text;
 }
 
-function play(connection, message) {
-    var server = servers[message.guild.id];
+function play(connection, msg) {
+    var server = servers[msg.guild.id];
 
     server.dispatcher = connection.playStream(yt(server.queue[0], {filter: 'audioonly'}));
 
     server.queue.shift();
 
     server.dispatcher.on('end', () => {
-        if(server.queue[0]) play(connection, message);
+        if(server.queue[0]) play(connection, msg);
         else connection.disconnect();
     });
 }
@@ -212,7 +213,6 @@ client.on('message', (msg) => {
     var messageArray = msg.content.split(' ');
     var command = messageArray[0];
     var args = messageArray.slice(1).join(' ');
-    var message = msg;
     if(msg.author.bot) return;
     if(msg.channel.type == 'dm' || msg.channel.type == 'group') return;
     if(!command.startsWith(prefix)) return;
@@ -255,25 +255,25 @@ client.on('message', (msg) => {
                 msg.channel.send(embed);
               }
         }else if (command == prefix + 'play'){
-            if(!message.member.voiceChannel) {
+            if(!msg.member.voiceChannel) {
                 var embed = new discord.RichEmbed()
                 .setColor([255,0,0])
                 .setDescription('You need to join a voice channel first')
-                message.channel.send(embed)
+                msg.channel.send(embed)
                 return;
             }
     
-            if(!servers[message.guild.id]) servers[message.guild.id] = {
+            if(!servers[msg.guild.id]) servers[msg.guild.id] = {
                 queue: []
             }
     
-            var server = servers[message.guild.id];
+            var server = servers[msg.guild.id];
             server.queue.push(args[0])
-            if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(connection =>{
-                play(connection,message);
+            if(!msg.guild.voiceConnection) msg.member.voiceChannel.join().then(connection =>{
+                play(connection,msg);
             });
         }else if(command == prefix + 'skip'){
-            var server = servers[message.guild.id];
+            var server = servers[msg.guild.id];
             
             if(server.dispatcher){
                 server.dispatcher.end();
@@ -283,10 +283,10 @@ client.on('message', (msg) => {
                 msg.channel.send(embed);
             }
         }else if(command == prefix + 'stop'){
-            var server = servers[message.guild.id];
+            var server = servers[msg.guild.id];
     
-            if(message.guild.voiceConnection) {
-                message.guild.voiceConnection.disconnect();
+            if(msg.guild.voiceConnection) {
+                msg.guild.voiceConnection.disconnect();
                 var embed = new discord.RichEmbed()
                 .setColor([255,0,0])
                 .setDescription('Disconnected!');
@@ -587,10 +587,10 @@ client.on('message', (msg) => {
         }
     }else if(command == prefix + 'unban'){
         if(msg.member.hasPermission(['ADMINISTRATOR']) || msg.member.hasPermission(['BAN_MEMBERS'])){
-            if(args == "" || args == null){
+            if(args == '' || args == null){
                 msg.channel.send('no args')
             }else{
-                var usertoban = msg.guild.fetchBans().then((users) => users.find("tag", args).id);
+                var usertoban = msg.guild.fetchBans().then((users) => users.find('tag', args).id);
             msg.guild.unban(usertoban).then(user => {
                 msg.channel.send('unbanned: ' + user.tag);
             }).catch((reason) => {msg.channel.send(reason); console.log(reason)});
@@ -773,7 +773,7 @@ client.on('message', (msg) => {
             event_days: 4
         }).then(userf => {
             var embed = osuUser(userf);
-            message.channel.send(embed);
+            msg.channel.send(embed);
         })
         .catch(err => {
             var embed = new discord.RichEmbed()
@@ -792,7 +792,7 @@ client.on('message', (msg) => {
             event_days: 4
         }).then(userf =>{
             var embed = osuUser(userf);
-            message.channel.send(embed);
+            msg.channel.send(embed);
             })
             .catch(err => {
                 var embed = new discord.RichEmbed()
@@ -811,7 +811,7 @@ client.on('message', (msg) => {
             event_days: 4
         }).then(userf =>{
             var embed = osuUser(userf);
-            message.channel.send(embed);
+            msg.channel.send(embed);
         })
         .catch(err => {
             var embed = new discord.RichEmbed()
@@ -830,7 +830,7 @@ client.on('message', (msg) => {
             event_days: 4
         }).then(userf =>{
             var embed = osuUser(userf);
-            message.channel.send(embed);
+            msg.channel.send(embed);
         })
         .catch(err => {
             var embed = new discord.RichEmbed()
@@ -931,7 +931,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
-            .setDescription('User does not exists')
+            .setDescription('User does not exists or hasn\'t done anything for some time')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
@@ -949,7 +949,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
-            .setDescription('User does not exists')
+            .setDescription('User does not exists or hasn\'t done anything for some time')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
@@ -967,7 +967,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
-            .setDescription('User does not exists')
+            .setDescription('User does not exists or hasn\'t done anything for some time')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
@@ -985,7 +985,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
-            .setDescription('User does not exists')
+            .setDescription('User does not exists or hasn\'t done anything for some time')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });

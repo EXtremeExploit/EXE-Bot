@@ -313,8 +313,8 @@ client.on('message', (msg) => {
             .setAuthor(client.user.username,client.user.avatarURL)
             .setColor([255,0,0])
             .setThumbnail(client.user.avatarURL)
-            .addField('Libraries & languge', '[Software](https://github.com/EXtremeExploit/EXE-Bot/wiki#software)\n[Libraries](https://github.com/EXtremeExploit/EXE-Bot/wiki#libraries)',true)
-            .addField('Wikies', '[**Home**](https://github.com/EXtremeExploit/EXE-Bot/wiki)\n[**Commands**](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)\n[Replies](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)\n[FAQ](https://github.com/EXtremeExploit/EXE-Bot/wiki/FAQ)')
+            .addField('Libraries & languge', '[**Software**](https://github.com/EXtremeExploit/EXE-Bot/wiki#software)\n[**Libraries**](https://github.com/EXtremeExploit/EXE-Bot/wiki#libraries)',true)
+            .addField('Wikies', '[**Home**](https://github.com/EXtremeExploit/EXE-Bot/wiki)\n[**Commands**](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)\n[**Replies**](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)\n[**FAQ**](https://github.com/EXtremeExploit/EXE-Bot/wiki/FAQ)')
             msg.channel.send(embed);
         }
 
@@ -917,78 +917,6 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         });
 
-    }else if(command == prefix + 'osuStdRecent'){
-        osuApi.getUserRecent({
-            u: args,
-            m: 0,
-            limit: 1,
-            type: 'string'
-        }).then(playF =>{
-            var embed = osuRecent(playF);
-            msg.channel.send(embed);
-        })
-        .catch(err => {
-            var embed = new discord.RichEmbed()
-            .setColor([255,0,0])
-            .setTitle('Error')
-            .setDescription('User does not exists or hasn\'t done anything for some time')
-            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
-            msg.channel.send(embed);
-        });
-    }else if(command == prefix + 'osuTaikoRecent'){
-        osuApi.getUserRecent({
-            u: args,
-            m: 1,
-            limit: 1,
-            type: 'string'
-        }).then(playF =>{
-            var embed = osuRecent(playF);
-            msg.channel.send(embed);
-        })
-        .catch(err => {
-            var embed = new discord.RichEmbed()
-            .setColor([255,0,0])
-            .setTitle('Error')
-            .setDescription('User does not exists or hasn\'t done anything for some time')
-            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
-            msg.channel.send(embed);
-        });
-    }else if(command == prefix + 'osuCtbRecent'){
-        osuApi.getUserRecent({
-            u: args,
-            m: 2,
-            limit: 1,
-            type: 'string'
-        }).then(playF =>{
-            var embed = osuRecent(playF);
-            msg.channel.send(embed);
-        })
-        .catch(err => {
-            var embed = new discord.RichEmbed()
-            .setColor([255,0,0])
-            .setTitle('Error')
-            .setDescription('User does not exists or hasn\'t done anything for some time')
-            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
-            msg.channel.send(embed);
-        });
-    }else if(command == prefix + 'osuManiaRecent'){
-        osuApi.getUserRecent({
-            u: args,
-            m: 3,
-            limit: 1,
-            type: 'string'
-        }).then(playF =>{
-            var embed = osuRecent(playF);
-            msg.channel.send(embed);
-        })
-        .catch(err => {
-            var embed = new discord.RichEmbed()
-            .setColor([255,0,0])
-            .setTitle('Error')
-            .setDescription('User does not exists or hasn\'t done anything for some time')
-            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
-            msg.channel.send(embed);
-        });
     }else if(command == prefix + 'osuBeatmap'){
         osuApi.apiCall('/get_beatmaps',{
             b: parseInt(args[0])

@@ -313,8 +313,8 @@ client.on('message', (msg) => {
             .setAuthor(client.user.username,client.user.avatarURL)
             .setColor([255,0,0])
             .setThumbnail(client.user.avatarURL)
-            .addField('Libraries & languge', '**JavaScript: Node.JS**\n\n**Libraries**\ndiscord.js\nnode-osu\nytdl-core',true)
-            .addField('Wikies', '[**General**](https://github.com/EXtremeExploit/EXE-Bot/wiki)\n[**Commands**](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)')
+            .addField('Libraries & languge', '[**Software**](https://github.com/EXtremeExploit/EXE-Bot/wiki#software)\n[**Libraries**](https://github.com/EXtremeExploit/EXE-Bot/wiki#libraries)',true)
+            .addField('Wikies', '[**Home**](https://github.com/EXtremeExploit/EXE-Bot/wiki)\n[**Commands**](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)\n[**Replies**](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)\n[**FAQ**](https://github.com/EXtremeExploit/EXE-Bot/wiki/FAQ)')
             msg.channel.send(embed);
         }
 

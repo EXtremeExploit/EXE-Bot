@@ -15,7 +15,7 @@ class Events {
                 status: "online",
                 afk: false,
                 game: {
-                    name: prefix+"help | "+prefix+"invite",
+                    name: prefix+"help | "+prefix+"invite | "+client.guilds.size+" Servers",
                     url: "https://www.twitch.tv/extremeexploit_"
                 }
             });
@@ -37,9 +37,15 @@ class Events {
         client.on("guildBanRemove",e => console.log("[ "+new Date()+" ] [GUILD_BAN_REMOVE]"));
         client.on("guildCreate",e => console.log("[ "+new Date()+" ] [GUILD_CREATE]"));
         client.on("guildDelete",e => console.log("[ "+new Date()+" ] [GUILD_DELETE]"));
-        client.on("guildMemberAdd",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_ADD]"));
+        client.on("guildMemberAdd",e =>{
+            console.log("[ "+new Date()+" ] [GUILD_MEMBER_ADD]");
+            serverCount = serverCount + 1;
+        });
         client.on("guildMemberAvailable",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_AVAILABLE]"));
-        client.on("guildMemberRemove",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_REMOVE]"));
+        client.on("guildMemberRemove",e => {
+            console.log("[ "+new Date()+" ] [GUILD_MEMBER_REMOVE]");
+            serverCount = serverCount - 1;
+        });
         client.on("guildMembersChunk",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_CHUNK]"));
         client.on("guildMemberSpeaking",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_SPEAKING]"));
         client.on("guildMemberUpdate",e => console.log("[ "+new Date()+" ] [GUILD_MEMBER_UPDATE]"));

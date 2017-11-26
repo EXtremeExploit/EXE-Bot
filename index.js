@@ -21,7 +21,8 @@ const wikis       = {
     home: new _wikis().home(),
     commands: new _wikis().commands(),
     replies: new _wikis().replies(),
-    faq : new _wikis().faq()
+    faq : new _wikis().faq(),
+    isEnabled: new _wikis().isEnabled()
 };
 /************************************************
 *                                               *
@@ -68,9 +69,19 @@ const randomCat   = new _randomCat();
 const randomDog   = new _randomDog();
 var servers       = {};
 
-
 new events(client,debug,allEvents,prefix);
 new customCode(client,discord);
+
+client.setInterval((e) => {
+    client.user.setPresence({
+        status: "online",
+        afk: false,
+        game: {
+            name: prefix+"help | "+prefix+"invite | "+client.guilds.size+" Servers",
+            url: "https://www.twitch.tv/extremeexploit_",
+        }
+    })
+},60000);
 
 /************************************************
 *                                               *
@@ -727,6 +738,20 @@ client.on('message', (msg) => {
             .setDescription('Pleace specify something to reverse!');
             msg.channel.send(embed);
         }
+    }else if(command == prefix + 'coinflip'){
+        if(Math.random() < 0.5){
+            msg.channel.send(new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setAuthor(msg.member.user.username, msg.member.user.avatarURL)
+                .setTitle('Coin flip!')
+                .setDescription('I flipped a coin and it landed on **heads**.'));
+        }else{
+            msg.channel.send(new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setAuthor(msg.member.user.username, msg.member.user.avatarURL)
+                .setTitle('Coin flip!')
+                .setDescription('I flipped a coin and it landed on **tails**.'));
+        }
     }
 
     //Osu
@@ -940,7 +965,7 @@ client.on('message', (msg) => {
         .addField('Seconds', seconds);
         msg.channel.send(embed);
     }else if(command == prefix + 'wiki'){
-        if(require('./json/wikis.json').wikisEnabled){
+        if(wikis.isEnabled()){
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setAuthor(client.user.username, client.user.avatarURL)
@@ -1017,6 +1042,8 @@ client.on('message', (msg) => {
         msg.channel.send('kek');
     if(message == 'ok'|| message == 'oke')
         msg.channel.send('oke');
+    if(message == 'lmao')
+        msg.channel.send('ayy');
 });
 
 client.login(token).catch(e => console.log(e));

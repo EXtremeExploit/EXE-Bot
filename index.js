@@ -15,6 +15,14 @@ var osuApiKey     = data.osuApiKey();
 var owner         = data.owner();
 var allEvents     = data.allEvents();
 var debug         = data.debug();
+
+const _wikis      = require('./scripts/wikis.js')
+const wikis       = {
+    home: new _wikis().home(),
+    commands: new _wikis().commands(),
+    replies: new _wikis().replies(),
+    faq : new _wikis().faq()
+};
 /************************************************
 *                                               *
 *                    MODULES                    *
@@ -229,8 +237,8 @@ client.on('message', (msg) => {
         .addField('Moderation', '**kick:** Kicks someone \n**ban:** Bans someone \n**prune:** Deletes a count of messages in a channel')
         .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**sandwich:** Gives a sandwich to someone\n**pat**: Gives a headpat to someone\n**reverse:** Reverses text',true)
         .addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap', true)
-        .addField('Misc','**ping:** Pings the bot and the discord API\n**pong:** Pongs the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event',true)
-        .addField('Wiki','[Wiki](https://github.com/EXtremeExploit/EXE-Bot/wiki/)\n[Wiki: Commands](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)\n[Wiki: Replies](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)');
+        .addField('Misc','**ping:** Pings the bot and the discord API\n**pong:** Pongs the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event\n**wiki:** Sends all the wikis available for the bot',true)
+        .addField('Wiki','[Wiki]('+wikis.home+')\n[Wiki: Commands]('+wikis.commands+')\n[Wiki: Replies]('+wikis.replies+')');
         msg.channel.send(embed);
     }
         //Voice
@@ -305,16 +313,14 @@ client.on('message', (msg) => {
                 .setColor([255,0,0])
                 .setDescription(link)
                 .setURL(link)
-                msg.channel.send(embed)
-                ;
+                msg.channel.send(embed);
             });
         }else if(command == prefix + 'info') {
             var embed = new discord.RichEmbed()
             .setAuthor(client.user.username,client.user.avatarURL)
             .setColor([255,0,0])
             .setThumbnail(client.user.avatarURL)
-            .addField('Libraries & languge', '[**Software**](https://github.com/EXtremeExploit/EXE-Bot/wiki#software)\n[**Libraries**](https://github.com/EXtremeExploit/EXE-Bot/wiki#libraries)',true)
-            .addField('Wikies', '[**Home**](https://github.com/EXtremeExploit/EXE-Bot/wiki)\n[**Commands**](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)\n[**Replies**](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)\n[**FAQ**](https://github.com/EXtremeExploit/EXE-Bot/wiki/FAQ)')
+            .addField('Wikies', '[**Home**]('+wikis.home+')\n[**Commands**]('+wikis.commands+')\n[**Replies**]('+wikis.replies+')\n[**FAQ**]('+wikis.faq+')')
             msg.channel.send(embed);
         }
 
@@ -344,7 +350,7 @@ client.on('message', (msg) => {
                 .setThumbnail(msg.guild.iconURL)
                 .addField('ID', msg.guild.id, true)
                 .addField('Region',msg.guild.region, true)
-                .addField('AFK',msg.guild.afkChannel + '\n' + msg.guild.afkTimeout + ' seconds', true)
+                .addField('AFK','**Channel** ' + msg.guild.afkChannel.name + '\n**ChannelID:**' + msg.guild.afkChannelID + '\n**Timeout:**' + msg.guild.afkTimeout + ' seconds', true)
                 .addField('Counts','**Members:** '+msg.guild.memberCount+'\n**Roles:** '+ msg.guild.roles.size, true)
                 .addField('Owner','**Owner:** '+msg.guild.owner+ '\n**OwnerID:** '+ msg.guild.ownerID, true)
                 .addField('Verification Level',msg.guild.verificationLevel, true)
@@ -731,7 +737,7 @@ client.on('message', (msg) => {
          msg.channel.send(embed1).then( pingMsg => {
         var embed2 = new discord.RichEmbed()
         .setColor([255,0,0])
-        .setTitle('Ping!')
+        .setTitle('Ping!')  
         .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
         .addField('API', `**${client.ping}ms.**`, true);
         pingMsg.edit(embed2);
@@ -761,6 +767,15 @@ client.on('message', (msg) => {
         .addField('Minutes', minutes)
         .addField('Seconds', seconds);
         msg.channel.send(embed);
+    }else if(command == prefix + 'wiki'){
+        if(require('./json/wikis.json').wikisEnabled){
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setAuthor(client.user.username, client.user.avatarURL)
+            .addField('Wikis', '**Home:** '+ wikis.home +'\n**Commands:** '+wikis.commands+'\n**Replies:** '+wikis.replies+'\n**FAQ:** '+wikis.faq)
+            .setFooter('Wikis hosted by Github');
+            msg.channel.send(embed);
+        }   
     }
 
     //Osu

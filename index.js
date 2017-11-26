@@ -728,55 +728,6 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         }
     }
-    //Misc
-    
-    else if(command == prefix + 'pong'){
-        var embed1 = new discord.RichEmbed()
-        .setTitle('Pinging...')
-        .setColor([0,0,255]);
-         msg.channel.send(embed1).then( pingMsg => {
-        var embed2 = new discord.RichEmbed()
-        .setColor([255,0,0])
-        .setTitle('Ping!')  
-        .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
-        .addField('API', `**${client.ping}ms.**`, true);
-        pingMsg.edit(embed2);
-        });
-    }else if(command == prefix + 'ping') {
-        var embed1 = new discord.RichEmbed()
-        .setTitle('Pinging...')
-        .setColor([0,0,255]);
-         msg.channel.send(embed1).then( pingMsg => {
-        var embed2 = new discord.RichEmbed()
-        .setColor([255,0,0])
-        .setTitle('Pong!')
-        .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
-        .addField('API', `**${client.ping}ms.**`, true);
-        pingMsg.edit(embed2);
-        });
-    }else if(command == prefix + 'uptime'){
-        var seconds = Math.floor(client.uptime / 1000) % 59;
-        var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 59;
-        var hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) % 23;
-        var days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) / 24);
-        var embed = new discord.RichEmbed()
-        .setColor([255,0,0])
-        .setAuthor(client.user.username, client.user.avatarURL)
-        .addField('Days', days)
-        .addField('Hours', hours)
-        .addField('Minutes', minutes)
-        .addField('Seconds', seconds);
-        msg.channel.send(embed);
-    }else if(command == prefix + 'wiki'){
-        if(require('./json/wikis.json').wikisEnabled){
-            var embed = new discord.RichEmbed()
-            .setColor([255,0,0])
-            .setAuthor(client.user.username, client.user.avatarURL)
-            .addField('Wikis', '**Home:** '+ wikis.home +'\n**Commands:** '+wikis.commands+'\n**Replies:** '+wikis.replies+'\n**FAQ:** '+wikis.faq)
-            .setFooter('Wikis hosted by Github');
-            msg.channel.send(embed);
-        }   
-    }
 
     //Osu
 
@@ -947,6 +898,56 @@ client.on('message', (msg) => {
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
+    }
+
+    //Misc
+    
+    else if(command == prefix + 'pong'){
+        var embed1 = new discord.RichEmbed()
+        .setTitle('Pinging...')
+        .setColor([0,0,255]);
+         msg.channel.send(embed1).then( pingMsg => {
+        var embed2 = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setTitle('Ping!')  
+        .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
+        .addField('API', `**${client.ping}ms.**`, true);
+        pingMsg.edit(embed2);
+        });
+    }else if(command == prefix + 'ping') {
+        var embed1 = new discord.RichEmbed()
+        .setTitle('Pinging...')
+        .setColor([0,0,255]);
+         msg.channel.send(embed1).then( pingMsg => {
+        var embed2 = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setTitle('Pong!')
+        .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
+        .addField('API', `**${client.ping}ms.**`, true);
+        pingMsg.edit(embed2);
+        });
+    }else if(command == prefix + 'uptime'){
+        var seconds = Math.floor(client.uptime / 1000) % 59;
+        var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 59;
+        var hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) % 23;
+        var days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) / 24);
+        var embed = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setAuthor(client.user.username, client.user.avatarURL)
+        .addField('Days', days)
+        .addField('Hours', hours)
+        .addField('Minutes', minutes)
+        .addField('Seconds', seconds);
+        msg.channel.send(embed);
+    }else if(command == prefix + 'wiki'){
+        if(require('./json/wikis.json').wikisEnabled){
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setAuthor(client.user.username, client.user.avatarURL)
+            .addField('Wikis', '**Home:** '+ wikis.home +'\n**Commands:** '+wikis.commands+'\n**Replies:** '+wikis.replies+'\n**FAQ:** '+wikis.faq)
+            .setFooter('Wikis hosted by Github');
+            msg.channel.send(embed);
+        }   
     }
 
     //Bot Owner

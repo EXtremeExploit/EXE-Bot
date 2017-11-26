@@ -15,6 +15,15 @@ var osuApiKey     = data.osuApiKey();
 var owner         = data.owner();
 var allEvents     = data.allEvents();
 var debug         = data.debug();
+
+const _wikis      = require('./scripts/wikis.js')
+const wikis       = {
+    home: new _wikis().home(),
+    commands: new _wikis().commands(),
+    replies: new _wikis().replies(),
+    faq : new _wikis().faq(),
+    isEnabled: new _wikis().isEnabled()
+};
 /************************************************
 *                                               *
 *                    MODULES                    *
@@ -60,9 +69,19 @@ const randomCat   = new _randomCat();
 const randomDog   = new _randomDog();
 var servers       = {};
 
-
 new events(client,debug,allEvents,prefix);
 new customCode(client,discord);
+
+client.setInterval((e) => {
+    client.user.setPresence({
+        status: "online",
+        afk: false,
+        game: {
+            name: prefix+"help | "+prefix+"invite | "+client.guilds.size+" Servers",
+            url: "https://www.twitch.tv/extremeexploit_",
+        }
+    })
+},60000);
 
 /************************************************
 *                                               *
@@ -225,12 +244,12 @@ client.on('message', (msg) => {
         .addField('Voice','**join:** Joins a voice channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song ')
         .addField('Support','**invite:** Invite me to your server \n**info:** Info about me',true)
         .addField('Info','**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you/someone \n**avatar:** Gets your/someone \'s Avatar',true)
-        .addField('Random','**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image\n**dog:** Gets a random dog image',true)
+        .addField('Random','**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image\n**dog:** Gets a random dog image\n**coinflip:** Flips a coin',true)
         .addField('Moderation', '**kick:** Kicks someone \n**ban:** Bans someone \n**prune:** Deletes a count of messages in a channel')
         .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**sandwich:** Gives a sandwich to someone\n**pat**: Gives a headpat to someone\n**reverse:** Reverses text',true)
         .addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap', true)
-        .addField('Misc','**ping:** Pings the bot and the discord API\n**pong:** Pongs the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event',true)
-        .addField('Wiki','[Wiki](https://github.com/EXtremeExploit/EXE-Bot/wiki/)\n[Wiki: Commands](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)\n[Wiki: Replies](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)');
+        .addField('Misc','**ping:** Pings the bot and the discord API\n**pong:** Pongs the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event\n**wiki:** Sends all the wikis available for the bot',true)
+        .addField('Wiki','[Wiki]('+wikis.home+')\n[Wiki: Commands]('+wikis.commands+')\n[Wiki: Replies]('+wikis.replies+')');
         msg.channel.send(embed);
     }
         //Voice
@@ -305,16 +324,14 @@ client.on('message', (msg) => {
                 .setColor([255,0,0])
                 .setDescription(link)
                 .setURL(link)
-                msg.channel.send(embed)
-                ;
+                msg.channel.send(embed);
             });
         }else if(command == prefix + 'info') {
             var embed = new discord.RichEmbed()
             .setAuthor(client.user.username,client.user.avatarURL)
             .setColor([255,0,0])
             .setThumbnail(client.user.avatarURL)
-            .addField('Libraries & languge', '[**Software**](https://github.com/EXtremeExploit/EXE-Bot/wiki#software)\n[**Libraries**](https://github.com/EXtremeExploit/EXE-Bot/wiki#libraries)',true)
-            .addField('Wikies', '[**Home**](https://github.com/EXtremeExploit/EXE-Bot/wiki)\n[**Commands**](https://github.com/EXtremeExploit/EXE-Bot/wiki/Commands)\n[**Replies**](https://github.com/EXtremeExploit/EXE-Bot/wiki/Replies)\n[**FAQ**](https://github.com/EXtremeExploit/EXE-Bot/wiki/FAQ)')
+            .addField('Wikies', '[**Home**]('+wikis.home+')\n[**Commands**]('+wikis.commands+')\n[**Replies**]('+wikis.replies+')\n[**FAQ**]('+wikis.faq+')')
             msg.channel.send(embed);
         }
 
@@ -344,7 +361,7 @@ client.on('message', (msg) => {
                 .setThumbnail(msg.guild.iconURL)
                 .addField('ID', msg.guild.id, true)
                 .addField('Region',msg.guild.region, true)
-                .addField('AFK',msg.guild.afkChannel + '\n' + msg.guild.afkTimeout + ' seconds', true)
+                .addField('AFK','**Channel** ' + msg.guild.afkChannel.name + '\n**ChannelID:**' + msg.guild.afkChannelID + '\n**Timeout:**' + msg.guild.afkTimeout + ' seconds', true)
                 .addField('Counts','**Members:** '+msg.guild.memberCount+'\n**Roles:** '+ msg.guild.roles.size, true)
                 .addField('Owner','**Owner:** '+msg.guild.owner+ '\n**OwnerID:** '+ msg.guild.ownerID, true)
                 .addField('Verification Level',msg.guild.verificationLevel, true)
@@ -485,6 +502,20 @@ client.on('message', (msg) => {
             .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
+    }else if(command == prefix + 'coinflip'){
+        if(Math.random() < 0.5){
+            msg.channel.send(new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setAuthor(msg.member.user.username, msg.member.user.avatarURL)
+                .setTitle('Coin flip!')
+                .setDescription('I flipped a coin and it landed on **heads**.'));
+        }else{
+            msg.channel.send(new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setAuthor(msg.member.user.username, msg.member.user.avatarURL)
+                .setTitle('Coin flip!')
+                .setDescription('I flipped a coin and it landed on **tails**.'));
+        }
     }
 
     //Moderation
@@ -722,46 +753,6 @@ client.on('message', (msg) => {
             msg.channel.send(embed);
         }
     }
-    //Misc
-    
-    else if(command == prefix + 'pong'){
-        var embed1 = new discord.RichEmbed()
-        .setTitle('Pinging...')
-        .setColor([0,0,255]);
-         msg.channel.send(embed1).then( pingMsg => {
-        var embed2 = new discord.RichEmbed()
-        .setColor([255,0,0])
-        .setTitle('Ping!')
-        .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
-        .addField('API', `**${client.ping}ms.**`, true);
-        pingMsg.edit(embed2);
-        });
-    }else if(command == prefix + 'ping') {
-        var embed1 = new discord.RichEmbed()
-        .setTitle('Pinging...')
-        .setColor([0,0,255]);
-         msg.channel.send(embed1).then( pingMsg => {
-        var embed2 = new discord.RichEmbed()
-        .setColor([255,0,0])
-        .setTitle('Pong!')
-        .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
-        .addField('API', `**${client.ping}ms.**`, true);
-        pingMsg.edit(embed2);
-        });
-    }else if(command == prefix + 'uptime'){
-        var seconds = Math.floor(client.uptime / 1000) % 59;
-        var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 59;
-        var hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) % 23;
-        var days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) / 24);
-        var embed = new discord.RichEmbed()
-        .setColor([255,0,0])
-        .setAuthor(client.user.username, client.user.avatarURL)
-        .addField('Days', days)
-        .addField('Hours', hours)
-        .addField('Minutes', minutes)
-        .addField('Seconds', seconds);
-        msg.channel.send(embed);
-    }
 
     //Osu
 
@@ -934,6 +925,56 @@ client.on('message', (msg) => {
         });
     }
 
+    //Misc
+    
+    else if(command == prefix + 'pong'){
+        var embed1 = new discord.RichEmbed()
+        .setTitle('Pinging...')
+        .setColor([0,0,255]);
+         msg.channel.send(embed1).then( pingMsg => {
+        var embed2 = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setTitle('Ping!')  
+        .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
+        .addField('API', `**${client.ping}ms.**`, true);
+        pingMsg.edit(embed2);
+        });
+    }else if(command == prefix + 'ping') {
+        var embed1 = new discord.RichEmbed()
+        .setTitle('Pinging...')
+        .setColor([0,0,255]);
+         msg.channel.send(embed1).then( pingMsg => {
+        var embed2 = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setTitle('Pong!')
+        .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
+        .addField('API', `**${client.ping}ms.**`, true);
+        pingMsg.edit(embed2);
+        });
+    }else if(command == prefix + 'uptime'){
+        var seconds = Math.floor(client.uptime / 1000) % 59;
+        var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 59;
+        var hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) % 23;
+        var days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) / 24);
+        var embed = new discord.RichEmbed()
+        .setColor([255,0,0])
+        .setAuthor(client.user.username, client.user.avatarURL)
+        .addField('Days', days)
+        .addField('Hours', hours)
+        .addField('Minutes', minutes)
+        .addField('Seconds', seconds);
+        msg.channel.send(embed);
+    }else if(command == prefix + 'wiki'){
+        if(wikis.isEnabled()){
+            var embed = new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setAuthor(client.user.username, client.user.avatarURL)
+            .addField('Wikis', '**Home:** '+ wikis.home +'\n**Commands:** '+wikis.commands+'\n**Replies:** '+wikis.replies+'\n**FAQ:** '+wikis.faq)
+            .setFooter('Wikis hosted by Github');
+            msg.channel.send(embed);
+        }   
+    }
+
     //Bot Owner
 
     else if(command == prefix + 'disconnect') {
@@ -1001,6 +1042,8 @@ client.on('message', (msg) => {
         msg.channel.send('kek');
     if(message == 'ok'|| message == 'oke')
         msg.channel.send('oke');
+    if(message == 'lmao')
+        msg.channel.send('ayy');
 });
 
 client.login(token).catch(e => console.log(e));

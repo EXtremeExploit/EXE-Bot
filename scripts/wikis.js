@@ -1,5 +1,8 @@
 const json = require("../json/wikis.json");
 class wikis {
+    isEnabled(){
+        return json.wikisEnabled;
+    }
     home(){
         return json.home;
     }

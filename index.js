@@ -244,7 +244,7 @@ client.on('message', (msg) => {
         .addField('Voice','**join:** Joins a voice channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song ')
         .addField('Support','**invite:** Invite me to your server \n**info:** Info about me',true)
         .addField('Info','**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you/someone \n**avatar:** Gets your/someone \'s Avatar',true)
-        .addField('Random','**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image\n**dog:** Gets a random dog image',true)
+        .addField('Random','**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image\n**dog:** Gets a random dog image\n**coinflip:** Flips a coin',true)
         .addField('Moderation', '**kick:** Kicks someone \n**ban:** Bans someone \n**prune:** Deletes a count of messages in a channel')
         .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**sandwich:** Gives a sandwich to someone\n**pat**: Gives a headpat to someone\n**reverse:** Reverses text',true)
         .addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap', true)
@@ -502,6 +502,20 @@ client.on('message', (msg) => {
             .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
         });
+    }else if(command == prefix + 'coinflip'){
+        if(Math.random() < 0.5){
+            msg.channel.send(new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setAuthor(msg.member.user.username, msg.member.user.avatarURL)
+                .setTitle('Coin flip!')
+                .setDescription('I flipped a coin and it landed on **heads**.'));
+        }else{
+            msg.channel.send(new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setAuthor(msg.member.user.username, msg.member.user.avatarURL)
+                .setTitle('Coin flip!')
+                .setDescription('I flipped a coin and it landed on **tails**.'));
+        }
     }
 
     //Moderation
@@ -737,20 +751,6 @@ client.on('message', (msg) => {
             .setColor([255,0,0])
             .setDescription('Pleace specify something to reverse!');
             msg.channel.send(embed);
-        }
-    }else if(command == prefix + 'coinflip'){
-        if(Math.random() < 0.5){
-            msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .setAuthor(msg.member.user.username, msg.member.user.avatarURL)
-                .setTitle('Coin flip!')
-                .setDescription('I flipped a coin and it landed on **heads**.'));
-        }else{
-            msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .setAuthor(msg.member.user.username, msg.member.user.avatarURL)
-                .setTitle('Coin flip!')
-                .setDescription('I flipped a coin and it landed on **tails**.'));
         }
     }
 

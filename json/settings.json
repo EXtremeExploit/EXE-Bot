@@ -1,9 +1,5 @@
 {
-    "token": "TOKEN",
-    "prefix": "PREFIX",
-    "osuApiKey": "OSU_API_KEY",
     "owner": {
-        "id": 123456789,
         "username": "EXtremeExploit",
         "discriminator": "1133",
         "tag": "EXtremeExploit#1133"

@@ -1,4 +1,4 @@
-// STARTING
+//STARTING
 console.log('Starting...');
 /************************************************
 *                                               *

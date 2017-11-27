@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "wikisEnabled": true,
     "home": "https://extremeexploit.github.io/EXE_Bot/Wiki/",
@@ -5,3 +6,12 @@
     "replies": "https://extremeexploit.github.io/EXE_Bot/Wiki/Replies",
     "faq": "https://extremeexploit.github.io/EXE_Bot/Wiki/FAQ"
 }
+=======
+{
+    "wikisEnabled": true,
+    "home": "https://extremeexploit.github.io/EXE_Bot/Wiki/",
+    "commands": "https://extremeexploit.github.io/EXE_Bot/Wiki/Commands",
+    "replies": "https://extremeexploit.github.io/EXE_Bot/Wiki/Replies",
+    "faq": "https://extremeexploit.github.io/EXE_Bot/Wiki/FAQ"
+}
+>>>>>>> master

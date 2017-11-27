@@ -32,7 +32,6 @@ const wikis       = {
 
 const discord     = require('discord.js');
 const osu         = require('node-osu');
-const opusscript  = require('opusscript');
 const yt          = require('ytdl-core');
 
 
@@ -241,15 +240,23 @@ client.on('message', (msg) => {
         .setColor([0,0,255])
         .setThumbnail(client.user.avatarURL)
         .setTitle(`${client.user.username} Commands`)
-        .addField('Voice','**join:** Joins a voice channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song ')
+        .addField('Voice','**join:** Joins a voice channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song', true)
         .addField('Support','**invite:** Invite me to your server \n**info:** Info about me',true)
         .addField('Info','**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you/someone \n**avatar:** Gets your/someone \'s Avatar',true)
         .addField('Random','**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image\n**dog:** Gets a random dog image\n**coinflip:** Flips a coin',true)
+<<<<<<< HEAD
         .addField('Moderation', '**kick:** Kicks someone \n**ban:** Bans someone \n**prune:** Deletes a count of messages in a channel')
         .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**sandwich:** Gives a sandwich to someone\n**pat**: Gives a headpat to someone\n**reverse:** Reverses text',true)
         .addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap', true)
         .addField('Misc','**ping:** Pings the bot and the discord API\n**pong:** Pongs the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event\n**wiki:** Sends all the wikis available for the bot',true)
         .addField('Wiki','[Wiki]('+wikis.home+')\n[Wiki: Commands]('+wikis.commands+')\n[Wiki: Replies]('+wikis.replies+')');
+=======
+        .addField('Moderation', '**kick:** Kicks someone \n**ban:** Bans someone \n**prune:** Deletes a count of messages in a channel',true)
+        .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**sandwich:** Gives a sandwich to someone\n**pat**: Gives a headpat to someone\n**reverse:** Reverses text',true)
+        .addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap', true)
+        .addField('Misc','**ping:** Pings the bot and the discord API\n**pong:** Pongs the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event\n**wiki:** Sends all the wikis available for the bot',true)
+        .addField('Wiki','[Wiki]('+wikis.home+')\n[Wiki: Commands]('+wikis.commands+')\n[Wiki: Replies]('+wikis.replies+')', true);
+>>>>>>> master
         msg.channel.send(embed);
     }
         //Voice
@@ -277,6 +284,7 @@ client.on('message', (msg) => {
             if(!msg.member.voiceChannel) {
                 var embed = new discord.RichEmbed()
                 .setColor([255,0,0])
+                .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
                 .setDescription('You need to join a voice channel first')
                 msg.channel.send(embed)
                 return;
@@ -390,6 +398,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#info) for help!')
             .setDescription('Pleace specify a role!');
             msg.channel.send(embed);
         }
@@ -409,6 +418,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#info) for help!')
             .setDescription('Pleace specify a channel!');
             msg.channel.send(embed);
         }
@@ -464,6 +474,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#random) for help!')
             .setDescription('Pleace specify something to rate!');
             msg.channel.send(embed);
         }
@@ -556,6 +567,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#moderation) for help!')
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         
@@ -604,6 +616,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#moderation) for help!')
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         
@@ -622,11 +635,12 @@ client.on('message', (msg) => {
                 msg.channel.send('no args')
             }else{
                 var usertoban = msg.guild.fetchBans().then((users) => users.find('tag', args).id);
-            msg.guild.unban(usertoban).then(user => {
-                msg.channel.send('unbanned: ' + user.tag);
-            }).catch((reason) => {msg.channel.send(reason); console.log(reason)});
+                msg.guild.unban(usertoban).then(user => {
+                    msg.channel.send('unbanned: ' + user.tag);
+                })
+                .catch((reason) => {msg.channel.send(reason); console.log(reason)});
+            }
         }
-    }
     }else if(command == prefix + 'prune'){
 
         if(msg.member.hasPermission(['MANAGE_MESSAGES']) || msg.member.hasPermission(['ADMINISTRATOR'])){
@@ -659,6 +673,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#fun) for help!')
             .setDescription('Pleace specify something to say!');
             msg.channel.send(embed);
         }
@@ -686,6 +701,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#fun) for help!')
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         }
@@ -708,6 +724,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#fun) for help!')
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         }
@@ -733,6 +750,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#fun) for help!')
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         }
@@ -749,6 +767,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#fun) for help!')
             .setDescription('Pleace specify something to reverse!');
             msg.channel.send(embed);
         }
@@ -770,6 +789,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -789,6 +809,7 @@ client.on('message', (msg) => {
                 var embed = new discord.RichEmbed()
                 .setColor([255,0,0])
                 .setTitle('Error')
+                .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                 .setDescription('User does not exists')
                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
                 msg.channel.send(embed);
@@ -808,6 +829,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -827,6 +849,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -846,6 +869,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -865,6 +889,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -884,6 +909,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -903,6 +929,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -919,6 +946,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('Beatmap does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);

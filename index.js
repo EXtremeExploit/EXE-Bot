@@ -32,7 +32,6 @@ const wikis       = {
 
 const discord     = require('discord.js');
 const osu         = require('node-osu');
-const opusscript  = require('opusscript');
 const yt          = require('ytdl-core');
 
 
@@ -277,6 +276,7 @@ client.on('message', (msg) => {
             if(!msg.member.voiceChannel) {
                 var embed = new discord.RichEmbed()
                 .setColor([255,0,0])
+                .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
                 .setDescription('You need to join a voice channel first')
                 msg.channel.send(embed)
                 return;
@@ -390,6 +390,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#info) for help!')
             .setDescription('Pleace specify a role!');
             msg.channel.send(embed);
         }
@@ -409,6 +410,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#info) for help!')
             .setDescription('Pleace specify a channel!');
             msg.channel.send(embed);
         }
@@ -464,6 +466,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#random) for help!')
             .setDescription('Pleace specify something to rate!');
             msg.channel.send(embed);
         }
@@ -556,6 +559,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#moderation) for help!')
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         
@@ -604,6 +608,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#moderation) for help!')
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         
@@ -622,11 +627,12 @@ client.on('message', (msg) => {
                 msg.channel.send('no args')
             }else{
                 var usertoban = msg.guild.fetchBans().then((users) => users.find('tag', args).id);
-            msg.guild.unban(usertoban).then(user => {
-                msg.channel.send('unbanned: ' + user.tag);
-            }).catch((reason) => {msg.channel.send(reason); console.log(reason)});
+                msg.guild.unban(usertoban).then(user => {
+                    msg.channel.send('unbanned: ' + user.tag);
+                })
+                .catch((reason) => {msg.channel.send(reason); console.log(reason)});
+            }
         }
-    }
     }else if(command == prefix + 'prune'){
 
         if(msg.member.hasPermission(['MANAGE_MESSAGES']) || msg.member.hasPermission(['ADMINISTRATOR'])){
@@ -659,6 +665,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#fun) for help!')
             .setDescription('Pleace specify something to say!');
             msg.channel.send(embed);
         }
@@ -686,6 +693,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#fun) for help!')
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         }
@@ -708,6 +716,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#fun) for help!')
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         }
@@ -733,6 +742,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#fun) for help!')
             .setDescription('Pleace specify an user!');
             msg.channel.send(embed);
         }
@@ -749,6 +759,7 @@ client.on('message', (msg) => {
         }else{
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#fun) for help!')
             .setDescription('Pleace specify something to reverse!');
             msg.channel.send(embed);
         }
@@ -770,6 +781,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -789,6 +801,7 @@ client.on('message', (msg) => {
                 var embed = new discord.RichEmbed()
                 .setColor([255,0,0])
                 .setTitle('Error')
+                .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                 .setDescription('User does not exists')
                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
                 msg.channel.send(embed);
@@ -808,6 +821,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -827,6 +841,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -846,6 +861,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -865,6 +881,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -884,6 +901,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -903,6 +921,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('User does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);
@@ -919,6 +938,7 @@ client.on('message', (msg) => {
             var embed = new discord.RichEmbed()
             .setColor([255,0,0])
             .setTitle('Error')
+            .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
             .setDescription('Beatmap does not exists')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL);
             msg.channel.send(embed);

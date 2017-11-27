@@ -47,34 +47,9 @@
     "ws": "^3.3.1",
     "ytdl-core": "^0.17.1"
   },
-
-
-  
   "homepage": "https://extremeexploit.github.io/EXE-Bot/",
   "license": "ISC",
   "engines": {
     "node": "^8"
-  },
-  "os": [
-    "android",
-    "win32"
-  ],
-  "readme": "General Info",
-  "categories": [
-    "Other"
-  ],
-  "files": [
-    "index.js",
-    "json/settings.json",
-    "scripts/data.js",
-    "scripts/events.js",
-    "scripts/randomCat.js",
-    "scripts/randomDog.js",
-    "node_modules/"
-  ],
-  "cpu": [
-    "x32",
-    "x64",
-    "x86"
-  ]
+  }
 }

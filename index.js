@@ -240,7 +240,7 @@ client.on('message', (msg) => {
         .setColor([0,0,255])
         .setThumbnail(client.user.avatarURL)
         .setTitle(`${client.user.username} Commands`)
-        .addField('Voice','**join:** Joins a voice channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song', true)
+     // .addField('Voice','**join:** Joins a voice channel \n**play:** Plays the audio of a youtube video \n**skip:** Skips the current song \n**stop:** Stops playing the current song', true)
         .addField('Support','**invite:** Invite me to your server \n**info:** Info about me',true)
         .addField('Info','**server:** Info about the server \n**role:** Info about a role \n**channel:** Info about a channel\n**user:** Info about you/someone \n**avatar:** Gets your/someone \'s Avatar',true)
         .addField('Random','**roll:** Rolls a dice\n**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n**cat:** Gets a random cat image\n**dog:** Gets a random dog image\n**coinflip:** Flips a coin',true)
@@ -253,7 +253,7 @@ client.on('message', (msg) => {
     }
         //Voice
 
-        else if(command == prefix + 'join') {
+        /*else if(command == prefix + 'join') {
             if (msg.member.voiceChannel) {
                 msg.member.voiceChannel.join()
                   .then(connection => {
@@ -269,6 +269,7 @@ client.on('message', (msg) => {
                   var embed = new discord.RichEmbed()
                   .setColor([255,0,0])
                   .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
+                  .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
                   .setDescription('You need to join a voice channel first')
                 msg.channel.send(embed);
               }
@@ -288,7 +289,7 @@ client.on('message', (msg) => {
     
             var server = servers[msg.guild.id];
             server.queue.push(args[0])
-            if(!msg.guild.voiceConnection) msg.member.voiceChannel.join().then(connection =>{
+            if(!msg.guild.voiceConnection) msg.member.voiceChannel.join().then(connection => {
                 play(connection,msg);
             });
         }else if(command == prefix + 'skip'){
@@ -312,7 +313,7 @@ client.on('message', (msg) => {
                 msg.channel.send(embed);
 
             }
-        }
+        }*/
 
         //Support
 

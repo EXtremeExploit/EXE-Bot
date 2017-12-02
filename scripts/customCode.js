@@ -1,7 +1,7 @@
 class customCode {
     constructor(client,discord) {
 
-        //Custom code goes here!!
+        //CUSTOM CODE HERE!
 
     }
 }

@@ -973,6 +973,7 @@ client.on('message', (msg) => {
         pingMsg.edit(embed2);
         });
     }else if(command == prefix + 'uptime'){
+        var miliseconds = client.uptime % 999;
         var seconds = Math.floor(client.uptime / 1000) % 59;
         var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 59;
         var hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) /60) % 23;
@@ -983,7 +984,8 @@ client.on('message', (msg) => {
         .addField('Days', days)
         .addField('Hours', hours)
         .addField('Minutes', minutes)
-        .addField('Seconds', seconds);
+        .addField('Seconds', seconds)
+        .addField('Miliseconds', miliseconds);
         msg.channel.send(embed);
     }else if(command == prefix + 'wiki'){
         if(wikis.isEnabled()){
@@ -1010,6 +1012,12 @@ client.on('message', (msg) => {
             }).then(() => {
                 process.exit();
             });
+        }else{
+            msg.channel.send(new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription('Bot owner only!')
+            .setFooter('how did you found this command?')
+            );
         }
     }else if(command == prefix + 'eval'){
         
@@ -1033,6 +1041,12 @@ client.on('message', (msg) => {
                   .setDescription('\`\`\`xl\n'+clean(err)+'\`\`\`');
                 msg.channel.send(embed);
               }
+        }else{
+            msg.channel.send(new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription('Bot owner only!')
+            .setFooter('how did you found this command?')
+            );
         }
     }
 })

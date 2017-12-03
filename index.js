@@ -622,18 +622,6 @@ client.on('message', (msg) => {
         .setColor([255,0,0]);
         msg.channel.send(embed);
         }
-    }else if(command == prefix + 'unban'){
-        if(msg.member.hasPermission(['ADMINISTRATOR']) || msg.member.hasPermission(['BAN_MEMBERS'])){
-            if(args == '' || args == null){
-                msg.channel.send('no args')
-            }else{
-                var usertoban = msg.guild.fetchBans().then((users) => users.find('tag', args).id);
-                msg.guild.unban(usertoban).then(user => {
-                    msg.channel.send('unbanned: ' + user.tag);
-                })
-                .catch((reason) => {msg.channel.send(reason); console.log(reason)});
-            }
-        }
     }else if(command == prefix + 'prune'){
 
         if(msg.member.hasPermission(['MANAGE_MESSAGES']) || msg.member.hasPermission(['ADMINISTRATOR'])){

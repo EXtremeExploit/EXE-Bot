@@ -237,7 +237,7 @@ client.on('message', (msg) => {
         //Voice
 
         
-        new voiceCommands(prefix, msg, servers, discord, wikis, yt);
+        //new voiceCommands(prefix, msg, servers, discord, wikis, yt);
 
         //Support
 

@@ -234,7 +234,6 @@ client.on('message', (msg) => {
         .addField('Wiki','[Wiki]('+wikis.home+')\n[Wiki: Commands]('+wikis.commands+')\n[Wiki: Replies]('+wikis.replies+')', true));
     }
         //Voice
-
         
         new voiceCommands(prefix, msg, servers, discord, wikis, yt);
 

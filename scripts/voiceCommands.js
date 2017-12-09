@@ -7,31 +7,31 @@ class voiceCommands {
         var args = messageArray.slice(1).join(' ');
 
         function play(connection, msg) {
-            var server = servers[msg.guild.id]
+            var server = servers[msg.guild.id];
+
             server.dispatcher = connection.playStream(yt(server.queue[0], { filter: "audioonly"}));
-            server.queue.shift()
-            server.dispatcher.on('end', ()=>{
-                if(server.queue[0]) play(connection,msg)
-                else connection.disconnect();
+            server.queue.shift();
+            server.dispatcher.on('end', () => {
+                if(server.queue[0]) 
+                    play(connection,msg);
+                else 
+                    connection.disconnect();
             })
         }
 
-        if(command == prefix + 'join') {
-
-
-        }else if (command == prefix + 'play'){
+        if (command == prefix + 'play'){
             if(!args[0] || args == ""){
-                msg.channel.send(new discord.RichEmbed()
+                return msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])
-                .setDescription('link undefined'))
-                return;
+                .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
+                .setDescription('Pleace specify a link!'));
             }
 
             if(!msg.member.voiceChannel){
-                msg.channel.send(new discord.RichEmbed()
+                return msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])
-                .setDescription('voice channel undefined'))
-                return;
+                .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
+                .setDescription('You must be in a voice channel first!'));
             }
 
             if(!servers[msg.guild.id]){
@@ -43,16 +43,15 @@ class voiceCommands {
 
             var server = servers[msg.guild.id];
 
-            server.queue.push(args)
-            console.log(args[1]);
+            server.queue.push(args);
 
             if(!msg.guild.voiceConnection) msg.member.voiceChannel.join().then((connection) =>{
                 play(connection, msg);
-            })
+            });
 
         }else if(command == prefix + 'skip'){
             var server = servers[msg.guild.id]
-            if(server.dispatcher) server.dispatcher.end()
+            if(server.dispatcher) server.dispatcher.end();
 
         }else if(command == prefix + 'stop'){
             var server = servers[msg.guild.id]

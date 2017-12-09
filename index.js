@@ -24,6 +24,7 @@ const wikis       = {
     faq : new _wikis().faq(),
     isEnabled: new _wikis().isEnabled()
 };
+var servers = {}
 /************************************************
 *                                               *
 *                    MODULES                    *
@@ -38,6 +39,7 @@ const yt          = require('ytdl-core');
 const _randomCat  = require('./scripts/randomCat');
 const _randomDog  = require('./scripts/randomDog');
 const events      = require('./scripts/events.js');
+const voiceCommands  = require('./scripts/voiceCommands');
 
 const client      = new discord.Client({
     apiRequestMethod: 'sequential',
@@ -66,7 +68,6 @@ const client      = new discord.Client({
 const osuApi      = new osu.Api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const randomCat   = new _randomCat();
 const randomDog   = new _randomDog();
-var servers       = {};
 
 new events(client,debug,allEvents,prefix);
 new customCode(client,discord);
@@ -95,19 +96,6 @@ function clean(text) {
       .replace(osuApiKey, '*OSUAPIKEY*');
     else
         return text;
-}
-
-function play(connection, msg) {
-    var server = servers[msg.guild.id];
-
-    server.dispatcher = connection.playStream(yt(server.queue[0], {filter: 'audioonly'}));
-
-    server.queue.shift();
-
-    server.dispatcher.on('end', () => {
-        if(server.queue[0]) play(connection, msg);
-        else connection.disconnect();
-    });
 }
 
 function reverseString(string) {
@@ -244,70 +232,16 @@ client.on('message', (msg) => {
         .addField('Fun','**say:** Says whatever you want \n**lenny:** Displays the lenny face\n**cookie**: Gives a cookie to someone\n**sandwich:** Gives a sandwich to someone\n**pat**: Gives a headpat to someone\n**reverse:** Reverses text',true)
         .addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n**osuTaikoUser**: Gets info about an user in the Taiko mode \n**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n**osuManiaUser**: Gets info about an user in the Mania mode \n**osuStdBest:** Gets the best play of an user in the Standard mode \n**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n**osuManiaBest:** Gets the best play of an user in the mania mode \n**osuBeatmap**: Gets info about an osu!beatmap', true)
         .addField('Misc','**ping:** Pings the bot and the discord API\n**pong:** Pongs the bot and the discord API\n**uptime:** Displays the uptime since the bot had the READY event\n**wiki:** Sends all the wikis available for the bot',true)
-        .addField('Wiki','[Wiki]('+wikis.home+')\n[Wiki: Commands]('+wikis.commands+')\n[Wiki: Replies]('+wikis.replies+')'));
+        .addField('Wiki','[Wiki]('+wikis.home+')\n[Wiki: Commands]('+wikis.commands+')\n[Wiki: Replies]('+wikis.replies+')', true));
     }
         //Voice
 
-        /*else if(command == prefix + 'join') {
-            if (msg.member.voiceChannel) {
-                msg.member.voiceChannel.join()
-                  .then(connection => {
-                    msg.channel.send(new discord.RichEmbed()
-                    .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
-                    .setColor([255,0,0])
-                    .setTitle('Join')
-                    .setDescription('SUCCesfully joined to the channel!'));
-                  })
-                  .catch(console.log);
-              } else {
-                msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .setAuthor(msg.member.user.username,msg.member.user.displayAvatarURL)
-                .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
-                .setDescription('You need to join a voice channel first'));
-              }
-        }else if (command == prefix + 'play'){
-            if(!msg.member.voiceChannel) {
-                msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
-                .setDescription('You need to join a voice channel first'))
-                return;
-            }
-    
-            if(!servers[msg.guild.id]) servers[msg.guild.id] = {
-                queue: []
-            }
-    
-            var server = servers[msg.guild.id];
-            server.queue.push(args[0])
-            if(!msg.guild.voiceConnection) msg.member.voiceChannel.join().then(connection => {
-                play(connection,msg);
-            });
-        }else if(command == prefix + 'skip'){
-            var server = servers[msg.guild.id];
-            
-            if(server.dispatcher){
-                server.dispatcher.end();
-                msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .setDescription('Skipped!'));
-            }
-        }else if(command == prefix + 'stop'){
-            var server = servers[msg.guild.id];
-    
-            if(msg.guild.voiceConnection) {
-                msg.guild.voiceConnection.disconnect();
-                msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .setDescription('Disconnected!'));
-
-            }
-        }*/
+        
+        //new voiceCommands(prefix, msg, servers, discord, wikis, yt);
 
         //Support
 
-        else if(command == prefix +'invite'){
+        if(command == prefix +'invite'){
             client.generateInvite(['ADMINISTRATOR']).then(link =>{
                 msg.channel.send(new discord.RichEmbed()
                 .setTitle('Invite me to your server!')

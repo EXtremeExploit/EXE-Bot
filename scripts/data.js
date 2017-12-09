@@ -19,16 +19,24 @@ class settings {
         if(!hosuapikey)
             return json.osuApiKey;
         else
-            return hosuapikey
+            return hosuapikey;
     }
     owner(){
         return json.owner;
     }
     allEvents(){
-        return json.allEvents;
+        var hallevents = process.env.allEvents;
+        if(!hallevents)
+            return json.allEvents;
+        else
+            return hallevents;
     }
     debug(){
-        return json.debug;
+        var hdebug = process.env.debug;
+        if(!hdebug)
+            return json.debug;
+        else
+            return hdebug;
     }
 }
 

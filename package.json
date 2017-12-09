@@ -47,11 +47,10 @@
     "ws": "^3.3.1",
     "ytdl-core": "^0.17.1"
   },
-  "homepage": "https://extremeexploit.github.io/EXE-Bot/",
+  "homepage": "https://extremeexploit.github.io/EXE_Bot/",
   "license": "ISC",
   "engines": {
     "node": "^8"
-<<<<<<< HEAD
   },
   "readme": "General Info",
   "categories": [
@@ -67,7 +66,4 @@
     "scripts/randomDog.js",
     "node_modules/"
   ]
-=======
-  }
->>>>>>> master
 }

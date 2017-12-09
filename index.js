@@ -24,6 +24,7 @@ const wikis       = {
     faq : new _wikis().faq(),
     isEnabled: new _wikis().isEnabled()
 };
+var servers = {}
 /************************************************
 *                                               *
 *                    MODULES                    *
@@ -67,7 +68,6 @@ const client      = new discord.Client({
 const osuApi      = new osu.Api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const randomCat   = new _randomCat();
 const randomDog   = new _randomDog();
-var servers       = {};
 
 new events(client,debug,allEvents,prefix);
 new customCode(client,discord);
@@ -237,7 +237,7 @@ client.on('message', (msg) => {
         //Voice
 
         
-        //new voiceCommands(command, prefix, msg, servers);
+        new voiceCommands(prefix, msg, servers,discord, wikis, yt);
 
         //Support
 

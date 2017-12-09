@@ -1,5 +1,5 @@
 class voiceCommands {
-    constructor(prefix, msg, servers,discord, wikis, yt) {
+    constructor(prefix, msg, servers, discord, wikis, yt) {
 
         
         var messageArray = msg.content.split(' ');
@@ -36,15 +36,15 @@ class voiceCommands {
 
             if(!servers[msg.guild.id]){
                 servers[msg.guild.id] = {
-
+                    queue: []
                 }
 
             }
 
             var server = servers[msg.guild.id];
 
-            //server.queue.push(args)
-            console.log(args);
+            server.queue.push(args)
+            console.log(args[1]);
 
             if(!msg.guild.voiceConnection) msg.member.voiceChannel.join().then((connection) =>{
                 play(connection, msg);

@@ -1,13 +1,25 @@
 const json = require("../json/settings.json");
 class settings {
     token(){
-        return json.token;
+        var htoken = process.env.token
+        if(!htoken)
+            return json.token;
+        else
+            return htoken;
     }
     prefix(){
-        return json.prefix;
+        var hprefix = process.env.prefix
+        if(!hprefix)
+            return json.prefix;
+        else 
+            return hprefix;
     }
     osuApiKey(){
-        return json.osuApiKey;
+        var hosuapikey = process.env.osuApiKey;
+        if(!hosuapikey)
+            return json.osuApiKey;
+        else
+            return hosuapikey
     }
     owner(){
         return json.owner;

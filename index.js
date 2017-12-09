@@ -15,7 +15,6 @@ var osuApiKey     = data.osuApiKey();
 var owner         = data.owner();
 var allEvents     = data.allEvents();
 var debug         = data.debug();
-
 const _wikis      = require('./scripts/wikis.js')
 const wikis       = {
     home: new _wikis().home(),

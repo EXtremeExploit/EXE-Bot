@@ -49,8 +49,5 @@
     "ytdl-core": "^0.17.1"
   },
   "homepage": "https://extremeexploit.github.io/EXE_Bot/",
-  "license": "ISC",
-  "engines": {
-    "node": "^8"
-  }
+  "license": "ISC"
 }

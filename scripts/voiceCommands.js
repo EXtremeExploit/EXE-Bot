@@ -12,7 +12,7 @@ class voiceCommands {
             server.dispatcher = connection.playStream(yt(server.queue[0], { filter: "audioonly"}));
             server.queue.shift();
             server.dispatcher.on('end', () => {
-                if(server.queue.first())
+                if(!server.queue == []) 
                     play(connection,msg);
                 else 
                     connection.disconnect();

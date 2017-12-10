@@ -190,16 +190,17 @@ function osuBeatmap(beatmap){
     .setColor([255, 58, 255])
     .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')
     .setTitle('osu!Beatmap')
-    .addField('Title', bm.title)
-    .addField('Artist', bm.artist)
-    .addField('Creator', bm.creator)
+    .setURL('https://osu.ppy.sh/b/'+bm.beatmap_id)
+    .addField('Title', bm.title,true)
+    .addField('BPM', bm.bpm,true)
+    .addField('Artist', bm.artist, true)
+    .addField('Difficulty', 'Stars: ' + parseFloat(bm.difficultyrating).toFixed(2) + '*\n' + 'HP: ' + bm.diff_drain + '\n' + 'OD: ' + bm.diff_overall + '\n' + 'AR: ' + bm.diff_approach + '\n' + 'CS: ' + bm.diff_size, true)
+    .addField('Creator', bm.creator, true)
+    .addField('Source', bm.source, true)
     .addField('Status', bm.approved)
-    .addField('IDs', '**BeatmapSet:** '+bm.beatmap_id+'\n**Beatmap:** '+bm.beatmap_id)
-    .addField('BPM', bm.bpm)
-    .addField('Difficulty', 'Stars: ' + bm.difficultyrating + '\n' + 'HP: ' + bm.diff_drain + '\n' + 'OD: ' + bm.diff_overall + '\n' + 'AR: ' + bm.diff_approach + '\n' + 'CS: ' + bm.diff_size)
-    .addField('Source', bm.source)
-    .addField('Difficulty Name', bm.version)
-    .addField('Max Combo', bm.max_combo);
+    .addField('Difficulty Name', bm.version, true)
+    .addField('IDs', '**BeatmapSet:** '+bm.beatmap_id+'\n**Beatmap:** '+bm.beatmap_id, true)
+    .addField('Max Combo', bm.max_combo, true);
 }
 
 /************************************************

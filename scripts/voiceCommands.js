@@ -1,5 +1,3 @@
-import { disconnect } from 'cluster';
-
 const yt          = require('ytdl-core');
 
 class voiceCommands {

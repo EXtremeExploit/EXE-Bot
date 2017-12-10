@@ -55,11 +55,20 @@ class voiceCommands {
 
         }else if(command == prefix + 'skip'){
             var server = servers[msg.guild.id];
-            if(server.dispatcher) server.dispatcher.end();
+            if(server.dispatcher) server.dispatcher.end().then(() => {
+                msg.channel.send(new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription('Skipped!'));
+            });
 
         }else if(command == prefix + 'stop'){
             var server = servers[msg.guild.id];
-            if(msg.guild.voiceConnection) msg.guild.voiceConnection.disconnect();
+            if(msg.guild.voiceConnection) msg.guild.voiceConnection.disconnect().then(() => {
+                server.queue.length = 0;
+                msg.channel.send(new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setDescription('Cleaned queue and disconnected from voice channel!'));
+            });
         }
     }
 }

@@ -12,7 +12,7 @@ class voiceCommands {
             server.dispatcher = connection.playStream(yt(server.queue[0], { filter: "audioonly"}));
             server.queue.shift();
             server.dispatcher.on('end', () => {
-                if(server.queue[0]) 
+                if(server.queue.first())
                     play(connection,msg);
                 else 
                     connection.disconnect();
@@ -50,11 +50,11 @@ class voiceCommands {
             });
 
         }else if(command == prefix + 'skip'){
-            var server = servers[msg.guild.id]
+            var server = servers[msg.guild.id];
             if(server.dispatcher) server.dispatcher.end();
 
         }else if(command == prefix + 'stop'){
-            var server = servers[msg.guild.id]
+            var server = servers[msg.guild.id];
             if(msg.guild.voiceConnection) msg.guild.voiceConnection.disconnect();
         }
     }

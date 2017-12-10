@@ -46,25 +46,9 @@
     "snekfetch": "^3.5.8",
     "superagent": "^3.8.1",
     "ws": "^3.3.1",
+    "youtube-info": "^1.1.2",
     "ytdl-core": "^0.17.1"
   },
   "homepage": "https://extremeexploit.github.io/EXE_Bot/",
-  "license": "ISC",
-  "engines": {
-    "node": "^8"
-  },
-  "readme": "General Info",
-  "categories": [
-    "Other"
-  ],
-  "files": [
-    "index.js",
-    "json/settings.json",
-    "scripts/customCode.js",
-    "scripts/data.js",
-    "scripts/events.js",
-    "scripts/randomCat.js",
-    "scripts/randomDog.js",
-    "node_modules/"
-  ]
+  "license": "ISC"
 }

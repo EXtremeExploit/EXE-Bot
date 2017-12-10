@@ -1,4 +1,5 @@
 const yt          = require('ytdl-core');
+const ytinfo      = require('youtube-info');
 
 class voiceCommands {
     constructor(prefix, msg, servers, discord, wikis) {
@@ -14,14 +15,23 @@ class voiceCommands {
             server.dispatcher = connection.playStream(yt(server.queue[0], { filter: "audioonly"}));
             server.queue.shift();
             server.dispatcher.on('end', () => {
-                if(!server.queue == []) 
+                if(server.queue[0]) 
                     play(connection,msg);
                 else 
                     connection.disconnect();
             });
             server.dispatcher.on('error', err => console.log(err))
             server.dispatcher.on('start', () =>{
-                msg.channel.send('start')
+
+                function youtube_parser(url){
+                    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+                    var match = url.match(regExp);
+                    return (match&&match[7].length==11)? match[7] : false;
+                }
+                
+
+
+                var videoinfo = ytinfo(youtube_parser(server.queue[0]))
             })
         }
 

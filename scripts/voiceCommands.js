@@ -56,14 +56,20 @@ class voiceCommands {
         }else if(command == prefix + 'skip'){
             var server = servers[msg.guild.id];
             if(server){
-                if(server.dispatcher) server.dispatcher.end()
+                if(server.dispatcher) {
+                    server.dispatcher.end()
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setDescription('Skipped!'));
+                }else{
+                    msg.channel.send(new discord.RichEmbed()
+                    .setColor([255,0,0])
+                    .setDescription('There isn\'t any song playing!22222'));
+                }
             }else{
                 msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])
-                .setDescription('There isn\'t any song playing!'))
+                .setDescription('There isn\'t any song playing!'));
             }
             
 

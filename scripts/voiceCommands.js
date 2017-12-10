@@ -63,12 +63,10 @@ class voiceCommands {
                 if(server.dispatcher) {
                     if(server.queue.length == 0){
                         msg.guild.voiceConnection.disconnect();
-                        server.dispatcher.end();
                         msg.channel.send(new discord.RichEmbed()
                         .setColor([255,0,0])
                         .setDescription('Skipped, and queue is empty, so i left the voice channel'));
                     }
-                    server.dispatcher.end()
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setDescription('Skipped!'));

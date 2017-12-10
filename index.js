@@ -6,38 +6,38 @@ console.log('Starting...');
 *                                               *
 ************************************************/
 
-const _data       = require('./scripts/data.js');
-const customCode  = require('./scripts/customCode');
-const data        = new _data();
-var token         = data.token();
-var prefix        = data.prefix();
-var osuApiKey     = data.osuApiKey();
-var owner         = data.owner();
-var allEvents     = data.allEvents();
-var debug         = data.debug();
-const _wikis      = require('./scripts/wikis.js')
-const wikis       = {
+const _data                    = require('./scripts/data.js');
+const customCode               = require('./scripts/customCode');
+const data                     = new _data();
+var token                      = data.token();
+var prefix                     = data.prefix();
+var osuApiKey                  = data.osuApiKey();
+var owner                      = data.owner();
+var allEvents                  = data.allEvents();
+var debug                      = data.debug();
+const _wikis                   = require('./scripts/wikis.js')
+const wikis                    = {
     home: new _wikis().home(),
     commands: new _wikis().commands(),
     replies: new _wikis().replies(),
     faq : new _wikis().faq(),
     isEnabled: new _wikis().isEnabled()
 };
-var servers = {}
+var servers                    = {}
 /************************************************
 *                                               *
 *                    MODULES                    *
 *                                               *
 ************************************************/
 
-const discord     = require('discord.js');
-const osu         = require('node-osu');
+const discord                  = require('discord.js');
+const osu                      = require('node-osu');
 
 
-const _randomCat  = require('./scripts/randomCat');
-const _randomDog  = require('./scripts/randomDog');
-const events      = require('./scripts/events.js');
-const voiceCommands  = require('./scripts/voiceCommands');
+const _randomCat               = require('./scripts/randomCat');
+const _randomDog               = require('./scripts/randomDog');
+const events                   = require('./scripts/events.js');
+const voiceCommands            = require('./scripts/voiceCommands');
 
 const client      = new discord.Client({
     apiRequestMethod: 'sequential',
@@ -63,9 +63,9 @@ const client      = new discord.Client({
     }
 });
 
-const osuApi      = new osu.Api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
-const randomCat   = new _randomCat();
-const randomDog   = new _randomDog();
+const osuApi                   = new osu.Api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
+const randomCat                = new _randomCat();
+const randomDog                = new _randomDog();
 
 new events(client,debug,allEvents,prefix);
 new customCode(client,discord);

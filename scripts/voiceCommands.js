@@ -62,18 +62,15 @@ class voiceCommands {
             if(server){
                 if(server.dispatcher) {
                     if(server.queue.length == 0){
-                        msg.guild.voiceConnection.disconnect();
                         msg.channel.send(new discord.RichEmbed()
                         .setColor([255,0,0])
                         .setDescription('Skipped, and queue is empty, so i left the voice channel'));
+                    }else{
+                        server.dispatcher.end();
+                        msg.channel.send(new discord.RichEmbed()
+                        .setColor([255,0,0])
+                        .setDescription('Skipped!'));
                     }
-                    msg.channel.send(new discord.RichEmbed()
-                    .setColor([255,0,0])
-                    .setDescription('Skipped!'));
-                }else{
-                    msg.channel.send(new discord.RichEmbed()
-                    .setColor([255,0,0])
-                    .setDescription('There isn\'t any song playing!22222'));
                 }
             }else{
                 msg.channel.send(new discord.RichEmbed()
@@ -98,7 +95,10 @@ class voiceCommands {
             }
         }else if(command == prefix + 'queue'){
             var serverqueue = servers[msg.guild.id].queue;
-            msg.channel.send(serverqueue);
+            if(!serverqueue.length == 0)
+                msg.channel.send(serverqueue);
+            else 
+                msg.channel.send('Nothing in the queue')
         }
     }
 }

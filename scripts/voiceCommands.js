@@ -96,6 +96,9 @@ class voiceCommands {
                 .setColor([255,0,0])
                 .setDescription('I can\'t stop when i already stopped!'));
             }
+        }else if(command == prefix + 'queue'){
+            var serverqueue = servers[msg.guild.id].queue;
+            msg.channel.send(serverqueue);
         }
     }
 }

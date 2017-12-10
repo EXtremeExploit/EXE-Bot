@@ -56,11 +56,10 @@ class voiceCommands {
         }else if(command == prefix + 'skip'){
             var server = servers[msg.guild.id];
             if(server){
-                if(server.dispatcher) server.dispatcher.end().then(() => {
+                if(server.dispatcher) server.dispatcher.end()
                     msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .setDescription('Skipped!'));
-                });
+                    .setColor([255,0,0])
+                    .setDescription('Skipped!'));
             }else{
                 msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])
@@ -71,12 +70,12 @@ class voiceCommands {
         }else if(command == prefix + 'stop'){
             var server = servers[msg.guild.id];
             if(msg.guild.voiceConnection) {
-                msg.guild.voiceConnection.disconnect().then(() => {
-                    server.queue.length = 0;
-                    msg.channel.send(new discord.RichEmbed()
-                    .setColor([255,0,0])
-                    .setDescription('Cleaned queue and disconnected from voice channel!'));
-                });
+                msg.guild.voiceConnection.disconnect()
+                server.queue.length = 0;
+                msg.channel.send(new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setDescription('Cleaned queue and disconnected from voice channel!'));
+                
             }else{
                 msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])

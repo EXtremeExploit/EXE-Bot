@@ -32,7 +32,6 @@ var servers = {}
 
 const discord     = require('discord.js');
 const osu         = require('node-osu');
-const yt          = require('ytdl-core');
 
 
 const _randomCat  = require('./scripts/randomCat');
@@ -235,7 +234,7 @@ client.on('message', (msg) => {
     }
         //Voice
         
-        new voiceCommands(prefix, msg, servers, discord, wikis, yt);
+        new voiceCommands(prefix, msg, servers, discord, wikis);
 
         //Support
 

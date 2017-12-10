@@ -1,5 +1,7 @@
+const yt          = require('ytdl-core');
+
 class voiceCommands {
-    constructor(prefix, msg, servers, discord, wikis, yt) {
+    constructor(prefix, msg, servers, discord, wikis) {
 
         
         var messageArray = msg.content.split(' ');
@@ -16,6 +18,10 @@ class voiceCommands {
                     play(connection,msg);
                 else 
                     connection.disconnect();
+            });
+            server.dispatcher.on('error', err => console.log(err))
+            server.dispatcher.on('start', () =>{
+                msg.channel.send('start')
             })
         }
 

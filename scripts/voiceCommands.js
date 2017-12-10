@@ -1,5 +1,4 @@
 const yt          = require('ytdl-core');
-const ytinfo      = require('youtube-info');
 
 class voiceCommands {
     constructor(prefix, msg, servers, discord, wikis) {
@@ -64,8 +63,5 @@ class voiceCommands {
         }
     }
 }
-
-
-
 
 module.exports = voiceCommands;

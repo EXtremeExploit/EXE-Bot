@@ -27,17 +27,19 @@ class voiceCommands {
 
         if (command == prefix + 'play'){
             if(!args[0] || args == ""){
-                return msg.channel.send(new discord.RichEmbed()
+                msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])
                 .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
                 .setDescription('Pleace specify a link!'));
+                return;
             }
 
             if(!msg.member.voiceChannel){
-                return msg.channel.send(new discord.RichEmbed()
+                msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])
                 .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
                 .setDescription('You must be in a voice channel first!'));
+                return;
             }
 
             if(!servers[msg.guild.id]){

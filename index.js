@@ -200,7 +200,8 @@ function osuBeatmap(beatmap){
     .addField('Status', bm.approved)
     .addField('Difficulty Name', bm.version, true)
     .addField('IDs', '**BeatmapSet:** '+bm.beatmap_id+'\n**Beatmap:** '+bm.beatmap_id, true)
-    .addField('Max Combo', bm.max_combo, true);
+    .addField('Max Combo', bm.max_combo, true)
+    .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/'+bm.beatmapset_id+')\n[**Beatmap**](https://osu.ppy.sh/b/'+bm.beatmap_id+')\n[**Download Beatmap Set**](https://osu.ppy.sh/d/'+bm.beatmapset_id+')', true);
 }
 
 /************************************************

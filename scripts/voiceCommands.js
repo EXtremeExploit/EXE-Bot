@@ -55,11 +55,18 @@ class voiceCommands {
 
         }else if(command == prefix + 'skip'){
             var server = servers[msg.guild.id];
-            if(server.dispatcher) server.dispatcher.end().then(() => {
+            if(server){
+                if(server.dispatcher) server.dispatcher.end().then(() => {
+                    msg.channel.send(new discord.RichEmbed()
+                .setColor([255,0,0])
+                .setDescription('Skipped!'));
+                });
+            }else{
                 msg.channel.send(new discord.RichEmbed()
-            .setColor([255,0,0])
-            .setDescription('Skipped!'));
-            });
+                .setColor([255,0,0])
+                .setDescription('There isnt any song playing!'))
+            }
+            
 
         }else if(command == prefix + 'stop'){
             var server = servers[msg.guild.id];

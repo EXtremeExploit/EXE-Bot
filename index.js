@@ -8,6 +8,7 @@ console.log('Starting...');
 
 const _data                    = require('./scripts/data.js');
 const customCode               = require('./scripts/customCode');
+var servers                    = {}
 const data                     = new _data();
 var token                      = data.token();
 var prefix                     = data.prefix();
@@ -23,7 +24,6 @@ const wikis                    = {
     faq : new _wikis().faq(),
     isEnabled: new _wikis().isEnabled()
 };
-var servers                    = {}
 /************************************************
 *                                               *
 *                    MODULES                    *
@@ -31,10 +31,9 @@ var servers                    = {}
 ************************************************/
 
 const discord                  = require('discord.js');
-
 const _randomCat               = require('./scripts/randomCat');
 const _randomDog               = require('./scripts/randomDog');
-const events                   = require('./scripts/events.js');
+const events                   = require('./scripts/events');
 const voiceCommands            = require('./commands/voiceCommands');
 const osuCommands              = require('./commands/osuCommands');
 
@@ -161,7 +160,7 @@ client.on('message', (msg) => {
     }
         //Voice
         
-        new voiceCommands(prefix, msg, servers, discord, wikis);
+        new voiceCommands(msg, servers);
 
         //Support
 
@@ -584,7 +583,7 @@ client.on('message', (msg) => {
 
     //Osu
 
-    new osuCommands(msg, wikis);
+    new osuCommands(msg);
 
     //Misc
     

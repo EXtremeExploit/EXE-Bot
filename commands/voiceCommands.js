@@ -1,7 +1,20 @@
-const yt          = require('ytdl-core');
+const _data                    = require('../scripts/data.js');
+const data                     = new _data();
+var prefix                     = data.prefix();
+
+const discord                  = require('discord.js');
+const yt                       = require('ytdl-core');
+const _wikis                   = require('../scripts/wikis');
+const wikis                    = {
+    home: new _wikis().home(),
+    commands: new _wikis().commands(),
+    replies: new _wikis().replies(),
+    faq : new _wikis().faq(),
+    isEnabled: new _wikis().isEnabled()
+};
 
 class voiceCommands {
-    constructor(prefix, msg, servers, discord, wikis) {
+    constructor(msg, servers) {
 
         
         var messageArray = msg.content.split(' ');

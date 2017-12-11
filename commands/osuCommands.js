@@ -2,13 +2,21 @@ const _data                    = require('../scripts/data.js');
 const data                     = new _data();
 var prefix                     = data.prefix();
 var osuApiKey                  = data.osuApiKey();
+const _wikis                   = require('../scripts/wikis');
+const wikis                    = {
+    home: new _wikis().home(),
+    commands: new _wikis().commands(),
+    replies: new _wikis().replies(),
+    faq : new _wikis().faq(),
+    isEnabled: new _wikis().isEnabled()
+};
 
 const discord                  = require('discord.js');
 const osu                      = require('node-osu');
 const osuApi                   = new osu.Api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 
 class osuCommands {
-    constructor(msg, wikis){
+    constructor(msg){
         var messageArray = msg.content.split(' ');
         var command = messageArray[0];
         var args = messageArray.slice(1).join(' ');

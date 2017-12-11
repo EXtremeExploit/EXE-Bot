@@ -200,23 +200,27 @@ function osuUser(userf){
     .addField('Count Notes', '300: ' + user.count300 + '\n' + '100: ' + user.count100 + '\n' + '50: ' + user.count50,true)
     .addField('PP (Perfomance Points)', user.pp_raw,true)
     .addField('Scores','Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
-    .addField('Global Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
+    .addField('Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
     .addField('Play Count', user.playcount,true)
-    .addField('Level', user.level)
-    .addField('Accuracy',(parseFloat(user.accuracy).toFixed(2) + '%'));
+    .addField('Level', user.level, true)
+    .addField('Accuracy',(parseFloat(user.accuracy).toFixed(2) + '%'), true);
 }
 
 function osuBest(playF){
     var play = playF[0];
+    if(play.rank == 'S') play.rank = 'S (Gold)';
+    if(play.rank == 'SH') play.rank = 'S (Silver)';
+    if(play.rank == 'X') play.rank = 'SS (Gold)';
+    if(play.rank == 'XH') play.rank = 'SS (Silver)';
     return new discord.RichEmbed()
     .setColor([255, 58, 255])
-    .addField('Score', play.score)
-    .addField('Combo', play.maxcombo)
-    .addField('BeatmapID', play.beatmap_id)
-    .addField('PP', play.pp)
-    .addField('Rank', play.rank)
+    .addField('BeatmapID', play.beatmap_id, true)
+    .addField('Score', play.score, true)
     .addField('Count Notes', '300: ' + play.count300 + '\n' + '100: ' + play.count100 + '\n' + '50: ' + play.count50,true)
-    .addField('Date', play.date);
+    .addField('Combo', play.maxcombo, true)
+    .addField('Date', play.date, true)
+    .addField('PP', play.pp, true)
+    .addField('Rank', play.rank, true)
 }
 
 function osuBeatmap(beatmap){

@@ -80,7 +80,7 @@ class osuCommands {
         }else if(command == prefix + 'osuManiaUser'){
             osuApi.apiCall('/get_user',{
                 u: args,
-                m: 4,
+                m: 3,
                 type: 'string',
                 event_days: 4
             }).then(userf =>{
@@ -116,7 +116,7 @@ class osuCommands {
         }else if(command == prefix + 'osuTaikoBest'){
             osuApi.apiCall('/get_user_best',{
                 u: args,
-                m: 0,
+                m: 1,
                 limit: 1,
                 type: 'string'
             }).then(playF =>{
@@ -134,7 +134,7 @@ class osuCommands {
         }else if(command == prefix + 'osuCtbBest'){
             osuApi.apiCall('/get_user_best',{
                 u: args,
-                m: 0,
+                m: 2,
                 limit: 1,
                 type: 'string'
             }).then(playF =>{
@@ -153,7 +153,7 @@ class osuCommands {
         }else if(command == prefix + 'osuManiaBest'){
             osuApi.apiCall('/get_user_best',{
                 u: args,
-                m: 0,
+                m: 3,
                 limit: 1,
                 type: 'string'
             }).then(playF =>{
@@ -203,7 +203,7 @@ function osuUser(userf){
     .addField('Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
     .addField('Play Count', user.playcount,true)
     .addField('Level', user.level, true)
-    .addField('Accuracy',(parseFloat(user.accuracy).toFixed(2) + '%'), true);
+    .addField('Accuracy',(fixDecimals(user.accuracy) + '%'), true);
 }
 
 function osuBest(playF){
@@ -245,7 +245,7 @@ function osuBeatmap(beatmap){
     .addField('Title', bm.title,true)
     .addField('BPM', bm.bpm,true)
     .addField('Artist', bm.artist, true)
-    .addField('Difficulty', 'Stars: ' + parseFloat(bm.difficultyrating).toFixed(2) + '*\n' + 'HP: ' + bm.diff_drain + '\n' + 'OD: ' + bm.diff_overall + '\n' + 'AR: ' + bm.diff_approach + '\n' + 'CS: ' + bm.diff_size, true)
+    .addField('Difficulty', 'Stars: ' + fixDecimals(bm.difficultyrating) + '*\n' + 'HP: ' + bm.diff_drain + '\n' + 'OD: ' + bm.diff_overall + '\n' + 'AR: ' + bm.diff_approach + '\n' + 'CS: ' + bm.diff_size, true)
     .addField('Creator', bm.creator, true)
     .addField('Source', bm.source, true)
     .addField('Status', bm.approved)
@@ -253,6 +253,10 @@ function osuBeatmap(beatmap){
     .addField('IDs', '**BeatmapSet:** '+bm.beatmap_id+'\n**Beatmap:** '+bm.beatmap_id, true)
     .addField('Max Combo', bm.max_combo, true)
     .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/'+bm.beatmapset_id+')\n[**Beatmap**](https://osu.ppy.sh/b/'+bm.beatmap_id+')\n[**Download Beatmap Set**](https://osu.ppy.sh/d/'+bm.beatmapset_id+')', true);
+}
+
+function fixDecimals(number) {
+    return parseFloat(number).toFixed(2);
 }
 
 module.exports = osuCommands;

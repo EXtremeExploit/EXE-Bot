@@ -37,7 +37,7 @@ class osuCommands {
                 .setColor([255,0,0])
                 .setTitle('Error')
                 .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
-                .setDescription('User does not exists')
+                .setDescription('User does not exists or doesnt have any play in your search!')
                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
             });
     
@@ -55,7 +55,7 @@ class osuCommands {
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
-                    .setDescription('User does not exists')
+                    .setDescription('User does not exists or doesnt have any play in your search!')
                     .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
                 });
     
@@ -73,7 +73,7 @@ class osuCommands {
                 .setColor([255,0,0])
                 .setTitle('Error')
                 .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
-                .setDescription('User does not exists')
+                .setDescription('User does not exists or doesnt have any play in your search!')
                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
             });
     
@@ -91,7 +91,7 @@ class osuCommands {
                 .setColor([255,0,0])
                 .setTitle('Error')
                 .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
-                .setDescription('User does not exists')
+                .setDescription('User does not exists or doesnt have any play in your search!')
                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
             });
     
@@ -105,11 +105,12 @@ class osuCommands {
                 msg.channel.send(osuBest(playF))
             })
             .catch(err => {
+                console.log(err);
                 msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])
                 .setTitle('Error')
                 .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
-                .setDescription('User does not exists')
+                .setDescription('User does not exists or doesnt have any play in your search!')
                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
             });
     
@@ -127,7 +128,7 @@ class osuCommands {
                 .setColor([255,0,0])
                 .setTitle('Error')
                 .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
-                .setDescription('User does not exists')
+                .setDescription('User does not exists or doesnt have any play in your search!')
                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
             });
     
@@ -146,7 +147,7 @@ class osuCommands {
                 .setColor([255,0,0])
                 .setTitle('Error')
                 .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
-                .setDescription('User does not exists')
+                .setDescription('User does not exists or doesnt have any play in your search!')
                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
             });
     
@@ -164,7 +165,7 @@ class osuCommands {
                 .setColor([255,0,0])
                 .setTitle('Error')
                 .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
-                .setDescription('User does not exists')
+                .setDescription('User does not exists or doesnt have any play in your search!')
                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
             });
     
@@ -203,7 +204,9 @@ function osuUser(userf){
     .addField('Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
     .addField('Play Count', user.playcount,true)
     .addField('Level', user.level, true)
-    .addField('Accuracy',(fixDecimals(user.accuracy) + '%'), true);
+    .addField('Accuracy',(fixDecimals(user.accuracy) + '%'), true)
+    .addField('Links', '[**User**](https://osu.ppy.sh/u/' + play.user_id + ')\n'+
+                       '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true);
 }
 
 function osuBest(playF){
@@ -214,13 +217,21 @@ function osuBest(playF){
     if(play.rank == 'XH') play.rank = 'SS (Silver)';
     return new discord.RichEmbed()
     .setColor([255, 58, 255])
+    .addField('Map', '**Difficulty:** '+ getDiffName(play.beatmap_id))
     .addField('BeatmapID', play.beatmap_id, true)
     .addField('Score', play.score, true)
-    .addField('Count Notes', '300: ' + play.count300 + '\n' + '100: ' + play.count100 + '\n' + '50: ' + play.count50,true)
+    .addField('Count Notes', '**300:** ' + play.count300 + '\n' +
+                             '**100:** ' + play.count100 + '\n' +
+                             '**50:** ' + play.count50 + '\n' +
+                             '**Misses:** '+ play.countmiss,true)
     .addField('Combo', play.maxcombo, true)
     .addField('Date', play.date, true)
     .addField('PP', play.pp, true)
     .addField('Rank', play.rank, true)
+    .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/'+getBeatmapSetID(play.beatmap_id)+')\n' +
+                       '[**Beatmap**](https://osu.ppy.sh/b/'+play.beatmap_id+')\n'+
+                       '[**Download Beatmap Set**](https://osu.ppy.sh/d/'+getBeatmapSetID(play.beatmap_id)+')\n'+
+                       '[**User**](https://osu.ppy.sh/u/'+play.user_id+')', true)
 }
 
 function osuBeatmap(beatmap){
@@ -245,18 +256,41 @@ function osuBeatmap(beatmap){
     .addField('Title', bm.title,true)
     .addField('BPM', bm.bpm,true)
     .addField('Artist', bm.artist, true)
-    .addField('Difficulty', 'Stars: ' + fixDecimals(bm.difficultyrating) + '*\n' + 'HP: ' + bm.diff_drain + '\n' + 'OD: ' + bm.diff_overall + '\n' + 'AR: ' + bm.diff_approach + '\n' + 'CS: ' + bm.diff_size, true)
+    .addField('Difficulty', 'Stars: ' + fixDecimals(bm.difficultyrating) + '*\n' +
+                            'HP: ' + bm.diff_drain + '\n' +
+                            'OD: ' + bm.diff_overall + '\n' +
+                            'AR: ' + bm.diff_approach + '\n' +
+                            'CS: ' + bm.diff_size, true)
     .addField('Creator', bm.creator, true)
     .addField('Source', bm.source, true)
     .addField('Status', bm.approved)
     .addField('Difficulty Name', bm.version, true)
     .addField('IDs', '**BeatmapSet:** '+bm.beatmap_id+'\n**Beatmap:** '+bm.beatmap_id, true)
     .addField('Max Combo', bm.max_combo, true)
-    .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/'+bm.beatmapset_id+')\n[**Beatmap**](https://osu.ppy.sh/b/'+bm.beatmap_id+')\n[**Download Beatmap Set**](https://osu.ppy.sh/d/'+bm.beatmapset_id+')', true);
+    .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/'+bm.beatmapset_id+')\n'+
+                       '[**Beatmap**](https://osu.ppy.sh/b/'+bm.beatmap_id+')\n'+
+                       '[**Download Beatmap Set**](https://osu.ppy.sh/d/'+bm.beatmapset_id+')', true);
 }
 
 function fixDecimals(number) {
     return parseFloat(number).toFixed(2);
+}
+
+function getBeatmapSetID(beatmap_id){
+    osuApi.apiCall('/get_beatmaps',{
+        b: parseInt(beatmap_id)
+    }).then(bmF => {
+        return bmF[0].beatmapset_id;
+    });
+}
+
+function getDiffName(beatmap_id){
+    osuApi.apiCall('/get_beatmaps', {
+        b: parseInt(beatmap_id)
+    }).then(bmF => {
+        var bm = bmF[0];
+        return bm.version;
+    })
 }
 
 module.exports = osuCommands;

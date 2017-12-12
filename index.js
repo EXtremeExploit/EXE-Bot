@@ -448,7 +448,6 @@ client.on('message', (msg) => {
                 .setColor([255, 0, 0]));
         }
     } else if (command == prefix + 'prune') {
-
         if (msg.member.hasPermission(['MANAGE_MESSAGES']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
             if (!args == null || !args == "") {
                 if (args == "1" || parseInt(args) > 99) {
@@ -460,7 +459,9 @@ client.on('message', (msg) => {
                     msg.channel.bulkDelete(parseInt(args)).then(() => {
                         msg.channel.send(new discord.RichEmbed()
                             .setColor([255, 0, 0])
-                            .setDescription('Deleted ' + args + ' Messages.'));
+                            .setDescription('Deleted ' + args + ' Messages.')).then(deletemsg => {
+                                deletemsg.delete(5000);
+                            });;
                     });
                 }
 

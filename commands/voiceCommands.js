@@ -1,11 +1,11 @@
-const _data                    = require('../scripts/data.js');
-const data                     = new _data();
-var prefix                     = data.prefix();
+const _data                                   = require('../scripts/data.js');
+const data                                    = new _data();
+var prefix                                    = data.prefix();
 
-const discord                  = require('discord.js');
-const yt                       = require('ytdl-core');
-const _wikis                   = require('../scripts/wikis');
-const wikis                    = {
+const discord                                 = require('discord.js');
+const yt                                      = require('ytdl-core');
+const _wikis                                  = require('../scripts/wikis');
+const wikis                                   = {
     home: new _wikis().home(),
     commands: new _wikis().commands(),
     replies: new _wikis().replies(),

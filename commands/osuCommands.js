@@ -277,19 +277,21 @@ function fixDecimals(number) {
 }
 
 function getBeatmapSetID(beatmap_id){
+    if(typeof beatmap_id == 'string') beatmap_id = parseInt(beatmap_id);
     osuApi.apiCall('/get_beatmaps',{
-        b: parseInt(beatmap_id)
-    }).then(bmF => {
-        return bmF[0].beatmapset_id;
+        b: beatmap_id
+    }).then(bm => {
+        bm[0].beatmapset_id;
     });
 }
 
 function getDiffName(beatmap_id){
+    if(typeof beatmap_id == 'string') beatmap_id = parseInt(beatmap_id);
     osuApi.apiCall('/get_beatmaps', {
-        b: parseInt(beatmap_id)
+        b: beatmap_id
     }).then(bmF => {
         var bm = bmF[0];
-        return bm.version;
+        bm.version;
     })
 }
 

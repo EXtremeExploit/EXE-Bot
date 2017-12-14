@@ -193,16 +193,16 @@ function osuUser(userf){
     .setColor([255, 58, 255])
     .setAuthor(user.username,'https://a.ppy.sh/' + user.user_id)
     .setThumbnail('https://a.ppy.sh/' + user.user_id)
-    .addField('ID', user.user_id,true)
+    .addField('General', '**ID:** '+ user.user_id + '\n' +
+                         '**Country:** '+user.country + '\n' +
+                         '**PP:** '+user.pp_raw + '\n' +
+                         '**Level:** '+user.level + '\n' +
+                         '**Accuracy:** '+ fixDecimals(user.accuracy)+ '%\n'+
+                         '**Play Count:** '+user.playcount +'\n', true)
     .addField('Count Ranks','SS: ' + user.count_rank_ss + '\n' + 'S: ' + user.count_rank_s + '\n' + 'A: ' + user.count_rank_a, true)
-    .addField('Country', user.country,true)
-    .addField('Count Notes', '300: ' + user.count300 + '\n' + '100: ' + user.count100 + '\n' + '50: ' + user.count50,true)
-    .addField('PP (Perfomance Points)', user.pp_raw,true)
-    .addField('Scores','Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
     .addField('Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
-    .addField('Play Count', user.playcount,true)
-    .addField('Level', user.level, true)
-    .addField('Accuracy',(fixDecimals(user.accuracy) + '%'), true)
+    .addField('Count Notes', '300: ' + user.count300 + '\n' + '100: ' + user.count100 + '\n' + '50: ' + user.count50,true)
+    .addField('Scores','Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
     .addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n'+
                        '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true);
 }

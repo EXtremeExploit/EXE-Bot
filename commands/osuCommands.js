@@ -203,7 +203,7 @@ function osuUser(userf){
     .addField('Play Count', user.playcount,true)
     .addField('Level', user.level, true)
     .addField('Accuracy',(fixDecimals(user.accuracy) + '%'), true)
-    .addField('Links', '[**User**](https://osu.ppy.sh/u/' + play.user_id + ')\n'+
+    .addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n'+
                        '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true);
 }
 

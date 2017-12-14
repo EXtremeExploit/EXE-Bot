@@ -33,7 +33,6 @@ class osuCommands {
                 msg.channel.send(osuUser(userf));
             })
             .catch(err => {
-                console.log(err)
                 msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])
                 .setTitle('Error')

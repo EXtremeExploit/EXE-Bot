@@ -105,7 +105,6 @@ class osuCommands {
                 msg.channel.send(osuBest(playF))
             })
             .catch(err => {
-                console.log(err);
                 msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])
                 .setTitle('Error')
@@ -176,7 +175,6 @@ class osuCommands {
                 msg.channel.send(osuBeatmap(beatmap));
             })
             .catch(err => {
-                console.log(err);
                 msg.channel.send(new discord.RichEmbed()
                 .setColor([255,0,0])
                 .setTitle('Error')
@@ -217,7 +215,6 @@ function osuBest(playF){
     if(play.rank == 'XH') play.rank = 'SS (Silver)';
     return new discord.RichEmbed()
     .setColor([255, 58, 255])
-    .addField('Map', '**Difficulty:** '+ getDiffName(play.beatmap_id))
     .addField('BeatmapID', play.beatmap_id, true)
     .addField('Score', play.score, true)
     .addField('Count Notes', '**300:** ' + play.count300 + '\n' +
@@ -228,9 +225,7 @@ function osuBest(playF){
     .addField('Date', play.date, true)
     .addField('PP', play.pp, true)
     .addField('Rank', play.rank, true)
-    .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/'+getBeatmapSetID(play.beatmap_id)+')\n' +
-                       '[**Beatmap**](https://osu.ppy.sh/b/'+play.beatmap_id+')\n'+
-                       '[**Download Beatmap Set**](https://osu.ppy.sh/d/'+getBeatmapSetID(play.beatmap_id)+')\n'+
+    .addField('Links', '[**Beatmap**](https://osu.ppy.sh/b/'+play.beatmap_id+')\n'+
                        '[**User**](https://osu.ppy.sh/u/'+play.user_id+')', true)
 }
 
@@ -274,25 +269,6 @@ function osuBeatmap(beatmap){
 
 function fixDecimals(number) {
     return parseFloat(number).toFixed(2);
-}
-
-function getBeatmapSetID(beatmap_id){
-    if(typeof beatmap_id == 'string') beatmap_id = parseInt(beatmap_id);
-    osuApi.apiCall('/get_beatmaps',{
-        b: beatmap_id
-    }).then(bm => {
-        bm[0].beatmapset_id;
-    });
-}
-
-function getDiffName(beatmap_id){
-    if(typeof beatmap_id == 'string') beatmap_id = parseInt(beatmap_id);
-    osuApi.apiCall('/get_beatmaps', {
-        b: beatmap_id
-    }).then(bmF => {
-        var bm = bmF[0];
-        bm.version;
-    })
 }
 
 module.exports = osuCommands;

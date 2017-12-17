@@ -710,6 +710,8 @@ client.on('message', (msg) => {
             msg.channel.send('oke');
         if (message == 'lmao')
             msg.channel.send('ayy');
+        if(message == 'sauce')
+            msg.channel.send('no ketchup');
     });
 
 client.login(token).catch(e => console.log(e));

@@ -12,8 +12,11 @@ const wikis                    = {
 };
 
 const discord                  = require('discord.js');
-const osu                      = require('node-osu');
-const osuApi                   = new osu.Api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
+const _osuapi = require('../scripts/osu');
+const osuApi = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
+
+
+
 
 class osuCommands {
     constructor(msg){
@@ -30,7 +33,7 @@ class osuCommands {
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
-                osuApi.apiCall('/get_user',{
+                osuApi.getUser({
                     u: args,
                     m: 0,
                     type: 'string',
@@ -54,7 +57,7 @@ class osuCommands {
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
-                osuApi.apiCall('/get_user',{
+                osuApi.getUser({
                     u: args,
                     m: 1,
                     type: 'string',
@@ -79,7 +82,7 @@ class osuCommands {
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
-                osuApi.apiCall('/get_user',{
+                osuApi.getUser({
                     u: args,
                     m: 2,
                     type: 'string',
@@ -103,7 +106,7 @@ class osuCommands {
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
-                osuApi.apiCall('/get_user',{
+                osuApi.getUser({
                     u: args,
                     m: 3,
                     type: 'string',
@@ -127,7 +130,7 @@ class osuCommands {
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
-                osuApi.apiCall('/get_user_best',{
+                osuApi.getUserBest({
                     u: args,
                     m: 0,
                     limit: 1,
@@ -151,7 +154,7 @@ class osuCommands {
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
-                osuApi.apiCall('/get_user_best',{
+                osuApi.getUserBest({
                     u: args,
                     m: 1,
                     limit: 1,
@@ -175,7 +178,7 @@ class osuCommands {
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
-                osuApi.apiCall('/get_user_best',{
+                osuApi.getUserBest({
                     u: args,
                     m: 2,
                     limit: 1,
@@ -199,7 +202,7 @@ class osuCommands {
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
-                osuApi.apiCall('/get_user_best',{
+                osuApi.getUserBest({
                     u: args,
                     m: 3,
                     limit: 1,
@@ -223,7 +226,7 @@ class osuCommands {
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify a beatmap ID'));
             }else{
-                osuApi.apiCall('/get_beatmaps',{
+                osuApi.getBeatmaps({
                     b: parseInt(args)
                 }).then(beatmap =>{
                     msg.channel.send(osuBeatmap(beatmap));

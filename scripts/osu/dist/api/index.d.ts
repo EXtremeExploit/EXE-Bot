@@ -1,7 +1,3 @@
-export declare type APIOptions = {
-    [key: string]: string;
-};
-
 export declare type APIOptionsUser = {
     u: string;
     m?: number;
@@ -219,13 +215,61 @@ export declare class APIWrapper {
     private _baseUrl;
     apiKey: string;
     constructor(apiKey: string);
+
+
+    /**
+     * Makes an HTTP request to an osu! API.
+     * 
+     * @param url The URL of the API that's being called.
+     * @param options An object consisting of parameters to be passed to the API.
+     * @returns A Promise object that will resolve to the result from the API call.
+     */
     private apiCall(url, options);
+
+    
+    /**
+     * Makes a call to the `/get_beatmaps` API.
+     * @param options A dictionary of parameters to provide to the API. See the osu! API documentation for more details.
+     */
     getBeatmaps(options: APIOptionsBeatmaps): Promise<APIResponseBeatmaps>[];
+
+
+    /**
+     * Makes a call to the `/get_match` API.
+     * @param options A dictionary of parameters to provide to the API. See the osu! API documentation for more details.
+     */
     getMatch(options: APIOptionsMatch): Promise<APIResponseMatch>[];
+    
+
+    /**
+     * Makes a call to the `/get_replay` API.
+     * @param options A dictionary of parameters to provide to the API. See the osu! API documentation for more details.
+     */
     getReplay(options: APIOptionsReplay): Promise<APIResponseReplay>;
+
+
+    /**
+     * Makes a call to the `/get_scores` API.
+     * @param options A dictionary of parameters to provide to the API. See the osu! API documentation for more details.
+     */
     getScores(options: APIOptionsScores): Promise<APIResponseScores>[];
+
+    /**
+     * Makes a call to the `/get_user` API.
+     * @param options A dictionary of parameters to provide to the API. See the osu! API documentation for more details.
+     */
     getUser(options: APIOptionsUser): Promise<APIResponseUser[]>;
+
+    /**
+     * Makes a call to the `/get_user_best` API.
+     * @param options A dictionary of parameters to provide to the API. See the osu! API documentation for more details.
+     */
     getUserBest(options: APIOptionsUserBest): Promise<APIResponseUserBest>[];
+
+    /**
+     * Makes a call to the `/get_user_recent` API.
+     * @param options A dictionary of parameters to provide to the API. See the osu! API documentation for more details.
+     */
     getUserRecent(options: APIOptionsUserRecent): Promise<APIResponseUserRecent>[];
 }
 export declare function api(apiKey: string): APIWrapper;

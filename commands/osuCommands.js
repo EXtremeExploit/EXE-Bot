@@ -12,7 +12,7 @@ const wikis                    = {
 };
 
 const discord                  = require('discord.js');
-const _osuapi                  = require('../scripts/osu');
+const _osuapi                  = require('osu.js');
 const osuApi                   = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 
 

@@ -12,9 +12,8 @@ const wikis                    = {
 };
 
 const discord                  = require('discord.js');
-const _osuapi = require('../scripts/osu');
-const osuApi = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
-
+const _osuapi                  = require('osu.js');
+const osuApi                   = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 
 
 
@@ -226,19 +225,28 @@ class osuCommands {
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify a beatmap ID'));
             }else{
-                osuApi.getBeatmaps({
-                    b: parseInt(args)
-                }).then(beatmap =>{
-                    msg.channel.send(osuBeatmap(beatmap));
-                })
-                .catch(err => {
+                if(args.startsWith('https://osu.ppy.sh/s/')){
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
-                    .setDescription('Beatmap does not exists')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
-                });
+                    .setDescription('try a beatmap instead of a set of beatmaps!')
+                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL))
+                }else{
+                    osuApi.getBeatmaps({
+                        b: parseInt(args)
+                    }).then(beatmap =>{
+                        msg.channel.send(osuBeatmap(beatmap));
+                    })
+                    .catch(err => {
+                        msg.channel.send(new discord.RichEmbed()
+                        .setColor([255,0,0])
+                        .setTitle('Error')
+                        .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
+                        .setDescription('Beatmap does not exists')
+                        .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                    });
+                }
             }
         }
     }

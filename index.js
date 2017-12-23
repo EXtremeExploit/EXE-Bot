@@ -1,3 +1,5 @@
+import { GuildMember } from 'discord.js';
+
 //STARTING
 console.log('Starting...');
 /************************************************
@@ -84,6 +86,9 @@ client.setInterval((e) => {
 *                                               *
 ************************************************/
 
+/**
+ * @param {string} text
+ */
 function clean(text) {
     if (typeof (text) == 'string')
         return text
@@ -93,6 +98,9 @@ function clean(text) {
         return text;
 }
 
+/**
+ * @param {string} string
+ */
 function reverseString(string) {
     var splitString = string.split('');
     var reverseArray = splitString.reverse();
@@ -100,6 +108,9 @@ function reverseString(string) {
     return joinArray;
 }
 
+/**
+ * @param {GuildMember} user
+ */
 function userInfo(user) {
     if (user.presence.status == 'online') user.presence.status = 'Online';
     else if (user.presence.status == 'dnd') user.presence.status = 'Do Not Disturb';

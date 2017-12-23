@@ -1,3 +1,5 @@
+import { Message, VoiceConnection } from 'discord.js';
+
 const _data                                   = require('../scripts/data.js');
 const data                                    = new _data();
 var prefix                                    = data.prefix();
@@ -21,6 +23,13 @@ class voiceCommands {
         var command = messageArray[0];
         var args = messageArray.slice(1).join(' ');
 
+
+        var discordmessage = discord.Message;
+
+        /**
+         * @param {VoiceConnection} connection 
+         * @param {Message} msg 
+         */
         function play(connection, msg) {
             var server = servers[msg.guild.id];
 

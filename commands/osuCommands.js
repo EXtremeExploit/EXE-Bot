@@ -332,6 +332,11 @@ function osuBeatmap(beatmap){
                        '[**Download Beatmap Set**](https://osu.ppy.sh/d/'+bm.beatmapset_id+')', true)
 }
 
+/**
+ * Fixes decimals to 2 decimals
+ * @param {number} number
+ * @returns {number}
+ */
 function fixDecimals(number) {
     return parseFloat(number).toFixed(2);
 }

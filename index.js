@@ -1,5 +1,3 @@
-const { GuildMember } = require('discord.js');
-
 //STARTING
 console.log('Starting...');
 /************************************************
@@ -33,6 +31,7 @@ const wikis                                   = {
 ************************************************/
 
 const discord                                 = require('discord.js');
+const { GuildMember }                         = require('discord.js');
 const _randomCat                              = require('./scripts/randomCat');
 const _randomDog                              = require('./scripts/randomDog');
 const events                                  = require('./scripts/events');

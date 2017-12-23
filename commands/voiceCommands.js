@@ -3,7 +3,7 @@ const data                                    = new _data();
 var prefix                                    = data.prefix();
 
 const discord                                 = require('discord.js');
-const {Message, VoiceConnection} = require('discord.js')
+const { Message, VoiceConnection }            = require('discord.js');
 const yt                                      = require('ytdl-core');
 const _wikis                                  = require('../scripts/wikis');
 const wikis                                   = {
@@ -15,6 +15,11 @@ const wikis                                   = {
 };
 
 class voiceCommands {
+    /**
+     * 
+     * @param {Message} msg 
+     * @param {any} servers 
+     */
     constructor(msg, servers) {
 
         

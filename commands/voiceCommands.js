@@ -1,3 +1,5 @@
+import { Message } from 'discord.js';
+
 const _data                                   = require('../scripts/data.js');
 const data                                    = new _data();
 var prefix                                    = data.prefix();
@@ -15,6 +17,11 @@ const wikis                                   = {
 };
 
 class voiceCommands {
+    /**
+     * 
+     * @param {Message} msg 
+     * @param {any} servers 
+     */
     constructor(msg, servers) {
 
         

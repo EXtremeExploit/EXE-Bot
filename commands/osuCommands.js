@@ -12,6 +12,7 @@ const wikis                    = {
 };
 
 const discord                  = require('discord.js');
+const { RichEmbed }             = require('discord.js')
 const _osuapi                  = require('osu.js');
 const osuApi                   = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const {Beatmap,Best,GamesOptions,Match,MatchOptions,Recent,Replay,Scores,ScoresOptions,User,UserEvents} = require('osu.js');
@@ -256,9 +257,10 @@ class osuCommands {
 
 /**
  * Returns the RichEmbed for user commands.
- * @param {User[]} userf 
+ * @param {User[]} userF 
+ * @returns {RichEmbed} 
  */
-function osuUser(userf){
+function osuUser(userF){
     var user = userf[0];
     return new discord.RichEmbed()
     .setColor([255, 58, 255])
@@ -270,9 +272,14 @@ function osuUser(userf){
                          '**Level:** '+user.level + '\n' +
                          '**Accuracy:** '+ fixDecimals(user.accuracy)+ '%\n'+
                          '**Play Count:** '+user.playcount +'\n', true)
-    .addField('Count Ranks','SS: ' + user.count_rank_ss + '\n' + 'S: ' + user.count_rank_s + '\n' + 'A: ' + user.count_rank_a, true)
-    .addField('Ranks','**Global: **' + user.pp_rank + '\n**Country:** ' + user.pp_country_rank, true)
-    .addField('Count Notes', '300: ' + user.count300 + '\n' + '100: ' + user.count100 + '\n' + '50: ' + user.count50,true)
+    .addField('Count Ranks','**SS:** ' + user.count_rank_ss + '\n' +
+                            '**S:** ' + user.count_rank_s + '\n' +
+                            '**A:** ' + user.count_rank_a, true)
+    .addField('Ranks','**Global:** ' + user.pp_rank + '\n' +
+                      '**Country:** ' + user.pp_country_rank, true)
+    .addField('Count Notes', '**300:** ' + user.count300 + '\n' +
+                             '**100:** ' + user.count100 + '\n' +
+                             '**50:** ' + user.count50,true)
     .addField('Scores','Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
     .addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n'+
                        '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true);
@@ -306,7 +313,7 @@ function osuBest(playF){
 
 /**
  * Returns the RichEmbed for beatmap command.
- * @param {Beatmap[]} beatmap 
+ * @param {Beatmap[]} beatmap
  */
 function osuBeatmap(beatmap){
     var bm = beatmap[0];
@@ -349,7 +356,7 @@ function osuBeatmap(beatmap){
 /**
  * Fixes decimals to 2 decimals
  * @param {number} number
- * @returns {number}
+ * @returns {number} 
  */
 function fixDecimals(number) {
     return parseFloat(number).toFixed(2);

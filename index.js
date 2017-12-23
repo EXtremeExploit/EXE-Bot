@@ -1,4 +1,4 @@
-import { GuildMember } from 'discord.js';
+const { GuildMember } = require('discord.js');
 
 //STARTING
 console.log('Starting...');

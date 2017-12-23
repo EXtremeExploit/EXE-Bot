@@ -1,10 +1,9 @@
-import { Message, VoiceConnection } from 'discord.js';
-
 const _data                                   = require('../scripts/data.js');
 const data                                    = new _data();
 var prefix                                    = data.prefix();
 
 const discord                                 = require('discord.js');
+const {Message, VoiceConnection} = require('discord.js')
 const yt                                      = require('ytdl-core');
 const _wikis                                  = require('../scripts/wikis');
 const wikis                                   = {

@@ -14,6 +14,7 @@ const wikis                    = {
 const discord                  = require('discord.js');
 const _osuapi                  = require('osu.js');
 const osuApi                   = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
+import {Beatmap,Best,GamesOptions,Match,MatchOptions,Recent,Replay,Scores,ScoresOptions,User,UserEvents} from 'osu.js'
 
 
 
@@ -252,6 +253,11 @@ class osuCommands {
     }
 }
 
+
+/**
+ * Returns the RichEmbed for user commands.
+ * @param {User[]} userf 
+ */
 function osuUser(userf){
     var user = userf[0];
     return new discord.RichEmbed()
@@ -272,6 +278,10 @@ function osuUser(userf){
                        '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true);
 }
 
+/**
+ * Returns the RichEmbed for user best commands.
+ * @param {Best[]} playF 
+ */
 function osuBest(playF){
     var play = playF[0];
     if(play.rank == 'S') play.rank = 'S (Gold)';
@@ -294,6 +304,10 @@ function osuBest(playF){
                        '[**User**](https://osu.ppy.sh/u/'+play.user_id+')', true)
 }
 
+/**
+ * Returns the RichEmbed for beatmap command.
+ * @param {Beatmap[]} beatmap 
+ */
 function osuBeatmap(beatmap){
     var bm = beatmap[0];
     if(bm.approved == -2) bm.approved = 'Graveyard';

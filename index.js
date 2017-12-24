@@ -7,7 +7,6 @@ console.log('Starting...');
 ************************************************/
 
 const _data                                   = require('./scripts/data.js');
-const customCode                              = require('./scripts/customCode');
 var servers                                   = {}
 const data                                    = new _data();
 var token                                     = data.token();
@@ -65,8 +64,7 @@ const client                                  = new discord.Client({
 const randomCat                               = new _randomCat();
 const randomDog                               = new _randomDog();
 
-new events(client, debug, allEvents, prefix);
-new customCode(client, discord);
+new events(client);
 
 client.setInterval((e) => {
     client.user.setPresence({

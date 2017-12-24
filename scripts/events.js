@@ -1,5 +1,18 @@
+const _data                                   = require('../scripts/data.js');
+const data                                    = new _data();
+var prefix                                    = data.prefix();
+var debug                                     = data.debug();
+var allEvents                                 = data.allEvents();
+
+const discord                                 = require('discord.js');
+const { Client }                              = require('discord.js')
+
 class Events {
-    constructor(client,debug,allEvents,prefix) {
+    /**
+     * 
+     * @param {Client} client 
+     */
+    constructor(client) {
         client.on("ready",() => {
             var me = client.user;
             console.log("JavaScript Node.JS discord.js 11.2.1");

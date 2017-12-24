@@ -12,7 +12,7 @@ const wikis                    = {
 };
 
 const discord                  = require('discord.js');
-const { RichEmbed }             = require('discord.js')
+const { RichEmbed, Message }   = require('discord.js')
 const _osuapi                  = require('osu.js');
 const osuApi                   = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 <<<<<<< HEAD
@@ -24,6 +24,10 @@ const {Beatmap,Best,GamesOptions,Match,MatchOptions,Recent,Replay,Scores,ScoresO
 
 
 class osuCommands {
+    /**
+     * Loads the osu commands.
+     * @param {Message} msg 
+     */
     constructor(msg){
         var messageArray = msg.content.split(' ');
         var command = messageArray[0];

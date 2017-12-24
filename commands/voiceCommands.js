@@ -1,5 +1,3 @@
-import { Message } from 'discord.js';
-
 const _data                                   = require('../scripts/data.js');
 const data                                    = new _data();
 var prefix                                    = data.prefix();

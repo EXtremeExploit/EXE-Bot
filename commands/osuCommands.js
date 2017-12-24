@@ -15,11 +15,7 @@ const discord                  = require('discord.js');
 const { RichEmbed, Message }   = require('discord.js')
 const _osuapi                  = require('osu.js');
 const osuApi                   = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
-<<<<<<< HEAD
 const {Beatmap,Best,GamesOptions,Match,MatchOptions,Recent,Replay,Scores,ScoresOptions,User,UserEvents} = require('osu.js')
-=======
-const {Beatmap,Best,GamesOptions,Match,MatchOptions,Recent,Replay,Scores,ScoresOptions,User,UserEvents} = require('osu.js');
->>>>>>> master
 
 
 

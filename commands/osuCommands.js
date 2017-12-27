@@ -12,7 +12,7 @@ const wikis                    = {
 };
 
 const discord                  = require('discord.js');
-const { RichEmbed, Message }   = require('discord.js')
+const { RichEmbed, Message }   = discord;
 const _osuapi                  = require('osu.js');
 const osuApi                   = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const {Beatmap,Best,GamesOptions,Match,MatchOptions,Recent,Replay,Scores,ScoresOptions,User,UserEvents} = require('osu.js')
@@ -47,6 +47,7 @@ class osuCommands {
                     msg.channel.send(osuUser(userf));
                 })
                 .catch(err => {
+                    console.log(err);
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
@@ -265,7 +266,7 @@ class osuCommands {
  * @returns {RichEmbed} 
  */
 function osuUser(userF){
-    var user = userf[0];
+    var user = userF[0];
     return new discord.RichEmbed()
     .setColor([255, 58, 255])
     .setAuthor(user.username,'https://a.ppy.sh/' + user.user_id)

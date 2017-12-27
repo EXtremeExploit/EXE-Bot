@@ -1,7 +1,7 @@
 {
-    "token": "Mzg5Nzc2OTY0NzYxODEyOTky.DSNmtQ.yrc0RXE1KL5CQgAux9Y_Zo6mdGc",
-    "prefix": "eb!",
-    "osuApiKey": "c6d47f07b26ed71c38cfea09f99def2b31952515",
+    "token": "TOKEN",
+    "prefix": "PREFIX",
+    "osuApiKey": "OSU_API_KEY",
     "owner": {
         "id": 257556050213994516,
         "username": "EXtremeExploit",

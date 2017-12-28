@@ -31,7 +31,7 @@ const wikis                                   = {
 
 const discord                                 = require('discord.js');
 const { GuildMember }                         = require('discord.js');
-const _randomCat                              = require('./scripts/randomCat');
+const _randomCat                              = require('random.cat.js');
 const _randomDog                              = require('./scripts/randomDog');
 const events                                  = require('./scripts/events');
 const voiceCommands                           = require('./commands/voiceCommands');
@@ -61,7 +61,7 @@ const client                                  = new discord.Client({
     }
 });
 
-const randomCat                               = new _randomCat();
+const randomCat                               = _randomCat.api();
 const randomDog                               = new _randomDog();
 
 new events(client);

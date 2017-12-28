@@ -42,6 +42,7 @@
     "node-opus": "^0.2.7",
     "opusscript": "0.0.3",
     "osu.js": "^1.1.1",
+    "random.cat.js": "^1.0.2",
     "sax": "^1.2.4",
     "snekfetch": "^3.5.8",
     "superagent": "^3.8.1",

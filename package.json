@@ -43,11 +43,11 @@
     "opusscript": "0.0.3",
     "osu.js": "^1.1.1",
     "random.cat.js": "^1.0.2",
+    "request": "^2.83.0",
     "sax": "^1.2.4",
     "snekfetch": "^3.5.8",
     "superagent": "^3.8.1",
     "ws": "^3.3.1",
-    "youtube-info": "^1.1.2",
     "ytdl-core": "^0.17.1"
   },
   "homepage": "https://extremeexploit.github.io/EXE_Bot/",

@@ -4,7 +4,7 @@
   "description": "A Discord Bot made in Node.JS",
   "author": "EXtremeExploit",
   "scripts": {
-    "start": "del node_modules",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "main": "index.js",

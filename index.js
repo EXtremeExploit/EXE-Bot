@@ -579,7 +579,7 @@ client.on('message', (msg) => {
 
     //Osu
 
-    new osuCommands(msg);
+    new osuCommands(msg).commands();
 
     //Misc
 
@@ -593,7 +593,7 @@ client.on('message', (msg) => {
                     .addField('Bot', `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
                     .addField('API', `**${client.ping}ms.**`, true));
             });
-    }else if (command == prefix + 'pong') {
+    } else if (command == prefix + 'pong') {
         msg.channel.send(new discord.RichEmbed()
             .setTitle('Pinging...')
             .setColor([0, 0, 255])).then(pingMsg => {
@@ -705,7 +705,7 @@ client.on('message', (msg) => {
             msg.channel.send('oke');
         if (message == 'lmao')
             msg.channel.send('ayy');
-        if(message == 'sauce')
+        if (message == 'sauce')
             msg.channel.send('no ketchup');
     });
 

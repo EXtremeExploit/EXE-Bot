@@ -12,250 +12,267 @@ const wikis                    = {
 };
 
 const discord                  = require('discord.js');
-const { RichEmbed, Message }   = discord;
+const { RichEmbed, Message, Client }   = discord;
 const _osuapi                  = require('osu.js');
 const osuApi                   = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
-const {Beatmap,Best,GamesOptions,Match,MatchOptions,Recent,Replay,Scores,ScoresOptions,User,UserEvents} = require('osu.js')
+const {Beatmap, Best, GamesOptions, Match, MatchOptions, Recent, Replay, Scores, ScoresOptions, User, UserEvents} = _osuapi;
 
 
 
 class osuCommands {
     /**
      * Loads the osu commands.
-     * @param {Message} msg 
+     * @param {Message} msg
      */
     constructor(msg){
-        var messageArray = msg.content.split(' ');
-        var command = messageArray[0];
-        var args = messageArray.slice(1).join(' ');
+        this.msg = msg;
+        this.messageArray = msg.content.split(' ');
+        this.command = this.messageArray[0];
+        this.args = this.messageArray.slice(1).join(' ');
+    }
+    commands(){
 
-
-
-        if(command == prefix + 'osuStdUser'){
-            if(args == '' || args == null){
-                msg.channel.send(new discord.RichEmbed()
+        if(this.command == prefix + 'osuStdUser'){
+            if(this.args == '' || this.args == null){
+                this.msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
                 osuApi.getUser({
-                    u: args,
+                    u: this.args,
                     m: 0,
                     type: 'string',
                     event_days: 4
                 }).then(userf => {
-                    msg.channel.send(osuUser(userf));
+                    this.msg.channel.send(osuUser(userf));
                 })
                 .catch(err => {
                     console.log(err);
-                    msg.channel.send(new discord.RichEmbed()
+                    this.msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                     .setDescription('User does not exists or doesnt have any play in your search!')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                    .setAuthor(this.msg.member.user.username, this.msg.member.user.displayAvatarURL));
                 });
             }
-        }else if(command == prefix + 'osuTaikoUser'){
-            if(args == '' || args == null){
-                msg.channel.send(new discord.RichEmbed()
+        }else if(this.command == prefix + 'osuTaikoUser'){
+            if(this.args == '' || this.args == null){
+                this.msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
                 osuApi.getUser({
-                    u: args,
+                    u: this.args,
                     m: 1,
                     type: 'string',
                     event_days: 4
                 }).then(userf =>{
-                    msg.channel.send(osuUser(userf));
+                    this.msg.channel.send(osuUser(userf));
                     })
                 .catch(err => {
-                    msg.channel.send(new discord.RichEmbed()
+                    this.msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                     .setDescription('User does not exists or doesnt have any play in your search!')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                    .setAuthor(this.msg.member.user.username, this.msg.member.user.displayAvatarURL));
                 });
             }
     
-        }else if(command == prefix + 'osuCtbUser'){
-            if(args == '' || args == null){
-                msg.channel.send(new discord.RichEmbed()
+        }else if(this.command == prefix + 'osuCtbUser'){
+            if(this.args == '' || this.args == null){
+                this.msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
                 osuApi.getUser({
-                    u: args,
+                    u: this.args,
                     m: 2,
                     type: 'string',
                     event_days: 4
                 }).then(userf =>{
-                    msg.channel.send(osuUser(userf));
+                    this.msg.channel.send(osuUser(userf));
                 })
                 .catch(err => {
-                    msg.channel.send(new discord.RichEmbed()
+                    this.msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                     .setDescription('User does not exists or doesnt have any play in your search!')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                    .setAuthor(this.msg.member.user.username, this.msg.member.user.displayAvatarURL));
                 });
             }
-        }else if(command == prefix + 'osuManiaUser'){
-            if(args == '' || args == null){
-                msg.channel.send(new discord.RichEmbed()
+        }else if(this.command == prefix + 'osuManiaUser'){
+            if(this.args == '' || this.args == null){
+                this.msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
                 osuApi.getUser({
-                    u: args,
+                    u: this.args,
                     m: 3,
                     type: 'string',
                     event_days: 4
                 }).then(userf =>{
-                    msg.channel.send(osuUser(userf));
+                    this.msg.channel.send(osuUser(userf));
                 })
                 .catch(err => {
-                    msg.channel.send(new discord.RichEmbed()
+                    this.msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                     .setDescription('User does not exists or doesnt have any play in your search!')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                    .setAuthor(this.msg.member.user.username, this.msg.member.user.displayAvatarURL));
                 });
             }
-        }else if(command == prefix + 'osuStdBest'){
-            if(args == '' || args == null){
-                msg.channel.send(new discord.RichEmbed()
+        }else if(this.command == prefix + 'osuStdBest'){
+            if(this.args == '' || this.args == null){
+                this.msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
                 osuApi.getUserBest({
-                    u: args,
+                    u: this.args,
                     m: 0,
                     limit: 1,
                     type: 'string'
                 }).then(playF =>{
-                    msg.channel.send(osuBest(playF))
+                    this.msg.channel.send(osuBest(playF))
                 })
                 .catch(err => {
-                    msg.channel.send(new discord.RichEmbed()
+                    this.msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                     .setDescription('User does not exists or doesnt have any play in your search!')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                    .setAuthor(this.msg.member.user.username, this.msg.member.user.displayAvatarURL));
                 });
             }
-        }else if(command == prefix + 'osuTaikoBest'){
-            if(args == '' || args == null){
-                msg.channel.send(new discord.RichEmbed()
+        }else if(this.command == prefix + 'osuTaikoBest'){
+            if(this.args == '' || this.args == null){
+                this.msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
                 osuApi.getUserBest({
-                    u: args,
+                    u: this.args,
                     m: 1,
                     limit: 1,
                     type: 'string'
                 }).then(playF =>{
-                    msg.channel.send(osuBest(playF))
+                    this.msg.channel.send(osuBest(playF))
                 })
                 .catch(err => {
-                    msg.channel.send(new discord.RichEmbed()
+                    this.msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                     .setDescription('User does not exists or doesnt have any play in your search!')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                    .setAuthor(this.msg.member.user.username, this.msg.member.user.displayAvatarURL));
                 });
             }
-        }else if(command == prefix + 'osuCtbBest'){
-            if(args == '' || args == null){
-                msg.channel.send(new discord.RichEmbed()
+        }else if(this.command == prefix + 'osuCtbBest'){
+            if(this.args == '' || this.args == null){
+                this.msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
                 osuApi.getUserBest({
-                    u: args,
+                    u: this.args,
                     m: 2,
                     limit: 1,
                     type: 'string'
                 }).then(playF =>{
-                    msg.channel.send(osuBest(playF))
+                    this.msg.channel.send(osuBest(playF))
                 })
                 .catch(err => {
-                    msg.channel.send(new discord.RichEmbed()
+                    this.msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                     .setDescription('User does not exists or doesnt have any play in your search!')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                    .setAuthor(this.msg.member.user.username, this.msg.member.user.displayAvatarURL));
                 });
             }
-        }else if(command == prefix + 'osuManiaBest'){
-            if(args == '' || args == null){
-                msg.channel.send(new discord.RichEmbed()
+        }else if(this.command == prefix + 'osuManiaBest'){
+            if(this.args == '' || this.args == null){
+                this.msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
             }else{
                 osuApi.getUserBest({
-                    u: args,
+                    u: this.args,
                     m: 3,
                     limit: 1,
                     type: 'string'
                 }).then(playF =>{
-                    msg.channel.send(osuBest(playF));
+                    this.msg.channel.send(osuBest(playF));
                 })
                 .catch(err => {
-                    msg.channel.send(new discord.RichEmbed()
+                    this.msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                     .setDescription('User does not exists or doesnt have any play in your search!')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                    .setAuthor(this.msg.member.user.username, this.msg.member.user.displayAvatarURL));
                 });
             }
-        }else if(command == prefix + 'osuBeatmap'){
-            if(args == '' || args == null){
-                msg.channel.send(new discord.RichEmbed()
+        }else if(this.command == prefix + 'osuBeatmap'){
+            if(this.args == '' || this.args == null){
+                this.msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify a beatmap ID'));
             }else{
-                if(args.startsWith('https://osu.ppy.sh/s/')){
-                    msg.channel.send(new discord.RichEmbed()
+                if(this.args.startsWith('https://osu.ppy.sh/s/')){
+                    this.msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                     .setDescription('try a beatmap instead of a set of beatmaps!')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL))
+                    .setAuthor(this.msg.member.user.username, this.msg.member.user.displayAvatarURL))
                 }else{
                     osuApi.getBeatmaps({
-                        b: parseInt(args)
+                        b: parseInt(this.args)
                     }).then(beatmap =>{
-                        msg.channel.send(osuBeatmap(beatmap));
+                        this.msg.channel.send(osuBeatmap(beatmap));
                     })
                     .catch(err => {
-                        msg.channel.send(new discord.RichEmbed()
+                        this.msg.channel.send(new discord.RichEmbed()
                         .setColor([255,0,0])
                         .setTitle('Error')
                         .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
                         .setDescription('Beatmap does not exists')
-                        .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                        .setAuthor(this.msg.member.user.username, this.msg.member.user.displayAvatarURL));
                     });
                 }
             }
         }
+    }
+    /**
+     * 
+     * @param {Client} client 
+     */
+    replies(client){
+        client.on('message', msg => {
+            if (msg.content.startsWith('https://osu.ppy.sh/b/')){
+                var id = msg.content.split('/')[4];
+                osuApi.getBeatmaps({
+                    b: parseInt(id)
+                }).then(bmF => {
+                    msg.channel.send(osuBeatmapReply(bmF));
+                })
+            }
+        })
     }
 }
 
@@ -355,8 +372,39 @@ function osuBeatmap(beatmap){
                      '**Beatmap:** '+bm.beatmap_id, true)
     .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/'+bm.beatmapset_id+')\n'+
                        '[**Beatmap**](https://osu.ppy.sh/b/'+bm.beatmap_id+')\n'+
-                       '[**Download Beatmap Set**](https://osu.ppy.sh/d/'+bm.beatmapset_id+')', true)
+                       '[**Download Beatmap Set**](https://osu.ppy.sh/d/'+bm.beatmapset_id+')', true);
 }
+
+/**
+ * 
+ * @param {Beatmap[]} bmF 
+ */
+function osuBeatmapReply(bmF){
+    var bm = bmF[0];
+    return new discord.RichEmbed()
+    .setColor([255, 58, 255])
+    .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')
+    .setTitle('osu!Beatmap')
+    .addField('Basic', '**Artist:** '+ bm.artist + '\n' +
+                       '**Title:** '+ bm.title + '\n' +
+                       '**Creator:** '+ bm.creator + '\n' +
+                       '**Difficulty Name:** '+ bm.version + '\n' +
+                       '**Source:** '+ bm.source + '\n' +
+                       '**BPM:** '+ bm.bpm + '\n' +
+                       '**Max Combo:** '+ bm.max_combo + 'x\n' +
+                       '**Status:** '+ bm.approved, true)
+    .addField('Difficulty', '**Stars:** ' + fixDecimals(bm.difficultyrating) + '*\n' +
+                            '**HP:** ' + bm.diff_drain + '\n' +
+                            '**OD:** ' + bm.diff_overall + '\n' +
+                            '**AR:** ' + bm.diff_approach + '\n' +
+                            '**CS:** ' + bm.diff_size, true)
+    .addField('IDs', '**BeatmapSet:** '+bm.beatmap_id+'\n' +
+                     '**Beatmap:** '+bm.beatmap_id, true)
+    .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/'+bm.beatmapset_id+')\n'+
+                       '[**Beatmap**](https://osu.ppy.sh/b/'+bm.beatmap_id+')\n'+
+                       '[**Download Beatmap Set**](https://osu.ppy.sh/d/'+bm.beatmapset_id+')', true);
+}
+
 
 /**
  * Fixes decimals to 2 decimals

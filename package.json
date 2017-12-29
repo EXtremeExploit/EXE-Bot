@@ -41,7 +41,7 @@
     "mime-types": "^2.1.17",
     "node-opus": "^0.2.7",
     "opusscript": "0.0.3",
-    "osu.js": "2.0.0",
+    "osu.js": "^1.1.4",
     "random.cat.js": "^1.0.3",
     "request": "^2.83.0",
     "sax": "^1.2.4",

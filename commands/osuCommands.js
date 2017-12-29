@@ -20,21 +20,22 @@ const {Beatmap, Best, GamesOptions, Match, MatchOptions, Recent, Replay, Scores,
 
 
 class osuCommands {
+    constructor(){
+        
+    }
+    
     /**
      * Loads the osu commands.
      * @param {Message} msg
      */
-    constructor(msg){
-        this.msg = msg;
-        this.messageArray = msg.content.split(' ');
-        this.command = this.messageArray[0];
-        this.args = this.messageArray.slice(1).join(' ');
-    }
-    commands(){
+    commands(msg){
+        var messageArray = msg.content.split(' ');
+        var command = messageArray[0];
+        var args = messageArray.slice(1).join(' ');
 
-        if(this.command == prefix + 'osuStdUser'){
-            if(this.args == '' || this.args == null){
-                this.msg.channel.send(new discord.RichEmbed()
+        if(command == prefix + 'osuStdUser'){
+            if(args == '' || args == null){
+                msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .addField('Help', 'Check the [wiki](' + wikis.commands+'#osu) for help!')
                 .setDescription('Pleace specify an username!'));
@@ -269,7 +270,17 @@ class osuCommands {
                 osuApi.getBeatmaps({
                     b: parseInt(id)
                 }).then(bmF => {
-                    msg.channel.send(osuBeatmapReply(bmF));
+                    msg.channel.send(osuBeatmap(bmF));
+                })
+            }
+            if (msg.content.startsWith('https://osu.ppy.sh/u/')){
+                var id = msg.content.split('/')[4];
+                osuApi.getUser({
+                    u: id,
+                    type: 'id',
+
+                }).then(userF => {
+                    msg.channel.send(osuUser(userF));
                 })
             }
         })
@@ -351,36 +362,6 @@ function osuBeatmap(beatmap){
     if(bm.tags == '' || bm.tags == null) bm.tags = '*null*';
     if(bm.artist == '' || bm.artist == null) bm.artist = '*null*';
 
-    return new discord.RichEmbed()
-    .setColor([255, 58, 255])
-    .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')
-    .setTitle('osu!Beatmap')
-    .addField('Basic', '**Artist:** '+ bm.artist + '\n' +
-                       '**Title:** '+ bm.title + '\n' +
-                       '**Creator:** '+ bm.creator + '\n' +
-                       '**Difficulty Name:** '+ bm.version + '\n' +
-                       '**Source:** '+ bm.source + '\n' +
-                       '**BPM:** '+ bm.bpm + '\n' +
-                       '**Max Combo:** '+ bm.max_combo + 'x\n' +
-                       '**Status:** '+ bm.approved, true)
-    .addField('Difficulty', '**Stars:** ' + fixDecimals(bm.difficultyrating) + '*\n' +
-                            '**HP:** ' + bm.diff_drain + '\n' +
-                            '**OD:** ' + bm.diff_overall + '\n' +
-                            '**AR:** ' + bm.diff_approach + '\n' +
-                            '**CS:** ' + bm.diff_size, true)
-    .addField('IDs', '**BeatmapSet:** '+bm.beatmap_id+'\n' +
-                     '**Beatmap:** '+bm.beatmap_id, true)
-    .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/'+bm.beatmapset_id+')\n'+
-                       '[**Beatmap**](https://osu.ppy.sh/b/'+bm.beatmap_id+')\n'+
-                       '[**Download Beatmap Set**](https://osu.ppy.sh/d/'+bm.beatmapset_id+')', true);
-}
-
-/**
- * 
- * @param {Beatmap[]} bmF 
- */
-function osuBeatmapReply(bmF){
-    var bm = bmF[0];
     return new discord.RichEmbed()
     .setColor([255, 58, 255])
     .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')

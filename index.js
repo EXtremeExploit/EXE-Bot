@@ -580,7 +580,7 @@ client.on('message', (msg) => {
 
     //Osu
 
-    new osuCommands(msg).commands()
+    new osuCommands().commands(msg);
 
     //Misc
 
@@ -709,5 +709,8 @@ client.on('message', (msg) => {
         if (message == 'sauce')
             msg.channel.send('no ketchup');
     });
+
+
+    new osuCommands().replies(client);
 
 client.login(token).catch(e => console.log(e));

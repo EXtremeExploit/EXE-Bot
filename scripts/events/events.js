@@ -36,7 +36,7 @@ class Events {
         client.on("disconnect", () => console.log("[ " + new Date + " ] [DISCONNECTED]"));
         client.on("reconnecting", () => console.log("[ " + new Date + " ] [RECONNECTING...]"));
         client.on("warn", info => console.log(info));
-        if (allEvents) {
+        if (allEvents == true) {
             client.on("channelCreate", ch => console.log("[ " + new Date() + " ] [CHANNEL_CREATE]"));
             client.on("channelDelete", ch => console.log("[ " + new Date() + " ] [CHANNEL_DELETE]"));
             client.on("channelPinsUpdate", ch => console.log("[ " + new Date() + " ] [CHANNEL_PINS_UPDATE]"));
@@ -79,7 +79,7 @@ class Events {
             client.on("userUpdate", e => console.log("[ " + new Date() + " ] [USER_UPDATE]"));
             client.on("voiceStateUpdate", e => console.log("[ " + new Date() + " ] [VOICE_STATE_UPDATE]"));
         }
-        if (debug) {
+        if (debug == true) {
             client.on("debug", e => console.log(e));
         }
 

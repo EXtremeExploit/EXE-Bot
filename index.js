@@ -6,22 +6,21 @@ console.log('Starting...');
 *                                               *
 ************************************************/
 
-const _data                                   = require('./scripts/data.js');
 var servers                                   = {}
-const data                                    = new _data();
+const main                                    = require("./scripts/");
+const data                                    = new main.Main().getData();
 var token                                     = data.token();
 var prefix                                    = data.prefix();
 var osuApiKey                                 = data.osuApiKey();
 var owner                                     = data.owner();
 var allEvents                                 = data.allEvents();
 var debug                                     = data.debug();
-const _wikis                                  = require('./scripts/wikis.js');
 const wikis                                   = {
-    home: new _wikis().home(),
-    commands: new _wikis().commands(),
-    replies: new _wikis().replies(),
-    faq: new _wikis().faq(),
-    isEnabled: new _wikis().isEnabled()
+    home: data.wikis().home,
+    commands: data.wikis().commands,
+    replies: data.wikis().replies,
+    faq: data.wikis().faq,
+    isEnabled: data.wikis().isEnabled
 };
 /************************************************
 *                                               *
@@ -32,8 +31,8 @@ const wikis                                   = {
 const discord                                 = require('discord.js');
 const { GuildMember }                         = require('discord.js');
 const _randomCat                              = require('random.cat.js');
-const _randomDog                              = require('./scripts/randomDog');
-const events                                  = require('./scripts/events');
+const _randomDog                              = require('random.dog.js');
+//const events                                  = require('./scripts/events');
 const voiceCommands                           = require('./commands/voiceCommands');
 const osuCommands                             = require('./commands/osuCommands');
 
@@ -61,8 +60,9 @@ const client                                  = new discord.Client({
     }
 });
 const randomCat                               = _randomCat.api();
-const randomDog                               = new _randomDog();
+const randomDog                               = _randomDog.api();
 
+const events = new main.Main().getEvents();
 new events(client);
 
 client.setInterval((e) => {
@@ -683,7 +683,7 @@ client.on('message', (msg) => {
     *                                               *
     ************************************************/
 
-    .on('message', (msg) => {
+client.on('message', (msg) => {
         if (msg.author.bot) return;
         if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
 
@@ -708,7 +708,6 @@ client.on('message', (msg) => {
         if (message == 'sauce')
             msg.channel.send('no ketchup');
     });
-
 
     new osuCommands().replies(client);
 

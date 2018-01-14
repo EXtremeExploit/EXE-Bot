@@ -32,7 +32,6 @@ const discord                                 = require('discord.js');
 const { GuildMember }                         = require('discord.js');
 const _randomCat                              = require('random.cat.js');
 const _randomDog                              = require('random.dog.js');
-//const events                                  = require('./scripts/events');
 const voiceCommands                           = require('./commands/voiceCommands');
 const osuCommands                             = require('./commands/osuCommands');
 
@@ -62,8 +61,9 @@ const client                                  = new discord.Client({
 const randomCat                               = _randomCat.api();
 const randomDog                               = _randomDog.api();
 
-const events = new main.Main().getEvents();
-new events(client);
+const events = new main.Main().getEvents(client);
+events.all();
+
 
 client.setInterval((e) => {
     client.user.setPresence({

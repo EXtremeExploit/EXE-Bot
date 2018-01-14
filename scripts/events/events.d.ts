@@ -1,0 +1,47 @@
+import { Client } from "discord.js";
+
+declare class Events {
+   ready(): Client;
+   disconnect(): Client;
+   reconnecting(): Client;
+   warn(): Client;
+   channelCreate(): Client;
+   channelDelete(): Client;
+   channelPinsUpdate(): Client;
+   channelUpdate(): Client;
+   clientUserGuildSettingsUpdate(): Client;
+   clientUserSettingsUpdate(): Client;
+   emojiCreate(): Client;
+   emojiDelete(): Client;
+   emojiUpdate(): Client;
+   guildBanAdd(): Client;
+   guildBanRemove(): Client;
+   guildCreate(): Client;
+   guildMemberAdd(): Client;
+   guildMemberAvailable(): Client;
+   guildMemberRemove(): Client;
+   guildMembersChunk(): Client;
+   guildMemberSpeaking(): Client;
+   guildMemberUpdate(): Client;
+   guildUnavailable(): Client;
+   guildUpdate(): Client;
+   messageDelete(): Client;
+   messageDeleteBulk(): Client;
+   messageReactionAdd(): Client;
+   messageReactionRemove(): Client;
+   messageReactionRemoveAll(): Client;
+   messageUpdate(): Client;
+   presenceUpdate(): Client;
+   resume(): Client;
+   roleCreate(): Client;
+   roleDelete(): Client;
+   roleUpdate(): Client;
+   typingStart(): Client;
+   typingStop(): Client;
+   userNoteUpdate(): Client;
+   userUpdate(): Client;
+   voiceStateUpdate(): Client;
+   all(): Client;
+   private debug(): Client;
+   error(): Client;
+}

@@ -1,3 +1,6 @@
+import { Events } from "./events/events";
+import { Client } from "discord.js";
+
 declare type Json = {
    token: string;
    prefix: string;
@@ -39,5 +42,5 @@ export declare class Main {
    events: any;
    getJson(): Json
    getData(): Data;
-   getEvents(): any
+   getEvents(Client: Client): Events;
 }

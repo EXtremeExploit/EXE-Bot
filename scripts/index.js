@@ -10,8 +10,8 @@ class Main {
       var data = require('./data');
       return new data();
    }
-   getEvents(){
-      return this.events;
+   getEvents(Client){
+      return new this.events.Events(Client);
    }
 }
 exports.Main = Main;

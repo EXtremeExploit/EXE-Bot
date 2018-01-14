@@ -1,0 +1,20 @@
+{
+    "token": "TOKEN",
+    "prefix": "PREFIX",
+    "osuApiKey": "OSUAPIKEY",
+    "owner": {
+        "id": 257556050213994516,
+        "username": "EXtremeExploit",
+        "discriminator": "1133",
+        "tag": "EXtremeExploit#1133"
+    },
+    "allEvents": false,
+    "debug": false,
+    "wikisEnabled": true,
+    "wikis": {
+        "home": "https://extremeexploit.github.io/EXE_Bot/Wiki/",
+        "commands": "https://extremeexploit.github.io/EXE_Bot/Wiki/Commands",
+        "replies": "https://extremeexploit.github.io/EXE_Bot/Wiki/Replies",
+        "faq": "https://extremeexploit.github.io/EXE_Bot/Wiki/FAQ"
+    }
+}

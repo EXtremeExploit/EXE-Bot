@@ -1,15 +1,14 @@
 const discord = require('discord.js');
 const {Message, Client} = discord;
-const _data                                   = require('../scripts/data.js');
-const data                                    = new _data();
+const main = require("../scripts/");
+const data = new main.Main().getData();
 var prefix                                    = data.prefix();
-const _wikis                                  = require('../scripts/wikis.js');
 const wikis                                   = {
-    home: new _wikis().home(),
-    commands: new _wikis().commands(),
-    replies: new _wikis().replies(),
-    faq: new _wikis().faq(),
-    isEnabled: new _wikis().isEnabled()
+    home: data.wikis().home,
+    commands: data.wikis().commands,
+    replies: data.wikis().replies,
+    faq: data.wikis().faq,
+    isEnabled: data.wikis().isEnabled
 };
 
 class help {

@@ -43,6 +43,7 @@
     "opusscript": "0.0.3",
     "osu.js": "^1.1.4",
     "random.cat.js": "^1.0.3",
+    "random.dog.js": "^1.0.1",
     "request": "^2.83.0",
     "sax": "^1.2.4",
     "snekfetch": "^3.5.8",

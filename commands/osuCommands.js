@@ -80,6 +80,7 @@ class osuCommands {
                     msg.channel.send(osuUser(userf));
                     })
                 .catch(err => {
+                    console.log(err);
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
@@ -105,6 +106,7 @@ class osuCommands {
                     msg.channel.send(osuUser(userf));
                 })
                 .catch(err => {
+                    console.log(err);
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
@@ -129,6 +131,7 @@ class osuCommands {
                     msg.channel.send(osuUser(userf));
                 })
                 .catch(err => {
+                    console.log(err);
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
@@ -153,6 +156,7 @@ class osuCommands {
                     msg.channel.send(osuBest(playF))
                 })
                 .catch(err => {
+                    console.log(err);
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
@@ -177,6 +181,7 @@ class osuCommands {
                     msg.channel.send(osuBest(playF))
                 })
                 .catch(err => {
+                    console.log(err);
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
@@ -201,6 +206,7 @@ class osuCommands {
                     msg.channel.send(osuBest(playF))
                 })
                 .catch(err => {
+                    console.log(err);
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
@@ -225,6 +231,7 @@ class osuCommands {
                     msg.channel.send(osuBest(playF));
                 })
                 .catch(err => {
+                    console.log(err);
                     msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
@@ -254,6 +261,7 @@ class osuCommands {
                         msg.channel.send(osuBeatmap(beatmap));
                     })
                     .catch(err => {
+                        console.error(err);
                         msg.channel.send(new discord.RichEmbed()
                         .setColor([255,0,0])
                         .setTitle('Error')
@@ -400,7 +408,7 @@ function osuBeatmap(beatmap){
 /**
  * Fixes decimals to 2 decimals
  * @param {number} number
- * @returns {number} 
+ * @returns {string} 
  */
 function fixDecimals(number) {
     return parseFloat(number).toFixed(2);

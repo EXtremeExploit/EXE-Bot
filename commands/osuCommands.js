@@ -1,5 +1,6 @@
-const main = require("../scripts/");
-const data = new main.Main().getData();
+//#region Data
+const main = new (require("../scripts/")).Main();
+const data = main.getData();
 var prefix                     = data.prefix();
 var osuApiKey                  = data.osuApiKey();
 const wikis                                   = {
@@ -9,20 +10,26 @@ const wikis                                   = {
     faq: data.wikis().faq,
     isEnabled: data.wikis().isEnabled
 };
+//#endregion
 
+//#region Require Modules
+//#region Discord Module
 const discord                  = require('discord.js');
 const { RichEmbed, Message, Client }   = discord;
+//#endregion
+//#region Osu Module
 const _osuapi                  = require('osu.js');
 const osuApi                   = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
 const {Beatmap, Best, GamesOptions, Match, MatchOptions, Recent, Replay, Scores, ScoresOptions, User, UserEvents} = _osuapi;
+//#endregion
+//#endregion
 
-
-
+//#region Osu Commands & Replies
 class osuCommands {
     constructor(){
         
     }
-    
+    //#region Commands
     /**
      * Loads the osu commands.
      * @param {Message} msg
@@ -258,6 +265,8 @@ class osuCommands {
             }
         }
     }
+    //#endregion
+    //#region Replies
     /**
      * 
      * @param {Client} client 
@@ -284,8 +293,11 @@ class osuCommands {
             }
         })
     }
+    //#endregion
 }
+//#endregion
 
+//#region Functions
 
 /**
  * Returns the RichEmbed for user commands.
@@ -393,5 +405,7 @@ function osuBeatmap(beatmap){
 function fixDecimals(number) {
     return parseFloat(number).toFixed(2);
 }
+
+//#endregion
 
 module.exports = osuCommands;

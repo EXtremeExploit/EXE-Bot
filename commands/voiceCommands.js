@@ -1,18 +1,27 @@
-const main = require("../scripts/");
-const data = new main.Main().getData();
-var prefix                                    = data.prefix();
-
-const discord                                 = require('discord.js');
-const { Message, VoiceConnection }            = require('discord.js');
-const yt                                      = require('ytdl-core');
-const wikis                                   = {
+//#region Data
+const main = new (require("../scripts/")).Main();
+const data = main.getData();
+var prefix = data.prefix();
+const wikis = {
     home: data.wikis().home,
     commands: data.wikis().commands,
     replies: data.wikis().replies,
     faq: data.wikis().faq,
     isEnabled: data.wikis().isEnabled
 };
+//#endregion
 
+//#region Require Modules
+//#region Discord Module
+const discord = require('discord.js');
+const { Message, VoiceConnection } = require('discord.js');
+//#endregion
+//#region ytdl-core Module
+const yt = require('ytdl-core');
+//#endregion
+//#endregion
+
+//#region Voice Commands
 class voiceCommands {
     /**
      * 
@@ -20,15 +29,11 @@ class voiceCommands {
      * @param {any} servers 
      */
     constructor(msg, servers) {
-
-        
         var messageArray = msg.content.split(' ');
         var command = messageArray[0];
         var args = messageArray.slice(1).join(' ');
 
-
-        var discordmessage = discord.Message;
-
+        //region Functions
         /**
          * @param {VoiceConnection} connection 
          * @param {Message} msg 
@@ -36,38 +41,40 @@ class voiceCommands {
         function play(connection, msg) {
             var server = servers[msg.guild.id];
 
-            server.dispatcher = connection.playStream(yt(server.queue[0], { filter: "audioonly"}));
+            server.dispatcher = connection.playStream(yt(server.queue[0], { filter: "audioonly" }));
             server.queue.shift();
             server.dispatcher.on('end', () => {
-                if(server.queue[0]){
-                    play(connection,msg);
-                }else{
+                if (server.queue[0]) {
+                    play(connection, msg);
+                } else {
                     connection.disconnect();
                     msg.channel.send(new discord.RichEmbed()
-                    .setColor([255,0,0])
-                    .setDescription('I left voice channel because the queue is empty'));
+                        .setColor([255, 0, 0])
+                        .setDescription('I left voice channel because the queue is empty'));
                 }
             });
         }
+        //#endregion
 
-        if (command == prefix + 'play'){
-            if(!args[0] || args == ""){
+        //#region Commands
+        if (command == prefix + 'play') {
+            if (!args[0] || args == "") {
                 msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
-                .setDescription('Pleace specify a link!'));
+                    .setColor([255, 0, 0])
+                    .addField('Help', 'Check the [wiki](' + wikis.commands + '#voice) for help!')
+                    .setDescription('Pleace specify a link!'));
                 return;
             }
 
-            if(!msg.member.voiceChannel){
+            if (!msg.member.voiceChannel) {
                 msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .addField('Help', 'Check the [wiki]('+wikis.commands+'#voice) for help!')
-                .setDescription('You must be in a voice channel first!'));
+                    .setColor([255, 0, 0])
+                    .addField('Help', 'Check the [wiki](' + wikis.commands + '#voice) for help!')
+                    .setDescription('You must be in a voice channel first!'));
                 return;
             }
 
-            if(!servers[msg.guild.id]){
+            if (!servers[msg.guild.id]) {
                 servers[msg.guild.id] = {
                     queue: []
                 }
@@ -78,55 +85,57 @@ class voiceCommands {
 
             server.queue.push(args);
 
-            if(!msg.guild.voiceConnection) msg.member.voiceChannel.join().then((connection) =>{
+            if (!msg.guild.voiceConnection) msg.member.voiceChannel.join().then((connection) => {
                 play(connection, msg);
             });
 
-        }else if(command == prefix + 'skip'){
+        } else if (command == prefix + 'skip') {
             var server = servers[msg.guild.id];
-            if(server){
-                if(server.dispatcher) {
-                    if(server.queue.length == 0){
+            if (server) {
+                if (server.dispatcher) {
+                    if (server.queue.length == 0) {
                         server.dispatcher.end();
                         msg.channel.send(new discord.RichEmbed()
-                        .setColor([255,0,0])
-                        .setDescription('Skipped, and queue is empty, so i left the voice channel'));
-                    }else{
+                            .setColor([255, 0, 0])
+                            .setDescription('Skipped, and queue is empty, so i left the voice channel'));
+                    } else {
                         server.dispatcher.end();
                         msg.channel.send(new discord.RichEmbed()
-                        .setColor([255,0,0])
-                        .setDescription('Skipped!'));
+                            .setColor([255, 0, 0])
+                            .setDescription('Skipped!'));
                     }
                 }
-            }else{
+            } else {
                 msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .setDescription('There isn\'t any song playing!'));
+                    .setColor([255, 0, 0])
+                    .setDescription('There isn\'t any song playing!'));
             }
-            
 
-        }else if(command == prefix + 'stop'){
+
+        } else if (command == prefix + 'stop') {
             var server = servers[msg.guild.id];
-            if(msg.guild.voiceConnection) {
+            if (msg.guild.voiceConnection) {
                 msg.guild.voiceConnection.disconnect()
                 server.queue.length = 0;
                 msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .setDescription('Cleaned queue and disconnected from voice channel!'));
-                
-            }else{
+                    .setColor([255, 0, 0])
+                    .setDescription('Cleaned queue and disconnected from voice channel!'));
+
+            } else {
                 msg.channel.send(new discord.RichEmbed()
-                .setColor([255,0,0])
-                .setDescription('I can\'t stop when i already stopped!'));
+                    .setColor([255, 0, 0])
+                    .setDescription('I can\'t stop when i already stopped!'));
             }
-        }else if(command == prefix + 'queue'){
+        } else if (command == prefix + 'queue') {
             var serverqueue = servers[msg.guild.id].queue;
-            if(!serverqueue.length == 0)
+            if (!serverqueue.length == 0)
                 msg.channel.send(serverqueue);
-            else 
+            else
                 msg.channel.send('Nothing in the queue')
         }
+        //#endregion
     }
 }
+//#endregion
 
 module.exports = voiceCommands;

@@ -1,3 +1,4 @@
+//#region Main
 class Main {
    constructor(){
       this.json = require("../json/data.json");
@@ -14,4 +15,6 @@ class Main {
       return new this.events.Events(Client);
    }
 }
+//#endregion
+
 exports.Main = Main;

@@ -1,19 +1,27 @@
+//#region Require Modules
+//#region Discord Module
 const discord = require('discord.js');
 const { Client } = discord;
+//#endregion
+//#endregion
 
+//#region Events
 class Events {
     /**
      * Returns all the client events
      * @param {Client} client 
      */
     constructor(client) {
-        this.client = client;
-        this.main = require("../");
-        this.data = new this.main.Main().getData();
+        //#region Data
+        this.main = new (require("../")).Main();
+        this.data = this.main.getData();
         this.prefix = this.data.prefix();
         this.debug = this.data.debug();
         this.allEvents = this.data.allEvents();
-
+        //#endregion
+        //#region Discord Client settings
+        this.client = client;
+        //#endregion
     }
     ready() {
         this.client.on("ready", () => {
@@ -221,6 +229,6 @@ class Events {
         });
     }
 }
-
+//#endregion
 
 exports.Events = Events;

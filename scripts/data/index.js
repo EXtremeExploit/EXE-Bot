@@ -1,5 +1,9 @@
-const main = require("../");
-const json = new main.Main().getJson();
+//#region JSON
+const main = new (require("../")).Main();
+const json = main.getJson();
+//#endregion
+
+//#region Settings
 class settings {
     token() {
         var htoken = process.env.token
@@ -46,5 +50,6 @@ class settings {
         return json.wikis;
     }
 }
+//#endregion
 
 module.exports = settings;

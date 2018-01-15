@@ -1,41 +1,52 @@
-//STARTING
+//#region Starting
 console.log('Starting...');
-/************************************************
-*                                               *
-*                     DATA                      *
-*                                               *
-************************************************/
+//#endregion
 
-var servers                                   = {}
-const main                                    = require("./scripts/");
-const data                                    = new main.Main().getData();
-var token                                     = data.token();
-var prefix                                    = data.prefix();
-var osuApiKey                                 = data.osuApiKey();
-var owner                                     = data.owner();
-var allEvents                                 = data.allEvents();
-var debug                                     = data.debug();
-const wikis                                   = {
+//#region Data
+
+var servers = {}
+const main = new (require("./scripts/")).Main();
+const data = main.getData();
+var token = data.token();
+var prefix = data.prefix();
+var osuApiKey = data.osuApiKey();
+var owner = data.owner();
+var allEvents = data.allEvents();
+var debug = data.debug();
+const wikis = {
     home: data.wikis().home,
     commands: data.wikis().commands,
     replies: data.wikis().replies,
     faq: data.wikis().faq,
     isEnabled: data.wikis().isEnabled
 };
-/************************************************
-*                                               *
-*                    MODULES                    *
-*                                               *
-************************************************/
 
-const discord                                 = require('discord.js');
-const { GuildMember }                         = require('discord.js');
-const _randomCat                              = require('random.cat.js');
-const _randomDog                              = require('random.dog.js');
-const voiceCommands                           = require('./commands/voiceCommands');
-const osuCommands                             = require('./commands/osuCommands');
+//#endregion
 
-const client                                  = new discord.Client({
+//#region Require Modules
+
+//#region Discord Module
+const discord = require('discord.js');
+const { GuildMember } = discord;
+//#endregion
+//#region Random Modules
+const _randomCat = require('random.cat.js');
+const _randomDog = require('random.dog.js');
+//#endregion
+//#region Commands Modules
+const voiceCommands = require('./commands/voiceCommands');
+const osuCommands = require('./commands/osuCommands');
+//#endregion
+
+//#endregion
+
+//#region Random API
+const randomCat = _randomCat.api();
+const randomDog = _randomDog.api();
+//#endregion
+
+//#region Discord Client Configuration
+const client = new discord.Client({
     apiRequestMethod: 'sequential',
     shardId: 0,
     shardCount: 0,
@@ -58,12 +69,8 @@ const client                                  = new discord.Client({
         host: 'https://discordapp.com'
     }
 });
-const randomCat                               = _randomCat.api();
-const randomDog                               = _randomDog.api();
 
-const events = new main.Main().getEvents(client);
-events.all();
-
+main.getEvents(client).all();
 
 client.setInterval((e) => {
     client.user.setPresence({
@@ -76,11 +83,9 @@ client.setInterval((e) => {
     })
 }, 60000);
 
-/************************************************
-*                                               *
-*                   FUNCTIONS                   *
-*                                               *
-************************************************/
+//#endregion
+
+//#region Functions
 
 /**
  * @param {string} text
@@ -133,13 +138,9 @@ function userInfo(user) {
         .setThumbnail(user.user.displayAvatarURL);
 }
 
+//#endregion
 
-
-/************************************************
-*                                               *
-*                   COMMANDS                    *
-*                                               *
-************************************************/
+//#region Commands
 
 
 client.on('message', (msg) => {
@@ -152,12 +153,14 @@ client.on('message', (msg) => {
 
     var helpCommand = require('./commands/help');
     new helpCommand(client, msg);
-    
-    //Voice
+
+    //#region Voice
 
     new voiceCommands(msg, servers);
+    
+    //#endregion
 
-    //Support
+    //#region Support
 
     if (command == prefix + 'invite') {
         client.generateInvite(['ADMINISTRATOR']).then(link => {
@@ -175,8 +178,10 @@ client.on('message', (msg) => {
             .setThumbnail(client.user.avatarURL)
             .addField('Wikies', '[**Home**](' + wikis.home + ')\n[**Commands**](' + wikis.commands + ')\n[**Replies**](' + wikis.replies + ')\n[**FAQ**](' + wikis.faq + ')'));
     }
+    
+    //#endregion
 
-    //Info
+    //#region Info
 
     else if (command == prefix + 'server') {
         if (msg.guild.available) {
@@ -284,8 +289,10 @@ client.on('message', (msg) => {
                 .setDescription(user.username + '\'s Avatar'));
         }
     }
+    
+    //#endregion
 
-    //Random
+    //#region Random
 
     else if (command == prefix + 'roll') {
         const roll = Math.floor(Math.random() * 6) + 1;
@@ -356,7 +363,9 @@ client.on('message', (msg) => {
         }
     }
 
-    //Moderation
+    //#endregion
+
+    //#region Moderation
 
     else if (command == prefix + 'kick') {
         if (msg.member.hasPermission(['KICK_MEMBERS']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
@@ -475,7 +484,9 @@ client.on('message', (msg) => {
         }
     }
 
-    //Fun
+    //#endregion
+
+    //#region Fun
 
     else if (command == prefix + 'say') {
         var thing2say = args;
@@ -577,11 +588,15 @@ client.on('message', (msg) => {
         }
     }
 
-    //Osu
+    //#endregion
+
+    //#region Osu
 
     new osuCommands().commands(msg);
 
-    //Misc
+    //#endregion
+
+    //region Misc
 
     if (command == prefix + 'ping') {
         msg.channel.send(new discord.RichEmbed()
@@ -627,7 +642,9 @@ client.on('message', (msg) => {
         }
     }
 
-    //Bot Owner
+    //#endregion
+
+    //#region Bot Owner
 
     else if (command == prefix + 'disconnect') {
         if (msg.member.user.id == owner.id) {
@@ -677,38 +694,40 @@ client.on('message', (msg) => {
     }
 })
 
-    /************************************************
-    *                                               *
-    *                   REPLIES                     *
-    *                                               *
-    ************************************************/
+    //#endregion
+
+//#endregion
+
+//#region Replies
 
 client.on('message', (msg) => {
-        if (msg.author.bot) return;
-        if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
+    if (msg.author.bot) return;
+    if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
 
-        var message = msg.content.toLowerCase();
+    var message = msg.content.toLowerCase();
 
-        if (message == 'ayy')
-            msg.channel.send('lmao');
-        if (message == 'omaewa mou shindeiru' || message == 'omae wa mou shindeiru')
-            msg.channel.send('NANI!?!');
-        if (message == 'おまえ わ もう しんでいる')
-            msg.channel.send('なに！？');
-        if (message == 'o/')
-            msg.channel.send('\\o');
-        if (message == '\\o')
-            msg.channel.send('o/');
-        if (message == 'top')
-            msg.channel.send('kek');
-        if (message == 'ok' || message == 'oke')
-            msg.channel.send('oke');
-        if (message == 'lmao')
-            msg.channel.send('ayy');
-        if (message == 'sauce')
-            msg.channel.send('no ketchup');
-    });
+    if (message == 'ayy')
+        msg.channel.send('lmao');
+    if (message == 'omaewa mou shindeiru' || message == 'omae wa mou shindeiru')
+        msg.channel.send('NANI!?!');
+    if (message == 'おまえ わ もう しんでいる')
+        msg.channel.send('なに！？');
+    if (message == 'o/')
+        msg.channel.send('\\o');
+    if (message == '\\o')
+        msg.channel.send('o/');
+    if (message == 'top')
+        msg.channel.send('kek');
+    if (message == 'ok' || message == 'oke')
+        msg.channel.send('oke');
+    if (message == 'lmao')
+        msg.channel.send('ayy');
+    if (message == 'sauce')
+        msg.channel.send('no ketchup');
+});
 
-    new osuCommands().replies(client);
+new osuCommands().replies(client);
+
+//#endregion
 
 client.login(token).catch(e => console.log(e));

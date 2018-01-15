@@ -734,10 +734,6 @@ client.on('message', (msg) => {
         msg.channel.send('o/');
     if (message == 'top')
         msg.channel.send('kek');
-    if (message == 'ok' || message == 'oke')
-        msg.channel.send('oke');
-    if (message == 'lmao')
-        msg.channel.send('ayy');
     if (message == 'sauce')
         msg.channel.send('no ketchup');
 });

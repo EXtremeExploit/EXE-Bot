@@ -80,7 +80,8 @@ class osuCommands {
                     this.msg.channel.send(osuUser(userf));
                     })
                 .catch(err => {
-                    this.msg.channel.send(new discord.RichEmbed()
+                    console.log(err);
+                    msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
@@ -105,7 +106,8 @@ class osuCommands {
                     this.msg.channel.send(osuUser(userf));
                 })
                 .catch(err => {
-                    this.msg.channel.send(new discord.RichEmbed()
+                    console.log(err);
+                    msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
@@ -129,7 +131,8 @@ class osuCommands {
                     this.msg.channel.send(osuUser(userf));
                 })
                 .catch(err => {
-                    this.msg.channel.send(new discord.RichEmbed()
+                    console.log(err);
+                    msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
@@ -153,7 +156,8 @@ class osuCommands {
                     this.msg.channel.send(osuBest(playF))
                 })
                 .catch(err => {
-                    this.msg.channel.send(new discord.RichEmbed()
+                    console.log(err);
+                    msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
@@ -177,7 +181,8 @@ class osuCommands {
                     this.msg.channel.send(osuBest(playF))
                 })
                 .catch(err => {
-                    this.msg.channel.send(new discord.RichEmbed()
+                    console.log(err);
+                    msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
@@ -201,7 +206,8 @@ class osuCommands {
                     this.msg.channel.send(osuBest(playF))
                 })
                 .catch(err => {
-                    this.msg.channel.send(new discord.RichEmbed()
+                    console.log(err);
+                    msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
@@ -225,7 +231,8 @@ class osuCommands {
                     this.msg.channel.send(osuBest(playF));
                 })
                 .catch(err => {
-                    this.msg.channel.send(new discord.RichEmbed()
+                    console.log(err);
+                    msg.channel.send(new discord.RichEmbed()
                     .setColor([255,0,0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
@@ -254,7 +261,8 @@ class osuCommands {
                         this.msg.channel.send(osuBeatmap(beatmap));
                     })
                     .catch(err => {
-                        this.msg.channel.send(new discord.RichEmbed()
+                        console.error(err);
+                        msg.channel.send(new discord.RichEmbed()
                         .setColor([255,0,0])
                         .setTitle('Error')
                         .addField('Help', 'Check the [wiki]('+wikis.commands+'#osu) for help!')
@@ -401,7 +409,7 @@ function osuBeatmap(beatmap){
 /**
  * Fixes decimals to 2 decimals
  * @param {number} number
- * @returns {number} 
+ * @returns {string} 
  */
 function fixDecimals(number) {
     return parseFloat(number).toFixed(2);

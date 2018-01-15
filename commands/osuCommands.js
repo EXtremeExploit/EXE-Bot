@@ -1,5 +1,5 @@
 //#region Data
-const main = new (require("../scripts/")).Main();
+const main = new (require('../scripts/')).Main();
 const data = main.getData();
 var prefix                     = data.prefix();
 var osuApiKey                  = data.osuApiKey();

@@ -1,7 +1,7 @@
 //#region Main
 class Main {
    constructor(){
-      this.json = require("../json/data.json");
+      this.json = require('../json/data.json');
       this.events = require('./events/events.js');
    }
    getJson() {

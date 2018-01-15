@@ -1,5 +1,5 @@
 //#region JSON
-const main = new (require("../")).Main();
+const main = new (require('../')).Main();
 const json = main.getJson();
 //#endregion
 

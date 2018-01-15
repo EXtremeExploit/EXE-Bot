@@ -32,10 +32,12 @@ class Events {
             console.log(`Verified: ${me.verified}`);
             console.log(`Bot: ${me.bot}`);
             console.log(`Status: ${me.presence.status}`);
+            console.log('Prefix: '+ this.data.prefix())
             console.log('Servers: ' + this.client.guilds.array().length);
             for (let i = 0; i < this.client.guilds.array().length; i++) {
-                console.log(this.client.guilds.array()[i].name + '\n')
+                console.log(this.client.guilds.array()[i].name)
             }
+            console.log('\n')
             console.log(`Connected. \n`);
             me.setPresence({
                 status: 'online',

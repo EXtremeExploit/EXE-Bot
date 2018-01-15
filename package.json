@@ -33,7 +33,7 @@
     "javascript"
   ],
   "dependencies": {
-    "discord.js": "^11.2.1",
+    "discord.js": "^11.3.0",
     "ffmpeg-binaries": "^3.2.2-3",
     "html-entities": "^1.2.1",
     "m3u8stream": "^0.2.1",

@@ -26,14 +26,16 @@ class Events {
     ready() {
         this.client.on('ready', () => {
             var me = this.client.user;
-            console.log('JavaScript Node.JS discord.js 11.2.1');
+            console.log('JavaScript Node.JS discord.js '+ discord.version);
             console.log('Username: ' + me.tag);
             console.log(`ID: ${me.id}`);
             console.log(`Verified: ${me.verified}`);
             console.log(`Bot: ${me.bot}`);
             console.log(`Status: ${me.presence.status}`);
-            console.log('Servers: ' + this.client.guilds.size);
-            console.log(this.client.guilds.forEach(guild => console.log(guild.name)) + '\n');
+            console.log('Servers: ' + this.client.guilds.array().length);
+            for (let i = 0; i < this.client.guilds.array().length; i++) {
+                console.log(this.client.guilds.array()[i].name + '\n')
+            }
             console.log(`Connected. \n`);
             me.setPresence({
                 status: 'online',

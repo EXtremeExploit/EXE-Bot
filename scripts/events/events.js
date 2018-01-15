@@ -13,8 +13,8 @@ class Events {
      */
     constructor(client) {
         //#region Data
-        this.main = new (require('../')).Main();
-        this.data = this.main.getData();
+        var main = new (require('../')).Main();
+        this.data = main.getData();
         this.prefix = this.data.prefix();
         this.debug = this.data.debug();
         this.allEvents = this.data.allEvents();
@@ -26,24 +26,30 @@ class Events {
     ready() {
         this.client.on('ready', () => {
             var me = this.client.user;
-            console.log('JavaScript Node.JS discord.js '+ discord.version);
+            console.log('============================================');
+            console.log('JavaScript Node.JS discord.js ' + discord.version);
             console.log('Username: ' + me.tag);
-            console.log(`ID: ${me.id}`);
-            console.log(`Verified: ${me.verified}`);
-            console.log(`Bot: ${me.bot}`);
-            console.log(`Status: ${me.presence.status}`);
-            console.log('Prefix: '+ this.data.prefix())
+            console.log('ID: ' + me.id);
+            console.log('Verified: ' + me.verified);
+            console.log('Bot: ' + me.bot);
+            console.log('Status: ' + me.presence.status);
+            console.log('============================================');
+            console.log('Prefix: ' + this.prefix);
+            console.log('Debug Mode: ' + this.debug);
+            console.log('All Events: ' + this.allEvents);
+            console.log('=============================================');
             console.log('Servers: ' + this.client.guilds.array().length);
             for (let i = 0; i < this.client.guilds.array().length; i++) {
-                console.log(this.client.guilds.array()[i].name)
+                console.log(this.client.guilds.array()[i].name);
             }
-            console.log('\n')
+            console.log('============================================\n');
             console.log(`Connected. \n`);
+            console.log('============================================\n');
             me.setPresence({
                 status: 'online',
                 afk: false,
                 game: {
-                    name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.size + ' Servers',
+                    name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
                     url: 'https://www.twitch.tv/extremeexploit_'
                 }
             });
@@ -56,7 +62,11 @@ class Events {
         this.client.on('reconnecting', () => console.log('[ ' + new Date + ' ] [RECONNECTING...]'));
     }
     warn() {
-        this.client.on('warn', info => console.log(info));
+        this.client.on('warn', info => {
+            console.log('====================WARN====================');
+            console.warn(info);
+            console.log('============================================');
+        });
     }
     channelCreate() {
         this.client.on('channelCreate', ch => console.log('[ ' + new Date() + ' ] [CHANNEL_CREATE]'));
@@ -176,9 +186,10 @@ class Events {
         this.disconnect();
         this.reconnecting();
         this.warn();
+        this.error();
         if (this.allEvents == true) {
             this.channelCreate();
-            this.channelDelete()
+            this.channelDelete();
             this.channelPinsUpdate();
             this.channelUpdate();
             this.clientUserGuildSettingsUpdate();
@@ -187,49 +198,48 @@ class Events {
             this.emojiDelete();
             this.emojiUpdate();
             this.guildBanAdd();
-            this.guildBanRemove()
-            this.guildCreate()
-            this.guildDelete()
-            this.guildMemberAdd()
-            this.guildMemberAvailable()
-            this.guildMemberRemove()
-            this.guildMembersChunk()
-            this.guildMemberSpeaking()
-            this.guildMemberUpdate()
-            this.guildUnavailable()
-            this.guildUpdate()
-            this.messageDelete()
-            this.messageDeleteBulk()
-            this.messageReactionAdd()
-            this.messageReactionRemove()
-            this.messageReactionRemoveAll()
-            this.messageUpdate()
-            this.presenceUpdate()
-            this.resume()
-            this.roleCreate()
-            this.roleDelete()
-            this.roleUpdate()
-            this.typingStart()
-            this.typingStop()
-            this.userNoteUpdate()
-            this.userUpdate()
-            this.voiceStateUpdate()
+            this.guildBanRemove();
+            this.guildCreate();
+            this.guildDelete();
+            this.guildMemberAdd();
+            this.guildMemberAvailable();
+            this.guildMemberRemove();
+            this.guildMembersChunk();
+            this.guildMemberSpeaking();
+            this.guildMemberUpdate();
+            this.guildUnavailable();
+            this.guildUpdate();
+            this.messageDelete();
+            this.messageDeleteBulk();
+            this.messageReactionAdd();
+            this.messageReactionRemove();
+            this.messageReactionRemoveAll();
+            this.messageUpdate();
+            this.presenceUpdate();
+            this.resume();
+            this.roleCreate();
+            this.roleDelete();
+            this.roleUpdate();
+            this.typingStart();
+            this.typingStop();
+            this.userNoteUpdate();
+            this.userUpdate();
+            this.voiceStateUpdate();
         }
         if (this.debug == true) {
             this.debug();
         }
-        this.error();
-
-
     }
     debug() {
         this.client.on('debug', e => console.log(e));
     }
     error() {
         this.client.on('error', error => {
+            console.log('====================ERROR====================');
             console.log('Error Message: ' + error.message);
             console.log('Error Name:' + error.name);
             console.log('Error Stack: ' + error.stack);
+            console.log('=============================================');
         });
     }
 }

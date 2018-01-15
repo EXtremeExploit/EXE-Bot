@@ -1,5 +1,5 @@
 //#region Data
-const main = new (require("../scripts/")).Main();
+const main = new (require('../scripts/')).Main();
 const data = main.getData();
 var prefix = data.prefix();
 const wikis = {
@@ -41,7 +41,7 @@ class voiceCommands {
         function play(connection, msg) {
             var server = servers[msg.guild.id];
 
-            server.dispatcher = connection.playStream(yt(server.queue[0], { filter: "audioonly" }));
+            server.dispatcher = connection.playStream(yt(server.queue[0], { filter: 'audioonly' }));
             server.queue.shift();
             server.dispatcher.on('end', () => {
                 if (server.queue[0]) {
@@ -58,7 +58,7 @@ class voiceCommands {
 
         //#region Commands
         if (command == prefix + 'play') {
-            if (!args[0] || args == "") {
+            if (!args[0] || args == '') {
                 msg.channel.send(new discord.RichEmbed()
                     .setColor([255, 0, 0])
                     .addField('Help', 'Check the [wiki](' + wikis.commands + '#voice) for help!')

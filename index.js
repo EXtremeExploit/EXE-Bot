@@ -5,7 +5,7 @@ console.log('Starting...');
 //#region Data
 
 var servers = {}
-const main = new (require("./scripts/")).Main();
+const main = new (require('./scripts/')).Main();
 const data = main.getData();
 var token = data.token();
 var prefix = data.prefix();
@@ -74,11 +74,11 @@ main.getEvents(client).all();
 
 client.setInterval((e) => {
     client.user.setPresence({
-        status: "online",
+        status: 'online',
         afk: false,
         game: {
-            name: prefix + "help | " + prefix + "invite | " + client.guilds.size + " Servers",
-            url: "https://www.twitch.tv/extremeexploit_",
+            name: prefix + 'help | ' + prefix + 'invite | ' + client.guilds.size + ' Servers',
+            url: 'https://www.twitch.tv/extremeexploit_',
         }
     })
 }, 60000);
@@ -128,12 +128,17 @@ function userInfo(user) {
         .setColor([255, 0, 0])
         .addField('Full Username', user.user.tag, true)
         .addField('ID', user.id, true)
-        .addField('Roles', '**Hoist:** ' + user.hoistRole + '\n**Highest:** ' + user.highestRole + '\n**Color:** ' + user.colorRole, true)
-        .addField('Presence', '**Playing:** ' + user.presence.game.name + '\n**Streaming:** ' + user.presence.game.streaming + '\n**Status:** ' + user.presence.status, true)
+        .addField('Roles', '**Hoist:** ' + user.hoistRole + '\n' +
+        '**Highest:** ' + user.highestRole + '\n' +
+        '**Color:** ' + user.colorRole, true)
+        .addField('Presence', '**Playing:** ' + user.presence.game.name + '\n' +
+        '**Streaming:** ' + user.presence.game.streaming + '\n' +
+        '**Status:** ' + user.presence.status, true)
         .addField('Created at', user.user.createdAt.toUTCString(), true)
         .addField('Joined at', user.joinedAt.toUTCString(), true)
         .addField('Bot', user.user.bot, true)
-        .addField('Avatar', '**Avatar Hash:** ' + user.user.avatar + '\n**AvatarURL:** ' + user.user.displayAvatarURL, true)
+        .addField('Avatar', '**Avatar Hash:** ' + user.user.avatar + '\n' +
+        '**AvatarURL:** ' + user.user.displayAvatarURL, true)
         .setAuthor(user.user.username, user.user.displayAvatarURL)
         .setThumbnail(user.user.displayAvatarURL);
 }
@@ -157,7 +162,7 @@ client.on('message', (msg) => {
     //#region Voice
 
     new voiceCommands(msg, servers);
-    
+
     //#endregion
 
     //#region Support
@@ -176,9 +181,12 @@ client.on('message', (msg) => {
             .setAuthor(client.user.username, client.user.avatarURL)
             .setColor([255, 0, 0])
             .setThumbnail(client.user.avatarURL)
-            .addField('Wikies', '[**Home**](' + wikis.home + ')\n[**Commands**](' + wikis.commands + ')\n[**Replies**](' + wikis.replies + ')\n[**FAQ**](' + wikis.faq + ')'));
+            .addField('Wikies', '[**Home**](' + wikis.home + ')\n' +
+            '[**Commands**](' + wikis.commands + ')\n' +
+            '[**Replies**](' + wikis.replies + ')\n' +
+            '[**FAQ**](' + wikis.faq + ')'));
     }
-    
+
     //#endregion
 
     //#region Info
@@ -202,9 +210,9 @@ client.on('message', (msg) => {
             }
 
             if (msg.guild.afkChannel == null || msg.guild.afkChannelID == null) {
-                var afkchannelname = "*null*"
-                msg.guild.afkChannelID = "*null*"
-                msg.guild.afkTimeout = "*null*"
+                var afkchannelname = '*null*'
+                msg.guild.afkChannelID = '*null*'
+                msg.guild.afkTimeout = '*null*'
             } else {
                 var afkchannelname = msg.guild.afkChannel.name;
             }
@@ -216,11 +224,16 @@ client.on('message', (msg) => {
                 .setThumbnail(msg.guild.iconURL)
                 .addField('ID', msg.guild.id, true)
                 .addField('Region', msg.guild.region, true)
-                .addField('AFK', '**Channel** ' + afkchannelname + '\n**ChannelID:** ' + msg.guild.afkChannelID + '\n**Timeout(seconds):** ' + msg.guild.afkTimeout, true)
-                .addField('Counts', '**Members:** ' + msg.guild.memberCount + '\n**Roles:** ' + msg.guild.roles.size, true)
-                .addField('Owner', '**Owner:** ' + msg.guild.owner + '\n**OwnerID:** ' + msg.guild.ownerID, true)
+                .addField('AFK', '**Channel** ' + afkchannelname + '\n' +
+                '**ChannelID:** ' + msg.guild.afkChannelID + '\n' +
+                '**Timeout(seconds):** ' + msg.guild.afkTimeout, true)
+                .addField('Counts', '**Members:** ' + msg.guild.memberCount + '\n' +
+                '**Roles:** ' + msg.guild.roles.size, true)
+                .addField('Owner', '**Owner:** ' + msg.guild.owner + '\n' +
+                '**OwnerID:** ' + msg.guild.ownerID, true)
                 .addField('Verification Level', msg.guild.verificationLevel, true)
-                .addField('Icon', '**Icon Hash:** ' + msg.guild.icon + '\n**Icon URL:** ' + msg.guild.iconURL, true));
+                .addField('Icon', '**Icon Hash:** ' + msg.guild.icon + '\n' +
+                '**Icon URL:** ' + msg.guild.iconURL, true));
         } else {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
@@ -289,7 +302,7 @@ client.on('message', (msg) => {
                 .setDescription(user.username + '\'s Avatar'));
         }
     }
-    
+
     //#endregion
 
     //#region Random
@@ -453,8 +466,8 @@ client.on('message', (msg) => {
         }
     } else if (command == prefix + 'prune') {
         if (msg.member.hasPermission(['MANAGE_MESSAGES']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
-            if (!args == null || !args == "") {
-                if (args == "1" || parseInt(args) > 99) {
+            if (!args == null || !args == '') {
+                if (args == '1' || parseInt(args) > 99) {
                     msg.channel.send(new discord.RichEmbed()
                         .addField('Help', 'Check the [wiki](' + wikis.commands + '#moderation) for help!')
                         .setDescription('Pleace specify a number between 2 and 99!')
@@ -637,7 +650,10 @@ client.on('message', (msg) => {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .setAuthor(client.user.username, client.user.avatarURL)
-                .addField('Wikis', '**Home:** ' + wikis.home + '\n**Commands:** ' + wikis.commands + '\n**Replies:** ' + wikis.replies + '\n**FAQ:** ' + wikis.faq)
+                .addField('Wikis', '**Home:** ' + wikis.home + '\n' +
+                '**Commands:** ' + wikis.commands + '\n' +
+                '**Replies:** ' + wikis.replies + '\n' +
+                '**FAQ:** ' + wikis.faq)
                 .setFooter('Wikis hosted by Github'));
         }
     }
@@ -694,7 +710,7 @@ client.on('message', (msg) => {
     }
 })
 
-    //#endregion
+//#endregion
 
 //#endregion
 

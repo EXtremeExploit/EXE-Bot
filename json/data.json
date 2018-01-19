@@ -16,5 +16,6 @@
         "commands": "https://extremeexploit.github.io/EXE_Bot/Wiki/Commands",
         "replies": "https://extremeexploit.github.io/EXE_Bot/Wiki/Replies",
         "faq": "https://extremeexploit.github.io/EXE_Bot/Wiki/FAQ"
-    }
+    },
+    "voiceEnabled": true
 }

@@ -1,6 +1,6 @@
 //#region Main
 class Main {
-   constructor(){
+   constructor() {
       this.json = require('../json/data.json');
       this.events = require('./events/events.js');
    }
@@ -11,7 +11,7 @@ class Main {
       var data = require('./data');
       return new data();
    }
-   getEvents(Client){
+   getEvents(Client) {
       return new this.events.Events(Client);
    }
 }

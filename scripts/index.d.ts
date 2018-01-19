@@ -10,6 +10,7 @@ declare type Json = {
    debug: boolean;
    wikisEnabled: boolean;
    wikis: Wikis;
+   voiceEnabled: boolean;
 }
 
 declare type Owner = {
@@ -35,6 +36,7 @@ declare type Data = {
    debug(): boolean;
    wikisEnabled(): boolean;
    wikis(): Wikis;
+   voiceEnabled(): boolean;
 }
 
 export declare class Main {

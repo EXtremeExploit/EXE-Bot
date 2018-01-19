@@ -49,6 +49,9 @@ class settings {
     wikis() {
         return json.wikis;
     }
+    voiceEnabled() {
+        return json.voiceEnabled
+    }
 }
 //#endregion
 

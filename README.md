@@ -5,8 +5,8 @@
 
 * Oh, it seems that you have a question, go to **#questions** pls
 * You have a suggestion? Then go to **#suggestions**
-* For support #support
-* Have you founded a bug/error/glitch? Report it on the [issues page](https://github.com/EXtremeExploit/EXE-Bot/issues)
+* For support **#support**
+* Have you founded a bug/error/glitch? Report it on **#bugs**
 
 ## Commands & Info
 * [Home](https://github.com/EXtremeExploit/EXE-Bot/wiki)

@@ -1,5 +1,6 @@
 import { Events } from "./events/events";
 import { Client } from "discord.js";
+import { Data } from "./data/index";
 
 declare type Json = {
    token: string;
@@ -10,6 +11,7 @@ declare type Json = {
    debug: boolean;
    wikisEnabled: boolean;
    wikis: Wikis;
+   commands: Commands
 }
 
 declare type Owner = {
@@ -26,21 +28,27 @@ declare type Wikis = {
    faq: string;
 }
 
-declare type Data = {
-   token(): string;
-   prefix(): string;
-   osuApiKey(): string;
-   owner(): Owner
-   allEvents(): boolean;
-   debug(): boolean;
-   wikisEnabled(): boolean;
-   wikis(): Wikis;
+declare type Commands = {
+   categories: Categories
+}
+
+declare type Categories = {
+   Voice: boolean;
+   Support: boolean;
+   Info: boolean;
+   Random: boolean;
+   Moderation: boolean;
+   Fun: boolean;
+   Osu: boolean;
+   Misc: boolean;
+   Wiki: boolean;
+   BotOwner: boolean;
 }
 
 export declare class Main {
    json: Json;
    events: any;
-   getJson(): Json
+   getJson(): Json;
    getData(): Data;
    getEvents(Client: Client): Events;
 }

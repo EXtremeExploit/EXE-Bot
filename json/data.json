@@ -3,10 +3,10 @@
     "prefix": "PREFIX",
     "osuApiKey": "OSUAPIKEY",
     "owner": {
-        "id": 257556050213994516,
-        "username": "EXtremeExploit",
-        "discriminator": "1133",
-        "tag": "EXtremeExploit#1133"
+        "id": 123456789,
+        "username": "Username",
+        "discriminator": "1234",
+        "tag": "username#1234"
     },
     "allEvents": false,
     "debug": false,
@@ -16,5 +16,19 @@
         "commands": "https://extremeexploit.github.io/EXE_Bot/Wiki/Commands",
         "replies": "https://extremeexploit.github.io/EXE_Bot/Wiki/Replies",
         "faq": "https://extremeexploit.github.io/EXE_Bot/Wiki/FAQ"
+    },
+    "commands": {
+        "categories": {
+            "Voice": true,
+            "Support": true,
+            "Info": true,
+            "Random": true,
+            "Moderation": true,
+            "Fun": true,
+            "Osu": true,
+            "Misc": true,
+            "Wiki": true,
+            "BotOwner": true
+        }
     }
 }

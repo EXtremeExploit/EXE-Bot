@@ -9,7 +9,7 @@ class Main {
    }
    getData() {
       var data = require('./data');
-      return new data();
+      return new data.Data();
    }
    getEvents(Client) {
       return new this.events.Events(Client);

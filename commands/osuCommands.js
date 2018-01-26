@@ -19,16 +19,14 @@ const { RichEmbed, Message, Client } = discord;
 //#endregion
 //#region Osu Module
 const _osuapi = require('osu.js');
-const osuApi = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api, Documentation at https://osu.ppy.sh/api
+const osuApi = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api
 const { Beatmap, Best, GamesOptions, Match, MatchOptions, Recent, Replay, Scores, ScoresOptions, User, UserEvents } = _osuapi;
 //#endregion
 //#endregion
 
 //#region Osu Commands & Replies
 class osuCommands {
-    constructor() {
-
-    }
+    constructor() { }
     //#region Commands
     /**
      * Loads the osu commands.

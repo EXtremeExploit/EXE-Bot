@@ -10,11 +10,11 @@ const wikis = {
     isEnabled: data.wikisEnabled()
 };
 //#endregion
-
 //#region Require Modules
 //#region Discord Module
 const discord = require('discord.js');
 const { Message, VoiceConnection } = require('discord.js');
+const a = require('../index');
 //#endregion
 //#region ytdl-core Module
 const yt = require('ytdl-core');
@@ -23,11 +23,6 @@ const yt = require('ytdl-core');
 
 //#region Voice Commands
 class voiceCommands {
-    /**
-     * 
-     * @param {Message} msg 
-     * @param {any} servers 
-     */
     constructor(msg, servers) {
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];
@@ -37,17 +32,12 @@ class voiceCommands {
         if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
         if (!command_prefix.startsWith(prefix)) return;
 
-        //region Functions
-        /**
-         * @param {VoiceConnection} connection 
-         * @param {Message} msg 
-         */
         function play(connection, msg) {
             var server = servers[msg.guild.id];
 
             server.dispatcher = connection.playStream(yt(server.queue[0], { filter: 'audioonly' }));
             server.queue.shift();
-            server.dispatcher.on('end', () => {
+            server.dispatcher.on('end', function () {
                 if (server.queue[0]) {
                     play(connection, msg);
                 } else {
@@ -147,4 +137,4 @@ class voiceCommands {
 }
 //#endregion
 
-module.exports = voiceCommands;
+exports.voiceCommands = voiceCommands;

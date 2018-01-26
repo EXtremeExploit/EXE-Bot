@@ -6,14 +6,14 @@ const json = main.getJson();
 //#region Settings
 class Data {
     token() {
-        var htoken = process.env.token
+        var htoken = process.env.token;
         if (!htoken)
             return json.token;
         else
             return htoken;
     }
     prefix() {
-        var hprefix = process.env.prefix
+        var hprefix = process.env.prefix;
         if (!hprefix)
             return json.prefix;
         else
@@ -27,18 +27,6 @@ class Data {
             return hosuapikey;
     }
     owner() {
-        if (process.env.owner_id)
-            json.owner.id = process.env.owner_id;
-
-        if (process.env.owner_username)
-            json.owner.id = process.env.owner_username;
-
-        if (process.env.owner_discriminator)
-            json.owner.id = process.env.owner_discriminator;
-
-        if (process.env.owner_tag)
-            json.owner.id = process.env.owner_tag;
-
         return json.owner;
     }
     allEvents() {

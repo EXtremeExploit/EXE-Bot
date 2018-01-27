@@ -53,82 +53,82 @@ class Data {
         //#region Voice
         var hvoice = process.env.commands_categories_Voice
         if (hvoice == true)
-            json.commands.categories.Voice = true;
+            this.commands().categories.Voice = true;
         else
             if (hvoice == false)
-                json.commands.categories.Voice = false;
+                this.commands().categories.Voice = false;
         //#endregion
         //#region Support
         var hsupport = process.env.commands_categories_Support;
         if (hsupport == true)
-            json.commands.categories.Support = true;
+            this.commands().categories.Support = true;
         else
             if (hsupport == false)
-                json.commands.categories.Support = false;
+                this.commands().categories.Support = false;
         //#endregion
         //#region Info
         var hinfo = process.env.commands_categories_Info;
         if (hinfo == true)
-            json.commands.categories.Info = true;
+            this.commands().categories.Info = true;
         else
             if (hinfo == false)
-                json.commands.categories.Info = false;
+                this.commands().categories.Info = false;
         //#endregion
         //#region Random
         var hrandom = process.env.commands_categories_Random;
         if (hrandom == true)
-            json.commands.categories.Random = true;
+            this.commands().categories.Random = true;
         else
             if (hrandom == false)
-                json.commands.categories.Random = false;
+                this.commands().categories.Random = false;
         //#endregion
         //#region Moderation
         var hmoderation = process.env.commands_categories_Moderation;
         if (hmoderation == true)
-            json.commands.categories.Moderation = true;
+            this.commands().categories.Moderation = true;
         else
             if (hmoderation == false)
-                json.commands.categories.Moderation = false;
+                this.commands().categories.Moderation = false;
         //#endregion
         //#region Fun
         var hfun = process.env.commands_categories_Fun;
         if (hfun == true)
-            json.commands.categories.Fun = true;
+            this.commands().categories.Fun = true;
         else
             if (hfun == false)
-                json.commands.categories.Fun = false;
+                this.commands().categories.Fun = false;
         //#endregion
         //#region Osu
         var hosu = process.env.commands_categories_Osu;
         if (hosu == true)
-            json.commands.categories.Osu = true;
+            this.commands().categories.Osu = true;
         else
             if (hosu == false)
-                json.commands.categories.Osu = false;
+                this.commands().categories.Osu = false;
         //#endregion
         //#region Misc
         var hmisc = process.env.commands_categories_Misc;
         if (hmisc == true)
-            json.commands.categories.Misc = true;
+            this.commands().categories.Misc = true;
         else
             if (hmisc == false)
-                json.commands.categories.Misc = false;
+                this.commands().categories.Misc = false;
         //#endregion
         //#region Wiki
         var hwiki = process.env.commands_categories_Wiki;
         if (hwiki == true)
-            json.commands.categories.Wiki = true;
+            this.commands().categories.Wiki = true;
         else
             if (hwiki == false)
-                json.commands.categories.Wiki = false;
+                this.commands().categories.Wiki = false;
         //#endregion
         //#region Bot Owner
         var hbotOwner = process.env.commands_categories_BotOwner;
         if (hbotOwner == true)
-            json.commands.categories.BotOwner = true;
+            this.commands().categories.BotOwner = true;
         else
             if (hbotOwner == false)
-                json.commands.categories.BotOwner = false;
+                this.commands().categories.BotOwner = false;
         //#endregion
         return json.commands;
     }

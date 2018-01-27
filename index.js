@@ -164,8 +164,8 @@ client.on('message', function (msg) {
     //#endregion
 
     //#region Voice Commands Load
-    if (data.commands().categories.Voice == true)
-        new voiceCommands.voiceCommands(msg, servers);
+    /*if (data.commands().categories.Voice == true)
+        new voiceCommands.voiceCommands(msg, servers);*/
     //#endregion
 
     //#region Osu Commands Load

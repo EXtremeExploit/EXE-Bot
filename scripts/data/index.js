@@ -122,7 +122,7 @@ class Data {
         if (hFun) {
             json.commands.categories.Moderation = hFun;
         } else {
-            json.commands.categories.Moderation = json.commands.categories.Moderation;
+            json.commands.categories.Fun = json.commands.categories.Fun;
         }
         //#endregion
         //#region Osu

@@ -37,6 +37,17 @@ class Events {
             console.log('Prefix: ' + this.prefix);
             console.log('Debug Mode: ' + this.debug);
             console.log('All Events: ' + this.allEvents);
+            console.log('============================================');
+            console.log('Voice: ' + this.data.commands().categories.Voice);
+            console.log('Support: ' + this.data.commands().categories.Support);
+            console.log('Info: ' + this.data.commands().categories.Info);
+            console.log('Random: ' + this.data.commands().categories.Random);
+            console.log('Moderation: ' + this.data.commands().categories.Moderation);
+            console.log('Fun: ' + this.data.commands().categories.Fun);
+            console.log('Osu: ' + this.data.commands().categories.Osu);
+            console.log('Misc: ' + this.data.commands().categories.Misc);
+            console.log('Wiki: ' + this.data.commands().categories.Wiki);
+            console.log('Bot Owner: ' + this.data.commands().categories.BotOwner);
             console.log('=============================================');
             console.log('Servers: ' + this.client.guilds.array().length);
             for (let i = 0; i < this.client.guilds.array().length; i++) {

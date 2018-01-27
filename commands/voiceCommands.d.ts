@@ -1,6 +1,6 @@
 import { Message, VoiceConnection, StreamDispatcher } from "discord.js";
 
-export declare type Servers = {
+export declare class Servers {
    queue: string[];
    dispatcher: StreamDispatcher;
 }

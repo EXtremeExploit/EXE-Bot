@@ -13,7 +13,8 @@ const wikis = {
 //#region Require Modules
 //#region Discord Module
 const discord = require('discord.js');
-const { Message, VoiceConnection } = require('discord.js');
+const { Message, VoiceConnection, StreamDispatcher } = discord;
+const { Servers } = require('./voiceCommands')
 const a = require('../index');
 //#endregion
 //#region ytdl-core Module
@@ -23,6 +24,11 @@ const yt = require('ytdl-core');
 
 //#region Voice Commands
 class voiceCommands {
+    /**
+     * 
+     * @param {Message} msg 
+     * @param {Servers[]} servers 
+     */
     constructor(msg, servers) {
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];

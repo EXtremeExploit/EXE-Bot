@@ -88,8 +88,9 @@ client.setInterval((e) => {
 
 //#region Functions
 /**
-     * @param {string} text
-     */
+ * @param {string} text
+ */
+
 
 function clean(text) {
     if (typeof (text) == 'string')

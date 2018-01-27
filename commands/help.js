@@ -130,15 +130,15 @@ class help {
 
                 //#region No Commands
                 var commands = data.commands().categories;
-                if (commands.Fun == false &&
-                    commands.Info == false &&
-                    commands.Misc == false &&
-                    commands.Moderation == false &&
-                    commands.Osu == false &&
-                    commands.Random == false &&
-                    commands.Support == false &&
-                    commands.Voice == false &&
-                    commands.Wiki == false) {
+                if (!commands.Fun == true &&
+                    !commands.Info == true &&
+                    !commands.Misc == true &&
+                    !commands.Moderation == true &&
+                    !commands.Osu == true &&
+                    !commands.Random == true &&
+                    !commands.Support == true &&
+                    !commands.Voice == true &&
+                    !commands.Wiki == true) {
                     embed.setDescription('I don\'t have any commands...')
                         .setFooter('Commands? what is that?')
                 }

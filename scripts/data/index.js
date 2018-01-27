@@ -27,6 +27,33 @@ class Data {
             return hosuapikey;
     }
     owner() {
+        var hid = process.env.owner_id;
+        if (hid){
+            json.owner.id = hid;
+        }else{
+            json.owner.id = json.owner.id;
+        }
+
+        var hdiscriminator = process.env.owner_discriminator;
+        if (hdiscriminator){
+            json.owner.discriminator = hdiscriminator;
+        }else{
+            json.owner.discriminator = json.owner.discriminator;
+        }
+        
+        var husername = process.env.owner_username;
+        if (husername){
+            json.owner.username = husername;
+        }else{
+            json.owner.username = json.owner.username;
+        }
+        
+        var htag = process.env.owner_tag;
+        if (htag){
+            json.owner.tag = htag;
+        }else{
+            json.owner.tag = json.owner.tag;
+        }
         return json.owner;
     }
     allEvents() {

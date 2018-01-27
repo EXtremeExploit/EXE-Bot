@@ -51,12 +51,12 @@ class Data {
     }
     commands() {
         //#region Voice
-        var hvoice = process.env.commands_categories_Voice
-        if (hvoice == true)
-            this.commands().categories.Voice = true;
-        else
-            if (hvoice == false)
-                this.commands().categories.Voice = false;
+        var hvoice = process.env.commands_categories_Voice;
+        if (!hvoice == undefined){
+            this.commands().categories.Voice = hvoice;
+        }else{
+            this.commands().categories.Voice = json.commands.categories.Voice;
+        }
         //#endregion
         //#region Support
         var hsupport = process.env.commands_categories_Support;

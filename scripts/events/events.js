@@ -61,6 +61,7 @@ class Events {
             console.log('============================================\n');
             console.log(`Connected. \n`);
             console.log('============================================\n');
+            console.log(this.data.commands());
             me.setPresence({
                 status: 'online',
                 afk: false,

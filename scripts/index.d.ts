@@ -11,7 +11,8 @@ declare type Json = {
    debug: boolean;
    wikisEnabled: boolean;
    wikis: Wikis;
-   commands: Commands
+   commands: Commands;
+   maintance: boolean;
 }
 
 declare type Owner = {

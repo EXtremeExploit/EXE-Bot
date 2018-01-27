@@ -159,6 +159,15 @@ class Data {
         //#endregion
         return json.commands;
     }
+    maintance() {
+        var hMaintance = process.env.maintance;
+        if (hMaintance) {
+            json.maintance = hMaintance;
+        } else {
+            json.maintance = json.maintance;
+        }
+        return json.maintance;
+    }
 }
 //#endregion
 

@@ -30,5 +30,6 @@
             "Wiki": true,
             "BotOwner": true
         }
-    }
+    },
+    "maintance": false
 }

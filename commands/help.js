@@ -44,7 +44,7 @@ class help {
                 //#endregion
 
                 //#region Voice
-                if (data.commands().categories.Voice == true) {
+                if (data.commands().categories.Voice == true || data.commands().categories.Voice == 'true') {
                     embed.addField('Voice', '**play:** Plays music on your current voice channel \n' +
                         '**skip:** Skips the current song \n' +
                         '**stop:** Stops and leaves the current voice channel', true)
@@ -52,14 +52,14 @@ class help {
                 //#endregion
 
                 //#region Support
-                if (data.commands().categories.Support == true) {
+                if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
                     embed.addField('Support', '**invite:** Invite me to your server \n' +
                         '**info:** Info about me', true)
                 }
                 //#endregion
 
                 //#region Info
-                if (data.commands().categories.Info == true) {
+                if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
                     embed.addField('Info', '**server:** Info about the server \n' +
                         '**role:** Info about a role \n' +
                         '**channel:** Info about a channel\n' +
@@ -69,7 +69,7 @@ class help {
                 //#endregion
 
                 //#region Random
-                if (data.commands().categories.Random == true) {
+                if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
                     embed.addField('Random', '**roll:** Rolls a dice\n' +
                         '**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n' +
                         '**cat:** Gets a random cat image\n' +
@@ -79,7 +79,7 @@ class help {
                 //#endregion
 
                 //#region Moderation
-                if (data.commands().categories.Moderation == true) {
+                if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
                     embed.addField('Moderation', '**kick:** Kicks someone \n' +
                         '**ban:** Bans someone \n' +
                         '**prune:** Deletes a count of messages in a channel')
@@ -87,7 +87,7 @@ class help {
                 //#endregion
 
                 //#region Fun
-                if (data.commands().categories.Fun == true) {
+                if (data.commands().categories.Fun == true || data.commands().categories.Fun == 'true') {
                     embed.addField('Fun', '**say:** Says whatever you want \n' +
                         '**lenny:** Displays the lenny face\n' +
                         '**cookie**: Gives a cookie to someone\n' +
@@ -98,7 +98,7 @@ class help {
                 //#endregion
 
                 //#region Osu
-                if (data.commands().categories.Osu == true) {
+                if (data.commands().categories.Osu == true || data.commands().categories.Osu == 'true') {
                     embed.addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n' +
                         '**osuTaikoUser**: Gets info about an user in the Taiko mode \n' +
                         '**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n' +
@@ -112,7 +112,7 @@ class help {
                 //#endregion
 
                 //#region Misc
-                if (data.commands().categories.Misc == true) {
+                if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
                     embed.addField('Misc', '**ping:** Pings the bot and the discord API\n' +
                         '**pong:** Pongs the bot and the discord API\n' +
                         '**uptime:** Displays the uptime since the bot had the READY event\n' +
@@ -121,7 +121,7 @@ class help {
                 //#endregion
 
                 //#region Wiki
-                if (data.commands().categories.Wiki == true) {
+                if (data.commands().categories.Wiki == true || data.commands().categories.Wiki == 'true') {
                     embed.addField('Wiki', '[Wiki](' + wikis.home + ')\n' +
                         '[Wiki: Commands](' + wikis.commands + ')\n' +
                         '[Wiki: Replies](' + wikis.replies + ')', true);

@@ -120,7 +120,7 @@ class Data {
         //#region Fun
         var hFun = process.env.commands_categories_Fun;
         if (hFun) {
-            json.commands.categories.Moderation = hFun;
+            json.commands.categories.Fun = hFun;
         } else {
             json.commands.categories.Fun = json.commands.categories.Fun;
         }

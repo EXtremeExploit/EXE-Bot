@@ -27,6 +27,33 @@ class Data {
             return hosuapikey;
     }
     owner() {
+        var hid = process.env.owner_id;
+        if (hid) {
+            json.owner.id = hid;
+        } else {
+            json.owner.id = json.owner.id;
+        }
+
+        var hdiscriminator = process.env.owner_discriminator;
+        if (hdiscriminator) {
+            json.owner.discriminator = hdiscriminator;
+        } else {
+            json.owner.discriminator = json.owner.discriminator;
+        }
+
+        var husername = process.env.owner_username;
+        if (husername) {
+            json.owner.username = husername;
+        } else {
+            json.owner.username = json.owner.username;
+        }
+
+        var htag = process.env.owner_tag;
+        if (htag) {
+            json.owner.tag = htag;
+        } else {
+            json.owner.tag = json.owner.tag;
+        }
         return json.owner;
     }
     allEvents() {
@@ -51,84 +78,84 @@ class Data {
     }
     commands() {
         //#region Voice
-        var hvoice = process.env.commands_categories_Voice
-        if (hvoice == true)
-            this.commands().categories.Voice = true;
-        else
-            if (hvoice == false)
-                this.commands().categories.Voice = false;
+        var hVoice = process.env.commands_categories_Voice;
+        if (hVoice) {
+            json.commands.categories.Voice = hVoice;
+        } else {
+            json.commands.categories.Voice = json.commands.categories.Voice;
+        }
         //#endregion
         //#region Support
-        var hsupport = process.env.commands_categories_Support;
-        if (hsupport == true)
-            this.commands().categories.Support = true;
-        else
-            if (hsupport == false)
-                this.commands().categories.Support = false;
+        var hSupport = process.env.commands_categories_Support;
+        if (hSupport) {
+            json.commands.categories.Support = hSupport;
+        } else {
+            json.commands.categories.Support = json.commands.categories.Support;
+        }
         //#endregion
         //#region Info
-        var hinfo = process.env.commands_categories_Info;
-        if (hinfo == true)
-            this.commands().categories.Info = true;
-        else
-            if (hinfo == false)
-                this.commands().categories.Info = false;
+        var hInfo = process.env.commands_categories_Info;
+        if (hInfo) {
+            json.commands.categories.Info = hInfo;
+        } else {
+            json.commands.categories.Info = json.commands.categories.Info;
+        }
         //#endregion
         //#region Random
-        var hrandom = process.env.commands_categories_Random;
-        if (hrandom == true)
-            this.commands().categories.Random = true;
-        else
-            if (hrandom == false)
-                this.commands().categories.Random = false;
+        var hRandom = process.env.commands_categories_Random;
+        if (hRandom) {
+            json.commands.categories.Random = hRandom;
+        } else {
+            json.commands.categories.Random = json.commands.categories.Random;
+        }
         //#endregion
         //#region Moderation
-        var hmoderation = process.env.commands_categories_Moderation;
-        if (hmoderation == true)
-            this.commands().categories.Moderation = true;
-        else
-            if (hmoderation == false)
-                this.commands().categories.Moderation = false;
+        var hModeration = process.env.commands_categories_Moderation;
+        if (hModeration) {
+            json.commands.categories.Moderation = hModeration;
+        } else {
+            json.commands.categories.Moderation = json.commands.categories.Moderation;
+        }
         //#endregion
         //#region Fun
-        var hfun = process.env.commands_categories_Fun;
-        if (hfun == true)
-            this.commands().categories.Fun = true;
-        else
-            if (hfun == false)
-                this.commands().categories.Fun = false;
+        var hFun = process.env.commands_categories_Fun;
+        if (hFun) {
+            json.commands.categories.Moderation = hModeration;
+        } else {
+            json.commands.categories.Moderation = json.commands.categories.Moderation;
+        }
         //#endregion
         //#region Osu
-        var hosu = process.env.commands_categories_Osu;
-        if (hosu == true)
-            this.commands().categories.Osu = true;
-        else
-            if (hosu == false)
-                this.commands().categories.Osu = false;
+        var hOsu = process.env.commands_categories_Osu;
+        if (hOsu) {
+            json.commands.categories.Osu = hOsu;
+        } else {
+            json.commands.categories.Osu = json.commands.categories.Osu;
+        }
         //#endregion
         //#region Misc
-        var hmisc = process.env.commands_categories_Misc;
-        if (hmisc == true)
-            this.commands().categories.Misc = true;
-        else
-            if (hmisc == false)
-                this.commands().categories.Misc = false;
+        var hMisc = process.env.commands_categories_Misc;
+        if (hMisc) {
+            json.commands.categories.Misc = hMisc;
+        } else {
+            json.commands.categories.Misc = json.commands.categories.Misc;
+        }
         //#endregion
         //#region Wiki
-        var hwiki = process.env.commands_categories_Wiki;
-        if (hwiki == true)
-            this.commands().categories.Wiki = true;
-        else
-            if (hwiki == false)
-                this.commands().categories.Wiki = false;
+        var hWiki = process.env.commands_categories_Wiki;
+        if (hWiki) {
+            json.commands.categories.Wiki = hWiki;
+        } else {
+            json.commands.categories.Wiki = json.commands.categories.Wiki;
+        }
         //#endregion
         //#region Bot Owner
-        var hbotOwner = process.env.commands_categories_BotOwner;
-        if (hbotOwner == true)
-            this.commands().categories.BotOwner = true;
-        else
-            if (hbotOwner == false)
-                this.commands().categories.BotOwner = false;
+        var hBotOwner = process.env.commands_categories_BotOwner;
+        if (hBotOwner) {
+            json.commands.categories.BotOwner = hBotOwner;
+        } else {
+            json.commands.categories.BotOwner = json.commands.categories.BotOwner;
+        }
         //#endregion
         return json.commands;
     }

@@ -3,10 +3,10 @@
     "prefix": "PREFIX",
     "osuApiKey": "OSUAPIKEY",
     "owner": {
-        "id": 257556050213994516,
-        "username": "EXtremeExploit",
-        "discriminator": "1133",
-        "tag": "EXtremeExploit#1133"
+        "id": 123456789,
+        "username": "Username",
+        "discriminator": "1234",
+        "tag": "Username#1234"
     },
     "allEvents": false,
     "debug": false,

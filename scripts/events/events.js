@@ -49,6 +49,11 @@ class Events {
             console.log('Wiki: ' + this.data.commands().categories.Wiki);
             console.log('Bot Owner: ' + this.data.commands().categories.BotOwner);
             console.log('=============================================');
+            console.log('Owner Username: ' + this.data.owner().username);
+            console.log('Owner Discriminator: ' + this.data.owner().discriminator);
+            console.log('Owner Id: ' + this.data.owner().id);
+            console.log('Owner Tag: ' + this.data.owner().tag);
+            console.log('=============================================');
             console.log('Servers: ' + this.client.guilds.array().length);
             for (let i = 0; i < this.client.guilds.array().length; i++) {
                 console.log(this.client.guilds.array()[i].name);

@@ -52,7 +52,7 @@ class Data {
     commands() {
         //#region Voice
         var hvoice = process.env.commands_categories_Voice;
-        if (!hvoice == undefined){
+        if (hvoice){
             this.commands().categories.Voice = hvoice;
         }else{
             this.commands().categories.Voice = json.commands.categories.Voice;

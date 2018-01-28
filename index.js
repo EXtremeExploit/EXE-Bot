@@ -174,7 +174,7 @@ client.on('message', function (msg) {
     //#endregion
 
     //#region Support
-    if (data.commands().categories.Support == true) {
+    if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
         switch (command) {
             case 'invite':
                 client.generateInvite(['ADMINISTRATOR']).then(link => {
@@ -201,7 +201,7 @@ client.on('message', function (msg) {
     //#endregion
 
     //#region Info
-    if (data.commands().categories.Info == true) {
+    if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
         switch (command) {
             case 'server':
                 if (msg.guild.available) {
@@ -326,7 +326,7 @@ client.on('message', function (msg) {
     //#endregion
 
     //#region Random
-    if (data.commands().categories.Random == true) {
+    if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
         switch (command) {
             case 'roll':
                 const roll = Math.floor(Math.random() * 6) + 1;
@@ -418,7 +418,7 @@ client.on('message', function (msg) {
     //#endregion
 
     //#region Moderation
-    if (data.commands().categories.Moderation == true) {
+    if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
         switch (command) {
             case 'kick':
                 if (msg.member.hasPermission(['KICK_MEMBERS']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
@@ -560,7 +560,7 @@ client.on('message', function (msg) {
     //#endregion
 
     //#region Fun
-    if (data.commands().categories.Fun == true) {
+    if (data.commands().categories.Fun == true || data.commands().categories.Fun == 'true') {
         switch (command) {
             case 'say':
                 var thing2say = args;
@@ -674,7 +674,7 @@ client.on('message', function (msg) {
     //#endregion
 
     //#region Misc
-    if (data.commands().categories.Misc == true) {
+    if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
         switch (command) {
             case 'ping':
                 msg.channel.send(new discord.RichEmbed()
@@ -737,7 +737,7 @@ client.on('message', function (msg) {
     //#endregion
 
     //#region Bot Owner
-    if (data.commands().categories.BotOwner == true) {
+    if (data.commands().categories.BotOwner == true || data.commands().categories.BotOwner == 'true') {
         switch (command) {
             case 'disconnect':
                 if (msg.member.user.id == owner.id) {

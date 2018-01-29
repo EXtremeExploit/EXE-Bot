@@ -37,6 +37,7 @@ class Events {
             console.log('Prefix: ' + this.prefix);
             console.log('Debug Mode: ' + this.debug);
             console.log('All Events: ' + this.allEvents);
+            console.log('Maintance Mode: ' + this.data.maintance())
             console.log('============================================');
             console.log('Voice: ' + this.data.commands().categories.Voice);
             console.log('Support: ' + this.data.commands().categories.Support);
@@ -61,16 +62,28 @@ class Events {
             console.log('============================================\n');
             console.log(`Connected. \n`);
             console.log('============================================\n');
-            console.log(this.data.commands());
-            me.setPresence({
-                status: 'online',
-                afk: false,
-                game: {
-                    name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
-                    url: 'https://www.twitch.tv/extremeexploit_'
+            switch (this.data.maintance()) {
+                case 'true' || true:
+                    me.setPresence({
+                        status: 'dnd',
+                        afk: false,
+                        game: {
+                            name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers'
+                        }
+                    });
+                    break;
+                case 'false' || false:
+                    me.setPresence({
+                        status: 'online',
+                        afk: false,
+                        game: {
+                            name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
+                            url: 'https://www.twitch.tv/extremeexploit_'
+                        }
+                    });
+                    break;
                 }
             });
-        });
     }
     disconnect() {
         this.client.on('disconnect', () => console.log('[ ' + new Date + ' ] [DISCONNECTED]'));

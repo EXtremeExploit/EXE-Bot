@@ -1,9 +1,9 @@
 {
-    "token": "TOKEN",
-    "prefix": "PREFIX",
-    "osuApiKey": "OSUAPIKEY",
+    "token": "Mzg5Nzc2OTY0NzYxODEyOTky.DU_jig._Q9AjuLzqIeQouAJh8ob84AP-Vk",
+    "prefix": "eb!",
+    "osuApiKey": "1c3482a1d30a38833f3b79462983fe92a7a0d8bf",
     "owner": {
-        "id": 123456789,
+        "id": 257556050213994516,
         "username": "Username",
         "discriminator": "1234",
         "tag": "Username#1234"
@@ -19,7 +19,7 @@
     },
     "commands": {
         "categories": {
-            "Voice": true,
+            "Voice": false,
             "Support": true,
             "Info": true,
             "Random": true,
@@ -31,5 +31,9 @@
             "BotOwner": true
         }
     },
-    "maintance": false
+    "maintance": false,
+    "replies": {
+        "standard": true,
+        "osu": true
+    }
 }

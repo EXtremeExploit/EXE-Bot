@@ -6,69 +6,94 @@ const json = main.getJson();
 //#region Settings
 class Data {
     token() {
+        //#region Token
         var htoken = process.env.token;
-        if (!htoken)
-            return json.token;
-        else
-            return htoken;
+        if (htoken) {
+            json.token = htoken;
+        } else {
+            json.token = json.token;
+        }
+        //#endregion
+        return json.token;
     }
     prefix() {
+        //#region Prefix
         var hprefix = process.env.prefix;
-        if (!hprefix)
-            return json.prefix;
-        else
-            return hprefix;
+        if (hprefix) {
+            json.prefix = hprefix;
+        } else {
+            json.prefix = json.prefix;
+        }
+        //#endregion
+        return json.prefix;
     }
     osuApiKey() {
+        //#region Osu!API Key
         var hosuapikey = process.env.osuApiKey;
-        if (!hosuapikey)
-            return json.osuApiKey;
-        else
-            return hosuapikey;
+        if (hosuapikey) {
+            json.osuApiKey = hosuapikey;
+        } else {
+            json.osuApiKey = json.osuApiKey;
+        }
+        //#endregion
+        return json.osuApiKey;
     }
     owner() {
+        //#region ID
         var hid = process.env.owner_id;
         if (hid) {
             json.owner.id = hid;
         } else {
             json.owner.id = json.owner.id;
         }
-
+        //#endregion
+        //#region Discriminator
         var hdiscriminator = process.env.owner_discriminator;
         if (hdiscriminator) {
             json.owner.discriminator = hdiscriminator;
         } else {
             json.owner.discriminator = json.owner.discriminator;
         }
-
+        //#endregion
+        //#region Username
         var husername = process.env.owner_username;
         if (husername) {
             json.owner.username = husername;
         } else {
             json.owner.username = json.owner.username;
         }
-
+        //#endregion
+        //#region Tag
         var htag = process.env.owner_tag;
         if (htag) {
             json.owner.tag = htag;
         } else {
             json.owner.tag = json.owner.tag;
         }
+        //#endregion
         return json.owner;
     }
     allEvents() {
+        //#region All Events
         var hallevents = process.env.allEvents;
-        if (!hallevents)
-            return json.allEvents;
-        else
-            return hallevents;
+        if (hallevents) {
+            json.allEvents = hallevents;
+        } else {
+            json.allEvents = json.allEvents;
+        }
+        //#endregion
+        return json.allEvents;
     }
     debug() {
+        //#region Debug
         var hdebug = process.env.debug;
-        if (!hdebug)
-            return json.debug;
-        else
-            return hdebug;
+        if (hdebug) {
+            json.debug = hdebug;
+        } else {
+            json.debug = json.debug;
+        }
+        //#endregion
+        return json.debug;
     }
     wikisEnabled() {
         return json.wikisEnabled;
@@ -160,13 +185,34 @@ class Data {
         return json.commands;
     }
     maintance() {
+        //#region Maintance
         var hMaintance = process.env.maintance;
         if (hMaintance) {
             json.maintance = hMaintance;
         } else {
             json.maintance = json.maintance;
         }
+        //#endregion
         return json.maintance;
+    }
+    replies() {
+        //#region Standard
+        var hStandard = process.env.replies_standard;
+        if (hStandard) {
+            json.replies.standard = hStandard;
+        } else {
+            json.replies.standard = json.replies.standard;
+        }
+        //#endregion
+        //#region Osu
+        var hOsu = process.env.replies_osu;
+        if (hOsu) {
+            json.replies.osu = hOsu;
+        } else {
+            json.replies.osu = json.replies.osu;
+        }
+        //#endregion
+        return json.replies;
     }
 }
 //#endregion

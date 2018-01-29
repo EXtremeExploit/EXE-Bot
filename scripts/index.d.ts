@@ -13,6 +13,7 @@ declare type Json = {
    wikis: Wikis;
    commands: Commands;
    maintance: boolean;
+   replies: Replies;
 }
 
 declare type Owner = {
@@ -44,6 +45,11 @@ declare type Categories = {
    Misc: boolean;
    Wiki: boolean;
    BotOwner: boolean;
+}
+
+export declare type Replies = {
+   standard: boolean;
+   osu: boolean;
 }
 
 export declare class Main {

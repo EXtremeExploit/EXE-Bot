@@ -1,4 +1,4 @@
-import { Commands, Owner, Wikis } from "../index";
+import { Commands, Owner, Wikis, Replies } from "../index";
 
 export declare class Data {
    token(): string;
@@ -9,5 +9,7 @@ export declare class Data {
    debug(): boolean;
    wikisEnabled(): boolean;
    wikis(): Wikis;
-   commands(): Commands
+   commands(): Commands;
+   maintance(): boolean;
+   replies(): Replies;
 }

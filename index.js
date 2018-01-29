@@ -793,7 +793,7 @@ client.on('message', function (msg) {
 //#endregion
 
 //#region Replies
-if (data.replies().standard == true) {
+if (data.replies().standard == true || data.replies().standard == 'true' ) {
     client.on('message', (msg) => {
         if (msg.author.bot) return;
         if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
@@ -815,7 +815,7 @@ if (data.replies().standard == true) {
         if (message == 'sauce')
             msg.channel.send('no ketchup');
     });
-    if (data.replies().osu == true) {
+    if (data.replies().osu == true || data.replies().osu == 'true') {
         new osuCommands().replies(client);
     }
 }

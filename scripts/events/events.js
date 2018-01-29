@@ -37,7 +37,7 @@ class Events {
             console.log('Prefix: ' + this.prefix);
             console.log('Debug Mode: ' + this.debug);
             console.log('All Events: ' + this.allEvents);
-            console.log('Maintance Mode: ' + this.data.maintance())
+            console.log('Maintance Mode: ' + this.data.maintance());
             console.log('============================================');
             console.log('Voice: ' + this.data.commands().categories.Voice);
             console.log('Support: ' + this.data.commands().categories.Support);

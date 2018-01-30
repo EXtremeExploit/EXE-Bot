@@ -26,6 +26,39 @@ class Events {
     ready() {
         this.client.on('ready', () => {
             var me = this.client.user;
+            switch (this.data.maintance()) {
+                case true:
+                case 'true':
+                    me.setPresence({
+                        status: 'dnd',
+                        afk: false,
+                        game: {
+                            name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers'
+                        }
+                    });
+                    break;
+                case false:
+                case 'false':
+                    me.setPresence({
+                        status: 'online',
+                        afk: false,
+                        game: {
+                            name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
+                            url: 'https://www.twitch.tv/extremeexploit_'
+                        }
+                    });
+                    break;
+                default: 
+                    me.setPresence({
+                        afk: false,
+                        status: 'idle',
+                        game: {
+                            name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
+                        }
+                    });
+                    console.warn('ERROR: Bot status shouldn\'t be \"idle\". Mainctance mode should be boolean or string');
+                    break;
+            }
             console.log('============================================');
             console.log('JavaScript Node.JS discord.js ' + discord.version);
             console.log('Username: ' + me.tag);
@@ -49,6 +82,8 @@ class Events {
             console.log('Misc: ' + this.data.commands().categories.Misc);
             console.log('Wiki: ' + this.data.commands().categories.Wiki);
             console.log('Bot Owner: ' + this.data.commands().categories.BotOwner);
+            console.log('Replies Standard: ' + this.data.replies().standard);
+            console.log('Replies Osu: ' + this.data.replies().osu);
             console.log('=============================================');
             console.log('Owner Username: ' + this.data.owner().username);
             console.log('Owner Discriminator: ' + this.data.owner().discriminator);
@@ -62,28 +97,7 @@ class Events {
             console.log('============================================\n');
             console.log(`Connected. \n`);
             console.log('============================================\n');
-            switch (this.data.maintance()) {
-                case 'true' || true:
-                    me.setPresence({
-                        status: 'dnd',
-                        afk: false,
-                        game: {
-                            name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers'
-                        }
-                    });
-                    break;
-                case 'false' || false:
-                    me.setPresence({
-                        status: 'online',
-                        afk: false,
-                        game: {
-                            name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
-                            url: 'https://www.twitch.tv/extremeexploit_'
-                        }
-                    });
-                    break;
-                }
-            });
+        });
     }
     disconnect() {
         this.client.on('disconnect', () => console.log('[ ' + new Date + ' ] [DISCONNECTED]'));

@@ -156,7 +156,12 @@ client.on('message', function (msg) {
     var args = messageArray.slice(1).join(' ');
     var command = command_prefix.replace(prefix, '');
     if (msg.author.bot) return;
-    if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
+    if (msg.channel.type == 'dm' || msg.channel.type == 'group') {
+        msg.channel.send(new discord.RichEmbed()
+            .setColor([255,0,0])
+            .setDescription('Commands only work in servers!')
+            .setFooter('There is a good reason for this'));
+    }
     if (!command_prefix.startsWith(prefix)) return;
     //#endregion
 
@@ -793,7 +798,7 @@ client.on('message', function (msg) {
 //#endregion
 
 //#region Replies
-if (data.replies().standard == true || data.replies().standard == 'true' ) {
+if (data.replies().standard == true || data.replies().standard == 'true') {
     client.on('message', (msg) => {
         if (msg.author.bot) return;
         if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;

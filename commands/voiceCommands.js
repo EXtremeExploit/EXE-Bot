@@ -14,8 +14,7 @@ const wikis = {
 //#region Discord Module
 const discord = require('discord.js');
 const { Message, VoiceConnection, StreamDispatcher } = discord;
-const { Servers } = require('./voiceCommands')
-const a = require('../index');
+const { Servers } = require('./voiceCommands');
 //#endregion
 //#region ytdl-core Module
 const yt = require('ytdl-core');

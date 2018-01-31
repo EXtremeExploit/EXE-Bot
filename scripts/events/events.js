@@ -56,7 +56,7 @@ class Events {
                             name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
                         }
                     });
-                    console.warn('ERROR: Bot status shouldn\'t be \"idle\". Mainctance mode should be boolean or string');
+                    console.warn('ERROR: Bot status shouldn\'t be \"idle\". Maintance mode should be boolean or string');
                     break;
             }
             console.log('============================================');

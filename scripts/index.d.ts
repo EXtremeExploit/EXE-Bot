@@ -1,6 +1,7 @@
 import { Events } from "./events/events";
 import { Client } from "discord.js";
 import { Data } from "./data/index";
+import { Functions } from "./Functions/index";
 
 declare type Json = {
    token: string;
@@ -58,4 +59,5 @@ export declare class Main {
    getJson(): Json;
    getData(): Data;
    getEvents(Client: Client): Events;
+   getFunctions(): Functions;
 }

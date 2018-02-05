@@ -214,6 +214,9 @@ class Data {
         //#endregion
         return json.replies;
     }
+    servers(){
+        return {};
+    }
 }
 //#endregion
 

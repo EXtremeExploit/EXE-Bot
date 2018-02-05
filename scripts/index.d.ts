@@ -1,5 +1,5 @@
 import { Events } from "./events/events";
-import { Client } from "discord.js";
+import { Client, StreamDispatcher } from "discord.js";
 import { Data } from "./data/index";
 import { Functions } from "./Functions/index";
 
@@ -51,6 +51,11 @@ declare type Categories = {
 export declare type Replies = {
    standard: boolean;
    osu: boolean;
+}
+
+export declare type Servers = {
+    queue: string[];
+    dispatcher: StreamDispatcher;
 }
 
 export declare class Main {

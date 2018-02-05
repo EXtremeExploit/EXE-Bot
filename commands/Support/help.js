@@ -1,5 +1,6 @@
 //#region Data
-const main = new (require("../scripts/")).Main();
+const main = require("../index").Main;
+const functions = main.getFunctions();
 const data = main.getData();
 var prefix = data.prefix();
 const wikis = {
@@ -33,7 +34,6 @@ class help {
         if (msg.author.bot) return;
         if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
         if (!command_prefix.startsWith(prefix)) return;
-
         switch (command) {
             case 'help':
                 //#region Embed Setup
@@ -45,7 +45,7 @@ class help {
 
                 //#region Voice
                 if (data.commands().categories.Voice == true || data.commands().categories.Voice == 'true') {
-                    embed.addField('Voice', '**play:** Plays music on your current voice channel \n' +
+                    embed.addField('Voice (EXPERIMENTAL)', '**play:** Plays music on your current voice channel \n' +
                         '**skip:** Skips the current song \n' +
                         '**stop:** Stops and leaves the current voice channel', true)
                 }
@@ -54,6 +54,7 @@ class help {
                 //#region Support
                 if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
                     embed.addField('Support', '**invite:** Invite me to your server \n' +
+                        '**help:** Shows this message\n' +
                         '**info:** Info about me', true)
                 }
                 //#endregion
@@ -147,7 +148,6 @@ class help {
         }
     }
 }
-
 //#endregion
 
 module.exports = help;

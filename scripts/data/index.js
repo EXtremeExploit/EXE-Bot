@@ -214,8 +214,16 @@ class Data {
         //#endregion
         return json.replies;
     }
-    servers(){
+    servers() {
         return {};
+    }
+    disconnect() {
+        var hDisconnect = process.env.disconnect;
+        if (hDisconnect) {
+            json.disconnect = hDisconnect;
+        } else {
+            json.disconnect = json.disconnect;
+        }
     }
 }
 //#endregion

@@ -35,5 +35,6 @@
     "replies": {
         "standard": true,
         "osu": true
-    }
+    },
+    "disconnect": false
 }

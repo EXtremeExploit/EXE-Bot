@@ -15,6 +15,7 @@ declare type Json = {
    commands: Commands;
    maintance: boolean;
    replies: Replies;
+   disconnect: boolean;
 }
 
 declare type Owner = {

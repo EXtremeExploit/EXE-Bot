@@ -19,7 +19,7 @@
     },
     "commands": {
         "categories": {
-            "Voice": true,
+            "Voice": false,
             "Support": true,
             "Info": true,
             "Random": true,
@@ -30,5 +30,11 @@
             "Wiki": true,
             "BotOwner": true
         }
-    }
+    },
+    "maintance": false,
+    "replies": {
+        "standard": true,
+        "osu": true
+    },
+    "disconnect": false
 }

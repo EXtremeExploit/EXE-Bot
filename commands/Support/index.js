@@ -29,7 +29,7 @@ class Support {
       var command_prefix = messageArray[0];
       var args = messageArray.slice(1).join(' ');
       var command = command_prefix.replace(prefix, '');
-       return;
+      
       switch (command) {
          case 'info':
             new this.info(msg, client);

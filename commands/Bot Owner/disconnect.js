@@ -28,7 +28,7 @@ class disconnect {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         if (msg.channel.type == 'dm' || msg.channel.type == 'group') {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])

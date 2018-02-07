@@ -33,7 +33,7 @@ class Info {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         switch (command) {
             case 'avatar':
                 new this.avatar(msg, client);

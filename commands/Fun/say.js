@@ -28,7 +28,7 @@ class say {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         var thing2say = args;
         if (!thing2say == '' || thing2say == null) {
             msg.channel.send(new discord.RichEmbed()

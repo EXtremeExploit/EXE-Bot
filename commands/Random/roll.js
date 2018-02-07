@@ -28,7 +28,7 @@ class roll {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         const roll = Math.floor(Math.random() * 6) + 1;
         msg.channel.send(new discord.RichEmbed()
             .setColor([255, 0, 0])

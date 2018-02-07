@@ -28,7 +28,7 @@ class invite {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         client.generateInvite(['ADMINISTRATOR']).then(link => {
             msg.channel.send(new discord.RichEmbed()
                 .setTitle('Invite me to your server!')

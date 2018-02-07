@@ -28,7 +28,7 @@ class coinflip {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         var randonmes = Math.random().toFixed(2);
         if (randonmes < 0.5) {
             msg.channel.send(new discord.RichEmbed()

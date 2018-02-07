@@ -28,7 +28,7 @@ class info {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         msg.channel.send(new discord.RichEmbed()
             .setAuthor(client.user.username, client.user.avatarURL)
             .setColor([255, 0, 0])

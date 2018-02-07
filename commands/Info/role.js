@@ -28,7 +28,7 @@ class role {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         if (msg.mentions.roles.first()) {
             var role = msg.mentions.roles.first();
 

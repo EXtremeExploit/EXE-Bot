@@ -28,7 +28,7 @@ class server {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         if (msg.guild.available) {
             if (msg.guild.verificationLevel == 0) {
                 msg.guild.verificationLevel = 'None';

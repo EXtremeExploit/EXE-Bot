@@ -28,7 +28,7 @@ class pat {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         var images = [
             'https://pa1.narvii.com/6490/e9649d41af555774b0bd62ed43c050dc036ed6c9_hq.gif',
             'http://i0.kym-cdn.com/photos/images/original/001/142/787/396.gif',

@@ -28,7 +28,6 @@ class play {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
         if (!args[0] || args == '') {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])

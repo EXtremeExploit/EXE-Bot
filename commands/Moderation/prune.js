@@ -28,7 +28,7 @@ class prune {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         if (msg.member.hasPermission(['MANAGE_MESSAGES']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
             if (!args == null || !args == '') {
                 if (args == '1' || parseInt(args) > 99) {

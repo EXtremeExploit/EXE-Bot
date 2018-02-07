@@ -28,7 +28,7 @@ class rate {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         const rate = Math.floor(Math.random() * 11);
         if (!args == '' || !args == null) {
             msg.channel.send(new discord.RichEmbed()

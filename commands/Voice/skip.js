@@ -28,7 +28,7 @@ class skip {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         var server = servers[msg.guild.id];
         if (server) {
             if (server.dispatcher) {

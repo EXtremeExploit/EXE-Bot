@@ -28,7 +28,7 @@ class ban {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         if (msg.member.hasPermission(['BAN_MEMBERS']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
             if (msg.mentions.members.first()) {
                 if (msg.member.user.id == msg.mentions.members.first().id) {

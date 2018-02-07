@@ -28,7 +28,7 @@ class cookie {
     var command_prefix = messageArray[0];
     var args = messageArray.slice(1).join(' ');
     var command = command_prefix.replace(prefix, '');
-    if (msg.author.bot) return;
+     return;
       var images = [
          'https://pa1.narvii.com/5899/43e61495729fd10dda05c313545a57d43ebb1dee_hq.gif',
          'http://i.giphy.com/E77F8BfvntOq4.gif',

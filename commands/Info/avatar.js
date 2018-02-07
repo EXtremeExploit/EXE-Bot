@@ -28,7 +28,7 @@ class avatar {
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
-        if (msg.author.bot) return;
+
         if (!msg.mentions.members.first()) {
             var user = msg.member.user;
             msg.channel.send(new discord.RichEmbed()

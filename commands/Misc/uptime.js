@@ -28,7 +28,7 @@ class uptime {
 		var command_prefix = messageArray[0];
 		var args = messageArray.slice(1).join(' ');
 		var command = command_prefix.replace(prefix, '');
-		if (msg.author.bot) return;
+		 return;
 		var miliseconds = client.uptime % 999;
 		var seconds = Math.floor(client.uptime / 1000) % 59;
 		var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 59;

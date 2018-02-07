@@ -25,7 +25,6 @@ class Eval {
             isEnabled: data.wikisEnabled()
         };
         var commands = new (require('../index')).Commands(client);
-        var replies = new (require('../../Replies/index'))
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');

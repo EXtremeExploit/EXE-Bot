@@ -32,8 +32,8 @@ class osuCtbUser {
         var messageArray = msg.content.split(' ');
 		var command_prefix = messageArray[0];
 		var args = messageArray.slice(1).join(' ');
-		var command = command_prefix.replace(prefix, '');
-		 return;
+        var command = command_prefix.replace(prefix, '');
+        
         if (args == '' || args == null) {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])

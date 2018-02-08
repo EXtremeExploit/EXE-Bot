@@ -28,7 +28,7 @@ class ping {
 		var command_prefix = messageArray[0];
 		var args = messageArray.slice(1).join(' ');
 		var command = command_prefix.replace(prefix, '');
-		 return;
+
 		msg.channel.send(new discord.RichEmbed()
 			.setTitle('Pinging...')
 			.setColor([0, 0, 255])).then(pingMsg => {

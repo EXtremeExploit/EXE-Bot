@@ -23,30 +23,30 @@ class cookie {
      * @param {Message} msg 
      * @param {Client} client 
      */
-   constructor(msg, client) {
-    var messageArray = msg.content.split(' ');
-    var command_prefix = messageArray[0];
-    var args = messageArray.slice(1).join(' ');
-    var command = command_prefix.replace(prefix, '');
-     return;
-      var images = [
-         'https://pa1.narvii.com/5899/43e61495729fd10dda05c313545a57d43ebb1dee_hq.gif',
-         'http://i.giphy.com/E77F8BfvntOq4.gif',
-         'https://media1.tenor.com/images/9a684862dd6a95ca16c5ecd6b02b119f/tenor.gif?itemid=5446986',
-         'http://i.imgur.com/bYVl2.gif'
-      ];
-      var cookieImg = images[Math.floor(Math.random() * images.length)];
-      if (msg.mentions.members.first()) {
-         msg.channel.send(new discord.RichEmbed()
-            .setTitle(msg.member.user.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
-            .setColor([255, 0, 0])
-            .setImage(cookieImg));
-      } else {
-         msg.channel.send(new discord.RichEmbed()
-            .setColor([255, 0, 0])
-            .addField('Help', 'Check the [wiki](' + wikis.commands + '#fun) for help!')
-            .setDescription('Pleace specify an user!'));
-      }
-   }
+    constructor(msg, client) {
+        var messageArray = msg.content.split(' ');
+        var command_prefix = messageArray[0];
+        var args = messageArray.slice(1).join(' ');
+        var command = command_prefix.replace(prefix, '');
+        
+        var images = [
+            'https://pa1.narvii.com/5899/43e61495729fd10dda05c313545a57d43ebb1dee_hq.gif',
+            'http://i.giphy.com/E77F8BfvntOq4.gif',
+            'https://media1.tenor.com/images/9a684862dd6a95ca16c5ecd6b02b119f/tenor.gif?itemid=5446986',
+            'http://i.imgur.com/bYVl2.gif'
+        ];
+        var cookieImg = images[Math.floor(Math.random() * images.length)];
+        if (msg.mentions.members.first()) {
+            msg.channel.send(new discord.RichEmbed()
+                .setTitle(msg.member.user.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
+                .setColor([255, 0, 0])
+                .setImage(cookieImg));
+        } else {
+            msg.channel.send(new discord.RichEmbed()
+                .setColor([255, 0, 0])
+                .addField('Help', 'Check the [wiki](' + wikis.commands + '#fun) for help!')
+                .setDescription('Pleace specify an user!'));
+        }
+    }
 }
 module.exports = cookie;

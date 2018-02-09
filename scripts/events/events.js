@@ -30,7 +30,7 @@ class Events {
         } else {
             this.client.on('ready', () => {
                 var me = this.client.user;
-                client.setInterval((e) => {
+                this.client.setInterval((e) => {
                     switch (this.data.maintance()) {
                         case true:
                         case 'true':

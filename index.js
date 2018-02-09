@@ -4,13 +4,9 @@ console.log('Starting...');
 
 //#region Data
 const main = new (require('./scripts/')).Main();
-const data = main.getData();
-var token = data.token();
-var prefix = data.prefix();
 //#endregion
 
 //#region Require Modules
-
 //#region Discord Module
 const discord = require('discord.js');
 //#endregion
@@ -18,7 +14,6 @@ const discord = require('discord.js');
 const commands = require('./commands/index');
 const replies = require('./Replies/index');
 //#endregion
-
 //#endregion
 
 //#region Modules Configuration
@@ -49,18 +44,6 @@ const client = new discord.Client({
 });
 
 main.getEvents(client).all();
-
-client.setInterval((e) => {
-    client.user.setPresence({
-        status: 'online',
-        afk: false,
-        game: {
-            name: prefix + 'help | ' + prefix + 'invite | ' + client.guilds.size + ' Servers',
-            url: 'https://www.twitch.tv/extremeexploit_',
-        }
-    })
-}, 60000);
-
 //#endregion
 //#endregion
 
@@ -68,10 +51,9 @@ client.setInterval((e) => {
 client.on('message', (msg) => {
     new commands.Commands(client).Load(msg);
 });
-
 //#endregion
 
 //#region Replies
 new replies(client);
 //#endregion
-client.login(token).catch(e => console.log(e));
+client.login(main.getData().token()).catch(e => console.log(e));

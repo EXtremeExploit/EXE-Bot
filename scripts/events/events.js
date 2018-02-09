@@ -30,39 +30,41 @@ class Events {
         } else {
             this.client.on('ready', () => {
                 var me = this.client.user;
-                switch (this.data.maintance()) {
-                    case true:
-                    case 'true':
-                        me.setPresence({
-                            status: 'dnd',
-                            afk: false,
-                            game: {
-                                name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers'
-                            }
-                        });
-                        break;
-                    case false:
-                    case 'false':
-                        me.setPresence({
-                            status: 'online',
-                            afk: false,
-                            game: {
-                                name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
-                                url: 'https://www.twitch.tv/extremeexploit_'
-                            }
-                        });
-                        break;
-                    default:
-                        me.setPresence({
-                            afk: false,
-                            status: 'idle',
-                            game: {
-                                name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
-                            }
-                        });
-                        console.warn('ERROR: Bot status shouldn\'t be \"idle\". Maintance mode should be boolean or string');
-                        break;
-                }
+                client.setInterval((e) => {
+                    switch (this.data.maintance()) {
+                        case true:
+                        case 'true':
+                            me.setPresence({
+                                status: 'dnd',
+                                afk: false,
+                                game: {
+                                    name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers'
+                                }
+                            });
+                            break;
+                        case false:
+                        case 'false':
+                            me.setPresence({
+                                status: 'online',
+                                afk: false,
+                                game: {
+                                    name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
+                                    url: 'https://www.twitch.tv/extremeexploit_'
+                                }
+                            });
+                            break;
+                        default:
+                            me.setPresence({
+                                afk: false,
+                                status: 'idle',
+                                game: {
+                                    name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
+                                }
+                            });
+                            console.warn('ERROR: Bot status shouldn\'t be \"idle\". Maintance mode should be boolean or string');
+                            break;
+                    }
+                }, 60000);
                 console.log('============================================');
                 console.log('JavaScript Node.JS discord.js ' + discord.version);
                 console.log('Username: ' + me.tag);

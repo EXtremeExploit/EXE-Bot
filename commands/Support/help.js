@@ -83,7 +83,7 @@ class help {
                 if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
                     embed.addField('Moderation', '**kick:** Kicks someone \n' +
                         '**ban:** Bans someone \n' +
-                        '**prune:** Deletes a count of messages in a channel')
+                        '**prune:** Deletes a count of messages in a channel', true)
                 }
                 //#endregion
 

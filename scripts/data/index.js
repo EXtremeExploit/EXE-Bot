@@ -38,6 +38,17 @@ class Data {
         //#endregion
         return json.osuApiKey;
     }
+    discordBotsToken() {
+        //#region Discord Bots Token
+        var hDiscordBotsToken = process.env.discordBotsToken;
+        if (hDiscordBotsToken) {
+            json.discordBotsToken = hDiscordBotsToken;
+        } else {
+            json.discordBotsToken = json.discordBotsToken;
+        }
+        //#endregion
+        return json.discordBotsToken;
+    }
     owner() {
         //#region ID
         var hid = process.env.owner_id;

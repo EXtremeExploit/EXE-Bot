@@ -2,6 +2,7 @@
     "token": "TOKEN",
     "prefix": "PREFIX",
     "osuApiKey": "OSUAPIKEY",
+    "discordBotsToken": "DISCORDBOTSTOKEN",
     "owner": {
         "id": 123456789,
         "username": "Username",

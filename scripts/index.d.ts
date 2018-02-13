@@ -7,6 +7,7 @@ declare type Json = {
    token: string;
    prefix: string;
    osuApiKey: string;
+   discordBotsToken: string;
    owner: Owner
    allEvents: boolean;
    debug: boolean;

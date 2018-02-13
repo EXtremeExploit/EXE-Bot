@@ -4,6 +4,7 @@ export declare class Data {
    token(): string;
    prefix(): string;
    osuApiKey(): string;
+   discordBotsToken(): string;
    owner(): Owner;
    allEvents(): boolean | string;
    debug(): boolean | string;

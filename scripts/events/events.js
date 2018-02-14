@@ -3,6 +3,9 @@
 const discord = require('discord.js');
 const { Client } = discord;
 //#endregion
+//#region Discord Bots Module
+const db = require('dblapi.js');
+//#endregion
 //#endregion
 
 //#region Events
@@ -31,6 +34,9 @@ class Events {
             this.client.on('ready', () => {
                 var me = this.client.user;
                 this.client.setInterval((e) => {
+                    //#region Discord Bots Configuration
+                    new db(main.getData().discordBotsToken(), client);
+                    //#endregion
                     switch (this.data.maintance()) {
                         case true:
                         case 'true':
@@ -64,7 +70,7 @@ class Events {
                             console.warn('ERROR: Bot status shouldn\'t be \"idle\". Maintance mode should be boolean or string');
                             break;
                     }
-                }, 60000);
+                }, 30000);
                 console.log('============================================');
                 console.log('JavaScript Node.JS discord.js ' + discord.version);
                 console.log('Username: ' + me.tag);

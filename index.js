@@ -10,9 +10,6 @@ const main = new (require('./scripts/')).Main();
 //#region Discord Module
 const discord = require('discord.js');
 //#endregion
-//#region Discord Bots Module
-const db = require('dblapi.js');
-//#endregion
 //#region Commands Modules
 const commands = require('./commands/index');
 const replies = require('./Replies/index');
@@ -20,7 +17,6 @@ const replies = require('./Replies/index');
 //#endregion
 
 //#region Modules Configuration
-
 //#region Discord Client Configuration
 const client = new discord.Client({
     apiRequestMethod: 'sequential',
@@ -48,10 +44,8 @@ const client = new discord.Client({
 
 main.getEvents(client).all();
 //#endregion
-//#region Discord Bots Configuration
-new db(main.getData().discordBotsToken(), client);
 //#endregion
-//#endregion
+
 //#region Commands
 client.on('message', (msg) => {
     new commands.Commands(client).Load(msg);

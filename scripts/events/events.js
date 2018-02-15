@@ -35,7 +35,7 @@ class Events {
                 var me = this.client.user;
                 this.client.setInterval((e) => {
                     //#region Discord Bots Configuration
-                    new db(this.data.discordBotsToken(), client);
+                    new db(this.data.discordBotsToken(), this.client);
                     //#endregion
                     switch (this.data.maintance()) {
                         case true:

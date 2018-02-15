@@ -3,9 +3,6 @@
 const discord = require('discord.js');
 const { Client } = discord;
 //#endregion
-//#region Discord Bots Module
-const db = require('dblapi.js');
-//#endregion
 //#endregion
 
 //#region Events
@@ -34,9 +31,6 @@ class Events {
             this.client.on('ready', () => {
                 var me = this.client.user;
                 this.client.setInterval((e) => {
-                    //#region Discord Bots Configuration
-                    new db(this.data.discordBotsToken(), this.client);
-                    //#endregion
                     switch (this.data.maintance()) {
                         case true:
                         case 'true':

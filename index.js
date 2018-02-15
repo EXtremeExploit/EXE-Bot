@@ -8,6 +8,7 @@ const main = new (require('./scripts/')).Main();
 
 //#region Discord
 const discord = require('discord.js');
+const db = require('dblapi.js');
 const client = new discord.Client({
     apiRequestMethod: 'sequential',
     shardId: 0,
@@ -33,6 +34,8 @@ const client = new discord.Client({
 });
 
 main.getEvents(client).all();
+
+new db(this.data.discordBotsToken(), this.client);
 //#endregion
 
 //#region Commands

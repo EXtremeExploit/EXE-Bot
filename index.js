@@ -35,7 +35,7 @@ const client = new discord.Client({
 
 main.getEvents(client).all();
 
-new db(this.data.discordBotsToken(), this.client);
+new db(main.getData().discordBotsToken(), client);
 //#endregion
 
 //#region Commands

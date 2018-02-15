@@ -103,9 +103,6 @@ class Events {
                 console.log('Owner Tag: ' + this.data.owner().tag);
                 console.log('=============================================');
                 console.log('Servers: ' + this.client.guilds.array().length);
-                for (let i = 0; i < this.client.guilds.array().length; i++) {
-                    console.log(this.client.guilds.array()[i].name);
-                }
                 console.log('============================================\n');
                 console.log(`Connected. \n`);
                 console.log('============================================\n');

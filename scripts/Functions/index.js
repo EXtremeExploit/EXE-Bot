@@ -3,6 +3,7 @@ const main = new _main.Main();
 const data = main.getData();
 const token = data.token();
 const osuApiKey = data.osuApiKey();
+const discordBotsToken = data.discordBots().token;
 var servers = data.servers();
 const discord = require('discord.js');
 const yt = require('ytdl-core');
@@ -20,7 +21,8 @@ class Functions {
 		if (typeof (text) == 'string')
 			return text
 				.replace(token, '*TOKEN*')
-				.replace(osuApiKey, '*OSUAPIKEY*');
+				.replace(osuApiKey, '*OSUAPIKEY*')
+				.replace(token, '*DISCORDBOTSTOKEN*');
 		else
 			return text;
 	}

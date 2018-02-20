@@ -38,16 +38,24 @@ class Data {
         //#endregion
         return json.osuApiKey;
     }
-    discordBotsToken() {
+    discordBots() {
         //#region Discord Bots Token
-        var hDiscordBotsToken = process.env.discordBotsToken;
-        if (hDiscordBotsToken) {
-            json.discordBotsToken = hDiscordBotsToken;
+        var htoken = process.env.discordBots_token;
+        if (htoken) {
+            json.discordBots.token = htoken;
         } else {
-            json.discordBotsToken = json.discordBotsToken;
+            json.discordBots.token = json.discordBots.token;
         }
         //#endregion
-        return json.discordBotsToken;
+        //#region Discord Bots Enabled
+        var hEnabled = process.env.discordBots_enabled;
+        if (hEnabled) {
+            json.discordBots.enabled = hEnabled;
+        } else {
+            json.discordBots.enabled = json.discordBots.enabled;
+        }
+        //#endregion
+        return json.discordBots;
     }
     owner() {
         //#region ID

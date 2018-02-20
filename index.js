@@ -34,8 +34,8 @@ const client = new discord.Client({
 });
 
 main.getEvents(client).all();
-
-new db(main.getData().discordBotsToken(), client);
+if (main.getData().discordBots().enabled == true || main.getData().discordBots().enabled == 'true')
+    new db(main.getData().discordBots().token, client);
 //#endregion
 
 //#region Commands

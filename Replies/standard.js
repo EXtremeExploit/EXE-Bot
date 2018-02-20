@@ -27,7 +27,7 @@ class StandardReplies {
                 msg.channel.send('kek');
             if (message == 'sauce')
                 msg.channel.send('no ketchup');
-            if (message = 'expand')
+            if (message == 'expand')
                 msg.channel.send('dong');
         });
     }

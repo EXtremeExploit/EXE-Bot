@@ -3,7 +3,7 @@
 * [**Invite Link**](https://discordapp.com/oauth2/authorize?client_id=353661793199194112&permissions=8&scope=bot)
 
 ## Discord server
-* Join the [discord server](https://discord.gg/jG23JTz)!
+* Join the [discord server](https://discord.gg/sJPmDDn)!
 
 ## Commands & Info
 * [Home](https://extremeexploit.github.io/EXE_Bot/Wiki/)

@@ -7,6 +7,7 @@ const discordBotsToken = data.discordBots().token;
 var servers = data.servers();
 const discord = require('discord.js');
 const yt = require('ytdl-core');
+var os = require("os");
 const { GuildMember, RichEmbed, Message, VoiceConnection } = discord;
 
 //#region Osu Module
@@ -22,7 +23,7 @@ class Functions {
 			return text
 				.replace(token, '*TOKEN*')
 				.replace(osuApiKey, '*OSUAPIKEY*')
-				.replace(token, '*DISCORDBOTSTOKEN*');
+				.replace(discordBotsToken, '*DISCORDBOTSTOKEN*');
 		else
 			return text;
 	}

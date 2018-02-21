@@ -48,6 +48,7 @@ declare type Categories = {
     Misc: boolean;
     Wiki: boolean;
     BotOwner: boolean;
+    Voting: boolean;
 }
 
 export declare type Replies = {

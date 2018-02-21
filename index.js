@@ -8,7 +8,7 @@ const main = new (require('./scripts/')).Main();
 
 //#region Discord
 const discord = require('discord.js');
-const db = require('dblapi.js');
+var _db = require('dblapi.js');
 const client = new discord.Client({
     apiRequestMethod: 'sequential',
     shardId: 0,
@@ -34,14 +34,15 @@ const client = new discord.Client({
 });
 
 main.getEvents(client).all();
-if (main.getData().discordBots().enabled == true || main.getData().discordBots().enabled == 'true')
-    new db(main.getData().discordBots().token, client);
+if (main.getData().discordBots().enabled == true || main.getData().discordBots().enabled == 'true') {
+    var db = new _db(main.getData().discordBots().token, client);
+}
 //#endregion
 
 //#region Commands
 client.on('message', (msg) => {
     const commands = require('./commands/index');
-    new commands.Commands(client).Load(msg);
+    new commands.Commands(client, db).Load(msg);
 });
 //#endregion
 

@@ -13,15 +13,17 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
+const db = require('dblapi.js')
 const { Message, Client } = require('discord.js');
 
 class Commands {
     /**
-     * 
      * @param {Client} client 
+     * @param {db} db
      */
-    constructor(client) {
+    constructor(client, db) {
         this.client = client;
+        this.db = db;
         this.botOwner = require('./Bot Owner/');
         this.fun = require('./Fun/');
         this.info = require('./Info/');
@@ -31,9 +33,10 @@ class Commands {
         this.random = require('./Random/');
         this.support = require('./Support/');
         this.voice = require('./Voice/');
+        this.voting = require('./Voting/');
     }
     BotOwner(msg) {
-        return new this.botOwner(msg, this.client);
+        return new this.botOwner(msg, this.client, this.db);
     }
     Fun(msg) {
         return new this.fun(msg, this.client);
@@ -58,6 +61,9 @@ class Commands {
     }
     Voice(msg, servers) {
         return new this.voice(msg, this.client);
+    }
+    Voting(msg){
+        return new this.voting(msg, this.client, this.db);
     }
     /**
      * 
@@ -96,6 +102,9 @@ class Commands {
         }
         if (data.commands().categories.BotOwner == true || data.commands().categories.BotOwner == 'true') {
             this.BotOwner(msg);
+        }
+        if(data.commands().categories.Voting == true || data.commands().categories.Voting == 'true'){
+            this.Voting(msg);
         }
     }
 

@@ -16,13 +16,15 @@ const wikis = {
 };
 const discord = require('discord.js');
 const { Message, Client } = discord;
+const db = require('dblapi.js');
 class BotOwner {
       /**
        * 
        * @param {Message} msg 
        * @param {Client} client 
+       * @param {db} db
        */
-      constructor(msg, client) {
+      constructor(msg, client, db) {
             this.disconnect = require('./disconnect');
             this.eval = require('./eval');
             var messageArray = msg.content.split(' ');
@@ -35,7 +37,7 @@ class BotOwner {
                         new this.disconnect(msg, client);
                         break;
                   case 'eval':
-                        new this.eval(msg, client);
+                        new this.eval(msg, client, db);
                         break;
             }
       }

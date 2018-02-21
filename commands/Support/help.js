@@ -112,6 +112,13 @@ class help {
                 }
                 //#endregion
 
+                //#region Voting
+                if (data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') {
+                    embed.addField('Voting', '**Note** - To get this commands to work, vote the bot [here](https://discordbots.org/bot/353661793199194112/vote)\n' +
+                        '**rps:** Play Rock, Paper and Scissors', true);
+                }
+                //#endregion
+
                 //#region Misc
                 if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
                     embed.addField('Misc', '**ping:** Pings the bot and the discord API\n' +
@@ -139,7 +146,8 @@ class help {
                     !commands.Random == true &&
                     !commands.Support == true &&
                     !commands.Voice == true &&
-                    !commands.Wiki == true) {
+                    !commands.Wiki == true &&
+                    !commands.Voting == true) {
                     embed.setDescription('I don\'t have any commands...')
                         .setFooter('Commands? what is that?')
                 }

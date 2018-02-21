@@ -32,7 +32,8 @@
             "Osu": true,
             "Misc": true,
             "Wiki": true,
-            "BotOwner": true
+            "BotOwner": true,
+            "Voting": true
         }
     },
     "maintance": false,

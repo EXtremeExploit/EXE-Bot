@@ -201,6 +201,14 @@ class Data {
             json.commands.categories.BotOwner = json.commands.categories.BotOwner;
         }
         //#endregion
+        //#region Voting
+        var hVoting = process.env.commands_categories_Voting;
+        if(hVoting){
+            json.commands.categories.Voting = hVoting;
+        }else{
+            json.commands.categories.Voting = json.commands.categories.Voting;
+        }
+        //#endregion
         return json.commands;
     }
     maintance() {

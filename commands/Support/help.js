@@ -113,7 +113,7 @@ class help {
                 //#endregion
 
                 //#region Voting
-                if (data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') {
+                if ((data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') && (data.discordBots().enabled == true || data.discordBots().enabled == 'true')) {
                     embed.addField('Voting', '**Note** - To get this commands to work, vote the bot [here](https://discordbots.org/bot/353661793199194112/vote)\n' +
                         '**rps:** Play Rock, Paper and Scissors', true);
                 }

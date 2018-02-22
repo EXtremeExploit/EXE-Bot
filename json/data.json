@@ -4,7 +4,7 @@
     "osuApiKey": "OSUAPIKEY",
     "discordBots": {
         "enabled": false,
-        "discordBotsToken": "DISCORDBOTSTOKEN"
+        "token": "DISCORDBOTSTOKEN"
     },
     "owner": {
         "id": 123456789,
@@ -23,7 +23,6 @@
     },
     "commands": {
         "categories": {
-            "Voice": false,
             "Support": true,
             "Info": true,
             "Random": true,

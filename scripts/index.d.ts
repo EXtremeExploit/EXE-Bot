@@ -38,7 +38,6 @@ declare type Commands = {
 }
 
 declare type Categories = {
-    Voice: boolean;
     Support: boolean;
     Info: boolean;
     Random: boolean;

@@ -121,14 +121,6 @@ class Data {
         return json.wikis;
     }
     commands() {
-        //#region Voice
-        var hVoice = process.env.commands_categories_Voice;
-        if (hVoice) {
-            json.commands.categories.Voice = hVoice;
-        } else {
-            json.commands.categories.Voice = json.commands.categories.Voice;
-        }
-        //#endregion
         //#region Support
         var hSupport = process.env.commands_categories_Support;
         if (hSupport) {

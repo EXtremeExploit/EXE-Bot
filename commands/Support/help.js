@@ -43,14 +43,6 @@ class help {
                     .setTitle(`${client.user.username} Commands`);
                 //#endregion
 
-                //#region Voice
-                if (data.commands().categories.Voice == true || data.commands().categories.Voice == 'true') {
-                    embed.addField('Voice (EXPERIMENTAL)', '**play:** Plays music on your current voice channel \n' +
-                        '**skip:** Skips the current song \n' +
-                        '**stop:** Stops and leaves the current voice channel', true)
-                }
-                //#endregion
-
                 //#region Support
                 if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
                     embed.addField('Support', '**invite:** Invite me to your server \n' +
@@ -147,7 +139,6 @@ class help {
                     !commands.Osu == true &&
                     !commands.Random == true &&
                     !commands.Support == true &&
-                    !commands.Voice == true &&
                     !commands.Wiki == true &&
                     !commands.Voting == true) {
                     embed.setDescription('I don\'t have any commands...')

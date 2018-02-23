@@ -46,12 +46,12 @@ class rps {
                         var embed = new discord.RichEmbed()
                             .setTitle('Rock, Paper and Scissors!')
                             .setColor([255, 0, 0])
-                            .addField('Results', '<@' + msg.author.id + '>: **' + pos1 + '**\n' +
-                                '<@' + msg.mentions.members.first().id + '>: **' + pos2 + '**')
+                            .addField('Results', '<@' + msg.author.id + '>('+msg.author.username+'): **' + pos1 + '**\n' +
+                                '<@' + msg.mentions.members.first().id + '>('+msg.mentions.members.first().user.username+'): **' + pos2 + '**')
                         var res = this.result(pos1, pos2);
-                        if (res == -1) embed.addField('Winner', '<@' + msg.mentions.members.first().user.id + '> Won!');
+                        if (res == -1) embed.addField('Winner', '<@' + msg.mentions.members.first().user.id + '>('+msg.mentions.members.first().user.username+') Won!');
                         if (res == 0) embed.addField('Winner', 'Draw.... Nobody wins');
-                        if (res == 1) embed.addField('Winner', '<@' + msg.author.id + '> Wons!');
+                        if (res == 1) embed.addField('Winner', '<@' + msg.author.id + '>('+msg.author.username+') Wons!');
                         msg.channel.send(embed);
                     }
                 } else {

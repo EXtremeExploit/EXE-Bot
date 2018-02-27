@@ -36,6 +36,9 @@ const client = new discord.Client({
 main.getEvents(client).all();
 if (main.getData().discordBots().enabled == true || main.getData().discordBots().enabled == 'true') {
     var db = new _db(main.getData().discordBots().token, client);
+    setTimeout((e) => {
+        db = new _db(main.getData().discordBots().token, client);
+    }, 900000);
 }
 //#endregion
 

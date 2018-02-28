@@ -15,14 +15,14 @@ const wikis = {
     isEnabled: data.wikisEnabled()
 };
 const discord = require('discord.js');
-const db = require('dblapi.js');
+const _db = require('dblapi.js');
 const { Message, Client } = discord;
 class Voting {
     /**
      * 
      * @param {Message} msg 
      * @param {Client} client 
-     * @param {db} db
+     * @param {_db} db
      */
    constructor(msg, client, db) {
       this.rps = require('./rps');

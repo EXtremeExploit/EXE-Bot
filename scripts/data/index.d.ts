@@ -1,4 +1,4 @@
-import { Commands, Owner, Wikis, Replies, Servers, DiscordBots } from "../index";
+import { Commands, Owner, Wikis, Replies, Servers, DiscordBots } from '../index';
 
 export declare class Data {
    token(): string;

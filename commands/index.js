@@ -13,13 +13,13 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
-const db = require('dblapi.js')
+const _db = require('dblapi.js')
 const { Message, Client } = require('discord.js');
 
 class Commands {
     /**
      * @param {Client} client 
-     * @param {db} db
+     * @param {_db} db
      */
     constructor(client, db) {
         this.client = client;

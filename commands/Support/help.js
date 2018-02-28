@@ -1,5 +1,5 @@
 //#region Data
-const main = require("../index").Main;
+const main = require('../index').Main;
 const functions = main.getFunctions();
 const data = main.getData();
 var prefix = data.prefix();

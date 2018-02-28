@@ -1,7 +1,7 @@
-import { Events } from "./events/events";
-import { Client, StreamDispatcher } from "discord.js";
-import { Data } from "./data/index";
-import { Functions } from "./Functions/index";
+import { Events } from './events/events';
+import { Client, StreamDispatcher } from 'discord.js';
+import { Data } from './data/index';
+import { Functions } from './Functions/index';
 
 declare type Json = {
     token: string;

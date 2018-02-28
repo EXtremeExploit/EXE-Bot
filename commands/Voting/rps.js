@@ -14,7 +14,7 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
-const db = require('dblapi.js');
+const _db = require('dblapi.js');
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
@@ -23,7 +23,7 @@ class rps {
      * 
      * @param {Message} msg 
      * @param {Client} client 
-     * @param {db} db
+     * @param {_db} db
      */
     constructor(msg, client, db) {
         var messageArray = msg.content.split(' ');

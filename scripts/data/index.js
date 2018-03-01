@@ -195,9 +195,9 @@ class Data {
         //#endregion
         //#region Voting
         var hVoting = process.env.commands_categories_Voting;
-        if(hVoting){
+        if (hVoting) {
             json.commands.categories.Voting = hVoting;
-        }else{
+        } else {
             json.commands.categories.Voting = json.commands.categories.Voting;
         }
         //#endregion

@@ -1,3 +1,6 @@
+require('dotenv').config({
+    path: './json/.env'
+});
 //#region Starting
 console.log('Starting...');
 //#endregion

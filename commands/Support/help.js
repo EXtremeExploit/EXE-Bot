@@ -88,7 +88,8 @@ class help {
                         '**cookie**: Gives a cookie to someone\n' +
                         '**sandwich:** Gives a sandwich to someone\n' +
                         '**pat**: Gives a headpat to someone\n' +
-                        '**reverse:** Reverses text', true)
+                        '**reverse:** Reverses text\n' +
+                        '**waifu:** Waifu or laifu?', true)
                 }
                 //#endregion
 

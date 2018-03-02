@@ -46,12 +46,12 @@ class rps {
                         var embed = new discord.RichEmbed()
                             .setTitle('Rock, Paper and Scissors!')
                             .setColor([255, 0, 0])
-                            .addField('Results', '<@' + msg.author.id + '>('+msg.author.username+'): **' + pos1 + '**\n' +
-                                '<@' + msg.mentions.members.first().id + '>('+msg.mentions.members.first().user.username+'): **' + pos2 + '**')
+                            .addField('Results', '<@' + msg.author.id + '>(' + msg.author.username + '): **' + pos1 + '**\n' +
+                                '<@' + msg.mentions.members.first().id + '>(' + msg.mentions.members.first().user.username + '): **' + pos2 + '**')
                         var res = this.result(pos1, pos2);
-                        if (res == -1) embed.addField('Winner', '<@' + msg.mentions.members.first().user.id + '>('+msg.mentions.members.first().user.username+') Won!');
+                        if (res == -1) embed.addField('Winner', '<@' + msg.mentions.members.first().user.id + '>(' + msg.mentions.members.first().user.username + ') Won!');
                         if (res == 0) embed.addField('Winner', 'Draw.... Nobody wins');
-                        if (res == 1) embed.addField('Winner', '<@' + msg.author.id + '>('+msg.author.username+') Wons!');
+                        if (res == 1) embed.addField('Winner', '<@' + msg.author.id + '>(' + msg.author.username + ') Wons!');
                         msg.channel.send(embed);
                     }
                 } else {
@@ -61,12 +61,14 @@ class rps {
                         .setDescription('Pleace specify an user!'));
                 }
             } else {
-                msg.channel.send(new discord.RichEmbed()
-                    .setColor([255, 0, 0])
-                    .setAuthor(msg.author.username, msg.author.displayAvatarURL)
-                    .setTitle('You need to vote for the bot to get this command available!')
-                    .addField('Vote for me!, onii-chan', 'You can do it [here](https://discordbots.org/bot/353661793199194112/vote)!\n' +
-                        'https://discordbots.org/bot/353661793199194112/vote'))
+                if (e == false) {
+                    msg.channel.send(new discord.RichEmbed()
+                        .setColor([255, 0, 0])
+                        .setAuthor(msg.author.username, msg.author.displayAvatarURL)
+                        .setTitle('You need to vote for the bot to get this command available!')
+                        .addField('Vote for me!, onii-chan', 'You can do it [here](https://discordbots.org/bot/353661793199194112/vote)!\n' +
+                            'https://discordbots.org/bot/353661793199194112/vote'));
+                }
             }
         })
     }

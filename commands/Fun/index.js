@@ -8,11 +8,11 @@ var owner = data.owner();
 var allEvents = data.allEvents();
 var debug = data.debug();
 const wikis = {
-    home: data.wikis().home,
-    commands: data.wikis().commands,
-    replies: data.wikis().replies,
-    faq: data.wikis().faq,
-    isEnabled: data.wikisEnabled()
+	home: data.wikis().home,
+	commands: data.wikis().commands,
+	replies: data.wikis().replies,
+	faq: data.wikis().faq,
+	isEnabled: data.wikisEnabled()
 };
 
 const discord = require('discord.js');
@@ -30,11 +30,12 @@ class Fun {
 		this.reverse = require('./reverse');
 		this.sandwich = require('./sandwich');
 		this.say = require('./say');
-        var messageArray = msg.content.split(' ');
+		this.waifu = require('./waifu');
+		var messageArray = msg.content.split(' ');
 		var command_prefix = messageArray[0];
 		var args = messageArray.slice(1).join(' ');
 		var command = command_prefix.replace(prefix, '');
-		
+
 		switch (command) {
 			case 'cookie':
 				new this.cookie(msg, client);
@@ -53,6 +54,9 @@ class Fun {
 				break;
 			case 'say':
 				new this.say(msg, client);
+				break;
+			case 'waifu':
+				new this.waifu(msg, client);
 				break;
 		}
 	}

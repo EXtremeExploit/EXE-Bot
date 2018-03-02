@@ -39,11 +39,18 @@ class eightball {
             'Yes, definitely',
             'Better not tell you now'
         ];
-        msg.channel.send(new discord.RichEmbed()
-            .setColor([255, 0, 0])
-            .setTitle('8ball')
-            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
-            .setDescription(response[Math.floor(Math.random() * response.length)]));
+        if (args == '') {
+            msg.channel.send(new discord.RichEmbed()
+                .setColor([0, 0, 0])
+                .addField('Help', 'Check the [wiki](' + wikis.commands + '#random) for help!')
+                .setDescription('Pleace specify an ask!'));
+        } else {
+            msg.channel.send(new discord.RichEmbed()
+                .setColor([0, 0, 0])
+                .setTitle('8ball')
+                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
+                .setDescription(response[Math.floor(Math.random() * response.length)]));
+        }
     }
 }
 module.exports = eightball;

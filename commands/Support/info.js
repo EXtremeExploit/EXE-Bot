@@ -29,6 +29,12 @@ class info {
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
+        var miliseconds = client.uptime % 1000;
+        var seconds = Math.floor(client.uptime / 1000) % 60;
+        var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 60;
+        var hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) % 24;
+        var days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) / 24);
+
         var embed = new discord.RichEmbed()
             .setAuthor(client.user.username, client.user.avatarURL)
             .setColor([255, 0, 0])
@@ -41,6 +47,12 @@ class info {
         embed.addField('Counts', '**Servers:** ' + client.guilds.size + '\n' +
             '**Users:** ' + client.users.size + '\n' +
             '**Channels:** ' + client.channels.size, true);
+
+        embed.addField('Uptime', days + ' Days\n' +
+            hours + ' Hours\n' +
+            minutes + ' Minutes\n' +
+            seconds + ' Seconds\n' +
+            miliseconds + ' Miliseconds', true);
 
         if (data.discordBots().enabled == true || data.discordBots().enabled == 'true') {
             embed.addField('Links', '[**Discord Bots**](https://discordbots.org/bot/353661793199194112)\n' +

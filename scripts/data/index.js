@@ -38,6 +38,25 @@ class Data {
         //#endregion
         return json.osuApiKey;
     }
+    discordBots() {
+        //#region Discord Bots Token
+        var htoken = process.env.discordBots_token;
+        if (htoken) {
+            json.discordBots.token = htoken;
+        } else {
+            json.discordBots.token = json.discordBots.token;
+        }
+        //#endregion
+        //#region Discord Bots Enabled
+        var hEnabled = process.env.discordBots_enabled;
+        if (hEnabled) {
+            json.discordBots.enabled = hEnabled;
+        } else {
+            json.discordBots.enabled = json.discordBots.enabled;
+        }
+        //#endregion
+        return json.discordBots;
+    }
     owner() {
         //#region ID
         var hid = process.env.owner_id;
@@ -102,14 +121,6 @@ class Data {
         return json.wikis;
     }
     commands() {
-        //#region Voice
-        var hVoice = process.env.commands_categories_Voice;
-        if (hVoice) {
-            json.commands.categories.Voice = hVoice;
-        } else {
-            json.commands.categories.Voice = json.commands.categories.Voice;
-        }
-        //#endregion
         //#region Support
         var hSupport = process.env.commands_categories_Support;
         if (hSupport) {
@@ -180,6 +191,14 @@ class Data {
             json.commands.categories.BotOwner = hBotOwner;
         } else {
             json.commands.categories.BotOwner = json.commands.categories.BotOwner;
+        }
+        //#endregion
+        //#region Voting
+        var hVoting = process.env.commands_categories_Voting;
+        if (hVoting) {
+            json.commands.categories.Voting = hVoting;
+        } else {
+            json.commands.categories.Voting = json.commands.categories.Voting;
         }
         //#endregion
         return json.commands;

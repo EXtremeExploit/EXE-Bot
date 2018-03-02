@@ -1,3 +1,6 @@
+require('dotenv').config({
+    path: './json/.env'
+});
 //#region Starting
 console.log('Starting...');
 //#endregion
@@ -6,19 +9,9 @@ console.log('Starting...');
 const main = new (require('./scripts/')).Main();
 //#endregion
 
-//#region Require Modules
-//#region Discord Module
+//#region Discord
 const discord = require('discord.js');
-//#endregion
-//#region Commands Modules
-const commands = require('./commands/index');
-const replies = require('./Replies/index');
-//#endregion
-//#endregion
-
-//#region Modules Configuration
-
-//#region Discord Client Configuration
+var _db = require('dblapi.js');
 const client = new discord.Client({
     apiRequestMethod: 'sequential',
     shardId: 0,
@@ -44,16 +37,23 @@ const client = new discord.Client({
 });
 
 main.getEvents(client).all();
-//#endregion
+if (main.getData().discordBots().enabled == true || main.getData().discordBots().enabled == 'true') {
+    var db = new _db(main.getData().discordBots().token, client);
+    setTimeout((e) => {
+        db = new _db(main.getData().discordBots().token, client);
+    }, 900000);
+}
 //#endregion
 
 //#region Commands
 client.on('message', (msg) => {
-    new commands.Commands(client).Load(msg);
+    const commands = require('./commands/index');
+    new commands.Commands(client, db).Load(msg);
 });
 //#endregion
 
 //#region Replies
+const replies = require('./Replies/index');
 new replies(client);
 //#endregion
 client.login(main.getData().token()).catch(e => console.log(e));

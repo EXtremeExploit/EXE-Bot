@@ -61,10 +61,10 @@ class Events {
                                     name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
                                 }
                             });
-                            console.warn('ERROR: Bot status shouldn\'t be \"idle\". Maintance mode should be boolean or string');
+                            console.warn('ERROR: Bot status shouldn\'t be \`idle\`. Maintance mode should be boolean or string');
                             break;
                     }
-                }, 60000);
+                }, 30000);
                 console.log('============================================');
                 console.log('JavaScript Node.JS discord.js ' + discord.version);
                 console.log('Username: ' + me.tag);
@@ -77,8 +77,8 @@ class Events {
                 console.log('Debug Mode: ' + this.debug);
                 console.log('All Events: ' + this.allEvents);
                 console.log('Maintance Mode: ' + this.data.maintance());
+                console.log('DiscordBots: ' + this.data.discordBots().enabled);
                 console.log('============================================');
-                console.log('Voice: ' + this.data.commands().categories.Voice);
                 console.log('Support: ' + this.data.commands().categories.Support);
                 console.log('Info: ' + this.data.commands().categories.Info);
                 console.log('Random: ' + this.data.commands().categories.Random);
@@ -87,6 +87,7 @@ class Events {
                 console.log('Osu: ' + this.data.commands().categories.Osu);
                 console.log('Misc: ' + this.data.commands().categories.Misc);
                 console.log('Wiki: ' + this.data.commands().categories.Wiki);
+                console.log('Voting: ' + this.data.commands().categories.Voting);
                 console.log('Bot Owner: ' + this.data.commands().categories.BotOwner);
                 console.log('Replies Standard: ' + this.data.replies().standard);
                 console.log('Replies Osu: ' + this.data.replies().osu);
@@ -97,9 +98,6 @@ class Events {
                 console.log('Owner Tag: ' + this.data.owner().tag);
                 console.log('=============================================');
                 console.log('Servers: ' + this.client.guilds.array().length);
-                for (let i = 0; i < this.client.guilds.array().length; i++) {
-                    console.log(this.client.guilds.array()[i].name);
-                }
                 console.log('============================================\n');
                 console.log(`Connected. \n`);
                 console.log('============================================\n');
@@ -156,17 +154,13 @@ class Events {
         this.client.on('guildCreate', e => console.log('[ ' + new Date() + ' ] [GUILD_CREATE]'));
     }
     guildMemberAdd() {
-        this.client.on('guildMemberAdd', e => {
-            console.log('[ ' + new Date() + ' ] [GUILD_MEMBER_ADD]');
-        });
+        this.client.on('guildMemberAdd', e => console.log('[ ' + new Date() + ' ] [GUILD_MEMBER_ADD]'));
     }
     guildMemberAvailable() {
         this.client.on('guildMemberAvailable', e => console.log('[ ' + new Date() + ' ] [GUILD_MEMBER_AVAILABLE]'));
     }
     guildMemberRemove() {
-        this.client.on('guildMemberRemove', e => {
-            console.log('[ ' + new Date() + ' ] [GUILD_MEMBER_REMOVE]');
-        });
+        this.client.on('guildMemberRemove', e => console.log('[ ' + new Date() + ' ] [GUILD_MEMBER_REMOVE]'));
     }
     guildMembersChunk() {
         this.client.on('guildMembersChunk', e => console.log('[ ' + new Date() + ' ] [GUILD_MEMBER_CHUNK]'));

@@ -1,5 +1,5 @@
 //#region Data
-const main = require("../index").Main;
+const main = require('../index').Main;
 const functions = main.getFunctions();
 const data = main.getData();
 var prefix = data.prefix();
@@ -43,14 +43,6 @@ class help {
                     .setTitle(`${client.user.username} Commands`);
                 //#endregion
 
-                //#region Voice
-                if (data.commands().categories.Voice == true || data.commands().categories.Voice == 'true') {
-                    embed.addField('Voice (EXPERIMENTAL)', '**play:** Plays music on your current voice channel \n' +
-                        '**skip:** Skips the current song \n' +
-                        '**stop:** Stops and leaves the current voice channel', true)
-                }
-                //#endregion
-
                 //#region Support
                 if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
                     embed.addField('Support', '**invite:** Invite me to your server \n' +
@@ -83,7 +75,9 @@ class help {
                 if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
                     embed.addField('Moderation', '**kick:** Kicks someone \n' +
                         '**ban:** Bans someone \n' +
-                        '**prune:** Deletes a count of messages in a channel')
+                        '**mute:** Mutes someone \n' +
+                        '**prune:** Deletes a count of messages in a channel\n' +
+                        '**unmute:** Unmutes someone', true)
                 }
                 //#endregion
 
@@ -109,6 +103,13 @@ class help {
                         '**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n' +
                         '**osuManiaBest:** Gets the best play of an user in the mania mode \n' +
                         '**osuBeatmap**: Gets info about an osu!beatmap', true)
+                }
+                //#endregion
+
+                //#region Voting
+                if ((data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') && (data.discordBots().enabled == true || data.discordBots().enabled == 'true')) {
+                    embed.addField('Voting', '**Note** - To get this commands to work, vote the bot [here](https://discordbots.org/bot/353661793199194112/vote)\n' +
+                        '**rps:** Play Rock, Paper and Scissors', true);
                 }
                 //#endregion
 
@@ -138,8 +139,8 @@ class help {
                     !commands.Osu == true &&
                     !commands.Random == true &&
                     !commands.Support == true &&
-                    !commands.Voice == true &&
-                    !commands.Wiki == true) {
+                    !commands.Wiki == true &&
+                    !commands.Voting == true) {
                     embed.setDescription('I don\'t have any commands...')
                         .setFooter('Commands? what is that?')
                 }

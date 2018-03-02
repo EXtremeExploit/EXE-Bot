@@ -1,5 +1,5 @@
-import { RichEmbed, GuildMember } from "discord.js";
-import { Beatmap, UserBest, User } from "osu.js/dist/api";
+import { RichEmbed, GuildMember } from 'discord.js';
+import { Beatmap, UserBest, User } from 'osu.js/dist/api';
 
 export declare class Functions {
    constructor();

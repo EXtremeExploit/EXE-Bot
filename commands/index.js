@@ -13,15 +13,17 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
+const _db = require('dblapi.js')
 const { Message, Client } = require('discord.js');
 
 class Commands {
     /**
-     * 
      * @param {Client} client 
+     * @param {_db} db
      */
-    constructor(client) {
+    constructor(client, db) {
         this.client = client;
+        this.db = db;
         this.botOwner = require('./Bot Owner/');
         this.fun = require('./Fun/');
         this.info = require('./Info/');
@@ -30,10 +32,10 @@ class Commands {
         this.osu = require('./Osu/');
         this.random = require('./Random/');
         this.support = require('./Support/');
-        this.voice = require('./Voice/');
+        this.voting = require('./Voting/');
     }
     BotOwner(msg) {
-        return new this.botOwner(msg, this.client);
+        return new this.botOwner(msg, this.client, this.db);
     }
     Fun(msg) {
         return new this.fun(msg, this.client);
@@ -56,8 +58,8 @@ class Commands {
     Support(msg) {
         return new this.support(msg, this.client);
     }
-    Voice(msg, servers) {
-        return new this.voice(msg, this.client);
+    Voting(msg) {
+        return new this.voting(msg, this.client, this.db);
     }
     /**
      * 
@@ -65,14 +67,11 @@ class Commands {
      */
     Load(msg) {
         if (msg.author.bot) return;
-        if(!msg.content.startsWith(prefix)) return;
+        if (!msg.content.startsWith(prefix)) return;
         //#region Help Command Load
         var help = require('./Support/help');
         new help(this.client, msg);
         //#endregion
-        if (data.commands().categories.Voice == true || data.commands().categories.Voice == 'true') {
-            this.Voice(msg, servers);
-        }
         if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
             this.Support(msg);
         }
@@ -96,6 +95,9 @@ class Commands {
         }
         if (data.commands().categories.BotOwner == true || data.commands().categories.BotOwner == 'true') {
             this.BotOwner(msg);
+        }
+        if (data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') {
+            this.Voting(msg);
         }
     }
 

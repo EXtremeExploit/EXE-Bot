@@ -1,12 +1,14 @@
 const discord = require('discord.js');
 const { Message, Client } = discord;
+const _db = require('dblapi.js');
 class Eval {
     /**
      * 
      * @param {Message} msg 
      * @param {Client} client 
+     * @param {_db} db
      */
-    constructor(msg, client) {
+    constructor(msg, client, db) {
         const main = require('../index').Main;
         const functions = main.getFunctions();
         const data = main.getData();

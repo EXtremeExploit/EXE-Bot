@@ -2,7 +2,7 @@ const main = new (require('../scripts/')).Main();
 const data = main.getData();
 var osuApiKey = data.osuApiKey();
 const functions = main.getFunctions();
-const {  Client } = require('discord.js');
+const { Client } = require('discord.js');
 const osuApi = require('osu.js').api(osuApiKey);
 class OsuReplies {
     /**

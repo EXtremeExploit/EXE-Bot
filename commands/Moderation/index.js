@@ -23,7 +23,9 @@ class Moderation {
     constructor(msg, client) {
         this.ban = require('./ban');
         this.kick = require('./kick');
+        this.mute = require('./mute');
         this.prune = require('./prune');
+        this.unmute = require('./unmute');
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
@@ -36,8 +38,14 @@ class Moderation {
             case 'kick':
                 new this.kick(msg, client);
                 break;
+            case 'mute':
+                new this.mute(msg, client);
+                break;
             case 'prune':
                 new this.prune(msg, client);
+                break;
+            case 'unmute':
+                new this.unmute(msg, client);
                 break;
         }
     }

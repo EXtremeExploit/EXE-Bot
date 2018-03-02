@@ -2,6 +2,10 @@
     "token": "TOKEN",
     "prefix": "PREFIX",
     "osuApiKey": "OSUAPIKEY",
+    "discordBots": {
+        "enabled": false,
+        "token": "DISCORDBOTSTOKEN"
+    },
     "owner": {
         "id": 123456789,
         "username": "Username",
@@ -19,7 +23,6 @@
     },
     "commands": {
         "categories": {
-            "Voice": false,
             "Support": true,
             "Info": true,
             "Random": true,
@@ -28,7 +31,8 @@
             "Osu": true,
             "Misc": true,
             "Wiki": true,
-            "BotOwner": true
+            "BotOwner": true,
+            "Voting": true
         }
     },
     "maintance": false,

@@ -1,7 +1,7 @@
 const main = new (require('../scripts/')).Main();
 const data = main.getData();
 var osuApiKey = data.osuApiKey();
-const {  Client } = require('discord.js');
+const { Client } = require('discord.js');
 class StandardReplies {
     /**
      * @param {Client} client 
@@ -27,6 +27,8 @@ class StandardReplies {
                 msg.channel.send('kek');
             if (message == 'sauce')
                 msg.channel.send('no ketchup');
+            if (message == 'expand')
+                msg.channel.send('dong');
         });
     }
 }

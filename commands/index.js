@@ -58,7 +58,7 @@ class Commands {
     Support(msg) {
         return new this.support(msg, this.client);
     }
-    Voting(msg){
+    Voting(msg) {
         return new this.voting(msg, this.client, this.db);
     }
     /**
@@ -67,7 +67,7 @@ class Commands {
      */
     Load(msg) {
         if (msg.author.bot) return;
-        if(!msg.content.startsWith(prefix)) return;
+        if (!msg.content.startsWith(prefix)) return;
         //#region Help Command Load
         var help = require('./Support/help');
         new help(this.client, msg);
@@ -96,7 +96,7 @@ class Commands {
         if (data.commands().categories.BotOwner == true || data.commands().categories.BotOwner == 'true') {
             this.BotOwner(msg);
         }
-        if(data.commands().categories.Voting == true || data.commands().categories.Voting == 'true'){
+        if (data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') {
             this.Voting(msg);
         }
     }

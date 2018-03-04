@@ -31,14 +31,10 @@ class BotOwner {
             var command_prefix = messageArray[0];
             var args = messageArray.slice(1).join(' ');
             var command = command_prefix.replace(prefix, '');
-    
+
             switch (command) {
-                  case 'disconnect':
-                        new this.disconnect(msg, client);
-                        break;
-                  case 'eval':
-                        new this.eval(msg, client, db);
-                        break;
+                  case 'disconnect': return new this.disconnect(msg, client);
+                  case 'eval': return new this.eval(msg, client, db);
             }
       }
 }

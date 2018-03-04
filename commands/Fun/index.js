@@ -37,27 +37,13 @@ class Fun {
 		var command = command_prefix.replace(prefix, '');
 
 		switch (command) {
-			case 'cookie':
-				new this.cookie(msg, client);
-				break;
-			case 'lenny':
-				new this.lenny(msg, client);
-				break;
-			case 'pat':
-				new this.pat(msg, client);
-				break;
-			case 'reverse':
-				new this.reverse(msg, client);
-				break;
-			case 'sandwich':
-				new this.sandwich(msg, client);
-				break;
-			case 'say':
-				new this.say(msg, client);
-				break;
-			case 'waifu':
-				new this.waifu(msg, client);
-				break;
+			case 'cookie': return new this.cookie(msg, client);
+			case 'lenny': return new this.lenny(msg, client);
+			case 'pat': return new this.pat(msg, client);
+			case 'reverse': return new this.reverse(msg, client);
+			case 'sandwich': return new this.sandwich(msg, client);
+			case 'say': return new this.say(msg, client);
+			case 'waifu': return new this.waifu(msg, client);
 		}
 	}
 }

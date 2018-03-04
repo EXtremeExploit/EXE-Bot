@@ -36,33 +36,16 @@ class Osu {
         var command = command_prefix.replace(prefix, '');
 
         switch (command) {
-            case 'osuBeatmap':
-                new this.osuBeatmap(msg, client);
-                break;
-            case 'osuCtbBest':
-                new this.osuCtbBest(msg, client);
-                break;
-            case 'osuCtbUser':
-                new this.osuCtbUser(msg, client);
-                break;
-            case 'osuManiaBest':
-                new this.osuManiaBest(msg, client);
-                break;
-            case 'osuManiaUser':
-                new this.osuManiaUser(msg, client);
-                break;
-            case 'osuStdBest':
-                new this.osuStdBest(msg, client);
-                break;
-            case 'osuStdUser':
-                new this.osuStdUser(msg, client);
-                break;
-            case 'osuTaikoBest':
-                new this.osuTaikoBest(msg, client);
-                break;
-            case 'osuTaikoUser':
-                new this.osuTaikoUser(msg, client);
-                break;
+            case 'osuBeatmap': return new this.osuBeatmap(msg, client);
+            case 'osuCtbBest': return new this.osuCtbBest(msg, client);
+            case 'osuCtbUser': return new this.osuCtbUser(msg, client);
+            case 'osuManiaBest': return new this.osuManiaBest(msg, client);
+            case 'osuManiaUser': return new this.osuManiaUser(msg, client);
+            case 'osuStdBest': return new this.osuStdBest(msg, client);
+            case 'osuStdUser': return new this.osuStdUser(msg, client);
+            case 'osuTaikoBest': return new this.osuTaikoBest(msg, client);
+            case 'osuTaikoUser': return new this.osuTaikoUser(msg, client);
+
         }
     }
 }

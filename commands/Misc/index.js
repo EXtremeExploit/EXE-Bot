@@ -30,20 +30,12 @@ class Misc {
 		var command_prefix = messageArray[0];
 		var args = messageArray.slice(1).join(' ');
 		var command = command_prefix.replace(prefix, '');
-		
+
 		switch (command) {
-			case 'ping':
-				new this.ping(msg, client);
-				break;
-			case 'pong':
-				new this.pong(msg, client);
-				break;
-			case 'uptime':
-				new this.uptime(msg, client);
-				break;
-			case 'wiki':
-				new this.wiki(msg, client);
-				break;
+			case 'ping': return new this.ping(msg, client);
+			case 'pong': return new this.pong(msg, client);
+			case 'uptime': return new this.uptime(msg, client);
+			case 'wiki': return new this.wiki(msg, client);
 		}
 	}
 }

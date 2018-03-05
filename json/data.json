@@ -27,11 +27,13 @@
             "Info": true,
             "Random": true,
             "Moderation": true,
+            "NSFW": true,
             "Fun": true,
             "Osu": true,
             "Misc": true,
             "Wiki": true,
             "BotOwner": true,
+            "Utility": true,
             "Voting": true
         }
     },

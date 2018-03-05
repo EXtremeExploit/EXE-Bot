@@ -81,6 +81,13 @@ class help {
                 }
                 //#endregion
 
+                //#region NSFW
+                if (data.commands().categories.NSFW == true || data.commands().categories.NSFW == 'true') {
+                    embed.addField('NSFW', '**danbooru:** Searchs on danbooru with your terms \n' +
+                        '**rule34:** Searchs your terms on the rule34', true)
+                }
+                //#endregion
+
                 //#region Fun
                 if (data.commands().categories.Fun == true || data.commands().categories.Fun == 'true') {
                     embed.addField('Fun', '**say:** Says whatever you want \n' +
@@ -104,6 +111,12 @@ class help {
                         '**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n' +
                         '**osuManiaBest:** Gets the best play of an user in the mania mode \n' +
                         '**osuBeatmap**: Gets info about an osu!beatmap', true)
+                }
+                //#endregion
+
+                //#region Utility
+                if (data.commands().categories.Utility == true || data.commands().categories.Utility == 'true') {
+                    embed.addField('Utility', '**math:** Do some math', true)
                 }
                 //#endregion
 
@@ -137,10 +150,12 @@ class help {
                     !commands.Info == true &&
                     !commands.Misc == true &&
                     !commands.Moderation == true &&
+                    !commands.NSFW == true &&
                     !commands.Osu == true &&
                     !commands.Random == true &&
                     !commands.Support == true &&
                     !commands.Wiki == true &&
+                    !commands.Utility == true &&
                     !commands.Voting == true) {
                     embed.setDescription('I don\'t have any commands...')
                         .setFooter('Commands? what is that?')

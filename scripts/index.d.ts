@@ -42,11 +42,13 @@ declare type Categories = {
     Info: boolean;
     Random: boolean;
     Moderation: boolean;
+    NSFW: boolean;
     Fun: boolean;
     Osu: boolean;
     Misc: boolean;
     Wiki: boolean;
     BotOwner: boolean;
+    Utility: boolean;
     Voting: boolean;
 }
 
@@ -72,4 +74,6 @@ export declare class Main {
     getData(): Data;
     getEvents(Client: Client): Events;
     getFunctions(): Functions;
+    getPrototypes(): any;
+    getTools(): any;
 }

@@ -24,7 +24,7 @@ class rule34 {
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
-        if (msg.channel.nsfw) {
+        if (msg.channel.nsfw == true) {
             msg.reply('Searching...');
             let searchOld;
             if (msg.content.startsWith(prefix + 'rule34 '))

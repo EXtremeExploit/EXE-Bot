@@ -44,6 +44,7 @@ class danbooru {
                         msg.channel.send(new discord.RichEmbed()
                             .setColor([255, 0, 0])
                             .setTitle('Danbooru')
+                            .setURL(link)
                             .setAuthor(msg.author.username, msg.author.displayAvatarURL)
                             .setImage(link)
                             .setDescription('You Searched: ' + query.join(' ')));

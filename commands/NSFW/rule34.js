@@ -50,12 +50,14 @@ class rule34 {
                     if (htmlTab[i].includes('_images')) imgs.push(htmlTab[i].split('</a><br><a href="').pop());
                 if (imgs.length != 0) {
                     if (searchOld == undefined) searchOld = '';
+                    var img = imgs.random();
                     msg.channel.send(new discord.RichEmbed()
                         .setColor([255, 0, 0])
                         .setTitle('Rule34')
+                        .setURL(img)
                         .setAuthor(msg.author.username, msg.author.displayAvatarURL)
                         .setDescription('You Searched: ' + searchOld)
-                        .setImage(imgs.random()));
+                        .setImage(img));
                 } else
                     return;
             }).catch((e) => {

@@ -24,6 +24,7 @@ class Utility {
      */
     constructor(msg, client) {
         this.math = require('./math');
+        this.shorturl = require('./shorturl');
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
@@ -31,6 +32,7 @@ class Utility {
 
         switch (command) {
             case 'math': new this.math(msg, client);
+            case 'shorturl': new this.shorturl(msg, client);
         }
     }
 }

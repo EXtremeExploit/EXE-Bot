@@ -117,7 +117,8 @@ class help {
 
                 //#region Utility
                 if (data.commands().categories.Utility == true || data.commands().categories.Utility == 'true') {
-                    embed.addField('Utility', '**math:** Do some math', true)
+                    embed.addField('Utility', '**math:** Do some math\n' +
+                        '**shorturl:** Short an URL', true)
                 }
                 //#endregion
 

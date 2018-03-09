@@ -93,6 +93,7 @@ class help {
                     embed.addField('Fun', '**say:** Says whatever you want \n' +
                         '**lenny:** Displays the lenny face\n' +
                         '**cookie**: Gives a cookie to someone\n' +
+                        '**dicksize**: What\'s your penis lenght? ( ͡° ͜ʖ ͡°)\n' +
                         '**sandwich:** Gives a sandwich to someone\n' +
                         '**pat**: Gives a headpat to someone\n' +
                         '**reverse:** Reverses text\n' +

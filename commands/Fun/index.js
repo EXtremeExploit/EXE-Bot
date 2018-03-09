@@ -25,6 +25,7 @@ class Fun {
 	 */
 	constructor(msg, client) {
 		this.cookie = require('./cookie');
+		this.dicksize = require('./dicksize');
 		this.lenny = require('./lenny');
 		this.pat = require('./pat');
 		this.reverse = require('./reverse');
@@ -38,6 +39,7 @@ class Fun {
 
 		switch (command) {
 			case 'cookie': return new this.cookie(msg, client);
+			case 'dicksize': return new this.dicksize(msg, client);
 			case 'lenny': return new this.lenny(msg, client);
 			case 'pat': return new this.pat(msg, client);
 			case 'reverse': return new this.reverse(msg, client);

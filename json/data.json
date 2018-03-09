@@ -31,10 +31,10 @@
             "Fun": true,
             "Osu": true,
             "Misc": true,
-            "Wiki": true,
-            "BotOwner": true,
             "Utility": true,
-            "Voting": true
+            "Voting": true,
+            "Wiki": true,
+            "BotOwner": true
         }
     },
     "maintance": false,

@@ -31,6 +31,7 @@ declare type Wikis = {
     commands: string;
     replies: string;
     faq: string;
+    modifiers: string;
 }
 
 declare type Commands = {

@@ -118,6 +118,46 @@ class Data {
         return json.wikisEnabled;
     }
     wikis() {
+        //#region Home
+        var hHome = process.env.wikis_home;
+        if (hHome) {
+            json.wikis.home = hHome;
+        } else {
+            json.wikis.home = json.wikis.home;
+        }
+        //#endregion
+        //#region Commands
+        var hCommands = process.env.wikis_commands;
+        if (hCommands) {
+            json.wikis.commands = hCommands;
+        } else {
+            json.wikis.commands = json.wikis.commands;
+        }
+        //#endregion
+        //#region Replies
+        var hReplies = process.env.wikis_replies;
+        if (hReplies) {
+            json.wikis.replies = hReplies;
+        } else {
+            json.wikis.replies = json.wikis.replies;
+        }
+        //#endregion
+        //#region FAQ
+        var hFAQ = process.env.wikis_faq;
+        if (hFAQ) {
+            json.wikis.faq = hFAQ;
+        } else {
+            json.wikis.faq = json.wikis.faq;
+        }
+        //#endregion
+        //#region Modifiers
+        var hModifiers = process.env.wikis_modifiers;
+        if (hModifiers) {
+            json.wikis.modifiers = hModifiers;
+        } else {
+            json.wikis.modifiers = json.wikis.modifiers;
+        }
+        //#endregion
         return json.wikis;
     }
     commands() {

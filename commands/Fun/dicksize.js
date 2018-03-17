@@ -73,7 +73,6 @@ class dicksize {
 		for (let i = 0; i < length; i++)
 			str += '=';
 		str += 'D';
-		var txt = ':straight_ruler: | ' + str + ' (' + msg.member.displayed + ')';
 		var embed = new discord.RichEmbed()
 			.setAuthor(msg.author.username, msg.author.displayAvatarURL)
 			.setTitle('Dick Size: ' + str + ' ('+length+')')

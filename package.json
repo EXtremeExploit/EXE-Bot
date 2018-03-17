@@ -15,6 +15,10 @@
   "bugs": {
     "url": "https://github.com/EXtremeExploit/EXE-Bot/issues"
   },
+  "engines": {
+    "node": "9.4.0",
+    "npm": "5.6.0"
+  },
   "keywords": [
     "discord",
     "discordapp",

@@ -21,30 +21,16 @@ class Osu {
      * @param {Client} client 
      */
     constructor(msg, client) {
+        this.osu = require('./osu');
         this.osuBeatmap = require('./osuBeatmap');
-        this.osuCtbBest = require('./osuCtbBest');
-        this.osuCtbUser = require('./osuCtbUser');
-        this.osuManiaBest = require('./osuManiaBest');
-        this.osuManiaUser = require('./osuManiaUser');
-        this.osuStdBest = require('./osuStdBest');
-        this.osuStdUser = require('./osuStdUser');
-        this.osuTaikoBest = require('./osuTaikoBest');
-        this.osuTaikoUser = require('./osuTaikoUser');
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
         switch (command) {
+            case 'osu': return new this.osu(msg, client);
             case 'osuBeatmap': return new this.osuBeatmap(msg, client);
-            case 'osuCtbBest': return new this.osuCtbBest(msg, client);
-            case 'osuCtbUser': return new this.osuCtbUser(msg, client);
-            case 'osuManiaBest': return new this.osuManiaBest(msg, client);
-            case 'osuManiaUser': return new this.osuManiaUser(msg, client);
-            case 'osuStdBest': return new this.osuStdBest(msg, client);
-            case 'osuStdUser': return new this.osuStdUser(msg, client);
-            case 'osuTaikoBest': return new this.osuTaikoBest(msg, client);
-            case 'osuTaikoUser': return new this.osuTaikoUser(msg, client);
 
         }
     }

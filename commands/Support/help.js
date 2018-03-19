@@ -8,6 +8,7 @@ const wikis = {
     commands: data.wikis().commands,
     replies: data.wikis().replies,
     faq: data.wikis().faq,
+    modifiers: data.wikis().modifiers,
     isEnabled: data.wikisEnabled()
 };
 //#endregion
@@ -103,15 +104,8 @@ class help {
 
                 //#region Osu
                 if (data.commands().categories.Osu == true || data.commands().categories.Osu == 'true') {
-                    embed.addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n' +
-                        '**osuTaikoUser**: Gets info about an user in the Taiko mode \n' +
-                        '**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n' +
-                        '**osuManiaUser**: Gets info about an user in the Mania mode \n' +
-                        '**osuStdBest:** Gets the best play of an user in the Standard mode \n' +
-                        '**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n' +
-                        '**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n' +
-                        '**osuManiaBest:** Gets the best play of an user in the mania mode \n' +
-                        '**osuBeatmap**: Gets info about an osu!beatmap', true)
+                    embed.addField('Osu', '**osu:** Retieves your profile and your best PP score, check [Modifiers]('+wikis.modifiers+') to learn more\n' +
+                        '**osuBeatmap:** Gets info about an osu!beatmap', true)
                 }
                 //#endregion
 

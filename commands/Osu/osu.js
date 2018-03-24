@@ -95,12 +95,14 @@ class osu {
                         .addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n' +
                             '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true));
                 }).catch(err => {
-                    if (err == 'TypeError: Cannot read property \'username\' f undefined') {
+                    if (err == 'TypeError: Cannot read property \'username\' of undefined') {
                         msg.channel.send(new discord.RichEmbed()
                             .setColor([255, 0, 0])
                             .setTitle('Error')
                             .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                            .setDescription('User does not exists or you entered the wrong modifiers')
+                            .setDescription('**Can be for the possible reasons:** \n' +
+                                'User does not exists \n' +
+                                'You entered the wrong modifiers')
                             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
                     } else {
                         msg.channel.send(new discord.RichEmbed()
@@ -148,12 +150,15 @@ class osu {
                             '[**Download Beatmap**](https://osu.ppy.sh/d/' + bm.beatmap_id + ')\n' +
                             '[**User**](https://osu.ppy.sh/u/' + play.user_id + ')', true));
                 }).catch(err => {
-                    if (err == 'TypeError: Cannot read property \'rank\' of undefined') {
+                    if (err == 'TypeError: Cannot read property \'beatmap_id\' of undefined') {
                         msg.channel.send(new discord.RichEmbed()
                             .setColor([255, 0, 0])
                             .setTitle('Error')
                             .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                            .setDescription('User does not exists or doesnt have any play in your search or you entered the wrong modifiers!')
+                            .setDescription('**Can be for the possible reasons:** \n' +
+                                'User does not exists \n' +
+                                'Doesnt have any play in your search \n' +
+                                'You entered the wrong modifiers')
                             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
                     } else {
                         msg.channel.send(new discord.RichEmbed()

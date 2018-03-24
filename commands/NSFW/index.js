@@ -34,8 +34,7 @@ class NSFW {
             case 'danbooru': return new this.danbooru(msg, client);
             case 'rule34':
             case 'r34':
-                new this.rule34(msg, client);
-                break;
+                return new this.rule34(msg, client);
         }
     }
 }

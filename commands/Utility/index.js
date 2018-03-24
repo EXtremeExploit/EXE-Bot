@@ -31,8 +31,8 @@ class Utility {
         var command = command_prefix.replace(prefix, '');
 
         switch (command) {
-            case 'math': new this.math(msg, client);
-            case 'shorturl': new this.shorturl(msg, client);
+            case 'math': return new this.math(msg, client);
+            case 'shorturl': return new this.shorturl(msg, client);
         }
     }
 }

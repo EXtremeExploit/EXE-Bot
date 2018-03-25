@@ -1,0 +1,66 @@
+{
+    "support": [
+        "**help:** Shows this message",
+        "**info:** Info about me",
+        "**invite:** Invite me to your server"
+    ],
+    "fun": [
+        "**cookie**: Gives a cookie to someone",
+        "**dicksize**: What\"s your penis lenght? ( ͡° ͜ʖ ͡°)",
+        "**lenny:** Displays the lenny face",
+        "**pat**: Gives a headpat to someone",
+        "**reverse:** Reverses text",
+        "**sandwich:** Gives a sandwich to someone",
+        "**say:** Says whatever you want",
+        "**waifu:** Waifu or laifu?"
+    ],
+    "info": [
+        "**avatar:** Gets your/someone \"s Avatar",
+        "**channel:** Info about a channel",
+        "**role:** Info about a role",
+        "**server:** Info about the server",
+        "**user:** Info about you/someone"
+    ],
+    "misc": [
+        "**ping:** Pings the bot and the discord API",
+        "**pong:** Pongs the bot and the discord API",
+        "**uptime:** Displays the uptime since the bot had the READY event",
+        "**wiki:** Sends all the wikis available for the bot"
+    ],
+    "moderation": [
+        "**ban:** Bans someone",
+        "**kick:** Kicks someone",
+        "**mute:** Mutes someone",
+        "**prune:** Deletes a count of messages in a channel",
+        "**unmute:** Unmutes someone"
+    ],
+    "nsfw": [
+        "**danbooru:** Searchs on danbooru with your terms",
+        "**rule34:** Searchs your terms on the rule34"
+    ],
+    "osu": [
+        "**osu:** Retieves your profile and your best PP score, check [Modifiers]($WIKIS.MODIFIERS) to learn more",
+        "**osuBeatmap:** Gets info about an osu!beatmap"
+    ],
+    "random": [
+        "**8ball:**  Asks the 8ball a question",
+        "**cat:** Gets a random cat image",
+        "**coinflip:** Flips a coin",
+        "**dog:** Gets a random dog image",
+        "**rate:** Rates something",
+        "**roll:** Rolls a dice"
+    ],
+    "utility": [
+        "**math:** Do some math",
+        "**shorturl:** Short an URL"
+    ],
+    "voting": [
+        "__***Note***__ - To get this commands to work, vote the bot [here](https://discordbots.org/bot/353661793199194112/vote)",
+        "**rps:** Play Rock, Paper and Scissors"
+    ],
+    "wiki": [
+        "[Wiki]($WIKIS.HOME)",
+        "[Wiki: Commands]($WIKIS.COMMANDS)",
+        "[Wiki: Replies]($WIKIS.REPLIES)"
+    ]
+}

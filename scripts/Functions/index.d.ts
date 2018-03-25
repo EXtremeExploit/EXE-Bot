@@ -7,4 +7,5 @@ export declare class Functions {
    reverseString(string: string): string;
    userInfo(user: GuildMember): RichEmbed;
    fixDecimals(number: number): string;
+   replacedWikis(string: string): string;
 }

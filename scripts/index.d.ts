@@ -68,6 +68,20 @@ export declare type DiscordBots = {
     token: string;
 }
 
+export declare type HelpGenerator = {
+    support: string;
+    fun: string;
+    info: string;
+    misc: string;
+    moderation: string;
+    nsfw: string;
+    osu: string;
+    random: string;
+    utility: string;
+    voting: string;
+    wiki: string;
+}
+
 export declare class Main {
     json: Json;
     events: any;
@@ -77,4 +91,5 @@ export declare class Main {
     getFunctions(): Functions;
     getPrototypes(): any;
     getTools(): any;
+    helpGenerator(): HelpGenerator;
 }

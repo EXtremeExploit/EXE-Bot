@@ -5,6 +5,7 @@ class Main {
         this.events = require('./events/events.js');
         this.functions = require('./Functions/index.js');
         this.Prototypes = require('./prototypes/prototypes');
+        this.HelpGenerator = require('./helpGenerator');
         this.tools = require('./prototypes/tools');
     }
     getJson() {
@@ -18,13 +19,16 @@ class Main {
         return new this.events.Events(Client);
     }
     getFunctions() {
-        return new this.functions.Functions();
+        return new this.functions();
     }
     getPrototypes() {
         return this.Prototypes;
     }
     getTools() {
         return this.tools;
+    }
+    helpGenerator() {
+        return this.HelpGenerator;
     }
 }
 //#endregion

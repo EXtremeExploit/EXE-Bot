@@ -33,6 +33,8 @@ class help {
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
+        var commands = main.helpGenerator();
+
         if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
         if (!command_prefix.startsWith(prefix)) return;
         switch (command) {
@@ -45,98 +47,69 @@ class help {
                 //#endregion
 
                 //#region Support
+
                 if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
-                    embed.addField('Support', '**invite:** Invite me to your server \n' +
-                        '**help:** Shows this message\n' +
-                        '**info:** Info about me', true)
+                    embed.addField('Support', commands.support, true)
                 }
                 //#endregion
 
                 //#region Info
                 if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
-                    embed.addField('Info', '**server:** Info about the server \n' +
-                        '**role:** Info about a role \n' +
-                        '**channel:** Info about a channel\n' +
-                        '**user:** Info about you/someone \n' +
-                        '**avatar:** Gets your/someone \'s Avatar', true)
+                    embed.addField('Info', commands.info, true)
                 }
                 //#endregion
 
                 //#region Random
                 if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
-                    embed.addField('Random', '**roll:** Rolls a dice\n' +
-                        '**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n' +
-                        '**cat:** Gets a random cat image\n' +
-                        '**dog:** Gets a random dog image\n' +
-                        '**coinflip:** Flips a coin', true)
+                    embed.addField('Random', commands.random, true)
                 }
                 //#endregion
 
                 //#region Moderation
                 if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
-                    embed.addField('Moderation', '**kick:** Kicks someone \n' +
-                        '**ban:** Bans someone \n' +
-                        '**mute:** Mutes someone \n' +
-                        '**prune:** Deletes a count of messages in a channel\n' +
-                        '**unmute:** Unmutes someone', true)
+                    embed.addField('Moderation', commands.moderation, true)
                 }
                 //#endregion
 
                 //#region NSFW
                 if (data.commands().categories.NSFW == true || data.commands().categories.NSFW == 'true') {
-                    embed.addField('NSFW', '**danbooru:** Searchs on danbooru with your terms \n' +
-                        '**rule34:** Searchs your terms on the rule34', true)
+                    embed.addField('NSFW', commands.nsfw, true)
                 }
                 //#endregion
 
                 //#region Fun
                 if (data.commands().categories.Fun == true || data.commands().categories.Fun == 'true') {
-                    embed.addField('Fun', '**say:** Says whatever you want \n' +
-                        '**lenny:** Displays the lenny face\n' +
-                        '**cookie**: Gives a cookie to someone\n' +
-                        '**dicksize**: What\'s your penis lenght? ( ͡° ͜ʖ ͡°)\n' +
-                        '**sandwich:** Gives a sandwich to someone\n' +
-                        '**pat**: Gives a headpat to someone\n' +
-                        '**reverse:** Reverses text\n' +
-                        '**waifu:** Waifu or laifu?', true)
+                    embed.addField('Fun', commands.fun, true)
                 }
                 //#endregion
 
                 //#region Osu
                 if (data.commands().categories.Osu == true || data.commands().categories.Osu == 'true') {
-                    embed.addField('Osu', '**osu:** Retieves your profile and your best PP score, check [Modifiers]('+wikis.modifiers+') to learn more\n' +
-                        '**osuBeatmap:** Gets info about an osu!beatmap', true)
+                    embed.addField('Osu', commands.osu, true)
                 }
                 //#endregion
 
                 //#region Utility
                 if (data.commands().categories.Utility == true || data.commands().categories.Utility == 'true') {
-                    embed.addField('Utility', '**math:** Do some math\n' +
-                        '**shorturl:** Short an URL', true)
+                    embed.addField('Utility', commands.utility, true)
                 }
                 //#endregion
 
                 //#region Voting
                 if ((data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') && (data.discordBots().enabled == true || data.discordBots().enabled == 'true')) {
-                    embed.addField('Voting', '__***Note***__ - To get this commands to work, vote the bot [here](https://discordbots.org/bot/353661793199194112/vote)\n' +
-                        '**rps:** Play Rock, Paper and Scissors', true);
+                    embed.addField('Voting', commands.voting, true);
                 }
                 //#endregion
 
                 //#region Misc
                 if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
-                    embed.addField('Misc', '**ping:** Pings the bot and the discord API\n' +
-                        '**pong:** Pongs the bot and the discord API\n' +
-                        '**uptime:** Displays the uptime since the bot had the READY event\n' +
-                        '**wiki:** Sends all the wikis available for the bot', true)
+                    embed.addField('Misc', commands.misc, true)
                 }
                 //#endregion
 
                 //#region Wiki
                 if (data.commands().categories.Wiki == true || data.commands().categories.Wiki == 'true') {
-                    embed.addField('Wiki', '[Wiki](' + wikis.home + ')\n' +
-                        '[Wiki: Commands](' + wikis.commands + ')\n' +
-                        '[Wiki: Replies](' + wikis.replies + ')', true);
+                    embed.addField('Wiki', commands.wiki, true);
                 }
                 //#endregion
 

@@ -4,16 +4,12 @@ const data = main.getData();
 const token = data.token();
 const osuApiKey = data.osuApiKey();
 const discordBotsToken = data.discordBots().token;
-var servers = data.servers();
 const discord = require('discord.js');
 const yt = require('ytdl-core');
 const { GuildMember, RichEmbed, Message, VoiceConnection } = discord;
+var wikis = data.wikis();
 
-//#region Osu Module
-const _osuapi = require('osu.js');
-const { Beatmap, Best, GamesOptions, Match, MatchOptions, Recent, Replay, Scores, ScoresOptions, User, UserEvents } = _osuapi;
 class Functions {
-	constructor() { }
 	/**
 	 * @param {string} text
 	 */
@@ -78,4 +74,4 @@ class Functions {
 	}
 }
 
-exports.Functions = Functions;
+module.exports = Functions;

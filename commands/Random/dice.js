@@ -17,7 +17,7 @@ const wikis = {
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
-class roll {
+class dice {
     /**
      * 
      * @param {Message} msg 
@@ -29,12 +29,12 @@ class roll {
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
-        const roll = Math.floor(Math.random() * 100) + 1;
+        const dice = Math.floor(Math.random() * 6) + 1;
         msg.channel.send(new discord.RichEmbed()
             .setColor([255, 0, 0])
-            .setTitle('Roll')
+            .setTitle('Dice')
             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
-            .setDescription('You Rolled a: **' + roll + '**'));
+            .setDescription('You took a **' + dice + '**'));
     }
 }
-module.exports = roll;
+module.exports = dice;

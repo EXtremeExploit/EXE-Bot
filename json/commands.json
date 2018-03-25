@@ -46,9 +46,10 @@
         "**8ball:**  Asks the 8ball a question",
         "**cat:** Gets a random cat image",
         "**coinflip:** Flips a coin",
+        "**dice:** Rolls a dice",
         "**dog:** Gets a random dog image",
         "**rate:** Rates something",
-        "**roll:** Rolls a dice"
+        "**roll:** Rolls between 1 and 100"
     ],
     "utility": [
         "**math:** Do some math",

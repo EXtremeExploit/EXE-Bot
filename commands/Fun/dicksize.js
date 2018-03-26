@@ -43,12 +43,14 @@ class dicksize {
 			'I\'m sorry about that.'
 		];
 
-		let smedium = ['Seems like it\'s normal sized to me.',
+		let smedium = [
+			'Seems like it\'s normal sized to me.',
 			'The average.',
 			'A decent size.'
 		];
 
-		let medium = ['You\'re slightly above the average.',
+		let medium = [
+			'You\'re slightly above the average.',
 			'Good job.',
 			'To be honest it\'s not that impressive.'
 		];
@@ -58,10 +60,12 @@ class dicksize {
 			'Almost as long as my arm.'
 		];
 
-		let xlarge = ['Keep that thing away from me! D:',
+		let xlarge = [
+			'Keep that thing away from me! D:',
 			'You could knock down someone with that.',
 			'Do you sometimes bang it on the ceiling?',
-			'Don\'t trip over it.', 'Damn son.'
+			'Don\'t trip over it.',
+			'Damn son.'
 		];
 
 		let int = msg.author.id.split('');
@@ -75,7 +79,7 @@ class dicksize {
 		str += 'D';
 		var embed = new discord.RichEmbed()
 			.setAuthor(msg.author.username, msg.author.displayAvatarURL)
-			.setTitle('Dick Size: ' + str + ' ('+length+')')
+			.setTitle('Dick Size: ' + str + ' (' + length + ')')
 			.setColor([255, 0, 0]);
 		if (length == 1) embed.setDescription(xsmall.random());
 		else if (length <= 3) embed.setDescription(small.random());

@@ -17,6 +17,7 @@
     "info": [
         "**avatar:** Gets your/someone \"s Avatar",
         "**channel:** Info about a channel",
+        "**emoji:** Info about an emoji",
         "**role:** Info about a role",
         "**server:** Info about the server",
         "**user:** Info about you/someone"

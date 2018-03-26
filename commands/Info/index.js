@@ -26,6 +26,7 @@ class Info {
     constructor(msg, client) {
         this.avatar = require('./avatar');
         this.channel = require('./channel');
+        this.emoji = require('./emoji');
         this.role = require('./role');
         this.server = require('./server');
         this.user = require('./user');
@@ -37,6 +38,7 @@ class Info {
         switch (command) {
             case 'avatar': return new this.avatar(msg, client);
             case 'channel': return new this.channel(msg, client);
+            case 'emoji': return new this.emoji(msg, client);
             case 'role': return new this.role(msg, client);
             case 'server': return new this.server(msg, client);
             case 'user': return new this.user(msg, client);

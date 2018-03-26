@@ -47,63 +47,53 @@ class help {
                 //#endregion
 
                 //#region Support
-
                 if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
                     embed.addField('Support', commands.support, true)
                 }
                 //#endregion
-
-                //#region Info
-                if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
-                    embed.addField('Info', commands.info, true)
-                }
-                //#endregion
-
-                //#region Random
-                if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
-                    embed.addField('Random', commands.random, true)
-                }
-                //#endregion
-
-                //#region Moderation
-                if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
-                    embed.addField('Moderation', commands.moderation, true)
-                }
-                //#endregion
-
-                //#region NSFW
-                if (data.commands().categories.NSFW == true || data.commands().categories.NSFW == 'true') {
-                    embed.addField('NSFW', commands.nsfw, true)
-                }
-                //#endregion
-
                 //#region Fun
                 if (data.commands().categories.Fun == true || data.commands().categories.Fun == 'true') {
                     embed.addField('Fun', commands.fun, true)
                 }
                 //#endregion
-
+                //#region Info
+                if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
+                    embed.addField('Info', commands.info, true)
+                }
+                //#endregion
+                //#region Misc
+                if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
+                    embed.addField('Misc', commands.misc, true)
+                }
+                //#endregion
+                //#region Moderation
+                if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
+                    embed.addField('Moderation', commands.moderation, true)
+                }
+                //#endregion
+                //#region NSFW
+                if (data.commands().categories.NSFW == true || data.commands().categories.NSFW == 'true') {
+                    embed.addField('NSFW', commands.nsfw, true)
+                }
+                //#endregion
                 //#region Osu
                 if (data.commands().categories.Osu == true || data.commands().categories.Osu == 'true') {
                     embed.addField('Osu', commands.osu, true)
                 }
                 //#endregion
-
+                //#region Random
+                if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
+                    embed.addField('Random', commands.random, true)
+                }
+                //#endregion
                 //#region Utility
                 if (data.commands().categories.Utility == true || data.commands().categories.Utility == 'true') {
                     embed.addField('Utility', commands.utility, true)
                 }
                 //#endregion
-
                 //#region Voting
                 if ((data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') && (data.discordBots().enabled == true || data.discordBots().enabled == 'true')) {
                     embed.addField('Voting', commands.voting, true);
-                }
-                //#endregion
-
-                //#region Misc
-                if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
-                    embed.addField('Misc', commands.misc, true)
                 }
                 //#endregion
 

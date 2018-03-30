@@ -95,23 +95,31 @@ class osu {
                         .addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n' +
                             '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true));
                 }).catch(err => {
-                    if (err == 'TypeError: Cannot read property \'username\' of undefined') {
+                    if (err == 'SyntaxError: Unexpected token < in JSON at position 0') {
                         msg.channel.send(new discord.RichEmbed()
+                            .setAuthor('osu! Server failure!', 'https://pbs.twimg.com/profile_images/706719922596900864/xTzREmuc_400x400.jpg')
                             .setColor([255, 0, 0])
-                            .setTitle('Error')
-                            .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                            .setDescription('**Can be for the possible reasons:** \n' +
-                                'User does not exists \n' +
-                                'You entered the wrong modifiers')
-                            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                            .setFooter('this is bad af')
+                            .addField('osu! Servers got down!', 'Check [@osustatus](https://twitter.com/osustatus) for info'));
                     } else {
-                        msg.channel.send(new discord.RichEmbed()
-                            .setColor([255, 0, 0])
-                            .setTitle('Error')
-                            .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                            .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
-                            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
-                        console.log(err);
+                        if (err == 'TypeError: Cannot read property \'username\' of undefined') {
+                            msg.channel.send(new discord.RichEmbed()
+                                .setColor([255, 0, 0])
+                                .setTitle('Error')
+                                .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
+                                .setDescription('**Can be for the possible reasons:** \n' +
+                                    'User does not exists \n' +
+                                    'You entered the wrong modifiers')
+                                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                        } else {
+                            msg.channel.send(new discord.RichEmbed()
+                                .setColor([255, 0, 0])
+                                .setTitle('Error')
+                                .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
+                                .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
+                                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                            console.log(err);
+                        }
                     }
                 });
             } else {
@@ -150,25 +158,34 @@ class osu {
                             '[**Download Beatmap**](https://osu.ppy.sh/d/' + bm.beatmap_id + ')\n' +
                             '[**User**](https://osu.ppy.sh/u/' + play.user_id + ')', true));
                 }).catch(err => {
-                    if (err == 'TypeError: Cannot read property \'beatmap_id\' of undefined') {
+                    if (err == 'SyntaxError: Unexpected token < in JSON at position 0') {
                         msg.channel.send(new discord.RichEmbed()
+                            .setAuthor('osu! Server failure!', 'https://pbs.twimg.com/profile_images/706719922596900864/xTzREmuc_400x400.jpg')
                             .setColor([255, 0, 0])
-                            .setTitle('Error')
-                            .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                            .setDescription('**Can be for the possible reasons:** \n' +
-                                'User does not exists \n' +
-                                'Doesnt have any play in your search \n' +
-                                'You entered the wrong modifiers')
-                            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                            .setFooter('this is bad af')
+                            .addField('osu! Servers got down!', 'Check [@osustatus](https://twitter.com/osustatus) for info'));
                     } else {
-                        msg.channel.send(new discord.RichEmbed()
-                            .setColor([255, 0, 0])
-                            .setTitle('Error')
-                            .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                            .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
-                            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
-                        console.log(err);
+                        if (err == 'TypeError: Cannot read property \'beatmap_id\' of undefined') {
+                            msg.channel.send(new discord.RichEmbed()
+                                .setColor([255, 0, 0])
+                                .setTitle('Error')
+                                .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
+                                .setDescription('**Can be for the possible reasons:** \n' +
+                                    'User does not exists \n' +
+                                    'Doesnt have any play in your search \n' +
+                                    'You entered the wrong modifiers')
+                                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                        } else {
+                            msg.channel.send(new discord.RichEmbed()
+                                .setColor([255, 0, 0])
+                                .setTitle('Error')
+                                .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
+                                .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
+                                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                            console.log(err);
+                        }
                     }
+
                 });
             }
         }

@@ -14,6 +14,8 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
+const discord = require('discord.js');
+const { Message, Client } = discord;
 //#region Osu Module
 const _osuapi = require('osu.js');
 const osuApi = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api
@@ -60,7 +62,7 @@ class osuBeatmap {
                     if (bm.tags == '' || bm.tags == null) bm.tags = '*null*';
                     if (bm.artist == '' || bm.artist == null) bm.artist = '*null*';
 
-                    var embed = new discord.RichEmbed()
+                    msg.channel.send(new discord.RichEmbed()
                         .setColor([255, 58, 255])
                         .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')
                         .setTitle('osu!Beatmap')
@@ -72,7 +74,7 @@ class osuBeatmap {
                             '**BPM:** ' + bm.bpm + '\n' +
                             '**Max Combo:** ' + bm.max_combo + 'x\n' +
                             '**Status:** ' + bm.approved, true)
-                        .addField('Difficulty', '**Stars:** ' + this.fixDecimals(bm.difficultyrating) + '*\n' +
+                        .addField('Difficulty', '**Stars:** ' + functions.fixDecimals(bm.difficultyrating) + '*\n' +
                             '**HP:** ' + bm.diff_drain + '\n' +
                             '**OD:** ' + bm.diff_overall + '\n' +
                             '**AR:** ' + bm.diff_approach + '\n' +
@@ -81,16 +83,33 @@ class osuBeatmap {
                             '**Beatmap:** ' + bm.beatmap_id, true)
                         .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/' + bm.beatmapset_id + ')\n' +
                             '[**Beatmap**](https://osu.ppy.sh/b/' + bm.beatmap_id + ')\n' +
-                            '[**Download Beatmap Set**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')', true);
+                            '[**Download Beatmap Set**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')', true));
                 }).catch(err => {
-                        console.error(err);
+                    if (err == 'SyntaxError: Unexpected token < in JSON at position 0') {
                         msg.channel.send(new discord.RichEmbed()
+                            .setAuthor('osu! Server failure!', 'https://pbs.twimg.com/profile_images/706719922596900864/xTzREmuc_400x400.jpg')
                             .setColor([255, 0, 0])
-                            .setTitle('Error')
-                            .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                            .setDescription('Beatmap does not exists')
-                            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
-                    });
+                            .setFooter('this is bad af')
+                            .addField('osu! Servers got down!', 'Check [@osustatus](https://twitter.com/osustatus) for info'));
+                    } else {
+                        if (err == 'TypeError: Cannot read property \'approved\' of undefined') {
+                            msg.channel.send(new discord.RichEmbed()
+                                .setColor([255, 0, 0])
+                                .setTitle('Error')
+                                .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
+                                .setDescription('Beatmap does not exists')
+                                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                        } else {
+                            msg.channel.send(new discord.RichEmbed()
+                                .setColor([255, 0, 0])
+                                .setTitle('Error')
+                                .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
+                                .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
+                                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                            console.log(err);
+                        }
+                    }
+                });
             }
         }
     }

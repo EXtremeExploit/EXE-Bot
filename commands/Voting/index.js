@@ -24,18 +24,16 @@ class Voting {
      * @param {Client} client 
      * @param {_db} db
      */
-   constructor(msg, client, db) {
-      this.rps = require('./rps');
-      var messageArray = msg.content.split(' ');
-      var command_prefix = messageArray[0];
-      var args = messageArray.slice(1).join(' ');
-      var command = command_prefix.replace(prefix, '');
+    constructor(msg, client, db) {
+        this.rps = require('./rps');
+        var messageArray = msg.content.split(' ');
+        var command_prefix = messageArray[0];
+        var args = messageArray.slice(1).join(' ');
+        var command = command_prefix.replace(prefix, '');
 
-      switch (command) {
-         case 'rps':
-            new this.rps(msg, client, db);
-            break;
-      }
-   }
+        switch (command) {
+            case 'rps': return new this.rps(msg, client, db);
+        }
+    }
 }
 module.exports = Voting;

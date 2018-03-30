@@ -14,14 +14,15 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
+const mathjs = require('mathjs');
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
-class eightball {
+class math {
     /**
      * 
      * @param {Message} msg 
-     * @param {Client} client 
+     * @param {Client} client
      */
     constructor(msg, client) {
         var messageArray = msg.content.split(' ');
@@ -29,28 +30,24 @@ class eightball {
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
-        var response = [
-            'Nope',
-            'Yes',
-            'Of Course',
-            'Never',
-            'Not looking so good...',
-            'Concentrate and ask again',
-            'Yes, definitely',
-            'Better not tell you now'
-        ];
-        if (args == '') {
-            msg.channel.send(new discord.RichEmbed()
-                .setColor([0, 0, 0])
-                .addField('Help', 'Check the [wiki](' + wikis.commands + '#random) for help!')
-                .setDescription('Pleace specify an ask!'));
+        if (args[0]) {
+            try {
+                msg.channel.send(new discord.RichEmbed()
+                    .setColor([8, 145, 1])
+                    .setAuthor(msg.author.username, msg.author.displayAvatarURL)
+                    .setTitle('Math')
+                    .setDescription(args + ' = ' + mathjs.eval(args)));
+            } catch (e) {
+                msg.channel.send(new discord.RichEmbed()
+                    .setDescription(e.message)
+                    .setColor([255, 0, 0])
+                    .setTitle('An Error Ocurred!'));
+            }
         } else {
             msg.channel.send(new discord.RichEmbed()
-                .setColor([0, 0, 0])
-                .setTitle('8ball')
-                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
-                .setDescription(response[Math.floor(Math.random() * response.length)]));
+                .setDescription('Enter an expression to evaluate')
+                .setAuthor(msg.author.username, msg.author.displayAvatarURL));
         }
     }
 }
-module.exports = eightball;
+module.exports = math;

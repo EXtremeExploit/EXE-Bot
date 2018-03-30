@@ -7,7 +7,5 @@ export declare class Functions {
    reverseString(string: string): string;
    userInfo(user: GuildMember): RichEmbed;
    fixDecimals(number: number): string;
-   osuBeatmap(beatmap: Beatmap[]): RichEmbed;
-   osuBest(playF: UserBest[]): RichEmbed;
-   osuUser(userF: User[]): RichEmbed;
+   replacedWikis(string: string): string;
 }

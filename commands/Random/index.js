@@ -26,6 +26,7 @@ class Random {
         this.eightball = require('./8ball');
         this.cat = require('./cat');
         this.coinflip = require('./coinflip');
+        this.dice = require('./dice');
         this.dog = require('./dog');
         this.rate = require('./rate');
         this.roll = require('./roll');
@@ -35,24 +36,13 @@ class Random {
         var command = command_prefix.replace(prefix, '');
 
         switch (command) {
-            case '8ball':
-                new this.eightball(msg, client);
-                break;
-            case 'cat':
-                new this.cat(msg, client);
-                break;
-            case 'coinflip':
-                new this.coinflip(msg, client);
-                break;
-            case 'dog':
-                new this.dog(msg, client);
-                break;
-            case 'rate':
-                new this.rate(msg, client);
-                break;
-            case 'roll':
-                new this.roll(msg, client);
-                break;
+            case '8ball': return new this.eightball(msg, client);
+            case 'cat': return new this.cat(msg, client);
+            case 'coinflip': return new this.coinflip(msg, client);
+            case 'dice': return new this.dice(msg, client);
+            case 'dog': return new this.dog(msg, client);
+            case 'rate': return new this.rate(msg, client);
+            case 'roll': return new this.roll(msg, client);
         }
     }
 }

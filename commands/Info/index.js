@@ -26,6 +26,7 @@ class Info {
     constructor(msg, client) {
         this.avatar = require('./avatar');
         this.channel = require('./channel');
+        this.emoji = require('./emoji');
         this.role = require('./role');
         this.server = require('./server');
         this.user = require('./user');
@@ -35,21 +36,12 @@ class Info {
         var command = command_prefix.replace(prefix, '');
 
         switch (command) {
-            case 'avatar':
-                new this.avatar(msg, client);
-                break;
-            case 'channel':
-                new this.channel(msg, client);
-                break;
-            case 'role':
-                new this.role(msg, client);
-                break;
-            case 'server':
-                new this.server(msg, client);
-                break;
-            case 'user':
-                new this.user(msg, client);
-                break;
+            case 'avatar': return new this.avatar(msg, client);
+            case 'channel': return new this.channel(msg, client);
+            case 'emoji': return new this.emoji(msg, client);
+            case 'role': return new this.role(msg, client);
+            case 'server': return new this.server(msg, client);
+            case 'user': return new this.user(msg, client);
         }
     }
 }

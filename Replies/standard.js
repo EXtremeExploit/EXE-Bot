@@ -29,6 +29,8 @@ class StandardReplies {
                 msg.channel.send('no ketchup');
             if (message == 'expand')
                 msg.channel.send('dong');
+            if (message == 'owo')
+                msg.channel.send('What\'s This?');
         });
     }
 }

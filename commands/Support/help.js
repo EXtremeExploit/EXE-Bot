@@ -8,6 +8,7 @@ const wikis = {
     commands: data.wikis().commands,
     replies: data.wikis().replies,
     faq: data.wikis().faq,
+    modifiers: data.wikis().modifiers,
     isEnabled: data.wikisEnabled()
 };
 //#endregion
@@ -32,6 +33,8 @@ class help {
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
+        var commands = main.helpGenerator();
+
         if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
         if (!command_prefix.startsWith(prefix)) return;
         switch (command) {
@@ -45,88 +48,58 @@ class help {
 
                 //#region Support
                 if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
-                    embed.addField('Support', '**invite:** Invite me to your server \n' +
-                        '**help:** Shows this message\n' +
-                        '**info:** Info about me', true)
+                    embed.addField('Support', commands.support, true)
                 }
                 //#endregion
-
-                //#region Info
-                if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
-                    embed.addField('Info', '**server:** Info about the server \n' +
-                        '**role:** Info about a role \n' +
-                        '**channel:** Info about a channel\n' +
-                        '**user:** Info about you/someone \n' +
-                        '**avatar:** Gets your/someone \'s Avatar', true)
-                }
-                //#endregion
-
-                //#region Random
-                if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
-                    embed.addField('Random', '**roll:** Rolls a dice\n' +
-                        '**rate:** Rates something \n**8ball:**  Asks the 8ball a question \n' +
-                        '**cat:** Gets a random cat image\n' +
-                        '**dog:** Gets a random dog image\n' +
-                        '**coinflip:** Flips a coin', true)
-                }
-                //#endregion
-
-                //#region Moderation
-                if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
-                    embed.addField('Moderation', '**kick:** Kicks someone \n' +
-                        '**ban:** Bans someone \n' +
-                        '**mute:** Mutes someone \n' +
-                        '**prune:** Deletes a count of messages in a channel\n' +
-                        '**unmute:** Unmutes someone', true)
-                }
-                //#endregion
-
                 //#region Fun
                 if (data.commands().categories.Fun == true || data.commands().categories.Fun == 'true') {
-                    embed.addField('Fun', '**say:** Says whatever you want \n' +
-                        '**lenny:** Displays the lenny face\n' +
-                        '**cookie**: Gives a cookie to someone\n' +
-                        '**sandwich:** Gives a sandwich to someone\n' +
-                        '**pat**: Gives a headpat to someone\n' +
-                        '**reverse:** Reverses text', true)
+                    embed.addField('Fun', commands.fun, true)
                 }
                 //#endregion
-
-                //#region Osu
-                if (data.commands().categories.Osu == true || data.commands().categories.Osu == 'true') {
-                    embed.addField('Osu', '**osuStdUser**: Gets info about an user in the Standard mode \n' +
-                        '**osuTaikoUser**: Gets info about an user in the Taiko mode \n' +
-                        '**osuCtbUser**: Gets info about an user in the CatchTheBeat mode \n' +
-                        '**osuManiaUser**: Gets info about an user in the Mania mode \n' +
-                        '**osuStdBest:** Gets the best play of an user in the Standard mode \n' +
-                        '**osuTaikoBest:** Gets the best play of an user in the Taiko mode \n' +
-                        '**osuCtbBest:** Gets the best play of an user in the CatchTheBeat mode \n' +
-                        '**osuManiaBest:** Gets the best play of an user in the mania mode \n' +
-                        '**osuBeatmap**: Gets info about an osu!beatmap', true)
+                //#region Info
+                if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
+                    embed.addField('Info', commands.info, true)
                 }
                 //#endregion
-
-                //#region Voting
-                if ((data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') && (data.discordBots().enabled == true || data.discordBots().enabled == 'true')) {
-                    embed.addField('Voting', '**Note** - To get this commands to work, vote the bot [here](https://discordbots.org/bot/353661793199194112/vote)\n' +
-                        '**rps:** Play Rock, Paper and Scissors', true);
-                }
-                //#endregion
-
                 //#region Misc
                 if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
-                    embed.addField('Misc', '**ping:** Pings the bot and the discord API\n' +
-                        '**pong:** Pongs the bot and the discord API\n' +
-                        '**uptime:** Displays the uptime since the bot had the READY event\n' +
-                        '**wiki:** Sends all the wikis available for the bot', true)
+                    embed.addField('Misc', commands.misc, true)
+                }
+                //#endregion
+                //#region Moderation
+                if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
+                    embed.addField('Moderation', commands.moderation, true)
+                }
+                //#endregion
+                //#region NSFW
+                if (data.commands().categories.NSFW == true || data.commands().categories.NSFW == 'true') {
+                    embed.addField('NSFW', commands.nsfw, true)
+                }
+                //#endregion
+                //#region Osu
+                if (data.commands().categories.Osu == true || data.commands().categories.Osu == 'true') {
+                    embed.addField('Osu', commands.osu, true)
+                }
+                //#endregion
+                //#region Random
+                if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
+                    embed.addField('Random', commands.random, true)
+                }
+                //#endregion
+                //#region Utility
+                if (data.commands().categories.Utility == true || data.commands().categories.Utility == 'true') {
+                    embed.addField('Utility', commands.utility, true)
+                }
+                //#endregion
+                //#region Voting
+                if ((data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') && (data.discordBots().enabled == true || data.discordBots().enabled == 'true')) {
+                    embed.addField('Voting', commands.voting, true);
                 }
                 //#endregion
 
                 //#region Wiki
                 if (data.commands().categories.Wiki == true || data.commands().categories.Wiki == 'true') {
-                    embed.addField('Wiki', '[Wiki](' + wikis.home + ')\n' +
-                        '[Wiki: Commands](' + wikis.commands + ')\n' +
-                        '[Wiki: Replies](' + wikis.replies + ')', true);
+                    embed.addField('Wiki', commands.wiki, true);
                 }
                 //#endregion
 
@@ -136,10 +109,12 @@ class help {
                     !commands.Info == true &&
                     !commands.Misc == true &&
                     !commands.Moderation == true &&
+                    !commands.NSFW == true &&
                     !commands.Osu == true &&
                     !commands.Random == true &&
                     !commands.Support == true &&
                     !commands.Wiki == true &&
+                    !commands.Utility == true &&
                     !commands.Voting == true) {
                     embed.setDescription('I don\'t have any commands...')
                         .setFooter('Commands? what is that?')

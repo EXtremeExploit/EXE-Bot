@@ -118,6 +118,46 @@ class Data {
         return json.wikisEnabled;
     }
     wikis() {
+        //#region Home
+        var hHome = process.env.wikis_home;
+        if (hHome) {
+            json.wikis.home = hHome;
+        } else {
+            json.wikis.home = json.wikis.home;
+        }
+        //#endregion
+        //#region Commands
+        var hCommands = process.env.wikis_commands;
+        if (hCommands) {
+            json.wikis.commands = hCommands;
+        } else {
+            json.wikis.commands = json.wikis.commands;
+        }
+        //#endregion
+        //#region Replies
+        var hReplies = process.env.wikis_replies;
+        if (hReplies) {
+            json.wikis.replies = hReplies;
+        } else {
+            json.wikis.replies = json.wikis.replies;
+        }
+        //#endregion
+        //#region FAQ
+        var hFAQ = process.env.wikis_faq;
+        if (hFAQ) {
+            json.wikis.faq = hFAQ;
+        } else {
+            json.wikis.faq = json.wikis.faq;
+        }
+        //#endregion
+        //#region Modifiers
+        var hModifiers = process.env.wikis_modifiers;
+        if (hModifiers) {
+            json.wikis.modifiers = hModifiers;
+        } else {
+            json.wikis.modifiers = json.wikis.modifiers;
+        }
+        //#endregion
         return json.wikis;
     }
     commands() {
@@ -151,6 +191,14 @@ class Data {
             json.commands.categories.Moderation = hModeration;
         } else {
             json.commands.categories.Moderation = json.commands.categories.Moderation;
+        }
+        //#endregion
+        //#region NSFW
+        var hNSFW = process.env.commands_categories_NSFW;
+        if (hNSFW) {
+            json.commands.categories.NSFW = hNSFW;
+        } else {
+            json.commands.categories.NSFW = json.commands.categories.NSFW;
         }
         //#endregion
         //#region Fun
@@ -191,6 +239,14 @@ class Data {
             json.commands.categories.BotOwner = hBotOwner;
         } else {
             json.commands.categories.BotOwner = json.commands.categories.BotOwner;
+        }
+        //#endregion
+        //#region Utility
+        var hUtility = process.env.commands_categories_Utility;
+        if (hUtility) {
+            json.commands.categories.Utility = hUtility;
+        } else {
+            json.commands.categories.Utility = json.commands.categories.Utility;
         }
         //#endregion
         //#region Voting

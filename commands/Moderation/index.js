@@ -32,21 +32,11 @@ class Moderation {
         var command = command_prefix.replace(prefix, '');
 
         switch (command) {
-            case 'ban':
-                new this.ban(msg, client);
-                break;
-            case 'kick':
-                new this.kick(msg, client);
-                break;
-            case 'mute':
-                new this.mute(msg, client);
-                break;
-            case 'prune':
-                new this.prune(msg, client);
-                break;
-            case 'unmute':
-                new this.unmute(msg, client);
-                break;
+            case 'ban': return new this.ban(msg, client);
+            case 'kick': return new this.kick(msg, client);
+            case 'mute': return new this.mute(msg, client);
+            case 'prune': return new this.prune(msg, client);
+            case 'unmute': return new this.unmute(msg, client);
         }
     }
 }

@@ -29,10 +29,7 @@ class lenny {
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
-        msg.channel.send(new discord.RichEmbed()
-            .setColor([255, 0, 0])
-            .setTitle('Lenny')
-            .setDescription('( ͡° ͜ʖ ͡°)'));
+        msg.channel.send('( ͡° ͜ʖ ͡°)');
     }
 }
 module.exports = lenny;

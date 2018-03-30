@@ -19,7 +19,8 @@
         "home": "https://extremeexploit.github.io/EXE_Bot/Wiki/",
         "commands": "https://extremeexploit.github.io/EXE_Bot/Wiki/Commands",
         "replies": "https://extremeexploit.github.io/EXE_Bot/Wiki/Replies",
-        "faq": "https://extremeexploit.github.io/EXE_Bot/Wiki/FAQ"
+        "faq": "https://extremeexploit.github.io/EXE_Bot/Wiki/FAQ",
+        "modifiers": "https://extremeexploit.github.io/EXE_Bot/Wiki/Modifiers.html"
     },
     "commands": {
         "categories": {
@@ -27,12 +28,14 @@
             "Info": true,
             "Random": true,
             "Moderation": true,
+            "NSFW": true,
             "Fun": true,
             "Osu": true,
             "Misc": true,
+            "Utility": true,
+            "Voting": true,
             "Wiki": true,
-            "BotOwner": true,
-            "Voting": true
+            "BotOwner": true
         }
     },
     "maintance": false,

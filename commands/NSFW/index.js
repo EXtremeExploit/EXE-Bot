@@ -14,27 +14,28 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
-
 const discord = require('discord.js');
 const { Message, Client } = discord;
-class roll {
+class NSFW {
     /**
      * 
      * @param {Message} msg 
      * @param {Client} client 
      */
     constructor(msg, client) {
+        this.danbooru = require('./danbooru')
+        this.rule34 = require('./rule34');
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
-        const roll = Math.floor(Math.random() * 100) + 1;
-        msg.channel.send(new discord.RichEmbed()
-            .setColor([255, 0, 0])
-            .setTitle('Roll')
-            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
-            .setDescription('You Rolled a: **' + roll + '**'));
+        switch (command) {
+            case 'danbooru': return new this.danbooru(msg, client);
+            case 'rule34':
+            case 'r34':
+                return new this.rule34(msg, client);
+        }
     }
 }
-module.exports = roll;
+module.exports = NSFW;

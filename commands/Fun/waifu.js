@@ -17,7 +17,7 @@ const wikis = {
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
-class roll {
+class waifu {
     /**
      * 
      * @param {Message} msg 
@@ -29,12 +29,7 @@ class roll {
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
-        const roll = Math.floor(Math.random() * 100) + 1;
-        msg.channel.send(new discord.RichEmbed()
-            .setColor([255, 0, 0])
-            .setTitle('Roll')
-            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
-            .setDescription('You Rolled a: **' + roll + '**'));
+        msg.reply('Your waifu doesn\'t exists, sorry about that...')
     }
 }
-module.exports = roll;
+module.exports = waifu;

@@ -14,14 +14,15 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
+const shorten = require('isgd');
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
-class eightball {
+class shorturl {
     /**
      * 
      * @param {Message} msg 
-     * @param {Client} client 
+     * @param {Client} client
      */
     constructor(msg, client) {
         var messageArray = msg.content.split(' ');
@@ -29,28 +30,26 @@ class eightball {
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
-        var response = [
-            'Nope',
-            'Yes',
-            'Of Course',
-            'Never',
-            'Not looking so good...',
-            'Concentrate and ask again',
-            'Yes, definitely',
-            'Better not tell you now'
-        ];
+        //https://is.gd/exe_bot
+
         if (args == '') {
             msg.channel.send(new discord.RichEmbed()
-                .setColor([0, 0, 0])
-                .addField('Help', 'Check the [wiki](' + wikis.commands + '#random) for help!')
-                .setDescription('Pleace specify an ask!'));
+                .setColor([255, 0, 0])
+                .addField('Help', 'Check the [wiki](' + wikis.commands + '#utility) for help!')
+                .setDescription('Pleace specify something to short!'));
         } else {
-            msg.channel.send(new discord.RichEmbed()
-                .setColor([0, 0, 0])
-                .setTitle('8ball')
-                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
-                .setDescription(response[Math.floor(Math.random() * response.length)]));
+            shorten.shorten(args, (res) => {
+                if (res.startsWith('Error:')) {
+                    msg.channel.send(new discord.RichEmbed()
+                        .setColor([255, 0, 0])
+                        .addField('Help', 'Check the [wiki](' + wikis.commands + '#utility) for help!')
+                        .setDescription('Pleace specify a valid URL to short!'));
+                } else {
+                    msg.channel.send(res);
+                }
+            });
         }
     }
 }
-module.exports = eightball;
+
+module.exports = shorturl;

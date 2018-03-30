@@ -29,11 +29,11 @@ class uptime {
 		var args = messageArray.slice(1).join(' ');
 		var command = command_prefix.replace(prefix, '');
 		
-		var miliseconds = client.uptime % 999;
-		var seconds = Math.floor(client.uptime / 1000) % 59;
-		var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 59;
-		var hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) % 23;
-		var days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) / 24);
+		var miliseconds = client.uptime % 1000;
+		var seconds = Math.floor(client.uptime / 1000) % 60;
+		var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 60;
+		var hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) % 24;
+        var days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) / 24);
 		msg.channel.send(new discord.RichEmbed()
 			.setColor([255, 0, 0])
 			.setAuthor(client.user.username, client.user.avatarURL)

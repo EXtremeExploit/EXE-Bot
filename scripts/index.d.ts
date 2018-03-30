@@ -31,6 +31,7 @@ declare type Wikis = {
     commands: string;
     replies: string;
     faq: string;
+    modifiers: string;
 }
 
 declare type Commands = {
@@ -42,11 +43,13 @@ declare type Categories = {
     Info: boolean;
     Random: boolean;
     Moderation: boolean;
+    NSFW: boolean;
     Fun: boolean;
     Osu: boolean;
     Misc: boolean;
     Wiki: boolean;
     BotOwner: boolean;
+    Utility: boolean;
     Voting: boolean;
 }
 
@@ -65,6 +68,20 @@ export declare type DiscordBots = {
     token: string;
 }
 
+export declare type HelpGenerator = {
+    support: string;
+    fun: string;
+    info: string;
+    misc: string;
+    moderation: string;
+    nsfw: string;
+    osu: string;
+    random: string;
+    utility: string;
+    voting: string;
+    wiki: string;
+}
+
 export declare class Main {
     json: Json;
     events: any;
@@ -72,4 +89,7 @@ export declare class Main {
     getData(): Data;
     getEvents(Client: Client): Events;
     getFunctions(): Functions;
+    getPrototypes(): any;
+    getTools(): any;
+    helpGenerator(): HelpGenerator;
 }

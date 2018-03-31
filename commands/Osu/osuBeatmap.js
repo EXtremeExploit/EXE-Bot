@@ -79,7 +79,7 @@ class osuBeatmap {
                             '**OD:** ' + bm.diff_overall + '\n' +
                             '**AR:** ' + bm.diff_approach + '\n' +
                             '**CS:** ' + bm.diff_size, true)
-                        .addField('IDs', '**BeatmapSet:** ' + bm.beatmap_id + '\n' +
+                        .addField('IDs', '**BeatmapSet:** ' + bm.beatmapset_id + '\n' +
                             '**Beatmap:** ' + bm.beatmap_id, true)
                         .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/' + bm.beatmapset_id + ')\n' +
                             '[**Beatmap**](https://osu.ppy.sh/b/' + bm.beatmap_id + ')\n' +

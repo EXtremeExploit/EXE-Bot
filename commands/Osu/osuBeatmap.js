@@ -68,7 +68,7 @@ class osuBeatmap {
                         .setTitle('osu!Beatmap')
                         .addField('Basic', '**Artist:** ' + bm.artist + '\n' +
                             '**Title:** ' + bm.title + '\n' +
-                            '**Creator:** ' + bm.creator + '\n' +
+                            '**Creator:** [' + bm.creator + '](https://osu.ppy.sh/u/' + bm.creator + ')\n' +
                             '**Difficulty Name:** ' + bm.version + '\n' +
                             '**Source:** ' + bm.source + '\n' +
                             '**BPM:** ' + bm.bpm + '\n' +

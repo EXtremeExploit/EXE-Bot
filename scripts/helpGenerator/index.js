@@ -105,9 +105,9 @@ exports.wiki = replacedWikis(wiki);
 //#endregion
 
 function replacedWikis(string) {
-    return string.replace('$WIKIS.HOME', wikis.home)
-        .replace('$WIKIS.COMMANDS', wikis.commands)
-        .replace('$WIKIS.REPLIES', wikis.replies)
-        .replace('$WIKIS.FAQ', wikis.faq)
-        .replace('$WIKIS.MODIFIERS', wikis.modifiers);
+    return string.replace(/&WIKIS_HOME/g, wikis.home)
+        .replace(/&WIKIS_COMMANDS/g, wikis.commands)
+        .replace(/&WIKIS_REPLIES/g, wikis.replies)
+        .replace(/&WIKIS_FAQ/g, wikis.faq)
+        .replace(/&WIKIS_MODIFIERS/g, wikis.modifiers);
 }

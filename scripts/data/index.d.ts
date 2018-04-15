@@ -14,5 +14,4 @@ export declare class Data {
    maintance(): boolean | string;
    replies(): Replies;
    servers(): Servers;
-   disconnect(): boolean;
 }

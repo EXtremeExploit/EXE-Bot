@@ -1,4 +1,4 @@
-const main = require('../index').Main;
+const main = require('../../index').Main;
 const functions = main.getFunctions();
 const data = main.getData();
 var token = data.token();
@@ -14,26 +14,27 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
-const discord = require('discord.js');
-const _db = require('dblapi.js');
-const { Message, Client } = discord;
-class Voting {
+class Osu {
     /**
      * 
      * @param {Message} msg 
      * @param {Client} client 
-     * @param {_db} db
      */
-    constructor(msg, client, db) {
-        this.rps = require('./rps');
+    constructor(msg, client) {
+        this.osu = require('./osu');
+        this.osuBanner = require('./osuBanner');
+        this.osuBeatmap = require('./osuBeatmap');
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
         switch (command) {
-            case 'rps': return new this.rps(msg, client, db);
+            case 'osu': return new this.osu(msg, client);
+            case 'osuBanner': return new this.osuBanner(msg, client);
+            case 'osuBeatmap': return new this.osuBeatmap(msg, client);
+
         }
     }
 }
-module.exports = Voting;
+module.exports = Osu;

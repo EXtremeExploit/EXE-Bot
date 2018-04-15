@@ -85,10 +85,9 @@ class Events {
                 console.log('Moderation: ' + this.data.commands().categories.Moderation);
                 console.log('NSFW: ' + this.data.commands().categories.NSFW);
                 console.log('Fun: ' + this.data.commands().categories.Fun);
-                console.log('Osu: ' + this.data.commands().categories.Osu);
+                console.log('Games: ' + this.data.commands().categories.Games);
                 console.log('Misc: ' + this.data.commands().categories.Misc);
                 console.log('Utility: ' + this.data.commands().categories.Utility);
-                console.log('Voting: ' + this.data.commands().categories.Voting);
                 console.log('Wiki: ' + this.data.commands().categories.Wiki);
                 console.log('Bot Owner: ' + this.data.commands().categories.BotOwner);
                 console.log('Replies Standard: ' + this.data.replies().standard);

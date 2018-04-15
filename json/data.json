@@ -30,10 +30,9 @@
             "Moderation": true,
             "NSFW": true,
             "Fun": true,
-            "Osu": true,
+            "Games": true,
             "Misc": true,
             "Utility": true,
-            "Voting": true,
             "Wiki": true,
             "BotOwner": true
         }

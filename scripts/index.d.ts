@@ -45,12 +45,11 @@ declare type Categories = {
     Moderation: boolean;
     NSFW: boolean;
     Fun: boolean;
-    Osu: boolean;
+    Games: boolean;
     Misc: boolean;
     Wiki: boolean;
     BotOwner: boolean;
     Utility: boolean;
-    Voting: boolean;
 }
 
 export declare type Replies = {
@@ -78,7 +77,6 @@ export declare type HelpGenerator = {
     osu: string;
     random: string;
     utility: string;
-    voting: string;
     wiki: string;
 }
 

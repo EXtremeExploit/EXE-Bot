@@ -1,4 +1,4 @@
-const main = require('../index').Main;
+const main = require('../../index').Main;
 const functions = main.getFunctions();
 main.getPrototypes();
 const data = main.getData();

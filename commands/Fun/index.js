@@ -3,7 +3,6 @@ const functions = main.getFunctions();
 const data = main.getData();
 var token = data.token();
 var prefix = data.prefix();
-var osuApiKey = data.osuApiKey();
 var owner = data.owner();
 var allEvents = data.allEvents();
 var debug = data.debug();
@@ -29,6 +28,7 @@ class Fun {
 		this.lenny = require('./lenny');
 		this.pat = require('./pat');
 		this.reverse = require('./reverse');
+		this.rps = require('./rps');
 		this.sandwich = require('./sandwich');
 		this.say = require('./say');
 		this.waifu = require('./waifu');
@@ -43,6 +43,7 @@ class Fun {
 			case 'lenny': return new this.lenny(msg, client);
 			case 'pat': return new this.pat(msg, client);
 			case 'reverse': return new this.reverse(msg, client);
+			case 'rps': return new this.rps(msg, client);
 			case 'sandwich': return new this.sandwich(msg, client);
 			case 'say': return new this.say(msg, client);
 			case 'waifu': return new this.waifu(msg, client);

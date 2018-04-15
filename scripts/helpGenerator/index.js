@@ -59,13 +59,13 @@ nsfwArray.forEach((e) => {
 exports.nsfw = replacedWikis(nsfw);
 //#endregion
 
-//#region Osu
-var osuArray = arrays.osu;
-var osu = '';
-osuArray.forEach((e) => {
-    osu += '\n' + e
+//#region Games
+var gamesArrays = arrays.games;
+var games = '';
+gamesArrays.forEach((e) => {
+    games += '\n' + e
 });
-exports.osu = replacedWikis(osu);
+exports.games = replacedWikis(games);
 //#endregion
 
 //#region Random
@@ -84,15 +84,6 @@ utilityArray.forEach((e) => {
     utility += '\n' + e
 });
 exports.utility = replacedWikis(utility);
-//#endregion
-
-//#region Voting
-var votingArray = arrays.voting;
-var voting = '';
-votingArray.forEach((e) => {
-    voting += '\n' + e
-});
-exports.voting = replacedWikis(voting);
 //#endregion
 
 //#region Wiki

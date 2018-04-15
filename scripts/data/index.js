@@ -209,12 +209,12 @@ class Data {
             json.commands.categories.Fun = json.commands.categories.Fun;
         }
         //#endregion
-        //#region Osu
-        var hOsu = process.env.commands_categories_Osu;
-        if (hOsu) {
-            json.commands.categories.Osu = hOsu;
+        //#region Games
+        var hGames = process.env.commands_categories_Games;
+        if (hGames) {
+            json.commands.categories.Games = hGames;
         } else {
-            json.commands.categories.Osu = json.commands.categories.Osu;
+            json.commands.categories.Games = json.commands.categories.Games;
         }
         //#endregion
         //#region Misc
@@ -247,14 +247,6 @@ class Data {
             json.commands.categories.Utility = hUtility;
         } else {
             json.commands.categories.Utility = json.commands.categories.Utility;
-        }
-        //#endregion
-        //#region Voting
-        var hVoting = process.env.commands_categories_Voting;
-        if (hVoting) {
-            json.commands.categories.Voting = hVoting;
-        } else {
-            json.commands.categories.Voting = json.commands.categories.Voting;
         }
         //#endregion
         return json.commands;

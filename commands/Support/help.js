@@ -56,6 +56,11 @@ class help {
                     embed.addField('Fun', commands.fun, true)
                 }
                 //#endregion
+                //#region Games
+                if (data.commands().categories.Games == true || data.commands().categories.Games == 'true') {
+                    embed.addField('Games', commands.games, true)
+                }
+                //#endregion
                 //#region Info
                 if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
                     embed.addField('Info', commands.info, true)
@@ -76,11 +81,6 @@ class help {
                     embed.addField('NSFW', commands.nsfw, true)
                 }
                 //#endregion
-                //#region Osu
-                if (data.commands().categories.Osu == true || data.commands().categories.Osu == 'true') {
-                    embed.addField('Osu', commands.osu, true)
-                }
-                //#endregion
                 //#region Random
                 if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
                     embed.addField('Random', commands.random, true)
@@ -89,11 +89,6 @@ class help {
                 //#region Utility
                 if (data.commands().categories.Utility == true || data.commands().categories.Utility == 'true') {
                     embed.addField('Utility', commands.utility, true)
-                }
-                //#endregion
-                //#region Voting
-                if ((data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') && (data.discordBots().enabled == true || data.discordBots().enabled == 'true')) {
-                    embed.addField('Voting', commands.voting, true);
                 }
                 //#endregion
 
@@ -114,8 +109,7 @@ class help {
                     !commands.Random == true &&
                     !commands.Support == true &&
                     !commands.Wiki == true &&
-                    !commands.Utility == true &&
-                    !commands.Voting == true) {
+                    !commands.Utility == true) {
                     embed.setDescription('I don\'t have any commands...')
                         .setFooter('Commands? what is that?')
                 }

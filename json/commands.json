@@ -10,9 +10,16 @@
         "**lenny:** Displays the lenny face",
         "**pat**: Gives a headpat to someone",
         "**reverse:** Reverses text",
+        "**rps:** Play Rock, Paper and Scissors",
         "**sandwich:** Gives a sandwich to someone",
         "**say:** Says whatever you want",
         "**waifu:** Waifu or laifu?"
+    ],
+    "games": [
+        "__**osu!**__",
+        "**osu:** Retieves your profile and your best PP score, check [Modifiers](&WIKIS_MODIFIERS) to learn more",
+        "**osuBanner:** Retieves your profile banner, check [Modifiers](&WIKIS_MODIFIERS) to learn more",
+        "**osuBeatmap:** Gets info about an osu!beatmap"
     ],
     "info": [
         "**avatar:** Gets your/someone \"s Avatar",
@@ -39,10 +46,6 @@
         "**danbooru:** Searchs on danbooru with your terms",
         "**rule34:** Searchs your terms on the rule34"
     ],
-    "osu": [
-        "**osu:** Retieves your profile and your best PP score, check [Modifiers]($WIKIS.MODIFIERS) to learn more",
-        "**osuBeatmap:** Gets info about an osu!beatmap"
-    ],
     "random": [
         "**8ball:**  Asks the 8ball a question",
         "**cat:** Gets a random cat image",
@@ -56,13 +59,9 @@
         "**math:** Do some math",
         "**shorturl:** Short an URL"
     ],
-    "voting": [
-        "__***Note***__ - To get this commands to work, vote the bot [here](https://discordbots.org/bot/353661793199194112/vote)",
-        "**rps:** Play Rock, Paper and Scissors"
-    ],
     "wiki": [
-        "[Wiki]($WIKIS.HOME)",
-        "[Wiki: Commands]($WIKIS.COMMANDS)",
-        "[Wiki: Replies]($WIKIS.REPLIES)"
+        "[Wiki](&WIKIS_HOME)",
+        "[Wiki: Commands](&WIKIS_COMMANDS)",
+        "[Wiki: Replies](&WIKIS_REPLIES)"
     ]
 }

@@ -14,25 +14,16 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
-class Osu {
+class Games {
     /**
      * 
      * @param {Message} msg 
      * @param {Client} client 
      */
     constructor(msg, client) {
-        this.osu = require('./osu');
-        this.osuBeatmap = require('./osuBeatmap');
-        var messageArray = msg.content.split(' ');
-        var command_prefix = messageArray[0];
-        var args = messageArray.slice(1).join(' ');
-        var command = command_prefix.replace(prefix, '');
-
-        switch (command) {
-            case 'osu': return new this.osu(msg, client);
-            case 'osuBeatmap': return new this.osuBeatmap(msg, client);
-
-        }
+        this.osu = require('./Osu/');
+        new this.osu(msg, client);
     }
 }
-module.exports = Osu;
+module.exports = Games;
+exports.Main = main;

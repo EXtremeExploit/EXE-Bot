@@ -26,21 +26,23 @@ class Commands {
         this.db = db;
         this.botOwner = require('./Bot Owner/');
         this.fun = require('./Fun/');
+        this.games = require('./Games');
         this.info = require('./Info/');
         this.misc = require('./Misc/');
         this.moderation = require('./Moderation/');
         this.nsfw = require('./NSFW/');
-        this.osu = require('./Osu/');
         this.random = require('./Random/');
         this.support = require('./Support/');
         this.utility = require('./Utility/');
-        this.voting = require('./Voting/');
     }
     BotOwner(msg) {
         return new this.botOwner(msg, this.client, this.db);
     }
     Fun(msg) {
         return new this.fun(msg, this.client);
+    }
+    Games(msg) {
+        return new this.games(msg, this.client);
     }
     Info(msg) {
         return new this.info(msg, this.client);
@@ -54,9 +56,6 @@ class Commands {
     Moderation(msg) {
         return new this.moderation(msg, this.client);
     }
-    Osu(msg) {
-        return new this.osu(msg, this.client);
-    }
     Random(msg) {
         return new this.random(msg, this.client);
     }
@@ -65,9 +64,6 @@ class Commands {
     }
     Utility(msg) {
         return new this.utility(msg, this.client);
-    }
-    Voting(msg) {
-        return new this.voting(msg, this.client, this.db);
     }
     /**
      * 
@@ -80,14 +76,20 @@ class Commands {
         var help = require('./Support/help');
         new help(this.client, msg);
         //#endregion
-        if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
-            this.Support(msg);
+        if (data.commands().categories.BotOwner == true || data.commands().categories.BotOwner == 'true') {
+            this.BotOwner(msg);
+        }
+        if (data.commands().categories.Fun == true || data.commands().categories.Fun == 'true') {
+            this.Fun(msg);
+        }
+        if (data.commands().categories.Games == true || data.commands().categories.Games == 'true') {
+            this.Games(msg);
         }
         if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
             this.Info(msg);
         }
-        if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
-            this.Random(msg);
+        if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
+            this.Misc(msg);
         }
         if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
             this.Moderation(msg);
@@ -95,24 +97,14 @@ class Commands {
         if (data.commands().categories.NSFW == true || data.commands().categories.NSFW == 'true') {
             this.NSFW(msg);
         }
-
-        if (data.commands().categories.Fun == true || data.commands().categories.Fun == 'true') {
-            this.Fun(msg);
+        if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
+            this.Random(msg);
         }
-        if (data.commands().categories.Osu == true || data.commands().categories.Osu == 'true') {
-            this.Osu(msg);
-        }
-        if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
-            this.Misc(msg);
-        }
-        if (data.commands().categories.BotOwner == true || data.commands().categories.BotOwner == 'true') {
-            this.BotOwner(msg);
+        if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
+            this.Support(msg);
         }
         if (data.commands().categories.Utility == true || data.commands().categories.Utility == 'true') {
             this.Utility(msg);
-        }
-        if (data.commands().categories.Voting == true || data.commands().categories.Voting == 'true') {
-            this.Voting(msg);
         }
     }
 

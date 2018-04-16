@@ -58,12 +58,12 @@ class osu {
 
             //#region User
             var user;
-            user = msg.content.substring(prefix.length + 4, msg.content.length)
+            user = msg.content.substring(command_prefix.length, msg.content.length)
                 .replace('--mode std', '')
                 .replace('--mode taiko', '')
                 .replace('--mode ctb', '')
                 .replace('--mode mania', '')
-                .replace('--best', '');
+                .replace('--best', '').trim();
             //#endregion
 
             if (!best) {

@@ -155,7 +155,7 @@ class osu {
                             '**100:** ' + play.count100 + '\n' +
                             '**50:** ' + play.count50 + '\n' +
                             '**Misses:** ' + play.countmiss, true)
-                        .addField('Date', date.getUTCFullYear() + '/' + date.getUTCMonth() + 1 + '/' + date.getUTCDate() + ' @ ' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds(), true)
+                        .addField('Date', date.getUTCFullYear() + '/' + date.getUTCMonth() + 1 + '/' + date.getUTCDate() + ' @ ' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds() + ' UTC', true)
                         .addField('Links', '[**Beatmap**](https://osu.ppy.sh/b/' + play.beatmap_id + ')\n' +
                             '[**Download Beatmap**](https://osu.ppy.sh/d/' + bm.beatmap_id + ')\n' +
                             '[**User**](https://osu.ppy.sh/u/' + play.user_id + ')', true));

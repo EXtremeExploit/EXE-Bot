@@ -1,6 +1,6 @@
 {
   "name": "exe-bot",
-  "version": "5.0.0",
+  "version": "1.0.1",
   "description": "A Discord Bot made in Node.JS",
   "author": "EXtremeExploit",
   "scripts": {
@@ -44,6 +44,7 @@
     "ffmpeg-binaries": "^3.2.2",
     "html-entities": "^1.2.1",
     "isgd": "^1.1.3",
+    "iso-3166-1-alpha-2": "^1.0.0",
     "libsodium-wrappers": "^0.7.3",
     "m3u8stream": "^0.2.2",
     "mathjs": "^4.0.1",

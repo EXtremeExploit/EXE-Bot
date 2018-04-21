@@ -16,6 +16,7 @@ const wikis = {
     isEnabled: data.wikisEnabled()
 };
 
+const iso31661alpha2 = require('iso-3166-1-alpha-2');
 const discord = require('discord.js');
 const { Message, Client } = discord;
 //#region Osu Module
@@ -57,12 +58,12 @@ class osu {
 
             //#region User
             var user;
-            user = msg.content.substring(prefix.length + 4, msg.content.length)
+            user = msg.content.substring(command_prefix.length, msg.content.length)
                 .replace('--mode std', '')
                 .replace('--mode taiko', '')
                 .replace('--mode ctb', '')
                 .replace('--mode mania', '')
-                .replace('--best', '');
+                .replace('--best', '').trim();
             //#endregion
 
             if (!best) {
@@ -78,7 +79,7 @@ class osu {
                         .setAuthor(user.username, 'https://a.ppy.sh/' + user.user_id)
                         .setThumbnail('https://a.ppy.sh/' + user.user_id)
                         .addField('General', '**ID:** ' + user.user_id + '\n' +
-                            '**Country:** ' + user.country + '\n' +
+                            '**Country:** ' + user.country + ' (' + iso31661alpha2.getCountry(user.country) + ')\n' +
                             '**PP:** ' + user.pp_raw + '\n' +
                             '**Level:** ' + user.level + '\n' +
                             '**Accuracy:** ' + functions.fixDecimals(user.accuracy) + '%\n' +
@@ -91,7 +92,8 @@ class osu {
                         .addField('Count Notes', '**300:** ' + user.count300 + '\n' +
                             '**100:** ' + user.count100 + '\n' +
                             '**50:** ' + user.count50, true)
-                        .addField('Scores', 'Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
+                        .addField('Scores', '**Total:** ' + user.total_score + '\n' +
+                            '**Ranked:** ' + user.ranked_score, true)
                         .addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n' +
                             '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true));
                 }).catch(err => {
@@ -132,7 +134,7 @@ class osu {
                     var play = playF[0];
                     var map = await osuApi.getBeatmaps({ b: play.beatmap_id });
                     var bm = map[0];
-                    var date = new Date(play.date + '+8:00').toUTCString();
+                    var date = new Date(play.date + '+8:00');
                     if (play.rank == 'S') play.rank = 'S (Gold)';
                     if (play.rank == 'SH') play.rank = 'S (Silver)';
                     if (play.rank == 'X') play.rank = 'SS (Gold)';
@@ -143,17 +145,17 @@ class osu {
                         .addField('Map', '**Name:** ' + bm.artist + ' - ' + bm.title + ' [' + bm.version + ']\n' +
                             '**BPM:** ' + bm.bpm + '\n' +
                             '**ID:** ' + bm.beatmap_id + '\n' +
-                            '**Stars:** ' + functions.fixDecimals(bm.difficultyrating) + '\n' +
-                            '**Creator:** ' + bm.creator, true)
-                        .addField('Play', '**PP:** ' + play.pp + '\n' +
+                            '**Stars:** ' + functions.fixDecimals(bm.difficultyrating) + '*\n' +
+                            '**Creator:** ' + '[' + bm.creator + '](https://osu.ppy.sh/u/' + bm.creator + ')', true)
+                        .addField('Play', '**PP:** ' + play.pp + 'pp\n' +
                             '**Rank:** ' + play.rank + '\n' +
                             '**Score:** ' + play.score + '\n' +
-                            '**Max Combo:** ' + play.maxcombo + '/' + bm.max_combo, true)
+                            '**Max Combo:** ' + play.maxcombo + 'x /' + bm.max_combo + 'x', true)
                         .addField('Count Notes', '**300:** ' + play.count300 + '\n' +
                             '**100:** ' + play.count100 + '\n' +
                             '**50:** ' + play.count50 + '\n' +
                             '**Misses:** ' + play.countmiss, true)
-                        .addField('Date', date, true)
+                        .addField('Date', date.getUTCFullYear() + '/' + date.getUTCMonth() + 1 + '/' + date.getUTCDate() + ' @ ' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds() + ' UTC', true)
                         .addField('Links', '[**Beatmap**](https://osu.ppy.sh/b/' + play.beatmap_id + ')\n' +
                             '[**Download Beatmap**](https://osu.ppy.sh/d/' + bm.beatmap_id + ')\n' +
                             '[**User**](https://osu.ppy.sh/u/' + play.user_id + ')', true));

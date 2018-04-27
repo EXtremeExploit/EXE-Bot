@@ -57,7 +57,7 @@ class emoji {
                     .setColor([255, 0, 0])
                     .setTitle('Error')
                     .addField('Help', 'Check the [wiki](' + wikis.commands + '#info) for help!')
-                    .setDescription('Please insert a valid emoji, it needs to be a server emoji')
+                    .setDescription('Please insert a valid emoji, it needs to be an emoji from THIS server')
                     .setAuthor(msg.author.username, msg.author.displayAvatarURL))
             } else {
                 msg.channel.send(new discord.RichEmbed()

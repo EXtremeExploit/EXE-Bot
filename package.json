@@ -35,7 +35,7 @@
     "javascript"
   ],
   "dependencies": {
-    "bufferutil": "^3.0.3",
+    "bufferutil": "^3.0.4",
     "danbooru": "2.0.3",
     "dblapi.js": "^1.2.1",
     "discord.js": "^11.3.2",
@@ -47,7 +47,7 @@
     "iso-3166-1-alpha-2": "^1.0.0",
     "libsodium-wrappers": "^0.7.3",
     "m3u8stream": "^0.2.2",
-    "mathjs": "^4.0.1",
+    "mathjs": "^4.1.2",
     "mime-db": "^1.33.0",
     "mime-types": "^2.1.18",
     "node-opus": "^0.2.7",
@@ -58,9 +58,9 @@
     "request": "^2.85.0",
     "sax": "^1.2.4",
     "simple-youtube-api": "^5.0.1",
-    "snekfetch": "^4.0.0-rc.0",
+    "snekfetch": "^4.0.0",
     "superagent": "^3.8.2",
-    "uws": "^9.14.0",
+    "uws": "^9.148.0",
     "ws": "^4.1.0",
     "ytdl-core": "^0.20.2"
   },

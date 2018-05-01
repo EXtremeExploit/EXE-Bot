@@ -6,6 +6,10 @@
         "enabled": false,
         "token": "DISCORDBOTSTOKEN"
     },
+    "google":{
+        "cseID": "CSEID",
+        "appApiKey": "APPAPIKEY"
+    },
     "owner": {
         "id": 123456789,
         "username": "Username",

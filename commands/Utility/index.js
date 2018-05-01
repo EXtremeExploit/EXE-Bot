@@ -23,6 +23,7 @@ class Utility {
      * @param {Client} client 
      */
     constructor(msg, client) {
+        this.image = require('./image');
         this.math = require('./math');
         this.shorturl = require('./shorturl');
         var messageArray = msg.content.split(' ');
@@ -31,6 +32,7 @@ class Utility {
         var command = command_prefix.replace(prefix, '');
 
         switch (command) {
+            case 'image': return new this.image(msg, client);
             case 'math': return new this.math(msg, client);
             case 'shorturl': return new this.shorturl(msg, client);
         }

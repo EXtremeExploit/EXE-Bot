@@ -38,6 +38,25 @@ class Data {
         //#endregion
         return json.osuApiKey;
     }
+    google(){
+        //#region Google CSE ID
+        var hcseID = process.env.google_cseID;
+        if (hcseID) {
+            json.google.cseID = hcseID;
+        } else {
+            json.google.cseID = json.google.cseID;
+        }
+        //#endregion
+        //#region Google App API Key
+        var happApiKey = process.env.google_appApiKey;
+        if (happApiKey) {
+            json.google.appApiKey = happApiKey;
+        } else {
+            json.google.appApiKey = json.google.appApiKey;
+        }
+        //#endregion
+        return json.google;
+    }
     discordBots() {
         //#region Discord Bots Token
         var htoken = process.env.discordBots_token;

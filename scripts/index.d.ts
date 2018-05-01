@@ -7,6 +7,7 @@ declare type Json = {
     token: string;
     prefix: string;
     osuApiKey: string;
+    google: Google;
     discordBots: DiscordBots;
     owner: Owner
     allEvents: boolean;
@@ -16,6 +17,11 @@ declare type Json = {
     commands: Commands;
     maintance: boolean;
     replies: Replies;
+}
+
+declare type Google = {
+    cseID: string;
+    appApiKey: string;
 }
 
 declare type Owner = {

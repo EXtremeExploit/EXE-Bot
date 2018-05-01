@@ -1,6 +1,6 @@
 {
   "name": "exe-bot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Discord Bot made in Node.JS",
   "author": "EXtremeExploit",
   "scripts": {
@@ -42,6 +42,7 @@
     "dotenv": "^5.0.1",
     "erlpack": "github:discordapp/erlpack",
     "ffmpeg-binaries": "^3.2.2",
+    "google-images": "^2.1.0",
     "hoek": "^5.0.3",
     "html-entities": "^1.2.1",
     "isgd": "^1.1.3",

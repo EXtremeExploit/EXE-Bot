@@ -56,6 +56,7 @@
         "**roll:** Rolls between 1 and 100"
     ],
     "utility": [
+        "**image:** Find an image from google images",
         "**math:** Do some math",
         "**shorturl:** Short an URL"
     ],

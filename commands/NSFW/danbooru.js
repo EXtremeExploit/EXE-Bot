@@ -27,7 +27,7 @@ class danbooru {
         var args = messageArray.slice(1).join(' ');
         var command = command_prefix.replace(prefix, '');
 
-        if (msg.channel.nsfw == true) {
+        if (msg.channel.nsfw == true || msg.channel.name.startsWith('nsfw')) {
             try {
                 let query = msg.content.split(' ').slice(1);
                 if (query.length > 2) {

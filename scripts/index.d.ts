@@ -7,8 +7,9 @@ declare type Json = {
     token: string;
     prefix: string;
     osuApiKey: string;
-    google: Google;
     discordBots: DiscordBots;
+    mysql: MySQL;
+    google: Google;
     owner: Owner
     allEvents: boolean;
     debug: boolean;
@@ -17,6 +18,20 @@ declare type Json = {
     commands: Commands;
     maintance: boolean;
     replies: Replies;
+}
+
+
+export declare type DiscordBots = {
+    enabled: boolean;
+    token: string;
+}
+
+export declare type MySQL = {
+    host: string;
+    port: number;
+    database: string;
+    user: string;
+    password: string;
 }
 
 declare type Google = {
@@ -65,11 +80,6 @@ export declare type Replies = {
 export declare type Servers = {
     queue: string[];
     dispatcher: StreamDispatcher;
-}
-
-export declare type DiscordBots = {
-    enabled: boolean;
-    token: string;
 }
 
 export declare type HelpGenerator = {

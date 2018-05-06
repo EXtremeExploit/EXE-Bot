@@ -6,7 +6,14 @@
         "enabled": false,
         "token": "DISCORDBOTSTOKEN"
     },
-    "google":{
+    "mysql": {
+        "host": "DB_HOST",
+        "port": "DB_PORT",
+        "database": "DB_DBNAME",
+        "user": "DB_USER",
+        "password": "DB_PASSWORD"
+    },
+    "google": {
         "cseID": "CSEID",
         "appApiKey": "APPAPIKEY"
     },

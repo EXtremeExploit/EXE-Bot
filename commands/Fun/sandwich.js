@@ -13,6 +13,7 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
+var sql = functions.connectToDatabase();
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
@@ -38,10 +39,33 @@ class sandwich {
         ];
         var sandwichImg = images[Math.floor(Math.random() * images.length)];
         if (msg.mentions.members.first()) {
-            msg.channel.send(new discord.RichEmbed()
-                .setTitle(msg.member.user.username + ' Has given a sandwich to ' + msg.mentions.members.first().user.username)
-                .setColor([255, 0, 0])
-                .setImage(sandwichImg));
+            if (msg.mentions.members.first().id == msg.member.id) {
+                msg.channel.send(new discord.RichEmbed()
+                    .setAuthor(msg.author.username, msg.author.displayAvatarURL)
+                    .setColor([255, 0, 0])
+                    .setDescription('You cant give a sandwich to youself, that stuff doesn\'t  grow from trees!!'))
+            } else {
+                sql.query(`SELECT * FROM sandwiches WHERE id = ${msg.mentions.members.first().id}`, (err, rows) => {
+                    if (err) throw err;
+
+                    var query;
+
+                    if (rows.length < 1) {
+                        query = `INSERT INTO sandwiches(id,sandwiches) VALUES ('${msg.mentions.members.first().id}', 1)`;
+                    } else {
+                        var sandwiches = rows[0].sandwiches;
+                        query = `UPDATE sandwiches SET sandwiches = ${sandwiches + 1} WHERE id = ${msg.mentions.members.first().id}`
+                    }
+
+                    sql.query(query);
+
+                    msg.channel.send(new discord.RichEmbed()
+                        .setTitle(msg.member.user.username + ' Has given a sandwich to ' + msg.mentions.members.first().user.username)
+                        .setColor([255, 0, 0])
+                        .setImage(sandwichImg));
+                })
+
+            }
         } else {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])

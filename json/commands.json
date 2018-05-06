@@ -27,6 +27,7 @@
         "**emoji:** Info about an emoji",
         "**role:** Info about a role",
         "**server:** Info about the server",
+        "**stats:** Show your or someone else's stats",
         "**user:** Info about you/someone"
     ],
     "misc": [

@@ -38,7 +38,50 @@ class Data {
         //#endregion
         return json.osuApiKey;
     }
-    google(){
+    mysql() {
+        //#region Host
+        var hHost = process.env.db_host;
+        if (hHost) {
+            json.mysql.host = hHost;
+        } else {
+            json.mysql.host = json.mysql.host;
+        }
+        //#endregion
+        //#region Port
+        var hPort = process.env.db_port;
+        if (hPort) {
+            json.mysql.port = hPort;
+        } else {
+            json.mysql.port = json.mysql.port;
+        }
+        //#endregion
+        //#region Database
+        var hDatabase = process.env.db_database;
+        if (hDatabase) {
+            json.mysql.database = hDatabase;
+        } else {
+            json.mysql.database = json.mysql.database;
+        }
+        //#endregion
+        //#region User
+        var hUser = process.env.db_user;
+        if (hUser) {
+            json.mysql.user = hUser;
+        } else {
+            json.mysql.user = json.mysql.user;
+        }
+        //#endregion
+        //#region Password
+        var hPassword = process.env.db_password;
+        if (hPassword) {
+            json.mysql.password = hPassword;
+        } else {
+            json.mysql.password = json.mysql.password;
+        }
+        //#endregion
+        return json.mysql;
+    }
+    google() {
         //#region Google CSE ID
         var hcseID = process.env.google_cseID;
         if (hcseID) {

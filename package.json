@@ -52,6 +52,7 @@
     "mathjs": "^4.1.2",
     "mime-db": "^1.33.0",
     "mime-types": "^2.1.18",
+    "mysql": "^2.15.0",
     "node-opus": "^0.2.7",
     "opusscript": "0.0.6",
     "osu.js": "^2.0.3",

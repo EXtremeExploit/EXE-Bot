@@ -40,7 +40,7 @@ class prune {
                     msg.channel.bulkDelete(parseInt(args)).then(() => {
                         msg.channel.send(new discord.RichEmbed()
                             .setColor([255, 0, 0])
-                            .setDescription('Deleted ' + args + ' Messages.')).then(deletemsg => {
+                            .setDescription('Deleted ' + parseInt(args) + ' Messages.')).then(deletemsg => {
                                 deletemsg.delete(5000);
                             });;
                     });

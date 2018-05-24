@@ -1,6 +1,6 @@
 {
   "name": "exe-bot",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A Discord Bot made in Node.JS",
   "author": "EXtremeExploit",
   "scripts": {

@@ -35,7 +35,7 @@
     "javascript"
   ],
   "dependencies": {
-    "bufferutil": "^3.0.4",
+    "bufferutil": "^3.0.5",
     "danbooru": "2.0.3",
     "dblapi.js": "^1.2.1",
     "discord.js": "^11.3.2",
@@ -49,23 +49,23 @@
     "iso-3166-1-alpha-2": "^1.0.0",
     "libsodium-wrappers": "^0.7.3",
     "m3u8stream": "^0.2.2",
-    "mathjs": "^4.1.2",
+    "mathjs": "^4.3.0",
     "mime-db": "^1.33.0",
     "mime-types": "^2.1.18",
     "mysql": "^2.15.0",
-    "node-opus": "^0.2.7",
+    "node-opus": "^0.2.9",
     "opusscript": "0.0.6",
     "osu.js": "^2.0.3",
     "random.cat.js": "^1.0.3",
     "random.dog.js": "^1.0.2",
-    "request": "^2.85.0",
+    "request": "^2.87.0",
     "sax": "^1.2.4",
-    "simple-youtube-api": "^5.0.1",
+    "simple-youtube-api": "^5.0.2",
     "snekfetch": "^4.0.0",
-    "superagent": "^3.8.2",
+    "superagent": "^3.8.3",
     "uws": "^9.148.0",
     "ws": "^4.1.0",
-    "ytdl-core": "^0.20.2"
+    "ytdl-core": "^0.20.4"
   },
   "homepage": "https://extremeexploit.github.io/EXE_Bot/",
   "license": "ISC"

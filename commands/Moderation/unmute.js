@@ -45,11 +45,13 @@ class unmute {
                             .setTitle('Unmuted')
                             .setDescription('Succesfully unmuted: ' + msg.mentions.members.first().user.username));
 
-                        msg.mentions.members.first().send(new discord.RichEmbed()
-                            .setDescription('You got unmuted from ' + msg.guild.name)
-                            .setColor([255, 0, 0])
-                            .setTitle('unmuted')
-                            .addField('unmuted by', msg.member.user.tag));
+                        if (!msg.mentions.members.first().user.bot) {
+                            msg.mentions.members.first().send(new discord.RichEmbed()
+                                .setDescription('You got unmuted from ' + msg.guild.name)
+                                .setColor([255, 0, 0])
+                                .setTitle('unmuted')
+                                .addField('unmuted by', msg.member.user.tag));
+                        }
                     })
                 }
             } else {

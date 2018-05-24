@@ -45,12 +45,14 @@ class mute {
                             .setTitle('Muted')
                             .setDescription('Succesfully muted: ' + msg.mentions.members.first().user.username));
 
-                        msg.mentions.members.first().send(new discord.RichEmbed()
-                            .setDescription('You got muted from ' + msg.guild.name)
-                            .setColor([255, 0, 0])
-                            .setTitle('Muted')
-                            .addField('Muted by', msg.member.user.tag));
-                    })
+                        if (!msg.mentions.members.first().user.bot) {
+                            msg.mentions.members.first().send(new discord.RichEmbed()
+                                .setDescription('You got muted from ' + msg.guild.name)
+                                .setColor([255, 0, 0])
+                                .setTitle('Muted')
+                                .addField('Muted by', msg.member.user.tag));
+                        }
+                    });
                 }
             } else {
                 msg.channel.send(new discord.RichEmbed()

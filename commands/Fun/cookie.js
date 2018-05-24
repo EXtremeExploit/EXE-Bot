@@ -1,11 +1,6 @@
 const main = require('../index').Main;
 const functions = main.getFunctions();
 const data = main.getData();
-var token = data.token();
-var prefix = data.prefix();
-var owner = data.owner();
-var allEvents = data.allEvents();
-var debug = data.debug();
 const wikis = {
     home: data.wikis().home,
     commands: data.wikis().commands,
@@ -13,6 +8,7 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
+var sql = functions.connectToDatabase();
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
@@ -23,11 +19,7 @@ class cookie {
      * @param {Client} client 
      */
     constructor(msg, client) {
-        var messageArray = msg.content.split(' ');
-        var command_prefix = messageArray[0];
-        var args = messageArray.slice(1).join(' ');
-        var command = command_prefix.replace(prefix, '');
-        
+
         var images = [
             'https://pa1.narvii.com/5899/43e61495729fd10dda05c313545a57d43ebb1dee_hq.gif',
             'http://i.giphy.com/E77F8BfvntOq4.gif',
@@ -36,10 +28,33 @@ class cookie {
         ];
         var cookieImg = images[Math.floor(Math.random() * images.length)];
         if (msg.mentions.members.first()) {
-            msg.channel.send(new discord.RichEmbed()
-                .setTitle(msg.member.user.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
-                .setColor([255, 0, 0])
-                .setImage(cookieImg));
+            if (msg.mentions.members.first().id == msg.member.id) {
+                msg.channel.send(new discord.RichEmbed()
+                    .setAuthor(msg.author.username, msg.author.displayAvatarURL)
+                    .setColor([255, 0, 0])
+                    .setDescription('You cant give a cookie to youself, that stuff doesn\'t  grow from trees!!'))
+            } else {
+                sql.query(`SELECT * FROM cookies WHERE id = ${msg.mentions.members.first().id}`, (err, rows) => {
+                    if (err) throw err;
+
+                    var query;
+
+                    if (rows.length < 1) {
+                        query = `INSERT INTO cookies(id,cookies) VALUES ('${msg.mentions.members.first().id}', 1)`;
+                    } else {
+                        var cookies = rows[0].cookies;
+                        query = `UPDATE cookies SET cookies = ${cookies + 1} WHERE id = ${msg.mentions.members.first().id}`
+                    }
+
+                    sql.query(query);
+
+                    msg.channel.send(new discord.RichEmbed()
+                        .setTitle(msg.member.user.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
+                        .setColor([255, 0, 0])
+                        .setImage(cookieImg));
+                })
+
+            }
         } else {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])

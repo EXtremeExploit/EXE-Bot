@@ -1,11 +1,6 @@
 const main = require('../index').Main;
 const functions = main.getFunctions();
 const data = main.getData();
-var token = data.token();
-var prefix = data.prefix();
-var owner = data.owner();
-var allEvents = data.allEvents();
-var debug = data.debug();
 const wikis = {
     home: data.wikis().home,
     commands: data.wikis().commands,
@@ -13,6 +8,7 @@ const wikis = {
     faq: data.wikis().faq,
     isEnabled: data.wikisEnabled()
 };
+var sql = functions.connectToDatabase();
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
@@ -23,10 +19,6 @@ class sandwich {
      * @param {Client} client 
      */
     constructor(msg, client) {
-        var messageArray = msg.content.split(' ');
-        var command_prefix = messageArray[0];
-        var args = messageArray.slice(1).join(' ');
-        var command = command_prefix.replace(prefix, '');
 
         var images = [
             'https://pa1.narvii.com/6272/7beb194348fefb46bfdd519cb1ef0e530a621247_hq.gif',
@@ -38,10 +30,33 @@ class sandwich {
         ];
         var sandwichImg = images[Math.floor(Math.random() * images.length)];
         if (msg.mentions.members.first()) {
-            msg.channel.send(new discord.RichEmbed()
-                .setTitle(msg.member.user.username + ' Has given a sandwich to ' + msg.mentions.members.first().user.username)
-                .setColor([255, 0, 0])
-                .setImage(sandwichImg));
+            if (msg.mentions.members.first().id == msg.member.id) {
+                msg.channel.send(new discord.RichEmbed()
+                    .setAuthor(msg.author.username, msg.author.displayAvatarURL)
+                    .setColor([255, 0, 0])
+                    .setDescription('You cant give a sandwich to youself, that stuff doesn\'t  grow from trees!!'))
+            } else {
+                sql.query(`SELECT * FROM sandwiches WHERE id = ${msg.mentions.members.first().id}`, (err, rows) => {
+                    if (err) throw err;
+
+                    var query;
+
+                    if (rows.length < 1) {
+                        query = `INSERT INTO sandwiches(id,sandwiches) VALUES ('${msg.mentions.members.first().id}', 1)`;
+                    } else {
+                        var sandwiches = rows[0].sandwiches;
+                        query = `UPDATE sandwiches SET sandwiches = ${sandwiches + 1} WHERE id = ${msg.mentions.members.first().id}`
+                    }
+
+                    sql.query(query);
+
+                    msg.channel.send(new discord.RichEmbed()
+                        .setTitle(msg.member.user.username + ' Has given a sandwich to ' + msg.mentions.members.first().user.username)
+                        .setColor([255, 0, 0])
+                        .setImage(sandwichImg));
+                })
+
+            }
         } else {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])

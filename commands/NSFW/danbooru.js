@@ -1,7 +1,5 @@
 const main = require('../index').Main;
-const functions = main.getFunctions();
 const data = main.getData();
-var prefix = data.prefix();
 const wikis = {
     home: data.wikis().home,
     commands: data.wikis().commands,
@@ -22,12 +20,8 @@ class danbooru {
      * @param {Client} client 
      */
     constructor(msg, client) {
-        var messageArray = msg.content.split(' ');
-        var command_prefix = messageArray[0];
-        var args = messageArray.slice(1).join(' ');
-        var command = command_prefix.replace(prefix, '');
 
-        if (msg.channel.nsfw == true) {
+        if (msg.channel.nsfw == true || msg.channel.name.startsWith('nsfw')) {
             try {
                 let query = msg.content.split(' ').slice(1);
                 if (query.length > 2) {

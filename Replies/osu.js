@@ -19,13 +19,15 @@ class OsuReplies {
                         b: id
                     }).then(bmF => {
                         var bm = bmF[0];
-                        if (bm.approved == -2) bm.approved = 'Graveyard';
-                        else if (bm.approved == -1) bm.approved = 'WIP';
-                        else if (bm.approved == 0) bm.approved = 'Pending';
-                        else if (bm.approved == 1) bm.approved = 'Ranked';
-                        else if (bm.approved == 2) bm.approved = 'Approved';
-                        else if (bm.approved == 3) bm.approved = 'Qualified';
-                        else if (bm.approved == 4) bm.approved = 'Loved';
+                        switch (bm.approved) {
+                            case -2: bm.approved = 'Graveyard'; break;
+                            case -1: bm.approved = 'WIP'; break;
+                            case 0: bm.approved = 'Pending'; break;
+                            case 1: bm.approved = 'Ranked'; break;
+                            case 2: bm.approved = 'Approved'; break;
+                            case 3: bm.approved = 'Qualified'; break;
+                            case 4: bm.approved = 'Loved'; break;
+                        }
                         if (bm.approved_date == null) bm.approved_date = '*null*';
                         if (bm.source == '' || bm.source == null) bm.source = '*null*';
                         if (bm.tags == '' || bm.tags == null) bm.tags = '*null*';

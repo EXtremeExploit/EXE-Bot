@@ -7,6 +7,7 @@
     "fun": [
         "**cookie**: Gives a cookie to someone",
         "**dicksize**: What\"s your penis lenght? ( ͡° ͜ʖ ͡°)",
+        "**jokes:** Bad jokes xd",
         "**lenny:** Displays the lenny face",
         "**pat**: Gives a headpat to someone",
         "**reverse:** Reverses text",
@@ -27,6 +28,7 @@
         "**emoji:** Info about an emoji",
         "**role:** Info about a role",
         "**server:** Info about the server",
+        "**stats:** Show your or someone else's stats",
         "**user:** Info about you/someone"
     ],
     "misc": [

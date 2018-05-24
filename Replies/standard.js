@@ -12,25 +12,19 @@ class StandardReplies {
             if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
 
             var message = msg.content.toLowerCase();
+            var send = msg.channel.send;
 
-            if (message == 'ayy')
-                msg.channel.send('lmao');
-            if (message == 'omaewa mou shindeiru' || message == 'omae wa mou shindeiru')
-                msg.channel.send('NANI!?!');
-            if (message == 'おまえ わ もう しんでいる')
-                msg.channel.send('なに！？');
-            if (message == 'o/')
-                msg.channel.send('\\o');
-            if (message == '\\o')
-                msg.channel.send('o/');
-            if (message == 'top')
-                msg.channel.send('kek');
-            if (message == 'sauce')
-                msg.channel.send('no ketchup');
-            if (message == 'expand')
-                msg.channel.send('dong');
-            if (message == 'owo')
-                msg.channel.send('What\'s This?');
+            switch (message) {
+                case 'ayy': send('lamo'); break;
+                case 'omae wa mou shindeiru': send('NANI!?!'); break;
+                case 'おまえ わ もう しんでいる': send('なに！？'); break;
+                case 'o/': send('\\o'); break;
+                case '\\o': send('o/'); break;
+                case 'top': send('kek'); break;
+                case 'sauce': send('no ketchup'); break;
+                case 'expand': send('dong'); break;
+                case 'owo': send('Wat\'s This?'); break;
+            }
         });
     }
 }

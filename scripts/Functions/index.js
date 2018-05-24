@@ -51,16 +51,16 @@ class Functions {
 			.addField('Full Username', user.user.tag, true)
 			.addField('ID', user.id, true)
 			.addField('Roles', '**Hoist:** ' + user.hoistRole + '\n' +
-			'**Highest:** ' + user.highestRole + '\n' +
-			'**Color:** ' + user.colorRole, true)
+				'**Highest:** ' + user.highestRole + '\n' +
+				'**Color:** ' + user.colorRole, true)
 			.addField('Presence', '**Playing:** ' + user.presence.game.name + '\n' +
-			'**Streaming:** ' + user.presence.game.streaming + '\n' +
-			'**Status:** ' + user.presence.status, true)
+				'**Streaming:** ' + user.presence.game.streaming + '\n' +
+				'**Status:** ' + user.presence.status, true)
 			.addField('Created at', user.user.createdAt.toUTCString(), true)
 			.addField('Joined at', user.joinedAt.toUTCString(), true)
 			.addField('Bot', user.user.bot, true)
 			.addField('Avatar', '**Avatar Hash:** ' + user.user.avatar + '\n' +
-			'**AvatarURL:** ' + user.user.displayAvatarURL, true)
+				'**AvatarURL:** ' + user.user.displayAvatarURL, true)
 			.setAuthor(user.user.username, user.user.displayAvatarURL)
 			.setThumbnail(user.user.displayAvatarURL);
 	}
@@ -71,6 +71,17 @@ class Functions {
 	 */
 	fixDecimals(number) {
 		return parseFloat(number).toFixed(2);
+	}
+	connectToDatabase() {
+		var mysql = require('mysql');
+		var sql = mysql.createConnection({
+			host: data.mysql().host,
+			port: data.mysql().port,
+			database: data.mysql().database,
+			user: data.mysql().user,
+			password: data.mysql().password,
+		})
+		return sql;
 	}
 }
 

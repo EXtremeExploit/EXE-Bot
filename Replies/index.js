@@ -1,7 +1,6 @@
 const main = new (require('../scripts/')).Main();
 const data = main.getData();
-var osuApiKey = data.osuApiKey();
-const { Message, Client } = require('discord.js');
+const { Client } = require('discord.js');
 class Replies {
     /**
      * 

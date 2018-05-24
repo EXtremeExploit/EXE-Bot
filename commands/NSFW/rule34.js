@@ -1,5 +1,4 @@
 const main = require('../index').Main;
-const functions = main.getFunctions();
 main.getPrototypes();
 var tools = main.getTools();
 const data = main.getData();
@@ -20,9 +19,7 @@ class rule34 {
      */
     constructor(msg, client) {
         var messageArray = msg.content.split(' ');
-        var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
-        var command = command_prefix.replace(prefix, '');
 
         if (msg.channel.nsfw == true || msg.channel.name.startsWith('nsfw')) {
             msg.reply('Searching...');

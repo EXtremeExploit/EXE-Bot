@@ -1,20 +1,5 @@
 const main = require('../index').Main;
-const functions = main.getFunctions();
 main.getPrototypes();
-var tools = main.getTools();
-const data = main.getData();
-var token = data.token();
-var prefix = data.prefix();
-var owner = data.owner();
-var allEvents = data.allEvents();
-var debug = data.debug();
-const wikis = {
-	home: data.wikis().home,
-	commands: data.wikis().commands,
-	replies: data.wikis().replies,
-	faq: data.wikis().faq,
-	isEnabled: data.wikisEnabled()
-};
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
@@ -25,11 +10,6 @@ class dicksize {
      * @param {Client} client 
      */
 	constructor(msg, client) {
-		var messageArray = msg.content.split(' ');
-		var command_prefix = messageArray[0];
-		var args = messageArray.slice(1).join(' ');
-		var command = command_prefix.replace(prefix, '');
-
 		let xsmall = [
 			'Life hates you.',
 			'Did you know that the ancient Greek considered small penises as a symbol of fertility?',

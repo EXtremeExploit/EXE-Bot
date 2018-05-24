@@ -1,11 +1,5 @@
 const main = require('../index').Main;
-const functions = main.getFunctions();
 const data = main.getData();
-var token = data.token();
-var prefix = data.prefix();
-var owner = data.owner();
-var allEvents = data.allEvents();
-var debug = data.debug();
 const wikis = {
     home: data.wikis().home,
     commands: data.wikis().commands,

@@ -18,14 +18,11 @@ class say {
      */
     constructor(msg, client) {
         var messageArray = msg.content.split(' ');
-        var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');
-        var command = command_prefix.replace(prefix, '');
 
-        var thing2say = args;
-        if (!thing2say == '' || thing2say == null) {
+        if (!args == '' || args == null) {
             msg.channel.send(new discord.RichEmbed()
-                .setDescription(thing2say)
+                .setDescription(args)
                 .setColor([255, 0, 0])
                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
         } else {

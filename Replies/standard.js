@@ -23,7 +23,7 @@ class StandardReplies {
                 case 'top': send('kek'); break;
                 case 'sauce': send('no ketchup'); break;
                 case 'expand': send('dong'); break;
-                case 'owo': send('Wat\'s This?'); break;
+                case 'owo': send('What\'s This?'); break;
             }
         });
     }

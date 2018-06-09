@@ -34,27 +34,27 @@ class OsuReplies {
                         if (bm.artist == '' || bm.artist == null) bm.artist = '*null*';
 
                         msg.channel.send(new discord.RichEmbed()
-                            .setColor([255, 58, 255])
-                            .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')
-                            .setTitle('osu!Beatmap')
-                            .addField('Basic', '**Artist:** ' + bm.artist + '\n' +
-                                '**Title:** ' + bm.title + '\n' +
-                                '**Creator:** ' + bm.creator + '\n' +
-                                '**Difficulty Name:** ' + bm.version + '\n' +
-                                '**Source:** ' + bm.source + '\n' +
-                                '**BPM:** ' + bm.bpm + '\n' +
-                                '**Max Combo:** ' + bm.max_combo + 'x\n' +
-                                '**Status:** ' + bm.approved, true)
-                            .addField('Difficulty', '**Stars:** ' + functions.fixDecimals(bm.difficultyrating) + '*\n' +
-                                '**HP:** ' + bm.diff_drain + '\n' +
-                                '**OD:** ' + bm.diff_overall + '\n' +
-                                '**AR:** ' + bm.diff_approach + '\n' +
-                                '**CS:** ' + bm.diff_size, true)
-                            .addField('IDs', '**BeatmapSet:** ' + bm.beatmap_id + '\n' +
-                                '**Beatmap:** ' + bm.beatmap_id, true)
-                            .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/' + bm.beatmapset_id + ')\n' +
-                                '[**Beatmap**](https://osu.ppy.sh/b/' + bm.beatmap_id + ')\n' +
-                                '[**Download Beatmap Set**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')', true));
+                        .setColor([255, 58, 255])
+                        .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')
+                        .setTitle('osu!Beatmap')
+                        .addField('Basic', '**Artist:** ' + bm.artist + '\n' +
+                            '**Title:** ' + bm.title + '\n' +
+                            '**Creator:** [' + bm.creator + '](https://osu.ppy.sh/u/' + bm.creator + ')\n' +
+                            '**Difficulty Name:** ' + bm.version + '\n' +
+                            '**Source:** ' + bm.source + '\n' +
+                            '**BPM:** ' + bm.bpm + '\n' +
+                            '**Max Combo:** ' + bm.max_combo + 'x\n' +
+                            '**Status:** ' + bm.approved, true)
+                        .addField('Difficulty', '**Stars:** ' + functions.fixDecimals(bm.difficultyrating) + '*\n' +
+                            '**HP:** ' + bm.diff_drain + '\n' +
+                            '**OD:** ' + bm.diff_overall + '\n' +
+                            '**AR:** ' + bm.diff_approach + '\n' +
+                            '**CS:** ' + bm.diff_size, true)
+                        .addField('IDs', '**BeatmapSet:** ' + bm.beatmapset_id + '\n' +
+                            '**Beatmap:** ' + bm.beatmap_id, true)
+                        .addField('Links', '[**Set**](https://osu.ppy.sh/s/' + bm.beatmapset_id + ')\n' +
+                            '[**Beatmap**](https://osu.ppy.sh/b/' + bm.beatmap_id + ')\n' +
+                            '[**Download**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')([no vid](https://osu.ppy.sh/d/' + bm.beatmapset_id + 'n))', true));
                     });
                 }
                 if (msg.content.startsWith('https://osu.ppy.sh/u/')) {

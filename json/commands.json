@@ -20,7 +20,9 @@
         "__**osu!**__",
         "**osu:** Retieves your profile and your best PP score, check [Modifiers](&WIKIS_MODIFIERS) to learn more",
         "**osuBanner:** Retieves your profile banner, check [Modifiers](&WIKIS_MODIFIERS) to learn more",
-        "**osuBeatmap:** Gets info about an osu!beatmap"
+        "**osuBeatmap:** Gets info about an osu!beatmap",
+        "__**Fortnite**__",
+        "**fortnite:** Retieves your fortnite stats"
     ],
     "info": [
         "**avatar:** Gets your/someone \"s Avatar",

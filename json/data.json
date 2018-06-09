@@ -2,6 +2,7 @@
     "token": "TOKEN",
     "prefix": "PREFIX",
     "osuApiKey": "OSUAPIKEY",
+    "fortnite": "FORTNITEAPIKEY",
     "discordBots": {
         "enabled": false,
         "token": "DISCORDBOTSTOKEN"

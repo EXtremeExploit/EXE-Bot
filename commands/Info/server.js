@@ -44,6 +44,7 @@ class server {
             }
 
 
+            var ct = functions.convertMS(new Date() - msg.guild.createdTimestamp);
             msg.channel.send(new discord.RichEmbed()
                 .setAuthor(msg.guild.name, msg.guild.iconURL)
                 .setColor([0, 0, 255])
@@ -51,15 +52,16 @@ class server {
                 .addField('ID', msg.guild.id, true)
                 .addField('Region', msg.guild.region, true)
                 .addField('AFK', '**Channel** ' + afkchannelname + '\n' +
-                '**ChannelID:** ' + msg.guild.afkChannelID + '\n' +
-                '**Timeout(seconds):** ' + msg.guild.afkTimeout, true)
+                    '**ChannelID:** ' + msg.guild.afkChannelID + '\n' +
+                    '**Timeout(seconds):** ' + msg.guild.afkTimeout, true)
                 .addField('Counts', '**Members:** ' + msg.guild.memberCount + '\n' +
-                '**Roles:** ' + msg.guild.roles.size, true)
+                    '**Roles:** ' + msg.guild.roles.size, true)
                 .addField('Owner', '**Owner:** ' + msg.guild.owner + '\n' +
-                '**OwnerID:** ' + msg.guild.ownerID, true)
+                    '**OwnerID:** ' + msg.guild.ownerID, true)
+                .addField('Dates', 'Creation: ' + msg.guild.createdAt.getUTCFullYear() + '/' + (msg.guild.createdAt.getUTCMonth() + 1) + '/' + msg.guild.createdAt.getUTCDate() + ' @ ' + msg.guild.createdAt.getUTCHours() + ':' + msg.guild.createdAt.getUTCMinutes() + ':' + msg.guild.createdAt.getUTCSeconds() + ' UTC (' + ct.days + ' days, ' + ct.hours + ' hours, ' + ct.minutes + ' minutes, ' + ct.seconds + ' seconds ago)')
                 .addField('Verification Level', msg.guild.verificationLevel, true)
                 .addField('Icon', '**Icon Hash:** ' + msg.guild.icon + '\n' +
-                '**Icon URL:** ' + msg.guild.iconURL, true));
+                    '**Icon URL:** ' + msg.guild.iconURL, true));
         } else {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])

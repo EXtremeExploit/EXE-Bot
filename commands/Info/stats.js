@@ -20,32 +20,16 @@ class stats {
      */
     constructor(msg, client) {
 
-        var user;
-        if (msg.mentions.members.first()) {
-            user = msg.mentions.members.first();
-        } else {
-            user = msg.member;
-        }
+        var user = (msg.mentions.members.first()) ? (msg.mentions.members.first()) : (msg.member);
 
         sql.query(`SELECT * FROM cookies WHERE id = ${user.user.id}`, (err, cookies) => {
             if (err) throw err;
             sql.query(`SELECT * FROM sandwiches WHERE id = ${user.user.id}`, (err, sandwiches) => {
                 if (err) throw err;
 
+                var cookie = (cookies.length < 1) ? ('This user doesn\'t have cookies :(') : (cookies[0].cookies);
 
-                var cookie;
-                if (cookies.length < 1) {
-                    cookie = 'This user doesn\'t have cookies :('
-                } else {
-                    cookie = cookies[0].cookies;
-                }
-
-                var sandwich;
-                if (sandwiches.length < 1) {
-                    sandwich = 'This user doesn\'t have sandwichs :('
-                } else {
-                    sandwich = sandwiches[0].sandwiches;
-                }
+                var sandwich = (sandwiches.length < 1) ? ('This user doesn\'t have sandwiches :(') : (sandwiches[0].sandwiches);
 
                 msg.channel.send(new discord.RichEmbed()
                     .setColor([0, 0, 255])

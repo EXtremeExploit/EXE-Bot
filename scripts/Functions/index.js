@@ -4,10 +4,6 @@ const data = main.getData();
 const token = data.token();
 const osuApiKey = data.osuApiKey();
 const discordBotsToken = data.discordBots().token;
-const discord = require('discord.js');
-const yt = require('ytdl-core');
-const { GuildMember, RichEmbed, Message, VoiceConnection } = discord;
-var wikis = data.wikis();
 
 class Functions {
 	/**
@@ -32,39 +28,6 @@ class Functions {
 		return joinArray;
 	}
 	/**
-	 * @param {GuildMember} user
-	 */
-	userInfo(user) {
-		if (user.presence.status == 'online') user.presence.status = 'Online';
-		else if (user.presence.status == 'dnd') user.presence.status = 'Do Not Disturb';
-		else if (user.presence.status == 'idle') user.presence.status = 'AFK';
-		else if (user.presence.status == 'offline') user.presence.status = 'Offline/Disconnected';
-		if (user.presence.game == null) user.presence.game = {
-			name: '*null*',
-			streaming: false,
-			type: 0,
-			url: null
-		};
-		return new discord.RichEmbed()
-			.setDescription(`${user.user.username} info`)
-			.setColor([255, 0, 0])
-			.addField('Full Username', user.user.tag, true)
-			.addField('ID', user.id, true)
-			.addField('Roles', '**Hoist:** ' + user.hoistRole + '\n' +
-				'**Highest:** ' + user.highestRole + '\n' +
-				'**Color:** ' + user.colorRole, true)
-			.addField('Presence', '**Playing:** ' + user.presence.game.name + '\n' +
-				'**Streaming:** ' + user.presence.game.streaming + '\n' +
-				'**Status:** ' + user.presence.status, true)
-			.addField('Created at', user.user.createdAt.toUTCString(), true)
-			.addField('Joined at', user.joinedAt.toUTCString(), true)
-			.addField('Bot', user.user.bot, true)
-			.addField('Avatar', '**Avatar Hash:** ' + user.user.avatar + '\n' +
-				'**AvatarURL:** ' + user.user.displayAvatarURL, true)
-			.setAuthor(user.user.username, user.user.displayAvatarURL)
-			.setThumbnail(user.user.displayAvatarURL);
-	}
-	/**
 	 * Fixes decimals to 2 decimals
 	 * @param {number} number
 	 * @returns {string} 
@@ -82,6 +45,26 @@ class Functions {
 			password: data.mysql().password,
 		})
 		return sql;
+	}
+	/**
+	 * Converts timestamp/ms to days, hours, minutes and seconds
+	 * @param {number} ms 
+	 */
+	convertMS(ms) {
+		if (isNaN(ms) || ms < 0) {
+			return null;
+		}
+
+		var d, h, m, s, ms;
+		s = Math.floor(ms / 1000);
+		m = Math.floor(s / 60);
+		s = s % 60;
+		h = Math.floor(m / 60);
+		m = m % 60;
+		d = Math.floor(Math.floor(Math.floor(Math.floor(ms / 1000) / 60) / 60) / 24)
+		h = h % 24;
+		ms = Math.floor((ms % 1000) * 1000) / 1000;
+		return { days: d, hours: h, minutes: m, seconds: s, ms: ms };
 	}
 }
 

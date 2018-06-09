@@ -7,6 +7,7 @@ declare type Json = {
     token: string;
     prefix: string;
     osuApiKey: string;
+    fortnite: string;
     discordBots: DiscordBots;
     mysql: MySQL;
     google: Google;
@@ -75,11 +76,6 @@ declare type Categories = {
 export declare type Replies = {
     standard: boolean;
     osu: boolean;
-}
-
-export declare type Servers = {
-    queue: string[];
-    dispatcher: StreamDispatcher;
 }
 
 export declare type HelpGenerator = {

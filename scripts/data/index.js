@@ -3,350 +3,91 @@ const main = new (require('../')).Main();
 const json = main.getJson();
 //#endregion
 
-//#region Settings
 class Data {
     token() {
-        //#region Token
-        var htoken = process.env.token;
-        if (htoken) {
-            json.token = htoken;
-        } else {
-            json.token = json.token;
-        }
-        //#endregion
+        json.token = (process.env.token) ? (process.env.token) : (json.token);
         return json.token;
     }
     prefix() {
-        //#region Prefix
-        var hprefix = process.env.prefix;
-        if (hprefix) {
-            json.prefix = hprefix;
-        } else {
-            json.prefix = json.prefix;
-        }
-        //#endregion
+        json.prefix = (process.env.prefix) ? (process.env.prefix) : (json.prefix);
         return json.prefix;
     }
     osuApiKey() {
-        //#region Osu!API Key
-        var hosuapikey = process.env.osuApiKey;
-        if (hosuapikey) {
-            json.osuApiKey = hosuapikey;
-        } else {
-            json.osuApiKey = json.osuApiKey;
-        }
-        //#endregion
+        json.osuApiKey = (process.env.osuApiKey) ? (process.env.osuApiKey) : (json.osuApiKey);
         return json.osuApiKey;
     }
+    fortnite() {
+        json.fortnite = (process.env.fortnite) ? (process.env.fortnite) : (json.fortnite);
+        return json.fortnite;
+    }
     mysql() {
-        //#region Host
-        var hHost = process.env.db_host;
-        if (hHost) {
-            json.mysql.host = hHost;
-        } else {
-            json.mysql.host = json.mysql.host;
-        }
-        //#endregion
-        //#region Port
-        var hPort = process.env.db_port;
-        if (hPort) {
-            json.mysql.port = hPort;
-        } else {
-            json.mysql.port = json.mysql.port;
-        }
-        //#endregion
-        //#region Database
-        var hDatabase = process.env.db_database;
-        if (hDatabase) {
-            json.mysql.database = hDatabase;
-        } else {
-            json.mysql.database = json.mysql.database;
-        }
-        //#endregion
-        //#region User
-        var hUser = process.env.db_user;
-        if (hUser) {
-            json.mysql.user = hUser;
-        } else {
-            json.mysql.user = json.mysql.user;
-        }
-        //#endregion
-        //#region Password
-        var hPassword = process.env.db_password;
-        if (hPassword) {
-            json.mysql.password = hPassword;
-        } else {
-            json.mysql.password = json.mysql.password;
-        }
-        //#endregion
+        json.mysql.host = (process.env.db_host) ? (process.env.db_host) : (json.mysql.host);
+        json.mysql.port = (process.env.db_port) ? (process.env.db_port) : (json.mysql.port);
+        json.mysql.database = (process.env.db_database) ? (process.env.db_database) : (json.mysql.database);
+        json.mysql.user = (process.env.db_user) ? (process.env.db_user) : (json.mysql.user);
+        json.mysql.password = (process.env.db_password) ? (process.env.db_password) : (json.mysql.password);
         return json.mysql;
     }
     google() {
-        //#region Google CSE ID
-        var hcseID = process.env.google_cseID;
-        if (hcseID) {
-            json.google.cseID = hcseID;
-        } else {
-            json.google.cseID = json.google.cseID;
-        }
-        //#endregion
-        //#region Google App API Key
-        var happApiKey = process.env.google_appApiKey;
-        if (happApiKey) {
-            json.google.appApiKey = happApiKey;
-        } else {
-            json.google.appApiKey = json.google.appApiKey;
-        }
-        //#endregion
+        json.google.cseID = (process.env.db_cseID) ? (process.env.db_cseID) : (json.google.cseID);
+        json.google.appApiKey = (process.env.db_appApiKey) ? (process.env.db_appApiKey) : (json.google.appApiKey);
         return json.google;
     }
     discordBots() {
-        //#region Discord Bots Token
-        var htoken = process.env.discordBots_token;
-        if (htoken) {
-            json.discordBots.token = htoken;
-        } else {
-            json.discordBots.token = json.discordBots.token;
-        }
-        //#endregion
-        //#region Discord Bots Enabled
-        var hEnabled = process.env.discordBots_enabled;
-        if (hEnabled) {
-            json.discordBots.enabled = hEnabled;
-        } else {
-            json.discordBots.enabled = json.discordBots.enabled;
-        }
-        //#endregion
+        json.discordBots.token = (process.env.discordBots_token) ? (process.env.discordBots_token) : (json.discordBots.token);
+        json.discordBots.enabled = (process.env.discordBots_enabled) ? (process.env.discordBots_enabled) : (json.discordBots.enabled);
         return json.discordBots;
     }
     owner() {
-        //#region ID
-        var hid = process.env.owner_id;
-        if (hid) {
-            json.owner.id = hid;
-        } else {
-            json.owner.id = json.owner.id;
-        }
-        //#endregion
-        //#region Discriminator
-        var hdiscriminator = process.env.owner_discriminator;
-        if (hdiscriminator) {
-            json.owner.discriminator = hdiscriminator;
-        } else {
-            json.owner.discriminator = json.owner.discriminator;
-        }
-        //#endregion
-        //#region Username
-        var husername = process.env.owner_username;
-        if (husername) {
-            json.owner.username = husername;
-        } else {
-            json.owner.username = json.owner.username;
-        }
-        //#endregion
-        //#region Tag
-        var htag = process.env.owner_tag;
-        if (htag) {
-            json.owner.tag = htag;
-        } else {
-            json.owner.tag = json.owner.tag;
-        }
-        //#endregion
+        json.owner.id = (process.env.owner_id) ? (process.env.owner_id) : (json.owner.id);
+        json.owner.discriminator = (process.env.owner_discriminator) ? (process.env.owner_discriminator) : (json.owner.discriminator);
+        json.owner.username = (process.env.owner_username) ? (process.env.owner_username) : (json.owner.username);
+        json.owner.tag = (process.env.owner_tag) ? (process.env.owner_tag) : (json.owner.tag);
         return json.owner;
     }
     allEvents() {
-        //#region All Events
-        var hallevents = process.env.allEvents;
-        if (hallevents) {
-            json.allEvents = hallevents;
-        } else {
-            json.allEvents = json.allEvents;
-        }
-        //#endregion
+        json.allEvents = (process.env.allEvents) ? (process.env.allEvents) : (json.allEvents);
         return json.allEvents;
     }
     debug() {
-        //#region Debug
-        var hdebug = process.env.debug;
-        if (hdebug) {
-            json.debug = hdebug;
-        } else {
-            json.debug = json.debug;
-        }
-        //#endregion
+        json.debug = (process.env.debug) ? (process.env.debug) : (json.debug);
         return json.debug;
     }
     wikisEnabled() {
+        json.wikisEnabled = (process.env.wikisEnabled) ? (process.env.wikisEnabled) : (json.wikisEnabled);
         return json.wikisEnabled;
     }
     wikis() {
-        //#region Home
-        var hHome = process.env.wikis_home;
-        if (hHome) {
-            json.wikis.home = hHome;
-        } else {
-            json.wikis.home = json.wikis.home;
-        }
-        //#endregion
-        //#region Commands
-        var hCommands = process.env.wikis_commands;
-        if (hCommands) {
-            json.wikis.commands = hCommands;
-        } else {
-            json.wikis.commands = json.wikis.commands;
-        }
-        //#endregion
-        //#region Replies
-        var hReplies = process.env.wikis_replies;
-        if (hReplies) {
-            json.wikis.replies = hReplies;
-        } else {
-            json.wikis.replies = json.wikis.replies;
-        }
-        //#endregion
-        //#region FAQ
-        var hFAQ = process.env.wikis_faq;
-        if (hFAQ) {
-            json.wikis.faq = hFAQ;
-        } else {
-            json.wikis.faq = json.wikis.faq;
-        }
-        //#endregion
-        //#region Modifiers
-        var hModifiers = process.env.wikis_modifiers;
-        if (hModifiers) {
-            json.wikis.modifiers = hModifiers;
-        } else {
-            json.wikis.modifiers = json.wikis.modifiers;
-        }
-        //#endregion
+        json.wikis.home = (process.env.wikis_home) ? (process.env.wikis_home) : (json.wikis.home);
+        json.wikis.commands = (process.env.wikis_commands) ? (process.env.wikis_commands) : (json.wikis.commands);
+        json.wikis.replies = (process.env.wikis_replies) ? (process.env.wikis_replies) : (json.wikis.replies);
+        json.wikis.faq = (process.env.wikis_faq) ? (process.env.wikis_faq) : (json.wikis.faq);
+        json.wikis.modifiers = (process.env.wikis_modifiers) ? (process.env.wikis_modifiers) : (json.wikis.modifiers);
         return json.wikis;
     }
     commands() {
-        //#region Support
-        var hSupport = process.env.commands_categories_Support;
-        if (hSupport) {
-            json.commands.categories.Support = hSupport;
-        } else {
-            json.commands.categories.Support = json.commands.categories.Support;
-        }
-        //#endregion
-        //#region Info
-        var hInfo = process.env.commands_categories_Info;
-        if (hInfo) {
-            json.commands.categories.Info = hInfo;
-        } else {
-            json.commands.categories.Info = json.commands.categories.Info;
-        }
-        //#endregion
-        //#region Random
-        var hRandom = process.env.commands_categories_Random;
-        if (hRandom) {
-            json.commands.categories.Random = hRandom;
-        } else {
-            json.commands.categories.Random = json.commands.categories.Random;
-        }
-        //#endregion
-        //#region Moderation
-        var hModeration = process.env.commands_categories_Moderation;
-        if (hModeration) {
-            json.commands.categories.Moderation = hModeration;
-        } else {
-            json.commands.categories.Moderation = json.commands.categories.Moderation;
-        }
-        //#endregion
-        //#region NSFW
-        var hNSFW = process.env.commands_categories_NSFW;
-        if (hNSFW) {
-            json.commands.categories.NSFW = hNSFW;
-        } else {
-            json.commands.categories.NSFW = json.commands.categories.NSFW;
-        }
-        //#endregion
-        //#region Fun
-        var hFun = process.env.commands_categories_Fun;
-        if (hFun) {
-            json.commands.categories.Fun = hFun;
-        } else {
-            json.commands.categories.Fun = json.commands.categories.Fun;
-        }
-        //#endregion
-        //#region Games
-        var hGames = process.env.commands_categories_Games;
-        if (hGames) {
-            json.commands.categories.Games = hGames;
-        } else {
-            json.commands.categories.Games = json.commands.categories.Games;
-        }
-        //#endregion
-        //#region Misc
-        var hMisc = process.env.commands_categories_Misc;
-        if (hMisc) {
-            json.commands.categories.Misc = hMisc;
-        } else {
-            json.commands.categories.Misc = json.commands.categories.Misc;
-        }
-        //#endregion
-        //#region Wiki
-        var hWiki = process.env.commands_categories_Wiki;
-        if (hWiki) {
-            json.commands.categories.Wiki = hWiki;
-        } else {
-            json.commands.categories.Wiki = json.commands.categories.Wiki;
-        }
-        //#endregion
-        //#region Bot Owner
-        var hBotOwner = process.env.commands_categories_BotOwner;
-        if (hBotOwner) {
-            json.commands.categories.BotOwner = hBotOwner;
-        } else {
-            json.commands.categories.BotOwner = json.commands.categories.BotOwner;
-        }
-        //#endregion
-        //#region Utility
-        var hUtility = process.env.commands_categories_Utility;
-        if (hUtility) {
-            json.commands.categories.Utility = hUtility;
-        } else {
-            json.commands.categories.Utility = json.commands.categories.Utility;
-        }
-        //#endregion
+        json.commands.categories.Support = (process.env.commands_categories_Support) ? (process.env.commands_categories_Support) : (json.commands.categories.Support);
+        json.commands.categories.Info = (process.env.commands_categories_Info) ? (process.env.commands_categories_Info) : (json.commands.categories.Info);
+        json.commands.categories.Random = (process.env.commands_categories_Random) ? (process.env.commands_categories_Random) : (json.commands.categories.Random);
+        json.commands.categories.Moderation = (process.env.commands_categories_Moderation) ? (process.env.commands_categories_Moderation) : (json.commands.categories.Moderation);
+        json.commands.categories.NSFW = (process.env.commands_categories_NSFW) ? (process.env.commands_categories_NSFW) : (json.commands.categories.NSFW);
+        json.commands.categories.Fun = (process.env.commands_categories_Fun) ? (process.env.commands_categories_Fun) : (json.commands.categories.Fun);
+        json.commands.categories.Games = (process.env.commands_categories_Games) ? (process.env.commands_categories_Games) : (json.commands.categories.Games);
+        json.commands.categories.Misc = (process.env.commands_categories_Misc) ? (process.env.commands_categories_Misc) : (json.commands.categories.Misc);
+        json.commands.categories.Wiki = (process.env.commands_categories_Wiki) ? (process.env.commands_categories_Wiki) : (json.commands.categories.Wiki);
+        json.commands.categories.BotOwner = (process.env.commands_categories_BotOwner) ? (process.env.commands_categories_BotOwner) : (json.commands.categories.BotOwner);
+        json.commands.categories.Utility = (process.env.commands_categories_Utility) ? (process.env.commands_categories_Utility) : (json.commands.categories.Utility);
         return json.commands;
     }
     maintance() {
-        //#region Maintance
-        var hMaintance = process.env.maintance;
-        if (hMaintance) {
-            json.maintance = hMaintance;
-        } else {
-            json.maintance = json.maintance;
-        }
-        //#endregion
+        json.maintance = (process.env.maintance) ? (process.env.maintance) : (json.maintance);
         return json.maintance;
     }
     replies() {
-        //#region Standard
-        var hStandard = process.env.replies_standard;
-        if (hStandard) {
-            json.replies.standard = hStandard;
-        } else {
-            json.replies.standard = json.replies.standard;
-        }
-        //#endregion
-        //#region Osu
-        var hOsu = process.env.replies_osu;
-        if (hOsu) {
-            json.replies.osu = hOsu;
-        } else {
-            json.replies.osu = json.replies.osu;
-        }
-        //#endregion
+        json.replies.standard = (process.env.replies_standard) ? (process.env.replies_standard) : (json.replies.standard);
+        json.replies.osu = (process.env.replies_osu) ? (process.env.replies_osu) : (json.replies.osu);
         return json.replies;
     }
-    servers() {
-        return {};
-    }
 }
-//#endregion
 
 exports.Data = Data;

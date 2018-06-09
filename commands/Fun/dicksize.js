@@ -47,7 +47,8 @@ class dicksize {
 			'Damn son.'
 		];
 
-		let int = msg.author.id.split('');
+		var member = (msg.mentions.members.first()) ? msg.mentions.members.first() : msg.member;
+		let int = member.id.split('');
 		let sum = 0;
 		for (let i of int)
 			sum += Number(i);
@@ -57,7 +58,7 @@ class dicksize {
 			str += '=';
 		str += 'D';
 		var embed = new discord.RichEmbed()
-			.setAuthor(msg.author.username, msg.author.displayAvatarURL)
+			.setAuthor(member.user.username, member.user.displayAvatarURL)
 			.setTitle('Dick Size: ' + str + ' (' + length + ')')
 			.setColor([255, 0, 0]);
 		if (length == 1) embed.setDescription(xsmall.random());

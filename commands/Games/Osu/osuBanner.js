@@ -39,7 +39,7 @@ class osuBanner {
 
             //#region User
             var user;
-            user = msg.content.substring(command_prefix.length, msg.content.length)
+            user = args
                 .replace('--std', '')
                 .replace('--taiko', '')
                 .replace('--ctb', '')

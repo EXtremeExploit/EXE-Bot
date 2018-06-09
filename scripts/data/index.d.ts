@@ -1,9 +1,10 @@
-import { Commands, Owner, Wikis, Replies, Servers, DiscordBots, Google, MySQL } from '../index';
+import { Commands, Owner, Wikis, Replies, DiscordBots, Google, MySQL } from '../index';
 
 export declare class Data {
     token(): string;
     prefix(): string;
     osuApiKey(): string;
+    fortnite(): string;
     mysql(): MySQL;
     google(): Google;
     discordBots(): DiscordBots;
@@ -15,5 +16,4 @@ export declare class Data {
     commands(): Commands;
     maintance(): boolean | string;
     replies(): Replies;
-    servers(): Servers;
 }

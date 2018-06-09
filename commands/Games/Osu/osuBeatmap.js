@@ -74,9 +74,9 @@ class osuBeatmap {
                             '**CS:** ' + bm.diff_size, true)
                         .addField('IDs', '**BeatmapSet:** ' + bm.beatmapset_id + '\n' +
                             '**Beatmap:** ' + bm.beatmap_id, true)
-                        .addField('Links', '[**Beatmap Set**](https://osu.ppy.sh/s/' + bm.beatmapset_id + ')\n' +
+                        .addField('Links', '[**Set**](https://osu.ppy.sh/s/' + bm.beatmapset_id + ')\n' +
                             '[**Beatmap**](https://osu.ppy.sh/b/' + bm.beatmap_id + ')\n' +
-                            '[**Download Beatmap Set**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')', true));
+                            '[**Download**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')([no vid](https://osu.ppy.sh/d/' + bm.beatmapset_id + 'n))', true));
                 }).catch(err => {
                     if (err == 'SyntaxError: Unexpected token < in JSON at position 0') {
                         msg.channel.send(new discord.RichEmbed()

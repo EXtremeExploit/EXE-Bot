@@ -29,7 +29,7 @@ class role {
                 .addField('Position', role.position + 1)
                 .addField('Mentionable', role.mentionable)
                 .addField('Managed by a Bot', role.managed)
-                .addField('Hoisted', role.hoist)
+                .addField('Display separately from online members', role.hoist)
                 .addField('Member Count', role.members.size));
         } else {
             msg.channel.send(new discord.RichEmbed()

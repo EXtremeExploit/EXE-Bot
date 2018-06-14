@@ -8,20 +8,20 @@ class coinflip {
      */
     constructor(msg, client) {
 
-        var randonmes = Math.random().toFixed(2);
-        if (randonmes < 0.5) {
+        var randonmes = Math.random().toFixed(2) * 100;
+        if (randonmes < 50) {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .setAuthor(msg.member.user.username, msg.member.user.avatarURL)
                 .setTitle('Coin flip!')
                 .setDescription('I flipped a coin and it landed on **heads**.'));
-        } else if (randonmes > 0.5) {
+        } else if (randonmes > 50) {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .setAuthor(msg.member.user.username, msg.member.user.avatarURL)
                 .setTitle('Coin flip!')
                 .setDescription('I flipped a coin and it landed on **tails**.'));
-        } else if (randonmes == 0.5) {
+        } else if (randonmes == 50) {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
                 .setAuthor(msg.member.user.username, msg.member.user.avatarURL)

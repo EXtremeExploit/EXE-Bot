@@ -12,12 +12,12 @@ class OsuReplies {
      */
     constructor(client) {
         client.on('message', msg => {
-            try {
-                if (msg.content.startsWith('https://osu.ppy.sh/b/')) {
-                    var id = msg.content.split('/')[4];
-                    osuApi.getBeatmaps({
-                        b: id
-                    }).then(bmF => {
+            if (msg.content.startsWith('https://osu.ppy.sh/b/')) {
+                var id = msg.content.split('/')[4];
+                osuApi.getBeatmaps({
+                    b: id
+                }).then(bmF => {
+                    if (!bmF.length < 1) {
                         var bm = bmF[0];
                         switch (bm.approved) {
                             case -2: bm.approved = 'Graveyard'; break;
@@ -34,34 +34,36 @@ class OsuReplies {
                         if (bm.artist == '' || bm.artist == null) bm.artist = '*null*';
 
                         msg.channel.send(new discord.RichEmbed()
-                        .setColor([255, 58, 255])
-                        .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')
-                        .setTitle('osu!Beatmap')
-                        .addField('Basic', '**Artist:** ' + bm.artist + '\n' +
-                            '**Title:** ' + bm.title + '\n' +
-                            '**Creator:** [' + bm.creator + '](https://osu.ppy.sh/u/' + bm.creator + ')\n' +
-                            '**Difficulty Name:** ' + bm.version + '\n' +
-                            '**Source:** ' + bm.source + '\n' +
-                            '**BPM:** ' + bm.bpm + '\n' +
-                            '**Max Combo:** ' + bm.max_combo + 'x\n' +
-                            '**Status:** ' + bm.approved, true)
-                        .addField('Difficulty', '**Stars:** ' + functions.fixDecimals(bm.difficultyrating) + '*\n' +
-                            '**HP:** ' + bm.diff_drain + '\n' +
-                            '**OD:** ' + bm.diff_overall + '\n' +
-                            '**AR:** ' + bm.diff_approach + '\n' +
-                            '**CS:** ' + bm.diff_size, true)
-                        .addField('IDs', '**BeatmapSet:** ' + bm.beatmapset_id + '\n' +
-                            '**Beatmap:** ' + bm.beatmap_id, true)
-                        .addField('Links', '[**Set**](https://osu.ppy.sh/s/' + bm.beatmapset_id + ')\n' +
-                            '[**Beatmap**](https://osu.ppy.sh/b/' + bm.beatmap_id + ')\n' +
-                            '[**Download**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')([no vid](https://osu.ppy.sh/d/' + bm.beatmapset_id + 'n))', true));
-                    });
-                }
-                if (msg.content.startsWith('https://osu.ppy.sh/u/')) {
-                    var id = msg.content.split('/')[4];
-                    osuApi.getUser({
-                        u: id
-                    }).then(userF => {
+                            .setColor([255, 58, 255])
+                            .setThumbnail('https://b.ppy.sh/thumb/' + bm.beatmapset_id + 'l.jpg')
+                            .setTitle('osu!Beatmap')
+                            .addField('Basic', '**Artist:** ' + bm.artist + '\n' +
+                                '**Title:** ' + bm.title + '\n' +
+                                '**Creator:** [' + bm.creator + '](https://osu.ppy.sh/u/' + bm.creator + ')\n' +
+                                '**Difficulty Name:** ' + bm.version + '\n' +
+                                '**Source:** ' + bm.source + '\n' +
+                                '**BPM:** ' + bm.bpm + '\n' +
+                                '**Max Combo:** ' + bm.max_combo + 'x\n' +
+                                '**Status:** ' + bm.approved, true)
+                            .addField('Difficulty', '**Stars:** ' + functions.fixDecimals(bm.difficultyrating) + '*\n' +
+                                '**HP:** ' + bm.diff_drain + '\n' +
+                                '**OD:** ' + bm.diff_overall + '\n' +
+                                '**AR:** ' + bm.diff_approach + '\n' +
+                                '**CS:** ' + bm.diff_size, true)
+                            .addField('IDs', '**BeatmapSet:** ' + bm.beatmapset_id + '\n' +
+                                '**Beatmap:** ' + bm.beatmap_id, true)
+                            .addField('Links', '[**Set**](https://osu.ppy.sh/s/' + bm.beatmapset_id + ')\n' +
+                                '[**Beatmap**](https://osu.ppy.sh/b/' + bm.beatmap_id + ')\n' +
+                                '[**Download**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')([no vid](https://osu.ppy.sh/d/' + bm.beatmapset_id + 'n))', true));
+                    }
+                });
+            }
+            if (msg.content.startsWith('https://osu.ppy.sh/u/')) {
+                var id = msg.content.split('/')[4];
+                osuApi.getUser({
+                    u: id
+                }).then(userF => {
+                    if (!userF.length < 1) {
                         var user = userF[0];
                         msg.channel.send(new discord.RichEmbed()
                             .setColor([255, 58, 255])
@@ -84,12 +86,13 @@ class OsuReplies {
                             .addField('Scores', 'Total: ' + user.total_score + '\n' + 'Ranked: ' + user.ranked_score, true)
                             .addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n' +
                                 '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true));
-                    })
-                }
-            } catch (err) {
-                console.log(err);
+                    }
+                });
             }
         });
     }
+
 }
+
+
 module.exports = OsuReplies;

@@ -66,29 +66,40 @@ class osu {
                     event_days: 0,
                     u: user
                 }).then(userF => {
-                    var user = userF[0];
-                    msg.channel.send(new discord.RichEmbed()
-                        .setColor([255, 58, 255])
-                        .setAuthor(user.username, 'https://a.ppy.sh/' + user.user_id, 'https://osu.ppy.sh/u/' + user.user_id)
-                        .setThumbnail('https://a.ppy.sh/' + user.user_id)
-                        .addField('General', '**ID:** ' + user.user_id + '\n' +
-                            '**Country:** ' + user.country + ' (' + iso31661alpha2.getCountry(user.country) + ')\n' +
-                            '**PP:** ' + user.pp_raw + '\n' +
-                            '**Level:** ' + user.level + '\n' +
-                            '**Accuracy:** ' + functions.fixDecimals(user.accuracy) + '%\n' +
-                            '**Play Count:** ' + user.playcount + '\n', true)
-                        .addField('Count Ranks', '**SS:** ' + user.count_rank_ss + '\n' +
-                            '**S:** ' + user.count_rank_s + '\n' +
-                            '**A:** ' + user.count_rank_a, true)
-                        .addField('Ranks', '**Global:** ' + user.pp_rank + '\n' +
-                            '**Country:** ' + user.pp_country_rank, true)
-                        .addField('Count Notes', '**300:** ' + user.count300 + '\n' +
-                            '**100:** ' + user.count100 + '\n' +
-                            '**50:** ' + user.count50, true)
-                        .addField('Scores', '**Total:** ' + user.total_score + '\n' +
-                            '**Ranked:** ' + user.ranked_score, true)
-                        .addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n' +
-                            '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true));
+                    if (userF.length < 1) {
+                        msg.channel.send(new discord.RichEmbed()
+                            .setColor([255, 0, 0])
+                            .setTitle('Error')
+                            .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
+                            .setDescription('**Can be for the possible reasons:** \n' +
+                                'User does not exists \n' +
+                                'You entered the wrong modifiers')
+                            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                    } else {
+                        var user = userF[0];
+                        msg.channel.send(new discord.RichEmbed()
+                            .setColor([255, 58, 255])
+                            .setAuthor(user.username, 'https://a.ppy.sh/' + user.user_id, 'https://osu.ppy.sh/u/' + user.user_id)
+                            .setThumbnail('https://a.ppy.sh/' + user.user_id)
+                            .addField('General', '**ID:** ' + user.user_id + '\n' +
+                                '**Country:** ' + user.country + ' (' + iso31661alpha2.getCountry(user.country) + ')\n' +
+                                '**PP:** ' + user.pp_raw + '\n' +
+                                '**Level:** ' + user.level + '\n' +
+                                '**Accuracy:** ' + functions.fixDecimals(user.accuracy) + '%\n' +
+                                '**Play Count:** ' + user.playcount + '\n', true)
+                            .addField('Count Ranks', '**SS:** ' + user.count_rank_ss + '\n' +
+                                '**S:** ' + user.count_rank_s + '\n' +
+                                '**A:** ' + user.count_rank_a, true)
+                            .addField('Ranks', '**Global:** ' + user.pp_rank + '\n' +
+                                '**Country:** ' + user.pp_country_rank, true)
+                            .addField('Count Notes', '**300:** ' + user.count300 + '\n' +
+                                '**100:** ' + user.count100 + '\n' +
+                                '**50:** ' + user.count50, true)
+                            .addField('Scores', '**Total:** ' + user.total_score + '\n' +
+                                '**Ranked:** ' + user.ranked_score, true)
+                            .addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n' +
+                                '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true));
+                    }
                 }).catch(err => {
                     if (err == 'SyntaxError: Unexpected token < in JSON at position 0') {
                         msg.channel.send(new discord.RichEmbed()
@@ -97,24 +108,13 @@ class osu {
                             .setFooter('this is bad af')
                             .addField('osu! Servers got down!', 'Check [@osustatus](https://twitter.com/osustatus) for info'));
                     } else {
-                        if (err == 'TypeError: Cannot read property \'username\' of undefined') {
-                            msg.channel.send(new discord.RichEmbed()
-                                .setColor([255, 0, 0])
-                                .setTitle('Error')
-                                .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                                .setDescription('**Can be for the possible reasons:** \n' +
-                                    'User does not exists \n' +
-                                    'You entered the wrong modifiers')
-                                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
-                        } else {
-                            msg.channel.send(new discord.RichEmbed()
-                                .setColor([255, 0, 0])
-                                .setTitle('Error')
-                                .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                                .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
-                                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
-                            console.log(err);
-                        }
+                        msg.channel.send(new discord.RichEmbed()
+                            .setColor([255, 0, 0])
+                            .setTitle('Error')
+                            .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
+                            .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
+                            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+                        console.log(err);
                     }
                 });
             } else {

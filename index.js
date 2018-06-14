@@ -1,15 +1,8 @@
 require('dotenv').config({
     path: './json/.env'
 });
-//#region Starting
 console.log('Starting...');
-//#endregion
-
-//#region Data
 const main = new (require('./scripts/')).Main();
-//#endregion
-
-//#region Discord
 const discord = require('discord.js');
 var _db = require('dblapi.js');
 const client = new discord.Client({
@@ -43,17 +36,11 @@ if (main.getData().discordBots().enabled == true || main.getData().discordBots()
         db = new _db(main.getData().discordBots().token, client);
     }, 900000);
 }
-//#endregion
-
-//#region Commands
-client.on('message', (msg) => {
+client.on('message', async (msg) => {
     const commands = require('./commands/index');
     new commands.Commands(client, db).Load(msg);
 });
-//#endregion
 
-//#region Replies
 const replies = require('./Replies/index');
 new replies(client);
-//#endregion
 client.login(main.getData().token()).catch(e => console.log(e));

@@ -22,15 +22,22 @@ class emoji {
 
         var name = args.replace(':', '')
         var emojiname = name.substring(1, name.indexOf(':'));
-        try {
-            if (args == '') {
+        if (args == '') {
+            msg.channel.send(new discord.RichEmbed()
+                .setColor([255, 0, 0])
+                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
+                .addField('Help', 'Check the [wiki](' + wikis.commands + '#info) for help!')
+                .setDescription('Pleace specify an emoji to get!'));
+        } else {
+            var emote = msg.guild.emojis.find('name', emojiname);
+            if (emote == null) {
                 msg.channel.send(new discord.RichEmbed()
                     .setColor([255, 0, 0])
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
+                    .setTitle('Error')
                     .addField('Help', 'Check the [wiki](' + wikis.commands + '#info) for help!')
-                    .setDescription('Pleace specify an emoji to get!'));
+                    .setDescription('Please insert a valid emoji, it needs to be an emoji from THIS server')
+                    .setAuthor(msg.author.username, msg.author.displayAvatarURL));
             } else {
-                var emote = msg.guild.emojis.find('name', emojiname);
                 msg.channel.send(new discord.RichEmbed()
                     .setColor([255, 0, 0])
                     .setThumbnail(emote.url)
@@ -42,25 +49,15 @@ class emoji {
                         '**Name:** ' + emote.name + '\n' +
                         '**URL:** ' + emote.url));
             }
-        } catch (err) {
-            if (err == 'TypeError: Cannot read property \'url\' of null') {
-                msg.channel.send(new discord.RichEmbed()
-                    .setColor([255, 0, 0])
-                    .setTitle('Error')
-                    .addField('Help', 'Check the [wiki](' + wikis.commands + '#info) for help!')
-                    .setDescription('Please insert a valid emoji, it needs to be an emoji from THIS server')
-                    .setAuthor(msg.author.username, msg.author.displayAvatarURL))
-            } else {
-                msg.channel.send(new discord.RichEmbed()
-                    .setColor([255, 0, 0])
-                    .setTitle('Error')
-                    .addField('Help', 'Check the [wiki](' + wikis.commands + '#info) for help!')
-                    .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
-                    .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
-                console.log(err);
-            }
         }
-
+    } catch(err) {
+        msg.channel.send(new discord.RichEmbed()
+            .setColor([255, 0, 0])
+            .setTitle('Error')
+            .addField('Help', 'Check the [wiki](' + wikis.commands + '#info) for help!')
+            .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
+            .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+        console.log(err);
     }
 }
 module.exports = emoji;

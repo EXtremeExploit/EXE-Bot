@@ -1,9 +1,5 @@
-//#region Require Modules
-//#region Discord Module
 const discord = require('discord.js');
 const { Client } = discord;
-//#endregion
-//#endregion
 
 //#region Events
 class Events {
@@ -12,16 +8,11 @@ class Events {
      * @param {Client} client 
      */
     constructor(client) {
-        //#region Data
         var main = new (require('../')).Main();
         this.data = main.getData();
         this.prefix = this.data.prefix();
         this.debug = this.data.debug();
-        this.allEvents = this.data.allEvents();
-        //#endregion
-        //#region Discord Client settings
         this.client = client;
-        //#endregion
     }
     ready() {
         this.client.on('ready', () => {
@@ -49,54 +40,15 @@ class Events {
                             }
                         });
                         break;
-                    default:
-                        me.setPresence({
-                            afk: false,
-                            status: 'idle',
-                            game: {
-                                name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
-                            }
-                        });
-                        console.warn('ERROR: Bot status shouldn\'t be \`idle\`. Maintance mode should be boolean or string');
-                        break;
                 }
             }, 30000);
             console.log('============================================');
-            console.log('JavaScript Node.JS discord.js ' + discord.version);
-            console.log('Username: ' + me.tag);
-            console.log('ID: ' + me.id);
-            console.log('Verified: ' + me.verified);
-            console.log('Bot: ' + me.bot);
-            console.log('Status: ' + me.presence.status);
-            console.log('============================================');
+            console.log('JavaScript, Node.JS '+process.version+', discord.js v' + discord.version);
+            console.log('User: ' +me.id+ '/'+me.tag);
+            console.log('Owner: ' + this.data.owner().id +'/'+ this.data.owner().tag);
             console.log('Prefix: ' + this.prefix);
-            console.log('Debug Mode: ' + this.debug);
-            console.log('All Events: ' + this.allEvents);
-            console.log('Maintance Mode: ' + this.data.maintance());
-            console.log('DiscordBots: ' + this.data.discordBots().enabled);
-            console.log('============================================');
-            console.log('Support: ' + this.data.commands().categories.Support);
-            console.log('Info: ' + this.data.commands().categories.Info);
-            console.log('Random: ' + this.data.commands().categories.Random);
-            console.log('Moderation: ' + this.data.commands().categories.Moderation);
-            console.log('NSFW: ' + this.data.commands().categories.NSFW);
-            console.log('Fun: ' + this.data.commands().categories.Fun);
-            console.log('Games: ' + this.data.commands().categories.Games);
-            console.log('Misc: ' + this.data.commands().categories.Misc);
-            console.log('Utility: ' + this.data.commands().categories.Utility);
-            console.log('Wiki: ' + this.data.commands().categories.Wiki);
-            console.log('Bot Owner: ' + this.data.commands().categories.BotOwner);
-            console.log('Replies Standard: ' + this.data.replies().standard);
-            console.log('Replies Osu: ' + this.data.replies().osu);
-            console.log('=============================================');
-            console.log('Owner Username: ' + this.data.owner().username);
-            console.log('Owner Discriminator: ' + this.data.owner().discriminator);
-            console.log('Owner Id: ' + this.data.owner().id);
-            console.log('Owner Tag: ' + this.data.owner().tag);
-            console.log('=============================================');
+            console.log('Maintance: ' + this.data.maintance());
             console.log('Servers: ' + this.client.guilds.array().length);
-            console.log('============================================\n');
-            console.log(`Connected. \n`);
             console.log('============================================\n');
         });
     }
@@ -228,51 +180,6 @@ class Events {
         this.reconnecting();
         this.warn();
         this.error();
-        if (this.allEvents == true) {
-            this.channelCreate();
-            this.channelDelete();
-            this.channelPinsUpdate();
-            this.channelUpdate();
-            this.clientUserGuildSettingsUpdate();
-            this.clientUserSettingsUpdate();
-            this.emojiCreate();
-            this.emojiDelete();
-            this.emojiUpdate();
-            this.guildBanAdd();
-            this.guildBanRemove();
-            this.guildCreate();
-            this.guildDelete();
-            this.guildMemberAdd();
-            this.guildMemberAvailable();
-            this.guildMemberRemove();
-            this.guildMembersChunk();
-            this.guildMemberSpeaking();
-            this.guildMemberUpdate();
-            this.guildUnavailable();
-            this.guildUpdate();
-            this.messageDelete();
-            this.messageDeleteBulk();
-            this.messageReactionAdd();
-            this.messageReactionRemove();
-            this.messageReactionRemoveAll();
-            this.messageUpdate();
-            this.presenceUpdate();
-            this.resume();
-            this.roleCreate();
-            this.roleDelete();
-            this.roleUpdate();
-            this.typingStart();
-            this.typingStop();
-            this.userNoteUpdate();
-            this.userUpdate();
-            this.voiceStateUpdate();
-        }
-        if (this.debug == true) {
-            this.debug();
-        }
-    }
-    debug() {
-        this.client.on('debug', e => console.log(e));
     }
     error() {
         this.client.on('error', error => {

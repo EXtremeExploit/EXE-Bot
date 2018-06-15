@@ -22,10 +22,9 @@ class ban {
             if (msg.mentions.members.first()) {
                 if (msg.member.user.id == msg.mentions.members.first().id) {
                     msg.channel.send(new discord.RichEmbed()
-                        .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
-                        .setTitle('ERROR')
-                        .setDescription('You dont have permissions to run that command.')
-                        .setColor([255, 0, 0]));
+                        .setColor([255, 0, 0])
+                        .setDescription('Why do you want to ban yourself...?')
+                        .setTitle('Are you serious?'));
                 } else {
                     if (msg.mentions.members.first().id == client.user.id) {
                         msg.channel.send(new discord.RichEmbed()
@@ -35,12 +34,6 @@ class ban {
                     } else {
                         if (msg.mentions.members.first().bannable) {
                             msg.mentions.members.first().ban().then((member) => {
-                                member.send(new discord.RichEmbed()
-                                    .setDescription('You got banned from ' + msg.guild.name)
-                                    .setColor([255, 0, 0])
-                                    .setTitle('Banned')
-                                    .addField('Banned by', msg.member.user.tag));
-
                                 msg.channel.send(new discord.RichEmbed()
                                     .setColor([255, 0, 0])
                                     .setTitle('Banned')

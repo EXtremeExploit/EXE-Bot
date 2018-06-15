@@ -13,11 +13,11 @@ const wikis = {
 const _gimages = require('google-images');
 const gimages = new _gimages(google.cseID, google.appApiKey);
 
-var firstemoji = '⏮';
-var backemoji = '◀';
-var nextemoji = '▶';
-var lastemoji = '⏭';
-var stopemoji = '⏹';
+const firstemoji = '⏮';
+const backemoji = '◀';
+const nextemoji = '▶';
+const lastemoji = '⏭';
+const stopemoji = '⏹';
 
 const discord = require('discord.js');
 const { Message, Client } = discord;

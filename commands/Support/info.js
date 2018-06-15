@@ -65,7 +65,7 @@ class info {
             embed.setImage('https://discordbots.org/api/widget/353661793199194112.png?topcolor=c90000&middlecolor=b70000&usernamecolor=ffffff&datacolor=FFFFFF&labelcolor=870000&highlightcolor=c90000&certifiedcolor=fffffff');
         }
 
-        msg.channel.send(embed).catch((e) => console.log(e));
+        msg.channel.send(embed);
     }
 }
 module.exports = info;

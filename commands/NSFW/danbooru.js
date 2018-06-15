@@ -45,17 +45,14 @@ class danbooru {
                     }
                 });
             } catch (err) {
-                if (!err == '404 Shimmie') {
-                    console.log(err);
-                } else {
-                    console.log(err);
-                    msg.channel.send(new discord.RichEmbed()
-                        .setColor([255, 0, 0])
-                        .setDescription('An error ocurred!')
-                        .setTitle('Danbooru')
-                        .addField('Message Error', err)
-                        .setAuthor(msg.author.username, msg.author.displayAvatarURL));
-                }
+                console.log(err);
+                msg.channel.send(new discord.RichEmbed()
+                    .setColor([255, 0, 0])
+                    .setDescription('An error ocurred!')
+                    .setTitle('Danbooru')
+                    .addField('Message Error', err)
+                    .setAuthor(msg.author.username, msg.author.displayAvatarURL));
+
             }
         } else {
             msg.channel.send(new discord.RichEmbed()

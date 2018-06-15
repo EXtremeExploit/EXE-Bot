@@ -34,12 +34,6 @@ class kick {
                     } else {
                         if (msg.mentions.members.first().kickable) {
                             msg.mentions.members.first().kick().then((member) => {
-                                member.send(new discord.RichEmbed()
-                                    .setDescription('You got kicked from ' + msg.guild.name)
-                                    .setColor([255, 0, 0])
-                                    .setTitle('Kicked')
-                                    .addField('Kicked by', msg.member.user.tag));
-
                                 msg.channel.send(new discord.RichEmbed()
                                     .setColor([255, 0, 0])
                                     .setTitle('Kicked')

@@ -9,7 +9,7 @@ const wikis = {
 };
 
 const discord = require('discord.js');
-const { Message, Client } = discord;
+const { Message, Client, Collection } = discord;
 class prune {
     /**
      * 
@@ -22,21 +22,24 @@ class prune {
 
         if (msg.member.hasPermission(['MANAGE_MESSAGES']) || msg.member.hasPermission(['ADMINISTRATOR'])) {
             if (!args == null || !args == '') {
-                if (args == '1' || parseInt(args) > 99) {
+                var deln = parseInt(args);
+                if (isNaN(deln)) deln = 1;
+                if (deln < 2 || deln > 99) {
                     msg.channel.send(new discord.RichEmbed()
                         .addField('Help', 'Check the [wiki](' + wikis.commands + '#moderation) for help!')
                         .setDescription('Pleace specify a number between 2 and 99!')
                         .setColor([255, 0, 0]));
                 } else {
-                    msg.channel.bulkDelete(parseInt(args)).then(() => {
-                        msg.channel.send(new discord.RichEmbed()
-                            .setColor([255, 0, 0])
-                            .setDescription('Deleted ' + parseInt(args) + ' Messages.')).then(deletemsg => {
-                                deletemsg.delete(5000);
-                            });;
+                    msg.channel.fetchMessages({
+                        limit: deln
+                    }).then((e) => {
+                        e.forEach((message) => {
+                            if(message.deletable){
+                                message.delete();
+                            }
+                        });
                     });
                 }
-
             } else {
                 msg.channel.send(new discord.RichEmbed()
                     .setColor([255, 0, 0])

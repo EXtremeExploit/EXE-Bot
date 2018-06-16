@@ -1,28 +1,28 @@
-const main = require('../index').Main;
+const main = require('../commands').Main;
 const data = main.getData();
 var prefix = data.prefix();
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
-class Utility {
+class NSFW {
     /**
      * 
      * @param {Message} msg 
      * @param {Client} client 
      */
     constructor(msg, client) {
-        this.image = require('./image');
-        this.math = require('./math');
-        this.shorturl = require('./shorturl');
+        this.danbooru = require('./danbooru')
+        this.rule34 = require('./rule34');
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];
         var command = command_prefix.replace(prefix, '');
 
         switch (command) {
-            case 'image': return new this.image(msg, client);
-            case 'math': return new this.math(msg, client);
-            case 'shorturl': return new this.shorturl(msg, client);
+            case 'danbooru': return new this.danbooru(msg, client);
+            case 'rule34':
+            case 'r34':
+                return new this.rule34(msg, client);
         }
     }
 }
-module.exports = Utility;
+module.exports = NSFW;

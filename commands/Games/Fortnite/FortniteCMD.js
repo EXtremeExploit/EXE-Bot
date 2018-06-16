@@ -1,4 +1,4 @@
-const main = require('../../index').Main;
+const main = require('../../commands').Main;
 const data = main.getData();
 var prefix = data.prefix();
 class Fortnite {

@@ -2,7 +2,7 @@ require('dotenv').config({
     path: './json/.env'
 });
 console.log('Starting...');
-const main = new (require('./scripts/')).Main();
+const main = new (require('./scripts/scripts')).Main();
 const discord = require('discord.js');
 var _db = require('dblapi.js');
 const client = new discord.Client({
@@ -37,10 +37,10 @@ if (main.getData().discordBots().enabled == true || main.getData().discordBots()
     }, 900000);
 }
 client.on('message', async (msg) => {
-    const commands = require('./commands/index');
+    const commands = require('./commands/commands');
     new commands.Commands(client, db).Load(msg);
 });
 
-const replies = require('./Replies/index');
+const replies = require('./replies/replies');
 new replies(client);
 client.login(main.getData().token()).catch(e => console.log(e));

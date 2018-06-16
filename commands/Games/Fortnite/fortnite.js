@@ -1,4 +1,4 @@
-const main = require('../../index').Main;
+const main = require('../../commands').Main;
 const data = main.getData();
 const wikis = {
     home: data.wikis().home,
@@ -10,7 +10,6 @@ const wikis = {
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
-//#endregion
 class fortnite {
 	/**
 	 * 

@@ -8,7 +8,7 @@ class Events {
      * @param {Client} client 
      */
     constructor(client) {
-        var main = new (require('./')).Main();
+        var main = new (require('./scripts')).Main();
         this.data = main.getData();
         this.prefix = this.data.prefix();
         this.debug = this.data.debug();
@@ -49,7 +49,7 @@ class Events {
             console.log('Prefix: ' + this.prefix);
             console.log('Maintance: ' + this.data.maintance());
             console.log('Servers: ' + this.client.guilds.array().length);
-            console.log('============================================\n');
+            console.log('============================================');
         });
     }
     disconnect() {

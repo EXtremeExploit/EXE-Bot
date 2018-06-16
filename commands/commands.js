@@ -1,4 +1,4 @@
-const main = new (require('../scripts/')).Main();
+const main = new (require('../scripts/scripts')).Main();
 const data = main.getData();
 var prefix = data.prefix();
 const _db = require('dblapi.js')
@@ -12,16 +12,16 @@ class Commands {
     constructor(client, db) {
         this.client = client;
         this.db = db;
-        this.botOwner = require('./Bot Owner/');
-        this.fun = require('./Fun/');
-        this.games = require('./Games');
-        this.info = require('./Info/');
-        this.misc = require('./Misc/');
-        this.moderation = require('./Moderation/');
-        this.nsfw = require('./NSFW/');
-        this.random = require('./Random/');
-        this.support = require('./Support/');
-        this.utility = require('./Utility/');
+        this.botOwner = require('./Bot Owner/Bot Owner');
+        this.fun = require('./Fun/Fun');
+        this.games = require('./Games/Games');
+        this.info = require('./Info/Info');
+        this.misc = require('./Misc/Misc');
+        this.moderation = require('./Moderation/Moderation');
+        this.nsfw = require('./NSFW/NSFW');
+        this.random = require('./Random/Random');
+        this.support = require('./Support/Support');
+        this.utility = require('./Utility/Utility');
     }
     BotOwner(msg) {
         return new this.botOwner(msg, this.client, this.db);

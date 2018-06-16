@@ -1,4 +1,4 @@
-const main = require('../index').Main;
+const main = require('../commands').Main;
 const functions = main.getFunctions();
 const data = main.getData();
 const wikis = {

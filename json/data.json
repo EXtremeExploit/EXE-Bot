@@ -24,7 +24,6 @@
         "discriminator": "1234",
         "tag": "Username#1234"
     },
-    "allEvents": false,
     "debug": false,
     "wikisEnabled": true,
     "wikis": {

@@ -9,7 +9,6 @@ export declare class Data {
     google(): Google;
     discordBots(): DiscordBots;
     owner(): Owner;
-    allEvents(): boolean | string;
     debug(): boolean | string;
     wikisEnabled(): boolean | string;
     wikis(): Wikis;

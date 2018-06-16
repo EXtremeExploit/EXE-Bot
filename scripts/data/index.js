@@ -45,10 +45,6 @@ class Data {
         json.owner.tag = (process.env.owner_tag) ? (process.env.owner_tag) : (json.owner.tag);
         return json.owner;
     }
-    allEvents() {
-        json.allEvents = (process.env.allEvents) ? (process.env.allEvents) : (json.allEvents);
-        return json.allEvents;
-    }
     debug() {
         json.debug = (process.env.debug) ? (process.env.debug) : (json.debug);
         return json.debug;

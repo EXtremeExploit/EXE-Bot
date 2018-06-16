@@ -11,8 +11,7 @@ declare type Json = {
     discordBots: DiscordBots;
     mysql: MySQL;
     google: Google;
-    owner: Owner
-    allEvents: boolean;
+    owner: Owner;
     debug: boolean;
     wikisEnabled: boolean;
     wikis: Wikis;

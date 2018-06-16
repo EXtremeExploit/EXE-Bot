@@ -1,6 +1,6 @@
-var arrays = require('../../json/commands.json')
+var arrays = require('../json/commands');
 
-const _main = require('../index');
+const _main = require('./index');
 const main = new _main.Main();
 const data = main.getData();
 var wikis = data.wikis();

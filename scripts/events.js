@@ -8,7 +8,7 @@ class Events {
      * @param {Client} client 
      */
     constructor(client) {
-        var main = new (require('../')).Main();
+        var main = new (require('./')).Main();
         this.data = main.getData();
         this.prefix = this.data.prefix();
         this.debug = this.data.debug();
@@ -173,7 +173,6 @@ class Events {
     voiceStateUpdate() {
         this.client.on('voiceStateUpdate', e => console.log('[ ' + new Date() + ' ] [VOICE_STATE_UPDATE]'));
     }
-
     all() {
         this.ready();
         this.disconnect();

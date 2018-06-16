@@ -1,4 +1,4 @@
-const _main = require('../index');
+const _main = require('./index');
 const main = new _main.Main();
 const data = main.getData();
 const token = data.token();

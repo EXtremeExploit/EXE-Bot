@@ -78,7 +78,9 @@ class osu {
                             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
                     } else {
                         var user = userF[0];
-                        var nextLevel = await osulevel.calculateLevelCOM(user.total_score, (Math.floor(user.level) + 1))
+                        var userTotalScore = (user.total_score == null) ? 0 : user.total_score;
+                        var nextLevel = await osulevel.calculateLevelCOM(userTotalScore, (Math.floor(user.level) + 1));
+                        if (nextLevel.result == undefined) nextLevel.result = null;
                         msg.channel.send(new discord.RichEmbed()
                             .setColor([255, 58, 255])
                             .setAuthor(user.username, 'https://a.ppy.sh/' + user.user_id, 'https://osu.ppy.sh/u/' + user.user_id)

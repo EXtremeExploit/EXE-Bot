@@ -60,6 +60,7 @@ class Commands {
     Load(msg) {
         if (msg.author.bot) return;
         if (!msg.content.startsWith(prefix)) return;
+        if(!msg.guild) return;
         //#region Help Command Load
         var help = require('./Support/help');
         new help(this.client, msg);

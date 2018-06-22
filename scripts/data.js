@@ -29,8 +29,8 @@ class Data {
         return json.mysql;
     }
     google() {
-        json.google.cseID = (process.env.db_cseID) ? (process.env.db_cseID) : (json.google.cseID);
-        json.google.appApiKey = (process.env.db_appApiKey) ? (process.env.db_appApiKey) : (json.google.appApiKey);
+        json.google.cseID = (process.env.google_cseID) ? (process.env.google_cseID) : (json.google.cseID);
+        json.google.appApiKey = (process.env.google_appApiKey) ? (process.env.google_appApiKey) : (json.google.appApiKey);
         return json.google;
     }
     discordBots() {

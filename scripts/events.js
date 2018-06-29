@@ -184,7 +184,7 @@ class Events {
         this.client.on('error', error => {
             console.log('====================ERROR====================');
             console.log('Error Message: ' + error.message);
-            console.log('Error Name:' + error.name);
+            console.log('Error Name: ' + error.name);
             console.log('Error Stack: ' + error.stack);
             console.log('=============================================');
         });

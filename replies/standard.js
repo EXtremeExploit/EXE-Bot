@@ -10,21 +10,23 @@ class StandardReplies {
         client.on('message', (msg) => {
             if (msg.author.bot) return;
             if (msg.channel.type == 'dm' || msg.channel.type == 'group') return;
+            if (msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES') == true) {
+                
+                var message = msg.content.toLowerCase();
+                var channel = msg.channel;
 
-            var message = msg.content.toLowerCase();
-            var channel = msg.channel;
-
-            switch (message) {
-                case 'ayy': channel.send('lamo'); break;
-                case 'omae wa mou shindeiru': channel.send('NANI!?!'); break;
-                case 'おまえ わ もう しんでいる': channel.send('なに！？'); break;
-                case 'o/': channel.send('\\o'); break;
-                case '\\o': channel.send('o/'); break;
-                case 'top': channel.send('kek'); break;
-                case 'sauce': channel.send('no ketchup'); break;
-                case 'expand': channel.send('dong'); break;
-                case 'owo': channel.send('What\'s This?'); break;
-            }
+                switch (message) {
+                    case 'ayy': channel.send('lamo'); break;
+                    case 'omae wa mou shindeiru': channel.send('NANI!?!'); break;
+                    case 'おまえ わ もう しんでいる': channel.send('なに！？'); break;
+                    case 'o/': channel.send('\\o'); break;
+                    case '\\o': channel.send('o/'); break;
+                    case 'top': channel.send('kek'); break;
+                    case 'sauce': channel.send('no ketchup'); break;
+                    case 'expand': channel.send('dong'); break;
+                    case 'owo': channel.send('What\'s This?'); break;
+                }
+            } else return;
         });
     }
 }

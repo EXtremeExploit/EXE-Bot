@@ -28,22 +28,18 @@ const client = new discord.Client({
         host: 'https://discordapp.com'
     }
 });
+//Start events and console log information
+main.getEvents(client).all();
+//Get connection to discordbots.org
+if (main.getData().discordBots().enabled == true || main.getData().discordBots().enabled == 'true') {
+    var db = new _db(main.getData().discordBots().token, client);
+}
+//Initialize Commands and replies
 try {
-    main.getEvents(client).all();
-    if (main.getData().discordBots().enabled == true || main.getData().discordBots().enabled == 'true') {
-        var db = new _db(main.getData().discordBots().token, client);
-        setTimeout((e) => {
-            db = new _db(main.getData().discordBots().token, client);
-        }, 900000);
-    }
-    client.on('message', async (msg) => {
-        const commands = require('./commands/commands');
-        new commands.Commands(client, db).Load(msg);
-    });
-
+    const commands = require('./commands/commands');
+    new commands.Commands(client, db).Load();
     const replies = require('./replies/replies');
     new replies(client);
-    client.login(main.getData().token()).catch(e => console.log(e));
-} catch (err) {
-    console.log(err);
-}
+} catch (err) { console.log(err) }
+//Login-In
+client.login(main.getData().token()).catch(e => console.log(e));

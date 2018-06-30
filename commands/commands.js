@@ -1,8 +1,9 @@
 const main = new (require('../scripts/scripts')).Main();
 const data = main.getData();
 var prefix = data.prefix();
-const _db = require('dblapi.js')
-const { Message, Client } = require('discord.js');
+const _db = require('dblapi.js');
+const discord = require('discord.js');
+const { Message, Client } = discord;
 
 class Commands {
     /**
@@ -54,47 +55,49 @@ class Commands {
         return new this.utility(msg, this.client);
     }
     /**
-     * 
-     * @param {Message} msg 
+     * Loads the commands
      */
-    Load(msg) {
-        if(!msg.guild) return;
-        if (msg.author.bot) return;
-        if (!msg.content.startsWith(prefix)) return;
-        //#region Help Command Load
-        var help = require('./Support/help');
-        new help(this.client, msg);
-        //#endregion
-        if (data.commands().categories.BotOwner == true || data.commands().categories.BotOwner == 'true') {
-            this.BotOwner(msg);
-        }
-        if (data.commands().categories.Fun == true || data.commands().categories.Fun == 'true') {
-            this.Fun(msg);
-        }
-        if (data.commands().categories.Games == true || data.commands().categories.Games == 'true') {
-            this.Games(msg);
-        }
-        if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
-            this.Info(msg);
-        }
-        if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
-            this.Misc(msg);
-        }
-        if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
-            this.Moderation(msg);
-        }
-        if (data.commands().categories.NSFW == true || data.commands().categories.NSFW == 'true') {
-            this.NSFW(msg);
-        }
-        if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
-            this.Random(msg);
-        }
-        if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
-            this.Support(msg);
-        }
-        if (data.commands().categories.Utility == true || data.commands().categories.Utility == 'true') {
-            this.Utility(msg);
-        }
+    Load() {
+        this.client.on('message', async (msg) => {
+            if (!msg.guild) return;
+            if (msg.author.bot) return;
+            if (!msg.content.startsWith(main.getData().prefix())) return;
+            if (msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES') == true) { } else return;
+            //#region Help Command Load
+            var help = require('./Support/help');
+            new help(this.client, msg);
+            //#endregion
+            if (data.commands().categories.BotOwner == true || data.commands().categories.BotOwner == 'true') {
+                this.BotOwner(msg);
+            }
+            if (data.commands().categories.Fun == true || data.commands().categories.Fun == 'true') {
+                this.Fun(msg);
+            }
+            if (data.commands().categories.Games == true || data.commands().categories.Games == 'true') {
+                this.Games(msg);
+            }
+            if (data.commands().categories.Info == true || data.commands().categories.Info == 'true') {
+                this.Info(msg);
+            }
+            if (data.commands().categories.Misc == true || data.commands().categories.Misc == 'true') {
+                this.Misc(msg);
+            }
+            if (data.commands().categories.Moderation == true || data.commands().categories.Moderation == 'true') {
+                this.Moderation(msg);
+            }
+            if (data.commands().categories.NSFW == true || data.commands().categories.NSFW == 'true') {
+                this.NSFW(msg);
+            }
+            if (data.commands().categories.Random == true || data.commands().categories.Random == 'true') {
+                this.Random(msg);
+            }
+            if (data.commands().categories.Support == true || data.commands().categories.Support == 'true') {
+                this.Support(msg);
+            }
+            if (data.commands().categories.Utility == true || data.commands().categories.Utility == 'true') {
+                this.Utility(msg);
+            }
+        });
     }
 
 }

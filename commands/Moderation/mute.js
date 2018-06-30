@@ -29,10 +29,10 @@ class mute {
                     msg.channel.overwritePermissions(msg.mentions.members.first(), {
                         SEND_MESSAGES: false
                     }).then((channel) => {
-                        msg.channel.send(new discord.RichEmbed()
-                            .setColor([255, 0, 0])
-                            .setTitle('Muted')
-                            .setDescription('Succesfully muted: ' + msg.mentions.members.first().user.username));
+                            channel.send(new discord.RichEmbed()
+                                .setColor([255, 0, 0])
+                                .setTitle('Muted')
+                                .setDescription('Succesfully muted: ' + msg.mentions.members.first().user.username));
 
                         if (!msg.mentions.members.first().user.bot) {
                             msg.mentions.members.first().send(new discord.RichEmbed()

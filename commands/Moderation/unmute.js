@@ -29,7 +29,7 @@ class unmute {
                     msg.channel.overwritePermissions(msg.mentions.members.first(), {
                         SEND_MESSAGES: true
                     }).then((channel) => {
-                        msg.channel.send(new discord.RichEmbed()
+                        channel.send(new discord.RichEmbed()
                             .setColor([255, 0, 0])
                             .setTitle('Unmuted')
                             .setDescription('Succesfully unmuted: ' + msg.mentions.members.first().user.username));
@@ -41,7 +41,7 @@ class unmute {
                                 .setTitle('unmuted')
                                 .addField('unmuted by', msg.member.user.tag));
                         }
-                    })
+                    });
                 }
             } else {
                 msg.channel.send(new discord.RichEmbed()

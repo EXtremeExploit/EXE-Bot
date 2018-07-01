@@ -25,6 +25,9 @@ class StandardReplies {
                     case 'sauce': channel.send('no ketchup'); break;
                     case 'expand': channel.send('dong'); break;
                     case 'owo': channel.send('What\'s This?'); break;
+                    case '\\o/': channel.send('<o/'); break;
+                    case '<o/': channel.send('\\o>'); break;
+                    case '\\o>': channel.send('<o/'); break;
                 }
             } else return;
         });

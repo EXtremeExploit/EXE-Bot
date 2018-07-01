@@ -47,7 +47,6 @@ class Events {
             console.log('User: ' +me.id+ '/'+me.tag);
             console.log('Owner: ' + this.data.owner().id +'/'+ this.data.owner().tag);
             console.log('Prefix: ' + this.prefix);
-            console.log('Maintance: ' + this.data.maintance());
             console.log('Servers: ' + this.client.guilds.array().length);
             console.log('============================================');
         });

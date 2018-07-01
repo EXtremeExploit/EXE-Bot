@@ -25,7 +25,7 @@ class Events {
                             status: 'dnd',
                             afk: false,
                             game: {
-                                name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers'
+                                name: this.prefix + 'help | ' + this.prefix + 'invite | S: ' + this.client.guilds.array().length
                             }
                         });
                         break;
@@ -35,7 +35,7 @@ class Events {
                             status: 'online',
                             afk: false,
                             game: {
-                                name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
+                                name: this.prefix + 'help | ' + this.prefix + 'invite | S: ' + this.client.guilds.array().length,
                                 url: 'https://www.twitch.tv/extremeexploit_'
                             }
                         });

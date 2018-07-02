@@ -117,7 +117,7 @@ class osu {
                             .setColor([255, 0, 0])
                             .setTitle('Error')
                             .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                            .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
+                            .setDescription('OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!')
                             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
                         console.log(err);
                     }
@@ -182,7 +182,7 @@ class osu {
                                 .setColor([255, 0, 0])
                                 .setTitle('Error')
                                 .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                                .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
+                                .setDescription('OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!')
                                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
                             console.log(err);
                         }

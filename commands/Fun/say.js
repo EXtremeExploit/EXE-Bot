@@ -21,10 +21,7 @@ class say {
         var args = messageArray.slice(1).join(' ');
 
         if (!args == '' || args == null) {
-            msg.channel.send(new discord.RichEmbed()
-                .setDescription(args)
-                .setColor([255, 0, 0])
-                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+            msg.channel.send(args);
         } else {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])

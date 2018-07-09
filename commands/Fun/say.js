@@ -21,7 +21,7 @@ class say {
         var args = messageArray.slice(1).join(' ');
 
         if (!args == '' || args == null) {
-            if (!msg.mentions.everyone) {
+            if (!msg.content.includes('@everyone') || !msg.content.includes('@here')) {
                 msg.channel.send(args);
             } else {
                 msg.channel.send(new discord.RichEmbed()

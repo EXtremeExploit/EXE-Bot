@@ -21,7 +21,15 @@ class say {
         var args = messageArray.slice(1).join(' ');
 
         if (!args == '' || args == null) {
-            msg.channel.send(args);
+            if (!msg.mentions.everyone) {
+                msg.channel.send(args);
+            } else {
+                msg.channel.send(new discord.RichEmbed()
+                    .setColor([255, 0, 0])
+                    .setAuthor(msg.author.username, msg.author.displayAvatarURL)
+                    .setTitle('Say')
+                    .setDescription('You cannot mention @everyone or @here'));
+            }
         } else {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])

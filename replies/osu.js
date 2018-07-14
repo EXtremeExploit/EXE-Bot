@@ -12,6 +12,7 @@ class OsuReplies {
      */
     constructor(client) {
         client.on('message', msg => {
+            if(!msg.guild) return;
             if (msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES') == true) {
                 if (msg.content.startsWith('https://osu.ppy.sh/b/')) {
                     var id = msg.content.split('/')[4];

@@ -48,7 +48,9 @@ class mute {
                                             .setDescription('You got muted from ' + msg.guild.name)
                                             .setColor([255, 0, 0])
                                             .setTitle('Muted')
-                                            .addField('Muted by', msg.member.user.tag));
+                                            .addField('Muted by', msg.member.user.tag)).catch((e) => {
+                                                return;
+                                            });
                                     }
                                 } else return;
                             });
@@ -71,9 +73,9 @@ class mute {
         } else {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])
-                .setDescription('**To do that i need any of the following permissions**\n'+
-                ' - Manage permissions on this channel\n'+
-                ' - Manage roles'))
+                .setDescription('**To do that i need any of the following permissions**\n' +
+                    ' - Manage permissions on this channel\n' +
+                    ' - Manage roles'))
         }
     }
 }

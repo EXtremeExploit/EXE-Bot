@@ -38,8 +38,10 @@ class unmute {
                             msg.mentions.members.first().send(new discord.RichEmbed()
                                 .setDescription('You got unmuted from ' + msg.guild.name)
                                 .setColor([255, 0, 0])
-                                .setTitle('unmuted')
-                                .addField('unmuted by', msg.member.user.tag));
+                                .setTitle('Unmuted')
+                                .addField('Unmuted by', msg.member.user.tag)).catch((e) => {
+                                    return;
+                                });
                         }
                     });
                 }

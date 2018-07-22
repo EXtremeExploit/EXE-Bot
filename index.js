@@ -35,11 +35,9 @@ if (main.getData().discordBots().enabled == true || main.getData().discordBots()
     var db = new _db(main.getData().discordBots().token, client);
 }
 //Initialize Commands and replies
-try {
-    const commands = require('./commands/commands');
-    new commands.Commands(client, db).Load();
-    const replies = require('./replies/replies');
-    new replies(client);
-} catch (err) { console.log(err) }
+const commands = require('./commands/commands');
+new commands.Commands(client, db).Load();
+const replies = require('./replies/replies');
+new replies(client);
 //Login-In
 client.login(main.getData().token()).catch(e => console.log(e));

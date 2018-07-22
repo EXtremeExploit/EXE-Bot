@@ -1,4 +1,4 @@
-const main = require('../index').Main;
+const main = require('../commands').Main;
 const data = main.getData();
 var prefix = data.prefix();
 
@@ -20,6 +20,7 @@ class Fun {
 		this.rps = require('./rps');
 		this.sandwich = require('./sandwich');
 		this.say = require('./say');
+		this.touch = require('./touch');
 		this.waifu = require('./waifu');
 		var messageArray = msg.content.split(' ');
 		var command_prefix = messageArray[0];
@@ -35,6 +36,7 @@ class Fun {
 			case 'rps': return new this.rps(msg, client);
 			case 'sandwich': return new this.sandwich(msg, client);
 			case 'say': return new this.say(msg, client);
+			case 'touch': return new this.touch(msg, client);
 			case 'waifu': return new this.waifu(msg, client);
 		}
 	}

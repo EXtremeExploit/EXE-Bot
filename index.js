@@ -2,7 +2,7 @@ require('dotenv').config({
     path: './json/.env'
 });
 console.log('Starting...');
-const main = new (require('./scripts/')).Main();
+const main = new (require('./scripts/scripts')).Main();
 const discord = require('discord.js');
 var _db = require('dblapi.js');
 const client = new discord.Client({
@@ -28,19 +28,16 @@ const client = new discord.Client({
         host: 'https://discordapp.com'
     }
 });
-
+//Start events and console log information
 main.getEvents(client).all();
+//Get connection to discordbots.org
 if (main.getData().discordBots().enabled == true || main.getData().discordBots().enabled == 'true') {
     var db = new _db(main.getData().discordBots().token, client);
-    setTimeout((e) => {
-        db = new _db(main.getData().discordBots().token, client);
-    }, 900000);
 }
-client.on('message', async (msg) => {
-    const commands = require('./commands/index');
-    new commands.Commands(client, db).Load(msg);
-});
-
-const replies = require('./Replies/index');
+//Initialize Commands and replies
+const commands = require('./commands/commands');
+new commands.Commands(client, db).Load();
+const replies = require('./replies/replies');
 new replies(client);
+//Login-In
 client.login(main.getData().token()).catch(e => console.log(e));

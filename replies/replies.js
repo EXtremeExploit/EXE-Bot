@@ -1,4 +1,4 @@
-const main = new (require('../scripts/')).Main();
+const main = new (require('../scripts/scripts')).Main();
 const data = main.getData();
 const { Client } = require('discord.js');
 class Replies {

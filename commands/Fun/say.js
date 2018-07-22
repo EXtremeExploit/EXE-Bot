@@ -1,4 +1,4 @@
-const main = require('../index').Main;
+const main = require('../commands').Main;
 const data = main.getData();
 const wikis = {
     home: data.wikis().home,
@@ -21,10 +21,15 @@ class say {
         var args = messageArray.slice(1).join(' ');
 
         if (!args == '' || args == null) {
-            msg.channel.send(new discord.RichEmbed()
-                .setDescription(args)
-                .setColor([255, 0, 0])
-                .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
+            if (msg.content.includes('@everyone') || msg.content.includes('@here')) {
+                msg.channel.send(new discord.RichEmbed()
+                    .setColor([255, 0, 0])
+                    .setAuthor(msg.author.username, msg.author.displayAvatarURL)
+                    .setTitle('Say')
+                    .setDescription('You cannot mention @everyone or @here'));
+            } else {
+                msg.channel.send(args);
+            }
         } else {
             msg.channel.send(new discord.RichEmbed()
                 .setColor([255, 0, 0])

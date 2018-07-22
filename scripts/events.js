@@ -8,7 +8,7 @@ class Events {
      * @param {Client} client 
      */
     constructor(client) {
-        var main = new (require('../')).Main();
+        var main = new (require('./scripts')).Main();
         this.data = main.getData();
         this.prefix = this.data.prefix();
         this.debug = this.data.debug();
@@ -25,7 +25,7 @@ class Events {
                             status: 'dnd',
                             afk: false,
                             game: {
-                                name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers'
+                                name: this.prefix + 'help | ' + this.prefix + 'invite | S: ' + this.client.guilds.array().length
                             }
                         });
                         break;
@@ -35,7 +35,7 @@ class Events {
                             status: 'online',
                             afk: false,
                             game: {
-                                name: this.prefix + 'help | ' + this.prefix + 'invite | ' + this.client.guilds.array().length + ' Servers',
+                                name: this.prefix + 'help | ' + this.prefix + 'invite | S: ' + this.client.guilds.array().length,
                                 url: 'https://www.twitch.tv/extremeexploit_'
                             }
                         });
@@ -47,9 +47,8 @@ class Events {
             console.log('User: ' +me.id+ '/'+me.tag);
             console.log('Owner: ' + this.data.owner().id +'/'+ this.data.owner().tag);
             console.log('Prefix: ' + this.prefix);
-            console.log('Maintance: ' + this.data.maintance());
             console.log('Servers: ' + this.client.guilds.array().length);
-            console.log('============================================\n');
+            console.log('============================================');
         });
     }
     disconnect() {
@@ -173,7 +172,6 @@ class Events {
     voiceStateUpdate() {
         this.client.on('voiceStateUpdate', e => console.log('[ ' + new Date() + ' ] [VOICE_STATE_UPDATE]'));
     }
-
     all() {
         this.ready();
         this.disconnect();
@@ -185,7 +183,7 @@ class Events {
         this.client.on('error', error => {
             console.log('====================ERROR====================');
             console.log('Error Message: ' + error.message);
-            console.log('Error Name:' + error.name);
+            console.log('Error Name: ' + error.name);
             console.log('Error Stack: ' + error.stack);
             console.log('=============================================');
         });

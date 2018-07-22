@@ -1,5 +1,5 @@
 //#region JSON
-const main = new (require('../')).Main();
+const main = new (require('./scripts')).Main();
 const json = main.getJson();
 //#endregion
 
@@ -29,8 +29,8 @@ class Data {
         return json.mysql;
     }
     google() {
-        json.google.cseID = (process.env.db_cseID) ? (process.env.db_cseID) : (json.google.cseID);
-        json.google.appApiKey = (process.env.db_appApiKey) ? (process.env.db_appApiKey) : (json.google.appApiKey);
+        json.google.cseID = (process.env.google_cseID) ? (process.env.google_cseID) : (json.google.cseID);
+        json.google.appApiKey = (process.env.google_appApiKey) ? (process.env.google_appApiKey) : (json.google.appApiKey);
         return json.google;
     }
     discordBots() {
@@ -44,10 +44,6 @@ class Data {
         json.owner.username = (process.env.owner_username) ? (process.env.owner_username) : (json.owner.username);
         json.owner.tag = (process.env.owner_tag) ? (process.env.owner_tag) : (json.owner.tag);
         return json.owner;
-    }
-    allEvents() {
-        json.allEvents = (process.env.allEvents) ? (process.env.allEvents) : (json.allEvents);
-        return json.allEvents;
     }
     debug() {
         json.debug = (process.env.debug) ? (process.env.debug) : (json.debug);

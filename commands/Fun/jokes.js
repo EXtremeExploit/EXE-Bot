@@ -42,9 +42,10 @@ class joke {
             'Somebody once told me the world is gonna roll me\n' +
             'I ain\'t the sharpest tool in the shed\n' +
             'She was looking kind of dumb with her finger and her thumb\n' +
-            'In the shape of an "L" on her forehead'
+            'In the shape of an "L" on her forehead',
+            'Despacito 2 announces Battle Royale'
         ];
-        var joke = jokes[Math.floor(Math.random() * 20)];
+        var joke = jokes[Math.floor(Math.random() * jokes.length)];
         msg.channel.send(new discord.RichEmbed()
             .setTitle('Jokes oWo')
             .setAuthor(msg.author.username, msg.author.displayAvatarURL)

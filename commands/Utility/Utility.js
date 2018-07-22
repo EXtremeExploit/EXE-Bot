@@ -1,25 +1,28 @@
-const main = require('../index').Main;
+const main = require('../commands').Main;
 const data = main.getData();
 var prefix = data.prefix();
+
 const discord = require('discord.js');
 const { Message, Client } = discord;
-class Support {
+class Utility {
     /**
      * 
      * @param {Message} msg 
      * @param {Client} client 
      */
     constructor(msg, client) {
-        this.info = require('./info');
-        this.invite = require('./invite');
+        this.image = require('./image');
+        this.math = require('./math');
+        this.shorturl = require('./shorturl');
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];
         var command = command_prefix.replace(prefix, '');
 
         switch (command) {
-            case 'info': return new this.info(msg, client);
-            case 'invite': return new this.invite(msg, client);
+            case 'image': return new this.image(msg, client);
+            case 'math': return new this.math(msg, client);
+            case 'shorturl': return new this.shorturl(msg, client);
         }
     }
 }
-module.exports = Support;
+module.exports = Utility;

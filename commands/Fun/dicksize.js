@@ -1,4 +1,4 @@
-const main = require('../index').Main;
+const main = require('../commands').Main;
 main.getPrototypes();
 
 const discord = require('discord.js');

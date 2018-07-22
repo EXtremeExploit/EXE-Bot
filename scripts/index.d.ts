@@ -1,16 +1,13 @@
-import { Events } from './events/events';
+import { Events } from './events';
 import { Client, StreamDispatcher } from 'discord.js';
-import { Data } from './data/index';
-import { Functions } from './Functions/index';
+import { Data } from './data';
+import { Functions } from './Functions';
 
 declare type Json = {
     token: string;
     prefix: string;
     osuApiKey: string;
-<<<<<<< HEAD
-=======
     fortnite: string;
->>>>>>> master
     discordBots: DiscordBots;
     mysql: MySQL;
     google: Google;

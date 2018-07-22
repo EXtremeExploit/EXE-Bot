@@ -1,4 +1,4 @@
-const main = require('../index').Main;
+const main = require('../commands').Main;
 const data = main.getData();
 const wikis = {
     home: data.wikis().home,
@@ -29,7 +29,7 @@ class unmute {
                     msg.channel.overwritePermissions(msg.mentions.members.first(), {
                         SEND_MESSAGES: true
                     }).then((channel) => {
-                        msg.channel.send(new discord.RichEmbed()
+                        channel.send(new discord.RichEmbed()
                             .setColor([255, 0, 0])
                             .setTitle('Unmuted')
                             .setDescription('Succesfully unmuted: ' + msg.mentions.members.first().user.username));
@@ -38,10 +38,12 @@ class unmute {
                             msg.mentions.members.first().send(new discord.RichEmbed()
                                 .setDescription('You got unmuted from ' + msg.guild.name)
                                 .setColor([255, 0, 0])
-                                .setTitle('unmuted')
-                                .addField('unmuted by', msg.member.user.tag));
+                                .setTitle('Unmuted')
+                                .addField('Unmuted by', msg.member.user.tag)).catch((e) => {
+                                    return;
+                                });
                         }
-                    })
+                    });
                 }
             } else {
                 msg.channel.send(new discord.RichEmbed()

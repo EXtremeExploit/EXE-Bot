@@ -9,16 +9,15 @@ class Eval {
      * @param {_db} db
      */
     constructor(msg, client, db) {
-        const main = require('../index').Main;
+        const main = require('../commands').Main;
         const functions = main.getFunctions();
         const data = main.getData();
         var token = data.token();
         var prefix = data.prefix();
         var osuApiKey = data.osuApiKey();
         var owner = data.owner();
-        var allEvents = data.allEvents();
         var debug = data.debug();
-        var commands = new (require('../index')).Commands(client);
+        var commands = new (require('../commands')).Commands(client);
         const wikis = {
             home: data.wikis().home,
             commands: data.wikis().commands,
@@ -26,7 +25,7 @@ class Eval {
             faq: data.wikis().faq,
             isEnabled: data.wikisEnabled()
         };
-        var commands = new (require('../index')).Commands(client);
+        
         var messageArray = msg.content.split(' ');
         var command_prefix = messageArray[0];
         var args = messageArray.slice(1).join(' ');

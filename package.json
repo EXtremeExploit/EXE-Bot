@@ -1,6 +1,6 @@
 {
   "name": "exe-bot",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "A Discord Bot made in Node.JS",
   "author": "EXtremeExploit",
   "scripts": {
@@ -16,8 +16,8 @@
     "url": "https://github.com/EXtremeExploit/EXE-Bot/issues"
   },
   "engines": {
-    "node": "8.10.0",
-    "npm": "5.6.0"
+    "node": "10.4.1",
+    "npm": "6.1.0"
   },
   "keywords": [
     "discord",
@@ -59,6 +59,7 @@
     "node-opus": "^0.2.9",
     "opusscript": "0.0.6",
     "osu.js": "^2.0.3",
+    "osulevelcalculator.js": "^1.0.0",
     "random.cat.js": "^1.0.3",
     "random.dog.js": "^1.0.2",
     "request": "^2.87.0",

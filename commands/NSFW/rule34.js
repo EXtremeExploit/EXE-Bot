@@ -1,4 +1,4 @@
-const main = require('../index').Main;
+const main = require('../commands').Main;
 main.getPrototypes();
 var tools = main.getTools();
 const data = main.getData();

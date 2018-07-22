@@ -1,4 +1,4 @@
-const main = require('../../index').Main;
+const main = require('../../commands').Main;
 const functions = main.getFunctions();
 const data = main.getData();
 var osuApiKey = data.osuApiKey();
@@ -17,6 +17,7 @@ const { Message, Client } = discord;
 const _osuapi = require('osu.js');
 const osuApi = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api
 const { Beatmap, Best, GamesOptions, Match, MatchOptions, Recent, Replay, Scores, ScoresOptions, User, UserEvents } = _osuapi;
+const osulevel = require('osulevelcalculator.js').api();
 //#endregion
 class osu {
 	/**
@@ -65,7 +66,7 @@ class osu {
                     type: 'string',
                     event_days: 0,
                     u: user
-                }).then(userF => {
+                }).then(async userF => {
                     if (userF.length < 1) {
                         msg.channel.send(new discord.RichEmbed()
                             .setColor([255, 0, 0])
@@ -77,6 +78,9 @@ class osu {
                             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
                     } else {
                         var user = userF[0];
+                        var userTotalScore = (user.total_score == null) ? 0 : user.total_score;
+                        var nextLevel = await osulevel.calculateLevelCOM(userTotalScore, (Math.floor(user.level) + 1));
+                        if (nextLevel.result == undefined) nextLevel.result = null;
                         msg.channel.send(new discord.RichEmbed()
                             .setColor([255, 58, 255])
                             .setAuthor(user.username, 'https://a.ppy.sh/' + user.user_id, 'https://osu.ppy.sh/u/' + user.user_id)
@@ -96,7 +100,8 @@ class osu {
                                 '**100:** ' + user.count100 + '\n' +
                                 '**50:** ' + user.count50, true)
                             .addField('Scores', '**Total:** ' + user.total_score + '\n' +
-                                '**Ranked:** ' + user.ranked_score, true)
+                                '**Ranked:** ' + user.ranked_score + '\n' +
+                                '**Score nedded to reach Lvl.' + (Math.floor(user.level) + 1) + ':** ' + nextLevel.result, true)
                             .addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n' +
                                 '[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true));
                     }
@@ -112,7 +117,7 @@ class osu {
                             .setColor([255, 0, 0])
                             .setTitle('Error')
                             .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                            .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
+                            .setDescription('OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!')
                             .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
                         console.log(err);
                     }
@@ -177,7 +182,7 @@ class osu {
                                 .setColor([255, 0, 0])
                                 .setTitle('Error')
                                 .addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-                                .setDescription('An unknown error ocurred, this will be reported to the owner to fix it, or you can directly report it at the support server')
+                                .setDescription('OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!')
                                 .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL));
                             console.log(err);
                         }

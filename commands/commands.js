@@ -1,9 +1,8 @@
 const main = new (require('../scripts/scripts')).Main();
 const data = main.getData();
-var prefix = data.prefix();
 const _db = require('dblapi.js');
 const discord = require('discord.js');
-const { Message, Client } = discord;
+const { Client } = discord;
 
 class Commands {
     /**
@@ -61,7 +60,7 @@ class Commands {
         this.client.on('message', async (msg) => {
             if (!msg.guild) return;
             if (msg.author.bot) return;
-            if (!msg.content.startsWith(main.getData().prefix())) return;
+            if (!msg.content.startsWith(data.prefix())) return;
             if (msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES') == true) {
                 //#region Help Command Load
                 var help = require('./Support/help');

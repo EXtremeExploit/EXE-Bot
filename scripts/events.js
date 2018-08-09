@@ -36,8 +36,9 @@ class Events {
                             afk: false,
                             game: {
                                 name: this.prefix + 'help | ' + this.prefix + 'invite | S: ' + this.client.guilds.array().length,
-                                url: 'https://www.twitch.tv/extremeexploit_'
-                            }
+                                url: 'https://www.twitch.tv/extremeexploit_',
+                                type: 'WATCHING'
+                            },
                         });
                         break;
                 }

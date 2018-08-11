@@ -48,7 +48,7 @@ class Events {
             console.log('JavaScript, Node.JS '+process.version+', discord.js v' + discord.version);
             console.log('User: ' +me.id+ '/'+me.tag);
             console.log('Owner: ' + this.data.owner().id +'/'+ this.data.owner().tag);
-            console.log('Prefix / Servers: ' + this.prefix + '/ ' + this.client.guilds.array().length + ' Servers');
+            console.log('Prefix / Servers: ' + this.prefix + ' / ' + this.client.guilds.array().length + ' Servers');
             console.log('============================================');
         });
     }

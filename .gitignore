@@ -59,3 +59,4 @@ typings/
 
 # visual studio code
 .vscode/
+.eslintrc.json

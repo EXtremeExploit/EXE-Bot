@@ -16,7 +16,6 @@ class Misc {
 		this.wiki = require('./wiki');
 		var messageArray = msg.content.split(' ');
 		var command_prefix = messageArray[0];
-		var args = messageArray.slice(1).join(' ');
 		var command = command_prefix.replace(prefix, '');
 
 		switch (command) {

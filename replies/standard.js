@@ -15,7 +15,8 @@ class StandardReplies {
 				switch (message) {
 					case 'ayy': channel.send('lamo'); break;
 					case 'omae wa mou shindeiru': channel.send('NANI!?!'); break;
-					case 'お前はもう、死んでいる': channel.send('何？！'); break;
+					case 'お前はもう、死んでいる':
+					case 'お前はもう死んでいる': channel.send('何？！'); break;
 					case 'o/': channel.send('\\o'); break;
 					case '\\o': channel.send('o/'); break;
 					case 'top': channel.send('kek'); break;

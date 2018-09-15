@@ -7,7 +7,7 @@ class waifu {
 	 * @param {Client} client 
 	 */
 	constructor(msg, client) {
-		msg.reply('Your waifu doesn\'t exists, sorry about that...')
+		msg.reply('Your waifu doesn\'t exists, sorry about that...');
 	}
 }
 module.exports = waifu;

@@ -36,7 +36,6 @@ class cookie {
 			} else {
 				sql.query(`SELECT * FROM cookies WHERE id = ${msg.mentions.members.first().id}`, (err, rows) => {
 					if (err) throw err;
-
 					var query;
 
 					if (rows.length < 1) {

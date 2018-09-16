@@ -47,7 +47,7 @@ class Eval {
 				msg.channel.send(new discord.RichEmbed()
 					.setTitle('ERROR')
 					.setColor([255, 0, 0])
-					.setDescription('\`\`\`xl\n' + functions.clean(err) + '\`\`\`'));
+					.setDescription('```xl\n' + functions.clean(err) + '```'));
 			}
 		} else {
 			msg.channel.send(new discord.RichEmbed()

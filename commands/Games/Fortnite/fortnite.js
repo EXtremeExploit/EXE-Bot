@@ -46,7 +46,7 @@ class fortnite {
 			//
 			var _fortnite = require('fortnite.js');
 			var fortnite = new _fortnite(data.fortnite());
-			fortnite.get(user, mode).then(e => {
+			fortnite.get(user, mode).then((e) => {
 				var accountId = e.accountId;
 				var displayName = e.displayName;
 
@@ -104,7 +104,7 @@ class fortnite {
 						'**K/d:** ' + squad.kd, true)
 					.setAuthor(msg.author.username, msg.author.displayAvatarURL));
 
-			}).catch(err => {
+			}).catch((err) => {
 				if (err == 'HTTP Player Not Found') {
 					msg.channel.send(new discord.RichEmbed()
 						.setColor([255, 0, 0])

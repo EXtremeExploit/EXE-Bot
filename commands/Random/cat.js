@@ -9,7 +9,7 @@ class cat {
 	 */
 	constructor(msg, client) {
 
-		randomCat.getCat().then(cat => {
+		randomCat.getCat().then((cat) => {
 			msg.channel.send(new discord.RichEmbed()
 				.setImage(cat.file)
 				.setColor([255, 0, 0])

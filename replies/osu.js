@@ -11,14 +11,14 @@ class OsuReplies {
 	 * @param {Client} client 
 	 */
 	constructor(client) {
-		client.on('message', msg => {
+		client.on('message', (msg) => {
 			if(!msg.guild) return;
 			if (msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES') == true) {
 				if (msg.content.startsWith('https://osu.ppy.sh/b/')) {
 					var beatmap_id = msg.content.split('/')[4];
 					osuApi.getBeatmaps({
 						b: beatmap_id
-					}).then(bmF => {
+					}).then((bmF) => {
 						if (!bmF.length < 1) {
 							var bm = bmF[0];
 							switch (bm.approved) {
@@ -64,7 +64,7 @@ class OsuReplies {
 					var user_id = msg.content.split('/')[4];
 					osuApi.getUser({
 						u: user_id
-					}).then(userF => {
+					}).then((userF) => {
 						if (!userF.length < 1) {
 							var user = userF[0];
 							msg.channel.send(new discord.RichEmbed()

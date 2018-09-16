@@ -9,7 +9,7 @@ class dog {
 	 */
 	constructor(msg, client) {
 
-		randomDog.getDog().then(dog => {
+		randomDog.getDog().then((dog) => {
 			msg.channel.send(new discord.RichEmbed()
 				.setImage(dog.url)
 				.setColor([255, 0, 0])

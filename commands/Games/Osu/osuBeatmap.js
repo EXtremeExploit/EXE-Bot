@@ -41,7 +41,7 @@ class osuBeatmap {
 			} else {
 				osuApi.getBeatmaps({
 					b: parseInt(args)
-				}).then(beatmap => {
+				}).then((beatmap) => {
 					if (beatmap.length < 1) {
 						msg.channel.send(new discord.RichEmbed()
 							.setColor([255, 0, 0])
@@ -104,7 +104,7 @@ class osuBeatmap {
 								'[**Beatmap**](https://osu.ppy.sh/b/' + bm.beatmap_id + ')\n' +
 								'[**Download**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')([no vid](https://osu.ppy.sh/d/' + bm.beatmapset_id + 'n))', true));
 					}
-				}).catch(err => {
+				}).catch((err) => {
 					if (err == 'SyntaxError: Unexpected token < in JSON at position 0') {
 						msg.channel.send(new discord.RichEmbed()
 							.setAuthor('osu! Server failure!', 'https://pbs.twimg.com/profile_images/706719922596900864/xTzREmuc_400x400.jpg')

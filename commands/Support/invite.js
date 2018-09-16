@@ -10,7 +10,7 @@ class invite {
 
 		client.generateInvite(['SEND_MESSAGES', 'READ_MESSAGES',
 			'KICK_MEMBERS', 'BAN_MEMBERS', 'MANAGE_MESSAGES', 'MANAGE_ROLES_OR_PERMISSIONS', 'MANAGE_CHANNELS',
-			'EMBED_LINKS']).then(link => {
+			'EMBED_LINKS']).then((link) => {
 				msg.channel.send(new discord.RichEmbed()
 					.setTitle('Invite me to your server!')
 					.setAuthor(client.user.username, client.user.displayAvatarURL)

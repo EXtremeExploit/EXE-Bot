@@ -26,12 +26,12 @@ class rule34 {
 			while (search.includes(' '))
 				search = search.replace(' ', '_');
 			let link = 'https://rule34.paheal.net/post/list/' + search + '/1';
-			link.fetchHTTP().then(res => {
+			link.fetchHTTP().then((res) => {
 				let nb = Number(res.text.split('">Last</a>').shift().split(' | <a href="/post/list/').pop().split('/').pop());
 				let page = tools.random(1, nb);
 				let link = 'https://rule34.paheal.net/post/list/' + search + '/' + page;
 				return link.fetchHTTP();
-			}).then(res => {
+			}).then((res) => {
 				let html = res.text;
 				for (let i = 0; i <= 100; i++)
 					html = html.replace('<a href="http://rule34-data-', '<-SPLIT->-').replace('">Image Only</a>', '<-SPLIT->-');

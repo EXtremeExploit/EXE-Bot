@@ -65,7 +65,7 @@ class osu {
 					type: 'string',
 					event_days: 0,
 					u: user
-				}).then(async userF => {
+				}).then(async (userF) => {
 					if (userF.length < 1) {
 						msg.channel.send(new discord.RichEmbed()
 							.setColor([255, 0, 0])
@@ -104,7 +104,7 @@ class osu {
 							.addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n' +
 								'[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true));
 					}
-				}).catch(err => {
+				}).catch((err) => {
 					if (err == 'SyntaxError: Unexpected token < in JSON at position 0') {
 						msg.channel.send(new discord.RichEmbed()
 							.setAuthor('osu! Server failure!', 'https://pbs.twimg.com/profile_images/706719922596900864/xTzREmuc_400x400.jpg')
@@ -127,7 +127,7 @@ class osu {
 					m: mode,
 					type: 'string',
 					limit: 1
-				}).then(async playF => {
+				}).then(async (playF) => {
 					var play = playF[0];
 					var map = await osuApi.getBeatmaps({ b: play.beatmap_id });
 					var bm = map[0];
@@ -158,7 +158,7 @@ class osu {
 						.addField('Date', date.getUTCFullYear() + '/' + (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + ' @ ' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds() + ' UTC', true)
 						.addField('Links', '[**Download**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')([no vid](https://osu.ppy.sh/d/' + bm.beatmapset_id + 'n))\n' +
 							'[**User**](https://osu.ppy.sh/u/' + play.user_id + ')', true));
-				}).catch(err => {
+				}).catch((err) => {
 					if (err == 'SyntaxError: Unexpected token < in JSON at position 0') {
 						msg.channel.send(new discord.RichEmbed()
 							.setAuthor('osu! Server failure!', 'https://pbs.twimg.com/profile_images/706719922596900864/xTzREmuc_400x400.jpg')

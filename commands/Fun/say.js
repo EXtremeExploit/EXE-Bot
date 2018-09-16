@@ -34,7 +34,7 @@ class say {
 			msg.channel.send(new discord.RichEmbed()
 				.setColor([255, 0, 0])
 				.addField('Help', 'Check the [wiki](' + wikis.commands + '#fun) for help!')
-				.setDescription('Pleace specify something to say!'));
+				.setDescription('Please specify something to say!'));
 		}
 	}
 }

@@ -29,7 +29,7 @@ class osuBeatmap {
 			msg.channel.send(new discord.RichEmbed()
 				.setColor([255, 0, 0])
 				.addField('Help', 'Check the [wiki](' + wikis.commands + '#osu) for help!')
-				.setDescription('Pleace specify a beatmap ID'));
+				.setDescription('Please specify a beatmap ID'));
 		} else {
 			if (args.startsWith('https://osu.ppy.sh/s/')) {
 				msg.channel.send(new discord.RichEmbed()

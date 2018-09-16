@@ -40,4 +40,4 @@ new commands.Commands(client, db).Load();
 const replies = require('./replies/replies');
 new replies(client);
 //Login-In
-client.login(main.getData().token()).catch(e => console.log(e));
+client.login(main.getData().token()).catch((e) => console.log(e));

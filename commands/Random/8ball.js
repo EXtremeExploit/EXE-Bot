@@ -34,7 +34,7 @@ class eightball {
 			msg.channel.send(new discord.RichEmbed()
 				.setColor([0, 0, 0])
 				.addField('Help', 'Check the [wiki](' + wikis.commands + '#random) for help!')
-				.setDescription('Pleace specify an ask!'));
+				.setDescription('Please specify an ask!'));
 		} else {
 			msg.channel.send(new discord.RichEmbed()
 				.setColor([0, 0, 0])

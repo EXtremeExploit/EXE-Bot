@@ -31,7 +31,7 @@ class rate {
 			msg.channel.send(new discord.RichEmbed()
 				.setColor([255, 0, 0])
 				.addField('Help', 'Check the [wiki](' + wikis.commands + '#random) for help!')
-				.setDescription('Pleace specify something to rate!'));
+				.setDescription('Please specify something to rate!'));
 		}
 	}
 }

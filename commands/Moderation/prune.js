@@ -27,7 +27,7 @@ class prune {
 				if (deln < 2 || deln > 99) {
 					msg.channel.send(new discord.RichEmbed()
 						.addField('Help', 'Check the [wiki](' + wikis.commands + '#moderation) for help!')
-						.setDescription('Pleace specify a number between 2 and 99!')
+						.setDescription('Please specify a number between 2 and 99!')
 						.setColor([255, 0, 0]));
 				} else {
 					msg.channel.fetchMessages({

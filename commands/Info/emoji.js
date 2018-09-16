@@ -27,7 +27,7 @@ class emoji {
 				.setColor([255, 0, 0])
 				.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL)
 				.addField('Help', 'Check the [wiki](' + wikis.commands + '#info) for help!')
-				.setDescription('Pleace specify an emoji to get!'));
+				.setDescription('Please specify an emoji to get!'));
 		} else {
 			var emote = msg.guild.emojis.find('name', emojiname);
 			if (emote == null) {

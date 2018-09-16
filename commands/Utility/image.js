@@ -34,7 +34,7 @@ class image {
 				.setColor([255, 0, 0])
 				.setAuthor(msg.author.username, msg.author.displayAvatarURL)
 				.addField('Help', 'Check the [wiki](' + wikis.commands + '#utility) for help!')
-				.setDescription('Pleace specify a search term!'));
+				.setDescription('Please specify a search term!'));
 		} else {
 			gimages.search(args, {
 				safe: 'medium'

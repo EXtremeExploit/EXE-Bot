@@ -60,7 +60,7 @@ class mute {
 					msg.channel.send(new discord.RichEmbed()
 						.setColor([255, 0, 0])
 						.addField('Help', 'Check the [wiki](' + wikis.commands + '#moderation) for help!')
-						.setDescription('Pleace specify an user!'));
+						.setDescription('Please specify an user!'));
 
 				}
 			} else {

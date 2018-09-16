@@ -44,7 +44,7 @@ class rps {
 				.setColor([255, 0, 0])
 				.setAuthor(msg.author.username, msg.author.displayAvatarURL)
 				.addField('Help', 'Check the [wiki](' + wikis.commands + '#fun) for help!')
-				.setDescription('Pleace specify an user!'));
+				.setDescription('Please specify an user!'));
 		}
 	}
 	/**

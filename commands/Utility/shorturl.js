@@ -27,14 +27,14 @@ class shorturl {
 			msg.channel.send(new discord.RichEmbed()
 				.setColor([255, 0, 0])
 				.addField('Help', 'Check the [wiki](' + wikis.commands + '#utility) for help!')
-				.setDescription('Pleace specify something to short!'));
+				.setDescription('Please specify something to short!'));
 		} else {
 			shorten.shorten(args, (res) => {
 				if (res.startsWith('Error:')) {
 					msg.channel.send(new discord.RichEmbed()
 						.setColor([255, 0, 0])
 						.addField('Help', 'Check the [wiki](' + wikis.commands + '#utility) for help!')
-						.setDescription('Pleace specify a valid URL to short!'));
+						.setDescription('Please specify a valid URL to short!'));
 				} else {
 					msg.channel.send(res);
 				}

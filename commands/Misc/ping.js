@@ -10,7 +10,7 @@ class ping {
 
 		msg.channel.send(new discord.RichEmbed()
 			.setTitle('Pinging...')
-			.setColor([0, 0, 255])).then(pingMsg => {
+			.setColor([0, 0, 255])).then((pingMsg) => {
 				pingMsg.edit(new discord.RichEmbed()
 					.setColor([255, 0, 0])
 					.setTitle('Pong!')

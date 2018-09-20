@@ -43,7 +43,7 @@ class Functions {
 			database: data.mysql().database,
 			user: data.mysql().user,
 			password: data.mysql().password,
-		})
+		});
 		return sql;
 	}
 	/**
@@ -55,13 +55,13 @@ class Functions {
 			return null;
 		}
 
-		var d, h, m, s, ms;
+		var d, h, m, s;
 		s = Math.floor(ms / 1000);
 		m = Math.floor(s / 60);
 		s = s % 60;
 		h = Math.floor(m / 60);
 		m = m % 60;
-		d = Math.floor(Math.floor(Math.floor(Math.floor(ms / 1000) / 60) / 60) / 24)
+		d = Math.floor(Math.floor(Math.floor(Math.floor(ms / 1000) / 60) / 60) / 24);
 		h = h % 24;
 		ms = Math.floor((ms % 1000) * 1000) / 1000;
 		return { days: d, hours: h, minutes: m, seconds: s, ms: ms };

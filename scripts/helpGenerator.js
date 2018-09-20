@@ -9,7 +9,7 @@ var wikis = data.wikis();
 var supportArray = arrays.support;
 var support = '';
 supportArray.forEach((e) => {
-    support += '\n' + e
+	support += '\n' + e;
 });
 exports.support = replacedWikis(support);
 //#endregion
@@ -18,7 +18,7 @@ exports.support = replacedWikis(support);
 var funArray = arrays.fun;
 var fun = '';
 funArray.forEach((e) => {
-    fun += '\n' + e
+	fun += '\n' + e;
 });
 exports.fun = replacedWikis(fun);
 //#endregion
@@ -27,7 +27,7 @@ exports.fun = replacedWikis(fun);
 var infoArray = arrays.info;
 var info = '';
 infoArray.forEach((e) => {
-    info += '\n' + e
+	info += '\n' + e;
 });
 exports.info = replacedWikis(info);
 //#endregion
@@ -36,7 +36,7 @@ exports.info = replacedWikis(info);
 var miscArray = arrays.misc;
 var misc = '';
 miscArray.forEach((e) => {
-    misc += '\n' + e
+	misc += '\n' + e;
 });
 exports.misc = replacedWikis(misc);
 //#endregion
@@ -45,7 +45,7 @@ exports.misc = replacedWikis(misc);
 var moderationArray = arrays.moderation;
 var moderation = '';
 moderationArray.forEach((e) => {
-    moderation += '\n' + e
+	moderation += '\n' + e;
 });
 exports.moderation = replacedWikis(moderation);
 //#endregion
@@ -54,7 +54,7 @@ exports.moderation = replacedWikis(moderation);
 var nsfwArray = arrays.nsfw;
 var nsfw = '';
 nsfwArray.forEach((e) => {
-    nsfw += '\n' + e
+	nsfw += '\n' + e;
 });
 exports.nsfw = replacedWikis(nsfw);
 //#endregion
@@ -63,7 +63,7 @@ exports.nsfw = replacedWikis(nsfw);
 var gamesArrays = arrays.games;
 var games = '';
 gamesArrays.forEach((e) => {
-    games += '\n' + e
+	games += '\n' + e;
 });
 exports.games = replacedWikis(games);
 //#endregion
@@ -72,7 +72,7 @@ exports.games = replacedWikis(games);
 var randomArray = arrays.random;
 var random = '';
 randomArray.forEach((e) => {
-    random += '\n' + e
+	random += '\n' + e;
 });
 exports.random = replacedWikis(random);
 //#endregion
@@ -81,7 +81,7 @@ exports.random = replacedWikis(random);
 var utilityArray = arrays.utility;
 var utility = '';
 utilityArray.forEach((e) => {
-    utility += '\n' + e
+	utility += '\n' + e;
 });
 exports.utility = replacedWikis(utility);
 //#endregion
@@ -90,15 +90,15 @@ exports.utility = replacedWikis(utility);
 var wikiArray = arrays.wiki;
 var wiki = '';
 wikiArray.forEach((e) => {
-    wiki += '\n' + e
+	wiki += '\n' + e;
 });
 exports.wiki = replacedWikis(wiki);
 //#endregion
 
 function replacedWikis(string) {
-    return string.replace(/&WIKIS_HOME/g, wikis.home)
-        .replace(/&WIKIS_COMMANDS/g, wikis.commands)
-        .replace(/&WIKIS_REPLIES/g, wikis.replies)
-        .replace(/&WIKIS_FAQ/g, wikis.faq)
-        .replace(/&WIKIS_MODIFIERS/g, wikis.modifiers);
+	return string.replace(/&WIKIS_HOME/g, wikis.home)
+		.replace(/&WIKIS_COMMANDS/g, wikis.commands)
+		.replace(/&WIKIS_REPLIES/g, wikis.replies)
+		.replace(/&WIKIS_FAQ/g, wikis.faq)
+		.replace(/&WIKIS_MODIFIERS/g, wikis.modifiers);
 }

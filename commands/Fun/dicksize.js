@@ -4,11 +4,11 @@ main.getPrototypes();
 const discord = require('discord.js');
 const { Message, Client } = discord;
 class dicksize {
-    /**
-     * 
-     * @param {Message} msg 
-     * @param {Client} client 
-     */
+	/**
+	 * 
+	 * @param {Message} msg 
+	 * @param {Client} client 
+	 */
 	constructor(msg, client) {
 		let xsmall = [
 			'Life hates you.',

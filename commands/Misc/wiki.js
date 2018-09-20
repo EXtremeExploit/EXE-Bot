@@ -30,7 +30,7 @@ class wiki {
 		} else {
 			msg.channel.send(new discord.RichEmbed()
 				.setColor([255, 0, 0])
-				.setDescription('This Bot doesn\'t Support wikis'))
+				.setDescription('This Bot doesn\'t Support wikis'));
 		}
 	}
 }

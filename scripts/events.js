@@ -44,12 +44,12 @@ class Events {
 						break;
 				}
 			}, 30000);
-			console.log('============================================');
-			console.log('JavaScript, Node.JS '+process.version+', discord.js v' + discord.version);
-			console.log('User: ' +me.id+ '/'+me.tag);
-			console.log('Owner: ' + this.data.owner().id +'/'+ this.data.owner().tag);
+			console.log('==================================================');
+			console.log('JavaScript, Node.JS ' + process.version + ', discord.js v' + discord.version);
+			console.log('User: ' + me.id + '/' + me.tag);
+			console.log('Owner: ' + this.data.owner().id + '/' + this.data.owner().tag);
 			console.log('Prefix / Servers: ' + this.prefix + ' / ' + this.client.guilds.array().length + ' Servers');
-			console.log('============================================');
+			console.log('==================================================');
 		});
 	}
 	disconnect() {
@@ -57,13 +57,6 @@ class Events {
 	}
 	reconnecting() {
 		this.client.on('reconnecting', () => console.log('[ ' + new Date + ' ] [RECONNECTING...]'));
-	}
-	warn() {
-		this.client.on('warn', (info) => {
-			console.log('====================WARN====================');
-			console.warn(info);
-			console.log('============================================');
-		});
 	}
 	channelCreate() {
 		this.client.on('channelCreate', (ch) => console.log('[ ' + new Date() + ' ] [CHANNEL_CREATE]'));
@@ -172,6 +165,23 @@ class Events {
 	}
 	voiceStateUpdate() {
 		this.client.on('voiceStateUpdate', (e) => console.log('[ ' + new Date() + ' ] [VOICE_STATE_UPDATE]'));
+	}
+	rateLimit() {
+		this.client.on('rateLimit', (e) => {
+			console.log('====================RATE LIMIT====================');
+			console.log('Method: ' + e.method);
+			console.log('Path: ' + e.path);
+			console.log('Request Limit: ' + e.requestLimit);
+			console.log('Time Difference: ' + e.timeDifference);
+			console.log('==================================================');
+		});
+	}
+	warn() {
+		this.client.on('warn', (info) => {
+			console.log('====================WARN====================');
+			console.warn(info);
+			console.log('============================================');
+		});
 	}
 	all() {
 		this.ready();

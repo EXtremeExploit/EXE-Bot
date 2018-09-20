@@ -11,16 +11,16 @@ const client = new discord.Client({
 	shardCount: 0,
 	messageCacheMaxSize: 200,
 	messageCacheLifetime: 0,
-	messageSweepInterval: 0,
+	messageSweepInterval: 3600,
 	fetchAllMembers: false,
 	disableEveryone: false,
 	sync: false,
 	restWsBridgeTimeout: 5000,
-	restTimeOffset: 500,
+	restTimeOffset: 0,
 	disabledEvents: [],
 	ws: {
-		large_threshold: 100,
-		compress: false
+		large_threshold: 300,
+		compress: true
 	},
 	http: {
 		version: 7,

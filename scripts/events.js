@@ -189,6 +189,7 @@ class Events {
 		this.reconnecting();
 		this.warn();
 		this.error();
+		this.rateLimit();
 	}
 	error() {
 		this.client.on('error', (error) => {

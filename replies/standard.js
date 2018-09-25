@@ -13,7 +13,7 @@ class StandardReplies {
 				var channel = msg.channel;
 
 				switch (message) {
-					case 'ayy': channel.send('lamo'); break;
+					case 'ayy': channel.send('lmao'); break;
 					case 'omae wa mou shindeiru': channel.send('NANI!?!'); break;
 					case 'お前はもう、死んでいる':
 					case 'お前はもう死んでいる': channel.send('何？！'); break;

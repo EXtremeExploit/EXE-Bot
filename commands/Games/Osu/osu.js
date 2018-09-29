@@ -133,7 +133,7 @@ class osu {
 					var bm = map[0];
 					var _user = await osuApi.getUser({ u: play.user_id, type: 'id' });
 					var user = _user[0];
-					var date = new Date(play.date + '+8:00');
+					var date = new Date(play.date + ' UTC');
 					if (play.rank == 'S') play.rank = 'S (Gold)';
 					if (play.rank == 'SH') play.rank = 'S (Silver)';
 					if (play.rank == 'X') play.rank = 'SS (Gold)';
@@ -155,7 +155,7 @@ class osu {
 							'**100:** ' + play.count100 + '\n' +
 							'**50:** ' + play.count50 + '\n' +
 							'**Misses:** ' + play.countmiss, true)
-						.addField('Date', date.getUTCFullYear() + '/' + (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + ' @ ' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds() + ' UTC', true)
+						.addField('Date', date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' @ ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ' UTC', true)
 						.addField('Links', '[**Download**](https://osu.ppy.sh/d/' + bm.beatmapset_id + ')([no vid](https://osu.ppy.sh/d/' + bm.beatmapset_id + 'n))\n' +
 							'[**User**](https://osu.ppy.sh/u/' + play.user_id + ')', true));
 				}).catch((err) => {

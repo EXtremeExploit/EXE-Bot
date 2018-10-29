@@ -62,7 +62,7 @@ class image {
 
 					const collector = message.createReactionCollector((reaction, user) => user.id != client.user.id,
 						{
-							time: 30000
+							time: 60000
 						});
 
 					collector.on('collect', async (reaction, reactions) => {
@@ -135,12 +135,12 @@ class image {
 						}
 					});
 					collector.on('end', (coll, reason) => {
-						message.edit(message.embeds[0].setFooter('Stopped getting reactions'));
+						message.edit(embed.setFooter('Stopped getting reactions'));
 					});
-				}).catch(err => {
+				}).catch((err) => {
 					console.log(err);
 				});
-			}).catch(err => {
+			}).catch((err) => {
 				console.log(err);
 				msg.channel.send(new discord.RichEmbed()
 					.setColor([255, 0, 0])

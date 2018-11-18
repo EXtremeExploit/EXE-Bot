@@ -1,5 +1,4 @@
 const main = require('../commands').Main;
-const functions = main.getFunctions();
 const data = main.getData();
 const wikis = {
 	home: data.wikis().home,
@@ -8,8 +7,11 @@ const wikis = {
 	faq: data.wikis().faq,
 	isEnabled: data.wikisEnabled()
 };
-var sql = functions.connectToDatabase();
-
+var mongoose = require('mongoose');
+mongoose.connect(data.db().url, {
+	useNewUrlParser: true
+}).catch((e) => new Error(e));
+var cookieModel = main.getModels().cookie;
 const discord = require('discord.js');
 const { Message, Client } = discord;
 class cookie {
@@ -34,25 +36,28 @@ class cookie {
 					.setColor([255, 0, 0])
 					.setDescription('You cant give a cookie to youself, that stuff doesn\'t  grow from trees!!'));
 			} else {
-				sql.query(`SELECT * FROM cookies WHERE id = ${msg.mentions.members.first().id}`, (err, rows) => {
+				cookieModel.findOne({
+					id: msg.mentions.members.first().id.toString()
+				}, (err, cookie) => {
 					if (err) throw err;
-					var query;
 
-					if (rows.length < 1) {
-						query = `INSERT INTO cookies(id,cookies) VALUES ('${msg.mentions.members.first().id}', 1)`;
+					if (cookie == null) {
+						var Cookie = new cookieModel({
+							id: msg.mentions.members.first().id,
+							count: 1
+						});
+						Cookie.save();
 					} else {
-						var cookies = rows[0].cookies;
-						query = `UPDATE cookies SET cookies = ${cookies + 1} WHERE id = ${msg.mentions.members.first().id}`;
+						var cookies = cookie.count;
+						cookie.count = cookies + 1;
+						cookie.save();
 					}
-
-					sql.query(query);
-
-					msg.channel.send(new discord.RichEmbed()
-						.setTitle(msg.member.user.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
-						.setColor([255, 0, 0])
-						.setImage(cookieImg));
 				});
 
+				msg.channel.send(new discord.RichEmbed()
+					.setTitle(msg.member.user.username + ' Has given a cookie to ' + msg.mentions.members.first().user.username)
+					.setColor([255, 0, 0])
+					.setImage(cookieImg));
 			}
 		} else {
 			msg.channel.send(new discord.RichEmbed()

@@ -66,16 +66,16 @@ class osuBeatmap {
 						if (bm.tags == '' || bm.tags == null) bm.tags = '*null*';
 						if (bm.artist == '' || bm.artist == null) bm.artist = '*null*';
 
-						var _approved_date_date = new Date(bm.approved_date + ' UTC+08:00');
+						var _approved_date_date = new Date(bm.approved_date + ' UTC');
 						var approved_date;
 						if (isNaN(_approved_date_date.getTime())) approved_date = '';
 						else {
 							var _approved_date = {
-								year: _approved_date_date.getUTCFullYear(),
-								month: _approved_date_date.getUTCMonth() + 1,
-								day: _approved_date_date.getUTCDate(),
-								hours: _approved_date_date.getUTCHours(),
-								minutes: _approved_date_date.getUTCMinutes()
+								year: _approved_date_date.getFullYear(),
+								month: _approved_date_date.getMonth() + 1,
+								day: _approved_date_date.getDate(),
+								hours: _approved_date_date.getHours(),
+								minutes: _approved_date_date.getMinutes()
 							};
 							approved_date = ' (' + _approved_date.year + '/' + _approved_date.month + '/' + _approved_date.day + ' @ ' + _approved_date.hours + ':' + _approved_date.minutes + ' UTC)';
 						}

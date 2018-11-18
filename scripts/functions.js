@@ -35,17 +35,6 @@ class Functions {
 	fixDecimals(number) {
 		return parseFloat(number).toFixed(2);
 	}
-	connectToDatabase() {
-		var mysql = require('mysql');
-		var sql = mysql.createConnection({
-			host: data.mysql().host,
-			port: data.mysql().port,
-			database: data.mysql().database,
-			user: data.mysql().user,
-			password: data.mysql().password,
-		});
-		return sql;
-	}
 	/**
 	 * Converts timestamp/ms to days, hours, minutes and seconds
 	 * @param {number} ms 

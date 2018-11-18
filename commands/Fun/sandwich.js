@@ -1,5 +1,4 @@
 const main = require('../commands').Main;
-const functions = main.getFunctions();
 const data = main.getData();
 const wikis = {
 	home: data.wikis().home,
@@ -8,7 +7,11 @@ const wikis = {
 	faq: data.wikis().faq,
 	isEnabled: data.wikisEnabled()
 };
-var sql = functions.connectToDatabase();
+var mongoose = require('mongoose');
+mongoose.connect(data.db().url, {
+	useNewUrlParser: true
+}).catch((e) => new Error(e));
+var sandwichModel = main.getModels().sandwich;
 
 const discord = require('discord.js');
 const { Message, Client } = discord;
@@ -19,7 +22,6 @@ class sandwich {
 	 * @param {Client} client 
 	 */
 	constructor(msg, client) {
-
 		var images = [
 			'https://pa1.narvii.com/6272/7beb194348fefb46bfdd519cb1ef0e530a621247_hq.gif',
 			'https://i.imgur.com/325tm32.gif',
@@ -36,26 +38,27 @@ class sandwich {
 					.setColor([255, 0, 0])
 					.setDescription('You cant give a sandwich to youself, that stuff doesn\'t  grow from trees!!'));
 			} else {
-				sql.query(`SELECT * FROM sandwiches WHERE id = ${msg.mentions.members.first().id}`, (err, rows) => {
+				sandwichModel.findOne({
+					id: msg.mentions.members.first().id.toString()
+				}, (err, sandwich) => {
 					if (err) throw err;
 
-					var query;
-
-					if (rows.length < 1) {
-						query = `INSERT INTO sandwiches(id,sandwiches) VALUES ('${msg.mentions.members.first().id}', 1)`;
+					if (sandwich == null) {
+						var Sandwich = new sandwichModel({
+							id: msg.mentions.members.first().id,
+							count: 1
+						});
+						Sandwich.save();
 					} else {
-						var sandwiches = rows[0].sandwiches;
-						query = `UPDATE sandwiches SET sandwiches = ${sandwiches + 1} WHERE id = ${msg.mentions.members.first().id}`;
+						var sandwiches = sandwich.count;
+						sandwich.count = sandwiches + 1;
+						sandwich.save();
 					}
-
-					sql.query(query);
-
-					msg.channel.send(new discord.RichEmbed()
-						.setTitle(msg.member.user.username + ' Has given a sandwich to ' + msg.mentions.members.first().user.username)
-						.setColor([255, 0, 0])
-						.setImage(sandwichImg));
 				});
-
+				msg.channel.send(new discord.RichEmbed()
+					.setTitle(msg.member.user.username + ' Has given a sandwich to ' + msg.mentions.members.first().user.username)
+					.setColor([255, 0, 0])
+					.setImage(sandwichImg));
 			}
 		} else {
 			msg.channel.send(new discord.RichEmbed()

@@ -7,12 +7,10 @@
         "enabled": false,
         "token": "DISCORDBOTSTOKEN"
     },
-    "mysql": {
-        "host": "DB_HOST",
-        "port": "DB_PORT",
-        "database": "DB_DBNAME",
-        "user": "DB_USER",
-        "password": "DB_PASSWORD"
+    "db": {
+        "url": "URL",
+        "username": "USERNAME",
+        "password": "PASSWORD"
     },
     "google": {
         "cseID": "CSEID",

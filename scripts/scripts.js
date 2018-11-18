@@ -7,6 +7,7 @@ class Main {
 		this.Prototypes = require('./prototypes');
 		this.HelpGenerator = require('./helpGenerator');
 		this.tools = require('./tools');
+		this.models = require('./models');
 	}
 	getJson() {
 		return this.json;
@@ -29,6 +30,9 @@ class Main {
 	}
 	helpGenerator() {
 		return this.HelpGenerator;
+	}
+	getModels(){
+		return this.models;
 	}
 }
 //#endregion

@@ -1,4 +1,4 @@
-import { Client, StreamDispatcher } from 'discord.js';
+import { Client } from 'discord.js';
 
 declare type Json = {
     token: string;
@@ -6,7 +6,7 @@ declare type Json = {
     osuApiKey: string;
     fortnite: string;
     discordBots: DiscordBots;
-    mysql: MySQL;
+    db: DB;
     google: Google;
     owner: Owner;
     debug: boolean;
@@ -22,7 +22,7 @@ export declare class Data {
     prefix(): string;
     osuApiKey(): string;
     fortnite(): string;
-    mysql(): MySQL;
+    db(): DB;
     google(): Google;
     discordBots(): DiscordBots;
     owner(): Owner;
@@ -40,11 +40,9 @@ export declare type DiscordBots = {
     token: string;
 }
 
-export declare type MySQL = {
-    host: string;
-    port: number;
-    database: string;
-    user: string;
+export declare type DB = {
+    url: string;
+    username: string;
     password: string;
 }
 
@@ -97,7 +95,6 @@ export declare class Functions {
     reverseString(string: string): string;
     fixDecimals(number: number): string;
     replacedWikis(string: string): string;
-    connectToDatabase(): Connection;
     convertMS(ms: number): {
         miliseconds: number,
         seconds: number,
@@ -174,7 +171,8 @@ export declare class Main {
     getData(): Data;
     getEvents(Client: Client): Events;
     getFunctions(): Functions;
-    getPrototypes():  typeof import("c:/Users/Pedro/Desktop/UwU/Proyects/EXE-Bot/scripts/prototypes");
-    getTools():  typeof import("c:/Users/Pedro/Desktop/UwU/Proyects/EXE-Bot/scripts/prototypes");
+    getPrototypes():  typeof import('./prototypes');
+    getTools():  typeof import('./prototypes');
     helpGenerator(): HelpGenerator;
+    getModels(): typeof import('./models')
 }

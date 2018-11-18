@@ -20,13 +20,11 @@ class Data {
 		json.fortnite = (process.env.fortnite) ? (process.env.fortnite) : (json.fortnite);
 		return json.fortnite;
 	}
-	mysql() {
-		json.mysql.host = (process.env.db_host) ? (process.env.db_host) : (json.mysql.host);
-		json.mysql.port = (process.env.db_port) ? (process.env.db_port) : (json.mysql.port);
-		json.mysql.database = (process.env.db_database) ? (process.env.db_database) : (json.mysql.database);
-		json.mysql.user = (process.env.db_user) ? (process.env.db_user) : (json.mysql.user);
-		json.mysql.password = (process.env.db_password) ? (process.env.db_password) : (json.mysql.password);
-		return json.mysql;
+	db() {
+		json.db.url = (process.env.db_url) ? (process.env.db_url) : (json.db.url);
+		json.db.username = (process.env.db_username) ? (process.env.db_username) : (json.db.username);
+		json.db.password = (process.env.db_password) ? (process.env.db_password) : (json.dv	.password);
+		return json.db;
 	}
 	google() {
 		json.google.cseID = (process.env.google_cseID) ? (process.env.google_cseID) : (json.google.cseID);

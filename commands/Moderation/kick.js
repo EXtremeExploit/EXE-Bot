@@ -38,17 +38,6 @@ class kick {
 									.setColor([255, 0, 0])
 									.setTitle('Kicked')
 									.setDescription('Succesfully kicked: ' + member.user.tag));
-								if (member.user.bot) {
-									return;
-								} else {
-									member.send(new discord.RichEmbed()
-										.setDescription('You got kicked from ' + msg.guild.name)
-										.setColor([255, 0, 0])
-										.setTitle('Kicked')
-										.addField('Kicked by', msg.member.user.tag)).catch((e) => {
-											throw new Error(e);
-										});
-								}
 							});
 						} else {
 							msg.channel.send(new discord.RichEmbed()

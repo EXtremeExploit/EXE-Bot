@@ -31,8 +31,9 @@ const client = new discord.Client({
 //Start events and console log information
 main.getEvents(client).all();
 //Get connection to discordbots.org
+var db;
 if (main.getData().discordBots().enabled == true || main.getData().discordBots().enabled == 'true') {
-	var db = new _db(main.getData().discordBots().token, client);
+	db = new _db(main.getData().discordBots().token, client);
 }
 //Initialize Commands and replies
 const commands = require('./commands/commands');

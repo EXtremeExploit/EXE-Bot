@@ -29,20 +29,12 @@ class unmute {
 					msg.channel.overwritePermissions(msg.mentions.members.first(), {
 						SEND_MESSAGES: true
 					}).then((channel) => {
-						channel.send(new discord.RichEmbed()
-							.setColor([255, 0, 0])
-							.setTitle('Unmuted')
-							.setDescription('Succesfully unmuted: ' + msg.mentions.members.first().user.username));
-
-						if (!msg.mentions.members.first().user.bot) {
-							msg.mentions.members.first().send(new discord.RichEmbed()
-								.setDescription('You got unmuted from ' + msg.guild.name)
+						if (msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES') == true) {
+							channel.send(new discord.RichEmbed()
 								.setColor([255, 0, 0])
 								.setTitle('Unmuted')
-								.addField('Unmuted by', msg.member.user.tag)).catch((e) => {
-									throw new Error(e);
-								});
-						}
+								.setDescription('Succesfully unmuted: ' + msg.mentions.members.first().user.username));
+						} else return;
 					});
 				}
 			} else {

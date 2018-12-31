@@ -14,10 +14,9 @@ class disconnect {
 				.setColor([255, 0, 0])
 				.setAuthor(client.user.username, client.user.avatarURL)
 				.setDescription('Disconnecting...')
-				.setTitle('Disconnect')).then(() => {
-					client.destroy();
-				}).then(() => {
-					process.exit();
+				.setTitle('Disconnect')).then(async () => {
+					await client.destroy();
+					await process.exit();
 				});
 		} else {
 			msg.channel.send(new discord.RichEmbed()

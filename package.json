@@ -61,7 +61,7 @@
     "node-opus": "^0.2.9",
     "opusscript": "0.0.6",
     "osu.js": "^2.0.3",
-    "osulevelcalculator.js": "^1.0.0",
+    "osulevelcalculator.js": "^2.0.0",
     "random.cat.js": "^1.0.3",
     "random.dog.js": "^1.0.2",
     "request": "^2.88.0",

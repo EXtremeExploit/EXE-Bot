@@ -16,7 +16,8 @@ const { Message, Client } = discord;
 //#region Osu Module
 const _osuapi = require('osu.js');
 const osuApi = _osuapi.api(osuApiKey); //Get one at https://osu.ppy.sh/p/api
-const osulevel = require('osulevelcalculator.js').api();
+const _osulevel = require('osulevelcalculator.js');
+const osulevel = new _osulevel.LevelCalculator();
 //#endregion
 class osu {
 	/**
@@ -78,8 +79,8 @@ class osu {
 					} else {
 						var user = userF[0];
 						var userTotalScore = (user.total_score == null) ? 0 : user.total_score;
-						var nextLevel = await osulevel.calculateLevelCOM(userTotalScore, (Math.floor(user.level) + 1));
-						if (nextLevel.result == undefined) nextLevel.result = null;
+						var nextLevel = osulevel.ScoreLevelCalculator((Math.floor(user.level) + 1), userTotalScore);
+						if (nextLevel == undefined) nextLevel = null;
 						msg.channel.send(new discord.RichEmbed()
 							.setColor([255, 58, 255])
 							.setAuthor(user.username, 'https://a.ppy.sh/' + user.user_id, 'https://osu.ppy.sh/u/' + user.user_id)
@@ -100,7 +101,7 @@ class osu {
 								'**50:** ' + user.count50, true)
 							.addField('Scores', '**Total:** ' + user.total_score + '\n' +
 								'**Ranked:** ' + user.ranked_score + '\n' +
-								'**Score nedded to reach Lvl.' + (Math.floor(user.level) + 1) + ':** ' + nextLevel.result, true)
+								'**Score nedded to reach Lvl.' + (Math.floor(user.level) + 1) + ':** ' + nextLevel, true)
 							.addField('Links', '[**User**](https://osu.ppy.sh/u/' + user.user_id + ')\n' +
 								'[**Avatar**](https://a.ppy.sh/' + user.user_id + ')', true));
 					}

@@ -35,6 +35,10 @@ var db;
 if (main.getData().discordBots().enabled == true || main.getData().discordBots().enabled == 'true') {
 	db = new _db(main.getData().discordBots().token, client);
 }
+//Reset the bot every 23 hours(82800000ms)
+setInterval(function() {
+	process.exit(1);
+}, 82800000);
 //Initialize Commands and replies
 const commands = require('./commands/commands');
 new commands.Commands(client, db).Load();

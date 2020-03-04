@@ -9,11 +9,13 @@ const wikis = {
 };
 var mongoose = require('mongoose');
 mongoose.connect(data.db().url, {
-	useNewUrlParser: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true
 }).catch((e) => new Error(e));
 var sandwichModel = main.getModels().sandwich;
 
 const discord = require('discord.js');
+// eslint-disable-next-line no-unused-vars
 const { Message, Client } = discord;
 class sandwich {
 	/**
@@ -21,6 +23,7 @@ class sandwich {
 	 * @param {Message} msg 
 	 * @param {Client} client 
 	 */
+	// eslint-disable-next-line no-unused-vars
 	constructor(msg, client) {
 		var images = [
 			'https://pa1.narvii.com/6272/7beb194348fefb46bfdd519cb1ef0e530a621247_hq.gif',

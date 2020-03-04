@@ -4,7 +4,6 @@ const data = main.getData();
 const token = data.token();
 const osuApiKey = data.osuApiKey();
 const discordBotsToken = data.discordBots().token;
-
 class Functions {
 	/**
 	 * @param {string} text

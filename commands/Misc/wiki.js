@@ -9,6 +9,7 @@ const wikis = {
 };
 
 const discord = require('discord.js');
+// eslint-disable-next-line no-unused-vars
 const { Message, Client } = discord;
 class wiki {
 	/**
@@ -17,15 +18,14 @@ class wiki {
 	 * @param {Client} client 
 	 */
 	constructor(msg, client) {
-		
 		if (wikis.isEnabled) {
 			msg.channel.send(new discord.RichEmbed()
 				.setColor([255, 0, 0])
 				.setAuthor(client.user.username, client.user.avatarURL)
 				.addField('Wikis', '**Home:** ' + wikis.home + '\n' +
-				'**Commands:** ' + wikis.commands + '\n' +
-				'**Replies:** ' + wikis.replies + '\n' +
-				'**FAQ:** ' + wikis.faq)
+					'**Commands:** ' + wikis.commands + '\n' +
+					'**Replies:** ' + wikis.replies + '\n' +
+					'**FAQ:** ' + wikis.faq)
 				.setFooter('Wikis hosted by Github'));
 		} else {
 			msg.channel.send(new discord.RichEmbed()

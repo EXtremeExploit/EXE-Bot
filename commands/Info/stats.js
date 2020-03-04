@@ -3,12 +3,14 @@ const data = main.getData();
 
 var mongoose = require('mongoose');
 mongoose.connect(data.db().url, {
-	useNewUrlParser: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true
 }).catch((e) => new Error(e));
 var sandwichModel = main.getModels().sandwich;
 var cookieModel = main.getModels().cookie;
 
 const discord = require('discord.js');
+// eslint-disable-next-line no-unused-vars
 const { Message, Client } = discord;
 class stats {
 	/**
@@ -16,6 +18,7 @@ class stats {
 	 * @param {Message} msg 
 	 * @param {Client} client 
 	 */
+	// eslint-disable-next-line no-unused-vars
 	constructor(msg, client) {
 		var user = (msg.mentions.members.first()) ? (msg.mentions.members.first()) : (msg.member);
 

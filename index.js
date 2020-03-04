@@ -1,7 +1,15 @@
+console.log('Starting...');
+//Clear memory
+// eslint-disable-next-line no-unused-vars
+require('fs').writeFile('./json/memory.json', '{"rr":{"channels":[]}}', (err, data) => {
+	if (err) {
+		console.log(err);
+	}
+});
 require('dotenv').config({
 	path: './json/.env'
 });
-console.log('Starting...');
+
 const main = new (require('./scripts/scripts')).Main();
 const discord = require('discord.js');
 var _db = require('dblapi.js');
@@ -36,7 +44,7 @@ if (main.getData().discordBots().enabled == true || main.getData().discordBots()
 	db = new _db(main.getData().discordBots().token, client);
 }
 //Reset the bot every 23 hours(82800000ms)
-setInterval(function() {
+setInterval(function () {
 	process.exit();
 }, 82800000);
 //Initialize Commands and replies

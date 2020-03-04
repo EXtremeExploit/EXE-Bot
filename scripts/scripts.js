@@ -1,6 +1,7 @@
 //#region Main
 class Main {
 	constructor() {
+		this.fs = require('fs');
 		this.json = require('../json/data.json');
 		this.events = require('./events');
 		this.functions = require('./functions');
@@ -31,8 +32,17 @@ class Main {
 	helpGenerator() {
 		return this.HelpGenerator;
 	}
-	getModels(){
+	getModels() {
 		return this.models;
+	}
+	getMemory() {
+		var content = this.fs.readFileSync('./json/memory.json', { encoding: 'utf-8' });
+		return JSON.parse(content);
+	}
+	writeMemory(DataToWrite) {
+		this.fs.writeFile('./json/memory.json', JSON.stringify(DataToWrite), (err) => {
+			if (err) throw err;
+		});
 	}
 }
 //#endregion

@@ -9,10 +9,12 @@ const wikis = {
 };
 var mongoose = require('mongoose');
 mongoose.connect(data.db().url, {
-	useNewUrlParser: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true
 }).catch((e) => new Error(e));
 var cookieModel = main.getModels().cookie;
 const discord = require('discord.js');
+// eslint-disable-next-line no-unused-vars
 const { Message, Client } = discord;
 class cookie {
 	/**
@@ -20,6 +22,7 @@ class cookie {
 	 * @param {Message} msg 
 	 * @param {Client} client 
 	 */
+	// eslint-disable-next-line no-unused-vars
 	constructor(msg, client) {
 
 		var images = [

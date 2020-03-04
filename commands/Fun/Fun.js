@@ -3,6 +3,7 @@ const data = main.getData();
 var prefix = data.prefix();
 
 const discord = require('discord.js');
+// eslint-disable-next-line no-unused-vars
 const { Message, Client } = discord;
 class Fun {
 	/**
@@ -18,6 +19,7 @@ class Fun {
 		this.pat = require('./pat');
 		this.reverse = require('./reverse');
 		this.rps = require('./rps');
+		this.rr = require('./rr');
 		this.sandwich = require('./sandwich');
 		this.say = require('./say');
 		this.touch = require('./touch');
@@ -34,6 +36,7 @@ class Fun {
 			case 'pat': return new this.pat(msg, client);
 			case 'reverse': return new this.reverse(msg, client);
 			case 'rps': return new this.rps(msg, client);
+			case 'rr': return new this.rr(msg, client);
 			case 'sandwich': return new this.sandwich(msg, client);
 			case 'say': return new this.say(msg, client);
 			case 'touch': return new this.touch(msg, client);

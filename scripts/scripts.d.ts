@@ -171,8 +171,18 @@ export declare class Main {
     getData(): Data;
     getEvents(Client: Client): Events;
     getFunctions(): Functions;
-    getPrototypes():  typeof import('./prototypes');
-    getTools():  typeof import('./prototypes');
+    getPrototypes(): typeof import('./prototypes');
+    getTools(): typeof import('./prototypes');
     helpGenerator(): HelpGenerator;
     getModels(): typeof import('./models')
+    getMemory(): {
+        rr: {
+            channels: number[];
+        };
+    };
+    writeMemory(DataToWrite: {
+        rr: {
+            channels: number[];
+        };
+    }): void;
 }

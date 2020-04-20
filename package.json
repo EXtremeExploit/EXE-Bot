@@ -25,7 +25,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm ./dist/src/index.js --experimental-json-modules"
+    "start": "node --experimental-json-modules --experimental-modules ./dist/src/index.js "
   },
   "repository": {
     "type": "git",

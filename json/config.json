@@ -1,0 +1,15 @@
+{
+	"prefix": "eb!",
+	"owner": {
+		"id": "257556050213994516",
+		"username": "EXtremeExploit",
+		"discriminator": "1133",
+		"tag": "EXtremeExploit#1133"
+	},
+	"wikis":{
+		"home": "home",
+		"commands": "commands",
+		"replies": "replies",
+		"faq": "faq"
+	}
+}

@@ -2,6 +2,7 @@ import discord from 'discord.js';
 import config from './config.js';
 import { commandsArray } from './commands.js';
 import { repliesArray } from './replies.js'
+import { sleep } from './util.js';
 let owner = new config().GetOwner();
 let prefix = new config().GetPrefix();
 
@@ -27,7 +28,7 @@ export default class {
 	}
 
 	Ready() {
-		this.client.on(`ready`, () => {
+		this.client.on(`ready`,async () => {
 			let me = this.client.user;
 
 			console.log(`==================================================`);
@@ -38,6 +39,7 @@ export default class {
 			console.log(`Prefix;Servers: ${prefix};${this.client.guilds.cache.size} Servers`)
 			console.log(`==================================================`);
 
+			await sleep(1000);
 			setInterval(() => {
 				this.setStatus();
 			}, 20000);

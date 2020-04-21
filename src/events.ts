@@ -19,6 +19,17 @@ export default class {
 		this.Warn();
 	}
 
+	setPresence(){
+		this.client.user.setPresence({
+			status: 'online',
+			afk: false,
+			activity: {
+				name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
+				type: 'WATCHING'
+			}
+		});
+	}
+
 	Ready() {
 		this.client.on(`ready`, () => {
 			let me = this.client.user;
@@ -32,16 +43,9 @@ export default class {
 			console.log(`==================================================`);
 
 			this.client.setInterval(() => {
-				me.setPresence({
-					status: 'online',
-					afk: false,
-					activity: {
-						name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
-						type: 'WATCHING'
-					}
-				});
-			}, 30000);
-
+				this.setPresence();
+			}, 20000);
+			this.setPresence();
 
 		});
 	}

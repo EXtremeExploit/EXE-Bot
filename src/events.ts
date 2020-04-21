@@ -30,6 +30,19 @@ export default class {
 			console.log(`Commands;Replies: ${commandsArray.length};${repliesArray.length}`);
 			console.log(`Prefix;Servers: ${prefix};${this.client.guilds.cache.size} Servers`)
 			console.log(`==================================================`);
+
+			this.client.setInterval(() => {
+				me.setPresence({
+					status: 'online',
+					afk: false,
+					activity: {
+						name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
+						type: 'WATCHING'
+					}
+				});
+			}, 30000);
+
+
 		});
 	}
 	Disconnect() {

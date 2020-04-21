@@ -14,6 +14,12 @@ export default class {
         this.Reconnecting();
         this.Warn();
     }
+    setStatus() {
+        this.client.user.setActivity({
+            name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
+            type: 'LISTENING'
+        });
+    }
     Ready() {
         this.client.on(`ready`, () => {
             let me = this.client.user;
@@ -24,6 +30,10 @@ export default class {
             console.log(`Commands;Replies: ${commandsArray.length};${repliesArray.length}`);
             console.log(`Prefix;Servers: ${prefix};${this.client.guilds.cache.size} Servers`);
             console.log(`==================================================`);
+            setInterval(() => {
+                this.setStatus();
+            }, 20000);
+            this.setStatus();
         });
     }
     Disconnect() {

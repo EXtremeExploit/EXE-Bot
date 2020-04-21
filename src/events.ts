@@ -19,14 +19,10 @@ export default class {
 		this.Warn();
 	}
 
-	setPresence(){
-		this.client.user.setPresence({
-			status: 'online',
-			afk: false,
-			activity: {
-				name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
-				type: 'WATCHING'
-			}
+	setStatus() {
+		this.client.user.setActivity({
+			name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
+			type: 'LISTENING'
 		});
 	}
 
@@ -42,10 +38,10 @@ export default class {
 			console.log(`Prefix;Servers: ${prefix};${this.client.guilds.cache.size} Servers`)
 			console.log(`==================================================`);
 
-			this.client.setInterval(() => {
-				this.setPresence();
+			setInterval(() => {
+				this.setStatus();
 			}, 20000);
-			this.setPresence();
+			this.setStatus();
 
 		});
 	}

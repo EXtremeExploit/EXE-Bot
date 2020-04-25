@@ -21,10 +21,13 @@ export default class {
 	}
 
 	setStatus() {
-		this.client.user.setActivity({
-			name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
-			type: 'LISTENING'
-		});
+		this.client.user. setPresence({
+			status: 'dnd',
+			activity: {
+				name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
+				type: 'LISTENING'
+			}
+		})
 	}
 
 	Ready() {

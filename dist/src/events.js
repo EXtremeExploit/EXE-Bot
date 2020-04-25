@@ -2,6 +2,7 @@ import discord from 'discord.js';
 import config from './config.js';
 import { commandsArray } from './commands.js';
 import { repliesArray } from './replies.js';
+import { sleep } from './util.js';
 let owner = new config().GetOwner();
 let prefix = new config().GetPrefix();
 export default class {
@@ -15,13 +16,16 @@ export default class {
         this.Warn();
     }
     setStatus() {
-        this.client.user.setActivity({
-            name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
-            type: 'LISTENING'
+        this.client.user.setPresence({
+            status: 'dnd',
+            activity: {
+                name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
+                type: 'LISTENING'
+            }
         });
     }
     Ready() {
-        this.client.on(`ready`, () => {
+        this.client.on(`ready`, async () => {
             let me = this.client.user;
             console.log(`==================================================`);
             console.log(`TS=>JS; Node.JS ${process.version}; discord.js v${discord.version}`);
@@ -30,6 +34,7 @@ export default class {
             console.log(`Commands;Replies: ${commandsArray.length};${repliesArray.length}`);
             console.log(`Prefix;Servers: ${prefix};${this.client.guilds.cache.size} Servers`);
             console.log(`==================================================`);
+            await sleep(1000);
             setInterval(() => {
                 this.setStatus();
             }, 20000);

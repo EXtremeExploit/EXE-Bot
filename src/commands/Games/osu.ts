@@ -26,7 +26,7 @@ export default class {
 		}
 
 		//#region Mode
-		let mode = 0;
+		let mode: 0 | 1 | 2 | 3 = 0;
 		if (msg.content.includes(`--mode std`)) mode = 0;
 		if (msg.content.includes(`--mode taiko`)) mode = 1;
 		if (msg.content.includes(`--mode ctb`)) mode = 2;

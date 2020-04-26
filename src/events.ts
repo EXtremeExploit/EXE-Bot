@@ -21,7 +21,7 @@ export default class {
 	}
 
 	setStatus() {
-		this.client.user. setPresence({
+		this.client.user.setPresence({
 			status: 'dnd',
 			activity: {
 				name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
@@ -31,7 +31,7 @@ export default class {
 	}
 
 	Ready() {
-		this.client.on(`ready`,async () => {
+		this.client.on(`ready`, async () => {
 			let me = this.client.user;
 
 			console.log(`==================================================`);

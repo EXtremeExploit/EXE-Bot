@@ -15,7 +15,7 @@ export default class {
 			if (categories.hasOwnProperty(_cat)) {
 				const cat = categories[_cat];
 
-				if (args[0] == cat) {
+				if (args[0] !== undefined && args[0].toLowerCase() == cat.toLowerCase()) {
 					let commands = commandsArray.filter((e) => e.category == Categories[cat]);
 
 					for (const c of commands) {

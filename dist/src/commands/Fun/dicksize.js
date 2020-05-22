@@ -1,5 +1,4 @@
 import discord from 'discord.js';
-import { random } from '../../util.js';
 export default class {
     constructor(client, msg) {
         let xsmall = [
@@ -54,22 +53,22 @@ export default class {
         let comment;
         switch (true) {
             case length == 1:
-                comment = xsmall[random(xsmall.length) - 1];
+                comment = xsmall[Math.floor(Math.random() * xsmall.length)];
                 break;
             case length <= 3:
-                comment = small[random(small.length - 1)];
+                comment = small[Math.floor(Math.random() * small.length)];
                 break;
             case length <= 5:
-                comment = smedium[random(smedium.length - 1)];
+                comment = smedium[Math.floor(Math.random() * smedium.length)];
                 break;
             case length <= 7:
-                comment = medium[random(medium.length - 1)];
+                comment = medium[Math.floor(Math.random() * medium.length)];
                 break;
             case length <= 9:
-                comment = large[random(large.length - 1)];
+                comment = large[Math.floor(Math.random() * large.length)];
                 break;
             case length == 10:
-                comment = xlarge[random(xlarge.length - 1)];
+                comment = xlarge[Math.floor(Math.random() * xlarge.length)];
                 break;
         }
         let embed = new discord.MessageEmbed()

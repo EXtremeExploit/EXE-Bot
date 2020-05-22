@@ -1,6 +1,5 @@
 import discord from 'discord.js';
 import booru from 'booru';
-import { random } from '../../util.js';
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
@@ -11,7 +10,7 @@ export default class {
 					if (posts.length == 0) {
 						msg.channel.send(`Sorry, I didn't find anything about \`\`${query}\`\`.`);
 					} else {
-						let post = posts[random(posts.length) - 1];
+						let post = posts[Math.floor(Math.random() * posts.length)];
 						let link = post.fileUrl;
 						msg.channel.send(new discord.MessageEmbed()
 							.setColor([255, 0, 0])

@@ -5,28 +5,28 @@ export default class {
 		let xsmall = [
 			`Life hates you.`,
 			`Did you know that the ancient Greek considered small penises as a symbol of fertility?`,
-			`At least it won\`t get any smaller.`,
+			`At least it won't get any smaller.`,
 			`What a cute little thing...`
 		];
 
 		let small = [
-			`It\`s almost cute.`,
+			`It's almost cute.`,
 			`Well... it could have been worse...`,
-			`I\`m sorry about that.`,
+			`I'm sorry about that.`,
 			`Is that your finger?.`
 		];
 
 		let smedium = [
-			`Seems like it\`s normal sized to me.`,
+			`Seems like it's normal sized to me.`,
 			`The average.`,
 			`A decent size.`,
 			`Something I would be ok with.`
 		];
 
 		let medium = [
-			`You\`re slightly above the average.`,
+			`You 're slightly above the average.`,
 			`Good job.`,
-			`To be honest it\`s not that impressive.`,
+			`To be honest it's not that impressive.`,
 			`A little impressive.`,
 			`Almost 4 oranges in size.`
 		];
@@ -41,7 +41,7 @@ export default class {
 			`Keep that thing away from me! D:`,
 			`You could knock down someone with that.`,
 			`Do you sometimes bang it on the ceiling?`,
-			`Don\`t trip over it.`,
+			`Don't trip over it.`,
 			`Damn son.`,
 			`What the fuck is that thing.`,
 			`Did you born with a sexual leg?`

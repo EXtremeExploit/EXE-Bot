@@ -7,7 +7,7 @@ let wikis = new config().GetWikis();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		mongoose.default.connect(db, {
+		(mongoose as any).default.connect(db, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true
 		}).catch((e) => new Error(e));
@@ -30,7 +30,7 @@ export default class {
 			} else {
 				SandwichModel.findOne({
 					id: msg.mentions.members.first().id.toString()
-				}, (err, sandwich) => {
+				}, (err, sandwich: any) => {
 					if (err) throw err;
 
 					if (sandwich == null) {

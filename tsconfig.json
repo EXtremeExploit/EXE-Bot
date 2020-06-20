@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"watch": true,
+		"watch": false,
 		"target": "ES2020",
 		"allowJs": true,
 		"module": "ES2020",
@@ -9,7 +9,7 @@
 			"ES2020"
 		],
 		"esModuleInterop": true,
-		"moduleResolution": "node",
+		"moduleResolution": "Node",
 		"outDir": "./dist/",
 		"sourceMap": false,
 	},

@@ -1,11 +1,12 @@
 import discord from 'discord.js';
 import booru from 'booru';
+let r34 = booru.forSite('rule34.xxx');
 export default class {
     constructor(client, msg) {
         if (msg.channel.nsfw || msg.channel.name.startsWith(`nsfw`)) {
             try {
                 let query = msg.content.split(` `).slice(1).join(` `);
-                booru.search(`rule34.xxx`, query, { limit: 1000, random: true }).then((posts) => {
+                r34.search(query, { limit: 1000, random: true }).then((posts) => {
                     if (posts.length == 0) {
                         msg.channel.send(`Sorry, I didn't find anything about \`\`${query}\`\`.`);
                     }

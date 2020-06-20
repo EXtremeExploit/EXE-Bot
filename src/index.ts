@@ -22,4 +22,5 @@ new commands(client);
 new events(client);
 new replies(client);
 
-client.login(new config().GetToken());
+console.log('Logging...');
+client.login(new config().GetToken()).catch((e) => console.error(e));

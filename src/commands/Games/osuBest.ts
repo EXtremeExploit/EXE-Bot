@@ -23,7 +23,7 @@ export default class {
 		}
 
 		//#region Mode
-		let mode = 0;
+		let mode: 0 | 1 | 2 | 3 = 0;
 		if (msg.content.includes(`--mode std`)) mode = 0;
 		if (msg.content.includes(`--mode taiko`)) mode = 1;
 		if (msg.content.includes(`--mode ctb`)) mode = 2;
@@ -47,7 +47,7 @@ export default class {
 			limit: 1
 		}).then(async (playF) => {
 			let play = playF[0];
-			let map = await osuApi.getBeatmaps({ b: play.beatmapId });
+			let map = await osuApi.getBeatmaps({ b: (play.beatmapId as string) });
 			let bm = map[0];
 			let user = await osuApi.getUser({ u: play.user.id, type: `id` });
 			let date = new Date(play.raw_date + ` UTC`);

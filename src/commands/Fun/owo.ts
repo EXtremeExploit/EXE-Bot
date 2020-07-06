@@ -6,7 +6,7 @@ let db = new config().GetDB();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		(mongoose as any).default.connect(db, {
+		((mongoose as any).default as mongoose.Mongoose).connect(db, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true
 		}).catch((e) => new Error(e));

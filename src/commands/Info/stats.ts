@@ -6,7 +6,7 @@ let db = new config().GetDB();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		mongoose.default.connect(db, {
+		((mongoose as any).default as mongoose.Mongoose).connect(db, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true
 		}).catch((e) => new Error(e));
@@ -15,12 +15,12 @@ export default class {
 
 		SandwichModel.findOne({
 			id: user.valueOf()
-		}, (err, sandwich) => {
+		}, (err, sandwich: any) => {
 			if (err) throw err;
 
 			CookieModel.findOne({
 				id: user.valueOf()
-			}, (err, cookie) => {
+			}, (err, cookie: any) => {
 				if (err) throw err;
 
 				let cookies = (cookie == null) ? (`This user doesn\`t have cookies :(`) : (cookie.count);

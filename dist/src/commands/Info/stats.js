@@ -1,21 +1,16 @@
 import discord from 'discord.js';
-import * as mongoose from 'mongoose';
 import { CookieModel, SandwichModel, CoinflipModel } from '../../util.js';
 import config from '../../config.js';
 let db = new config().GetDB();
 export default class {
     constructor(client, msg) {
-        mongoose.default.connect(db, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        }).catch((e) => new Error(e));
         let user = (msg.mentions.members.first()) ? (msg.mentions.members.first()) : (msg.member);
         (async () => {
             //Food
             let sandwich = await SandwichModel.findOne({ id: user.valueOf() });
             let cookie = await CookieModel.findOne({ id: user.valueOf() });
             let cookies = (cookie == null) ? ('This user doesn\'t have cookies :(') : (cookie.count);
-            let sandwiches = (sandwich == null) ? (`This user doesn\`t have sandwiches :(`) : (sandwich.count);
+            let sandwiches = (sandwich == null) ? ('This user doesn\'t have sandwiches :(') : (sandwich.count);
             //Coinflips
             let coinflip = await CoinflipModel.findOne({ id: user.valueOf() });
             let coinflips = {

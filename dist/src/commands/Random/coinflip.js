@@ -1,14 +1,9 @@
 import discord from 'discord.js';
-import * as mongoose from 'mongoose';
 import { CoinflipModel, CoinflipResults } from '../../util.js';
 import config from '../../config.js';
 let db = new config().GetDB();
 export default class {
     constructor(client, msg) {
-        mongoose.default.connect(db, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        }).catch((e) => new Error(e));
         CoinflipModel.findOne({
             id: msg.author.id
         }, (err, coinflip) => {

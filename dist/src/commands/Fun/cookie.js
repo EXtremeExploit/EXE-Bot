@@ -1,15 +1,10 @@
 import discord from 'discord.js';
-import * as mongoose from 'mongoose';
 import { CookieModel } from '../../util.js';
 import config from '../../config.js';
 let db = new config().GetDB();
 let wikis = new config().GetWikis();
 export default class {
     constructor(client, msg) {
-        mongoose.default.connect(db, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        }).catch((e) => new Error(e));
         let images = [
             `https://pa1.narvii.com/5899/43e61495729fd10dda05c313545a57d43ebb1dee_hq.gif`,
             `http://i.giphy.com/E77F8BfvntOq4.gif`,

@@ -1,16 +1,10 @@
 import discord from 'discord.js';
-import * as mongoose from 'mongoose';
 import { CookieModel, SandwichModel, CoinflipModel } from '../../util.js';
 import config from '../../config.js'
 let db = new config().GetDB();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		((mongoose as any).default as mongoose.Mongoose).connect(db, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true
-		}).catch((e) => new Error(e));
-
 		let user = (msg.mentions.members.first()) ? (msg.mentions.members.first()) : (msg.member);
 
 		(async () => {

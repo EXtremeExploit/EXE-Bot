@@ -1,15 +1,10 @@
 import discord from 'discord.js';
-import * as mongoose from 'mongoose';
 import { SandwichModel } from '../../util.js';
 import config from '../../config.js';
 let db = new config().GetDB();
 let wikis = new config().GetWikis();
 export default class {
     constructor(client, msg) {
-        mongoose.default.connect(db, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        }).catch((e) => new Error(e));
         let images = [
             `https://pa1.narvii.com/6272/7beb194348fefb46bfdd519cb1ef0e530a621247_hq.gif`,
             `https://i.imgur.com/325tm32.gif`,

@@ -38,10 +38,17 @@ let OwoSchema = new mongoose.Schema({
     id: String,
     count: Number
 });
+let CoinflipSchema = new mongoose.Schema({
+    id: String,
+    heads: Number,
+    tails: Number,
+    edge: Number
+});
 let SandwichModel = mongoose.model(`sandwich`, SandwichSchema);
 let CookieModel = mongoose.model(`cookie`, CookieSchema);
 let OwOModel = mongoose.model(`owo`, OwoSchema);
-export { SandwichModel, CookieModel, OwOModel };
+let CoinflipModel = mongoose.model('coinflip', CoinflipSchema);
+export { SandwichModel, CookieModel, OwOModel, CoinflipModel };
 export function random(max, min) {
     if (min === undefined)
         return Math.floor(Math.random() * (max + 1));
@@ -61,3 +68,12 @@ export function fixDecimals(number) {
 export function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+export function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+}
+export var CoinflipResults;
+(function (CoinflipResults) {
+    CoinflipResults[CoinflipResults["Head"] = 0] = "Head";
+    CoinflipResults[CoinflipResults["Tails"] = 1] = "Tails";
+    CoinflipResults[CoinflipResults["Edge"] = 2] = "Edge";
+})(CoinflipResults || (CoinflipResults = {}));

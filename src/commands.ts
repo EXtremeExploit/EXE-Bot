@@ -13,6 +13,8 @@ class Command {
 		this.category = category;
 		this.aliases = aliases;
 	}
+
+	//TODO: Add a way to reload commands whenever there is support to delete ES modules from memory 
 	Load(client: discord.Client, msg: discord.Message) {
 		let catName: string = Categories[this.category];
 		import(`./commands/${catName}/${this.name}.js`).then((e => {

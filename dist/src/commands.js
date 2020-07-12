@@ -8,6 +8,7 @@ class Command {
         this.category = category;
         this.aliases = aliases;
     }
+    //TODO: Add a way to reload scripts, have to wait till there is a possible way to reload ES modules
     Load(client, msg) {
         let catName = Categories[this.category];
         import(`./commands/${catName}/${this.name}.js`).then((e => {

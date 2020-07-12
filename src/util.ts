@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import https from 'https';
-import http from 'http';
 
 export function convertMS(ms: number) {
 	if (isNaN(ms) || ms < 0) {
@@ -48,10 +46,18 @@ let OwoSchema = new mongoose.Schema({
 	count: Number
 })
 
+let CoinflipSchema = new mongoose.Schema({
+	id: String,
+	heads: Number,
+	tails: Number,
+	edge: Number
+})
+
 let SandwichModel = mongoose.model(`sandwich`, SandwichSchema);
 let CookieModel = mongoose.model(`cookie`, CookieSchema);
 let OwOModel = mongoose.model(`owo`, OwoSchema);
-export { SandwichModel, CookieModel, OwOModel };
+let CoinflipModel = mongoose.model('coinflip', CoinflipSchema);
+export { SandwichModel, CookieModel, OwOModel, CoinflipModel };
 
 export function random(max: number, min?: number) {
 	if (min === undefined)
@@ -66,10 +72,21 @@ export function reverseString(string) {
 	let joinArray = reverseArray.join(``);
 	return joinArray;
 }
+
 export function fixDecimals(number) {
 	return parseFloat(number).toFixed(2);
 }
 
 export function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function formatNumber(num) {
+	return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+}
+
+export enum CoinflipResults {
+	Head,
+	Tails,
+	Edge
 }

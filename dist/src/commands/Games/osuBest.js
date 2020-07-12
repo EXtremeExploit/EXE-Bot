@@ -1,6 +1,6 @@
 import discord from 'discord.js';
 import _osuApi from 'node-osu';
-import { fixDecimals, convertDate } from '../../util.js';
+import { fixDecimals, convertDate, formatNumber } from '../../util.js';
 import config from '../../config.js';
 let wikis = new config().GetWikis();
 let OsuKey = new config().GetOsuKey();
@@ -68,7 +68,7 @@ export default class {
                 `**Creator:** [${bm.creator}](https://osu.ppy.sh/u/${bm.creator})`, true)
                 .addField(`Play`, `**PP:** ${play.pp}\n` +
                 `**User:** [${user.name}](https://osu.ppy.sh/u/${user.id})\n` +
-                `**Rank:** ${play.rank}\n` +
+                `**Rank:** ${formatNumber(play.rank)}\n` +
                 `**Score:** ${play.score}\n` +
                 `**Max Combo:** ${play.maxCombo}/${bm.maxCombo}`, true)
                 .addField(`Count Notes`, `**300:** ${play.counts[300]}\n` +

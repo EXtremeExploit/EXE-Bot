@@ -1,5 +1,5 @@
 import discord from 'discord.js';
-import { fixDecimals } from '../../util.js'
+import { fixDecimals, formatNumber } from '../../util.js'
 import config from '../../config.js';
 import _osuApi from 'node-osu';
 import olc from 'osulevelcalculator.js';
@@ -93,9 +93,9 @@ export default class {
 						`**100:** ${user.counts[100]}\n` +
 						`**50:** ${user.counts[50]}`, true)
 					.addField(`Scores`,
-						`**Total:** ${user.scores.total}\n` +
-						`**Ranked:** ${user.scores.ranked}\n` +
-						`**Score nedded to reach Lvl.${(Math.floor(user.level) + 1)}:** ${nextLevel}`, true)
+						`**Total:** ${formatNumber(user.scores.total)}\n` +
+						`**Ranked:** ${formatNumber(user.scores.ranked)}\n` +
+						`**Score nedded to reach Lvl.${(Math.floor(user.level) + 1)}:** ${formatNumber(nextLevel)}`, true)
 					.addField(`Links`,
 						`[**User**](https://osu.ppy.sh/u/${user.id})\n` +
 						`[**Avatar**](http://s.ppy.sh/a/${user.id})`, true));

@@ -73,7 +73,7 @@ export default class {
 		let embed = new discord.MessageEmbed()
 			.setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
 			.setColor([255, 0, 0])
-			.setTitle(`Dick Size: ${str}(${length})`)
+			.setTitle(`Dick Size: ${str} (${length})`)
 			.setDescription(comment);
 
 		msg.channel.send(embed);

@@ -1,6 +1,6 @@
 import discord from 'discord.js';
 import { CookieModel, SandwichModel, CoinflipModel } from '../../util.js';
-import config from '../../config.js'
+import config from '../../config.js';
 let db = new config().GetDB();
 
 export default class {
@@ -21,7 +21,12 @@ export default class {
 				heads: (coinflip == null || coinflip.heads == 0) ? ('This user hasn\'t landed on this side yet') : (coinflip.heads),
 				tails: (coinflip == null || coinflip.tails == 0) ? ('This user hasn\'t landed on this side yet') : (coinflip.tails),
 				edge: (coinflip == null || coinflip.edge == 0) ? ('This user hasn\'t landed on this side yet') : (coinflip.edge),
+				total: null,
 			}
+			let rawHeads = coinflips.heads == 'This user hasn\'t landed on this side yet' ? 0 : coinflips.heads;
+			let rawTails = coinflips.tails == 'This user hasn\'t landed on this side yet' ? 0 : coinflips.tails;
+			let rawEdges = coinflips.edge == 'This user hasn\'t landed on this side yet' ? 0 : coinflips.edge;
+			coinflips.total = rawHeads + rawTails + rawEdges;
 
 			msg.channel.send(new discord.MessageEmbed()
 				.setColor([0, 0, 255])
@@ -32,9 +37,9 @@ export default class {
 				.addField('Coinflips',
 					`**Heads:** ${coinflips.heads}\n` +
 					`**Tails:** ${coinflips.tails}\n` +
-					`**Edge:** ${coinflips.edge}\n`)
+					`**Edge:** ${coinflips.edge}\n` +
+					`**Total:** ${coinflips.total}`)
 				.setAuthor(user.user.username, user.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
-
 		})();
 	}
 }

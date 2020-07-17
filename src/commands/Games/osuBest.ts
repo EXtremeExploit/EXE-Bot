@@ -87,7 +87,7 @@ export default class {
 					.setFooter(`this is bad af`)
 					.addField(`osu! Servers got down!`, `Check [@osustatus](https://twitter.com/osustatus) for info`));
 			} else {
-				if (err == `TypeError: Cannot read property \`beatmap_id\` of undefined`) {
+				if (err == `TypeError: Cannot read property 'beatmap_id' of undefined`) {
 					msg.channel.send(new discord.MessageEmbed()
 						.setColor([255, 0, 0])
 						.setTitle(`Error`)

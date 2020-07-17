@@ -17,7 +17,7 @@ export default class {
 				msg.channel.send(new discord.MessageEmbed()
 					.setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
 					.setColor([255, 0, 0])
-					.setDescription(`You cant give a cookie to youself, that stuff doesn\`t  grow from trees!!`));
+					.setDescription(`You cant give a cookie to youself, that stuff doesn't  grow from trees!!`));
 			} else {
 				msg.channel.send(new discord.MessageEmbed()
 					.setTitle(`${msg.member.user.username} Has given a cookie to ${msg.mentions.members.first().user.username}`)

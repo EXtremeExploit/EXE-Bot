@@ -9,6 +9,6 @@ export default class {
 			.setColor([255, 0, 0])
 			.setURL(user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
 			.setTitle(`URL`)
-			.setDescription(`${user.username}\`s Avatar`));
+			.setDescription(`${user.username}'s Avatar`));
 	}
 }

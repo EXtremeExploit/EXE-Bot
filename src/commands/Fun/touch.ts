@@ -19,7 +19,7 @@ export default class {
 				} else {
 					msg.reply(` touched <@${msg.mentions.members.first().id}>`).then(async (message) => {
 						if (msg.mentions.members.first().user.bot) {
-							msg.channel.send(`I can\`t touch bots...`);
+							msg.channel.send(`I can't touch bots...`);
 						} else {
 							msg.mentions.members.first().send(`${msg.author.tag} touched you ( ͡° ͜ʖ ͡°)`).catch(() => {
 								return;

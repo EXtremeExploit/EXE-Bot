@@ -18,7 +18,7 @@ export default class {
 				this.msg.channel.send(new discord.MessageEmbed()
 					.setAuthor(this.msg.author.username, this.msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
 					.setColor([255, 0, 0])
-					.setDescription(`You cant rep youself, that stuff doesn\`t  grow from trees!!`));
+					.setDescription(`You cant rep youself, that stuff doesn't  grow from trees!!`));
 				return;
 			} else {
 				this.msg.channel.send(new discord.MessageEmbed()

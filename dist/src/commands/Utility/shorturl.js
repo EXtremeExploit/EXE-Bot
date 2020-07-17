@@ -4,8 +4,8 @@ import isgd from 'isgd';
 let wikis = new config().GetWikis();
 export default class {
     constructor(client, msg) {
-        var messageArray = msg.content.split(' ');
-        var args = messageArray.slice(1).join(' ');
+        let messageArray = msg.content.split(' ');
+        let args = messageArray.slice(1).join(' ');
         //https://is.gd/exe_bot
         if (args == '') {
             msg.channel.send(new discord.MessageEmbed()

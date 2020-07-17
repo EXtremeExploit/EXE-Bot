@@ -3,8 +3,8 @@ import math from 'mathjs';
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		var messageArray = msg.content.split(' ');
-		var args = messageArray.slice(1).join(' ');
+		let messageArray = msg.content.split(' ');
+		let args = messageArray.slice(1).join(' ');
 
 		if (args) {
 			try {

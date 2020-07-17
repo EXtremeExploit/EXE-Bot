@@ -1,5 +1,5 @@
 import discord from 'discord.js';
-import { convertDate } from '../../util.js'
+import { convertDate } from '../../util.js';
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {

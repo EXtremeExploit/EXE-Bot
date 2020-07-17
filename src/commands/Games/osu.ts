@@ -1,5 +1,5 @@
 import discord from 'discord.js';
-import { fixDecimals, formatNumber } from '../../util.js'
+import { fixDecimals, formatNumber } from '../../util.js';
 import config from '../../config.js';
 import _osuApi from 'node-osu';
 import olc from 'osulevelcalculator.js';

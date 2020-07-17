@@ -12,8 +12,8 @@ const lastemoji = '⏭';
 const stopemoji = '⏹';
 export default class {
     constructor(client, msg) {
-        var messageArray = msg.content.split(' ');
-        var args = messageArray.slice(1).join(' ');
+        let messageArray = msg.content.split(' ');
+        let args = messageArray.slice(1).join(' ');
         if (args == '') {
             msg.channel.send(new discord.MessageEmbed()
                 .setColor([255, 0, 0])
@@ -23,7 +23,7 @@ export default class {
         }
         else {
             gimages.search(args, {
-                safe: 'medium'
+                safe: 'medium',
             }).then((images) => {
                 if (images.length == 0) {
                     msg.channel.send(new discord.MessageEmbed()
@@ -33,8 +33,8 @@ export default class {
                         .setDescription('• Could not find any image on your search'));
                     return;
                 }
-                var index = 0;
-                var embed = new discord.MessageEmbed()
+                let index = 0;
+                let embed = new discord.MessageEmbed()
                     .setColor([255, 0, 0])
                     .setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
                     .setDescription('Displaying ' + index + 1 + '/' + images.length + ' Images')

@@ -3,17 +3,38 @@ import config from './config.js';
 let prefix = new config().GetPrefix();
 let wikis = new config().GetWikis();
 class Command {
-    constructor(name, category, aliases = []) {
+    constructor(name, category, aliases = [], cooldown = 0, needsAsync = false) {
         this.name = name;
         this.category = category;
         this.aliases = aliases;
+        this.cooldown = cooldown;
+        this.needsAsync = needsAsync;
     }
     //TODO: Add a way to reload commands whenever there is support to delete ES modules from memory 
     Load(client, msg) {
         let catName = Categories[this.category];
-        import(`./commands/${catName}/${this.name}.js`).then((e => {
+        import(`./commands/${catName}/${this.name}.js`).then((async (e) => {
             try {
-                new e.default(client, msg);
+                if (this.needsAsync) {
+                    let cmd = new e.default(client, msg);
+                    let result = await cmd.init();
+                    if (this.cooldown != 0)
+                        if (result == true) {
+                            let memory = new config().GetMemory();
+                            memory.cooldown.push({ userID: msg.author.id, command: this.name, whenCanUse: Math.floor(Date.now() / 1000) + this.cooldown });
+                            new config().WriteMemory(memory);
+                        }
+                }
+                else {
+                    let cmd = new e.default(client, msg);
+                    if (this.cooldown != 0) {
+                        if (cmd == true) {
+                            let memory = new config().GetMemory();
+                            memory.cooldown.push({ userID: msg.author.id, command: this.name, whenCanUse: Math.floor(Date.now() / 1000) + this.cooldown });
+                            new config().WriteMemory(memory);
+                        }
+                    }
+                }
             }
             catch (E) {
                 try {
@@ -35,19 +56,28 @@ class Command {
 export var Categories;
 (function (Categories) {
     Categories[Categories["BotOwner"] = 0] = "BotOwner";
-    Categories[Categories["Fun"] = 1] = "Fun";
-    Categories[Categories["Games"] = 2] = "Games";
-    Categories[Categories["Info"] = 3] = "Info";
-    Categories[Categories["Misc"] = 4] = "Misc";
-    Categories[Categories["Moderation"] = 5] = "Moderation";
-    Categories[Categories["NSFW"] = 6] = "NSFW";
-    Categories[Categories["Random"] = 7] = "Random";
-    Categories[Categories["Utility"] = 8] = "Utility";
+    Categories[Categories["Social"] = 1] = "Social";
+    Categories[Categories["Fun"] = 2] = "Fun";
+    Categories[Categories["Games"] = 3] = "Games";
+    Categories[Categories["Info"] = 4] = "Info";
+    Categories[Categories["Misc"] = 5] = "Misc";
+    Categories[Categories["Moderation"] = 6] = "Moderation";
+    Categories[Categories["NSFW"] = 7] = "NSFW";
+    Categories[Categories["Random"] = 8] = "Random";
+    Categories[Categories["Utility"] = 9] = "Utility";
 })(Categories || (Categories = {}));
 export let commandsArray = [
     //Bot Owner
-    new Command(`disconnect`, Categories.BotOwner),
+    new Command('clearcooldowns', Categories.BotOwner, ['clrcd', 'clrcds']),
+    new Command(`disconnect`, Categories.BotOwner, ['dc']),
     new Command(`eval`, Categories.BotOwner),
+    //Social
+    new Command(`kill`, Categories.Social, [], 86400, true),
+    new Command(`setalias`, Categories.Social, [], 45, true),
+    new Command(`setjob`, Categories.Social, [], 45, true),
+    new Command(`work`, Categories.Social, ['w'], 28800, true),
+    new Command('profile', Categories.Social, ['p']),
+    new Command('rep', Categories.Social, ['reputation'], 86400, true),
     //Fun
     new Command(`cookie`, Categories.Fun),
     new Command(`dicksize`, Categories.Fun),
@@ -71,7 +101,6 @@ export let commandsArray = [
     new Command(`emoji`, Categories.Info),
     new Command(`role`, Categories.Info),
     new Command(`server`, Categories.Info),
-    new Command(`stats`, Categories.Info),
     new Command(`user`, Categories.Info),
     //Misc
     new Command(`help`, Categories.Misc),
@@ -93,7 +122,7 @@ export let commandsArray = [
     //Random
     new Command(`8ball`, Categories.Random),
     new Command(`cat`, Categories.Random),
-    new Command(`coinflip`, Categories.Random),
+    new Command(`coinflip`, Categories.Random, [], 3),
     new Command(`dice`, Categories.Random),
     new Command(`dog`, Categories.Random),
     new Command(`rate`, Categories.Random),
@@ -121,7 +150,30 @@ export default class {
                 let c;
                 for (c of commandsArray) {
                     if (c.name == command || c.aliases.includes(command)) {
-                        c.Load(client, msg);
+                        if (c.cooldown != 0) {
+                            let memory = new config().GetMemory();
+                            let cd = memory.cooldown.find((e) => e.userID == msg.author.id && e.command == c.name && e.whenCanUse > Math.floor(Date.now() / 1000));
+                            if (cd != undefined) {
+                                let cd = memory.cooldown.find((e) => e.userID == msg.author.id && e.command == c.name);
+                                let timeDifference = cd.whenCanUse - Math.floor(Date.now() / 1000);
+                                let hours = Math.floor(timeDifference / 60 / 60);
+                                let minutes = Math.floor(timeDifference / 60) - (hours * 60);
+                                let seconds = timeDifference % 60;
+                                msg.reply(`You are using that command too fast!, try again in **${hours} Hours, ${minutes} Minutes and ${seconds} seconds...**`);
+                                return;
+                            }
+                            else {
+                                let ucd = memory.cooldown.findIndex((e) => e.userID == msg.author.id && e.command == c.name);
+                                if (ucd != -1) {
+                                    memory.cooldown.splice(ucd, 1);
+                                    new config().WriteMemory(memory);
+                                }
+                                c.Load(client, msg);
+                            }
+                        }
+                        else {
+                            c.Load(client, msg);
+                        }
                     }
                 }
             }

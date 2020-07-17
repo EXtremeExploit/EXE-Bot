@@ -23,16 +23,14 @@ export default class {
 		let content = fs.readFileSync(`./json/memory.json`, { encoding: `utf-8` });
 		return JSON.parse(content);
 	}
-	WriteMemory(Data: Memory){
-		fs.writeFile(`./json/memory.json`, JSON.stringify(Data), (err) => {
-			if (err) throw err;
-		});
+	WriteMemory(Data: Memory) {
+		fs.writeFileSync(`./json/memory.json`, JSON.stringify(Data), { encoding: 'utf-8' });
 	}
-	GetOsuKey(){
+	GetOsuKey() {
 		if (!process.env.OsuKey) new Error(`osu! Api Key should be given in an enviromental variable`);
 		return process.env.OsuKey;
 	}
-	GetGoogle(){
+	GetGoogle() {
 		if (!process.env.GoogleCseID) new Error(`GoogleCseID should be given in an enviromental variable`);
 		if (!process.env.GoogleAppApiKey) new Error(`GoogleAppApiKey should be given in an enviromental variable`);
 		return {
@@ -42,8 +40,17 @@ export default class {
 	}
 }
 
-class Memory{
-	rr: {
-		channels: string[]
-	}
+export class Memory {
+	rr: RussianRoulettes;
+	cooldown: Cooldowns[];
+}
+
+export class RussianRoulettes {
+	channels: string[];
+}
+
+export class Cooldowns {
+	userID: string;
+	command: string;
+	whenCanUse: number;
 }

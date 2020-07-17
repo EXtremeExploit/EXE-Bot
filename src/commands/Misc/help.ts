@@ -30,7 +30,7 @@ export default class {
 			}
 		}
 		if (str == '') {
-			for (var i = 0; i < categories.length; i++) {
+			for (let i = 0; i < categories.length; i++) {
 				const cat = categories[i];
 				str += `${cat}\n`;
 			}

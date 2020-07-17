@@ -1,35 +1,57 @@
 import discord from 'discord.js';
-import config from './config.js'
+import config from './config.js';
 let prefix = new config().GetPrefix();
 let wikis = new config().GetWikis();
-
 
 class Command {
 	name: string;
 	category: Categories;
 	aliases: string[];
-	constructor(name: string, category: Categories, aliases: string[] = []) {
+	cooldown: number; // In seconds
+	needsAsync: boolean;
+	constructor(name: string, category: Categories, aliases: string[] = [], cooldown = 0, needsAsync = false) {
 		this.name = name;
 		this.category = category;
 		this.aliases = aliases;
+		this.cooldown = cooldown;
+		this.needsAsync = needsAsync;
 	}
 
 	//TODO: Add a way to reload commands whenever there is support to delete ES modules from memory 
 	Load(client: discord.Client, msg: discord.Message) {
 		let catName: string = Categories[this.category];
-		import(`./commands/${catName}/${this.name}.js`).then((e => {
+		import(`./commands/${catName}/${this.name}.js`).then((async e => {
 			try {
-				new e.default(client, msg);
+				if (this.needsAsync) {
+					let cmd = new e.default(client, msg);
+					let result = await cmd.init();
+					if (this.cooldown != 0)
+						if (result == true) {
+							let memory = new config().GetMemory();
+							memory.cooldown.push({ userID: msg.author.id, command: this.name, whenCanUse: Math.floor(Date.now() / 1000) + this.cooldown });
+							new config().WriteMemory(memory);
+						}
+				} else {
+					let cmd = new e.default(client, msg);
+					if (this.cooldown != 0) {
+						if (cmd == true) {
+							let memory = new config().GetMemory();
+							memory.cooldown.push({ userID: msg.author.id, command: this.name, whenCanUse: Math.floor(Date.now() / 1000) + this.cooldown });
+							new config().WriteMemory(memory);
+						}
+					}
+				}
+
 			} catch (E) {
 				try {
-				msg.channel.send(new discord.MessageEmbed()
-					.setColor([255, 0, 0])
-					.setTitle(`Error`)
-					.addField(`Help`, `Check the [wiki](${wikis.commands}#osu) for help!`)
-					.setDescription(`OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!`)
-					.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
+					msg.channel.send(new discord.MessageEmbed()
+						.setColor([255, 0, 0])
+						.setTitle(`Error`)
+						.addField(`Help`, `Check the [wiki](${wikis.commands}#osu) for help!`)
+						.setDescription(`OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!`)
+						.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
 					console.error(E);
-				} catch(E){
+				} catch (E) {
 					throw E;
 				}
 			}
@@ -39,6 +61,7 @@ class Command {
 
 export enum Categories {
 	BotOwner = 0,
+	Social,
 	Fun,
 	Games,
 	Info,
@@ -51,8 +74,18 @@ export enum Categories {
 
 export let commandsArray: Command[] = [
 	//Bot Owner
-	new Command(`disconnect`, Categories.BotOwner),
+	new Command('clearcooldowns', Categories.BotOwner, ['clrcd', 'clrcds']),
+	new Command(`disconnect`, Categories.BotOwner, ['dc']),
 	new Command(`eval`, Categories.BotOwner),
+
+	//Social
+	new Command(`kill`, Categories.Social, [], 86400, true),
+	new Command(`setalias`, Categories.Social, [], 45, true),
+	new Command(`setjob`, Categories.Social, [], 45, true),
+	new Command(`work`, Categories.Social, ['w'], 28800, true),
+	new Command('profile', Categories.Social, ['p']),
+	new Command('rep', Categories.Social, ['reputation'], 86400, true),
+
 
 	//Fun
 	new Command(`cookie`, Categories.Fun),
@@ -79,7 +112,6 @@ export let commandsArray: Command[] = [
 	new Command(`emoji`, Categories.Info),
 	new Command(`role`, Categories.Info),
 	new Command(`server`, Categories.Info),
-	new Command(`stats`, Categories.Info),
 	new Command(`user`, Categories.Info),
 
 	//Misc
@@ -105,7 +137,7 @@ export let commandsArray: Command[] = [
 	//Random
 	new Command(`8ball`, Categories.Random),
 	new Command(`cat`, Categories.Random),
-	new Command(`coinflip`, Categories.Random),
+	new Command(`coinflip`, Categories.Random, [], 3),
 	new Command(`dice`, Categories.Random),
 	new Command(`dog`, Categories.Random),
 	new Command(`rate`, Categories.Random),
@@ -137,7 +169,30 @@ export default class {
 				let c: Command;
 				for (c of commandsArray) {
 					if (c.name == command || c.aliases.includes(command)) {
-						c.Load(client, msg);
+						if (c.cooldown != 0) {
+							let memory = new config().GetMemory();
+							let cd = memory.cooldown.find((e) => e.userID == msg.author.id && e.command == c.name && e.whenCanUse > Math.floor(Date.now() / 1000));
+							if (cd != undefined) {
+								let cd = memory.cooldown.find((e) => e.userID == msg.author.id && e.command == c.name);
+								let timeDifference = cd.whenCanUse - Math.floor(Date.now() / 1000);
+
+								let hours = Math.floor(timeDifference / 60 / 60);
+								let minutes = Math.floor(timeDifference / 60) - (hours * 60);
+								let seconds = timeDifference % 60;
+
+								msg.reply(`You are using that command too fast!, try again in **${hours} Hours, ${minutes} Minutes and ${seconds} seconds...**`);
+								return;
+							} else {
+								let ucd = memory.cooldown.findIndex((e) => e.userID == msg.author.id && e.command == c.name);
+								if (ucd != -1) {
+									memory.cooldown.splice(ucd, 1);
+									new config().WriteMemory(memory);
+								}
+								c.Load(client, msg);
+							}
+						} else {
+							c.Load(client, msg);
+						}
 					}
 				}
 			}

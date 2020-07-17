@@ -1,7 +1,7 @@
 import discord from 'discord.js';
 import config from './config.js';
 import { commandsArray } from './commands.js';
-import { repliesArray } from './replies.js'
+import { repliesArray } from './replies.js';
 import { sleep } from './util.js';
 let owner = new config().GetOwner();
 let prefix = new config().GetPrefix();
@@ -25,7 +25,7 @@ export default class {
 			status: 'dnd',
 			activity: {
 				name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
-				type: 'LISTENING'
+				type: 'LISTENING',
 			}
 		})
 	}
@@ -45,7 +45,7 @@ export default class {
 			await sleep(1000);
 			setInterval(() => {
 				this.setStatus();
-			}, 20000);
+			}, 30000);
 			this.setStatus();
 
 		});

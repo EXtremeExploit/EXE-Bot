@@ -20,7 +20,7 @@ export default class {
             status: 'dnd',
             activity: {
                 name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
-                type: 'LISTENING'
+                type: 'LISTENING',
             }
         });
     }
@@ -37,7 +37,7 @@ export default class {
             await sleep(1000);
             setInterval(() => {
                 this.setStatus();
-            }, 20000);
+            }, 30000);
             this.setStatus();
         });
     }

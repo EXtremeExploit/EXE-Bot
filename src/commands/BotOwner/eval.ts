@@ -1,6 +1,6 @@
 import discord from 'discord.js';
 import config from '../../config.js';
-import util from 'util'
+import util from 'util';
 let owner = new config().GetOwner();
 
 import { createRequire } from 'module';

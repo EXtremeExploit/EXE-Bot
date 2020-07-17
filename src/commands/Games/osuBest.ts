@@ -1,6 +1,6 @@
 import discord from 'discord.js';
 import _osuApi from 'node-osu';
-import { fixDecimals, convertDate, formatNumber } from '../../util.js'
+import { fixDecimals, convertDate, formatNumber } from '../../util.js';
 import config from '../../config.js';
 let wikis = new config().GetWikis();
 let OsuKey = new config().GetOsuKey();

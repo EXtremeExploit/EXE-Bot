@@ -1,6 +1,4 @@
 import discord from 'discord.js';
-import config from '../../config.js'
-import { random } from '../../util.js';
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {

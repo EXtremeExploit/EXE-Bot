@@ -1,5 +1,5 @@
 import discord from 'discord.js';
-import config from '../../config.js'
+import config from '../../config.js';
 let wikis = new config().GetWikis();
 
 export default class {

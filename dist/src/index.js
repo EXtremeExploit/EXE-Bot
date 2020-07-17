@@ -4,18 +4,22 @@ dotenv.config({
     path: `./json/.env`
 });
 import discord from 'discord.js';
-import fs from 'fs';
 import commands from './commands.js';
 import config from './config.js';
 import events from './events.js';
 import replies from './replies.js';
 import * as mongoose from 'mongoose';
 let db = new config().GetDB();
-fs.writeFile(`./json/memory.json`, `{"rr":{"channels":[]}}`, (err) => {
-    if (err)
-        console.log(err);
+// Clear the Russian Roullette memory
+let cMemory = new config().GetMemory();
+cMemory.rr.channels = [];
+new config().WriteMemory(cMemory);
+let client = new discord.Client({
+    http: {
+        api: 'https://discord.com/api',
+        cdn: 'https://cdn.discordapp.com'
+    }
 });
-let client = new discord.Client();
 (async () => {
     console.log('Logging to Database...');
     await mongoose.default.connect(db, { useNewUrlParser: true, useUnifiedTopology: true });

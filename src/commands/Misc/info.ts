@@ -6,13 +6,13 @@ import os from 'os';
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		var miliseconds = client.uptime % 1000;
-		var seconds = Math.floor(client.uptime / 1000) % 60;
-		var minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 60;
-		var hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) % 24;
-		var days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) / 24);
+		let miliseconds = client.uptime % 1000;
+		let seconds = Math.floor(client.uptime / 1000) % 60;
+		let minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 60;
+		let hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) % 24;
+		let days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) / 24);
 
-		var ram = {
+		let ram = {
 			total: os.totalmem() / 1048576,
 			used: Math.round(process.memoryUsage().heapTotal / 1024 / 1024 * 100) / 100,
 			free: os.freemem() / 1048576,
@@ -20,7 +20,7 @@ export default class {
 			external: Math.round(process.memoryUsage().external / 1024 / 1024 * 100) / 100
 		};
 
-		var embed = new discord.MessageEmbed()
+		let embed = new discord.MessageEmbed()
 			.setAuthor(client.user.username, client.user.avatarURL({ dynamic: true, size: 1024, format: `png` }))
 			.setColor([255, 0, 0])
 			.setThumbnail(client.user.avatarURL({ dynamic: true, size: 1024, format: `png` }));

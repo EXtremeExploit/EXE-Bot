@@ -1,5 +1,5 @@
 import discord from 'discord.js';
-import { reverseString } from '../../util.js'
+import { reverseString } from '../../util.js';
 import config from '../../config.js';
 let wikis = new config().GetWikis();
 

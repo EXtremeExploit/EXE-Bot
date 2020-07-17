@@ -3,8 +3,8 @@ import config from '../../config.js';
 let wikis = new config().GetWikis();
 export default class {
     constructor(client, msg) {
-        var messageArray = msg.content.split(' ');
-        var args = messageArray.slice(1).join(' ');
+        let messageArray = msg.content.split(' ');
+        let args = messageArray.slice(1).join(' ');
         const rate = Math.floor(Math.random() * 11);
         if (args !== '' || !args == null) {
             msg.channel.send(new discord.MessageEmbed()

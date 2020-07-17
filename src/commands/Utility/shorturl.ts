@@ -1,12 +1,12 @@
 import discord from 'discord.js';
 import config from '../../config.js';
-import isgd from 'isgd'
+import isgd from 'isgd';
 let wikis = new config().GetWikis();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		var messageArray = msg.content.split(' ');
-		var args = messageArray.slice(1).join(' ');
+		let messageArray = msg.content.split(' ');
+		let args = messageArray.slice(1).join(' ');
 
 		//https://is.gd/exe_bot
 

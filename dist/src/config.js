@@ -25,10 +25,7 @@ export default class {
         return JSON.parse(content);
     }
     WriteMemory(Data) {
-        fs.writeFile(`./json/memory.json`, JSON.stringify(Data), (err) => {
-            if (err)
-                throw err;
-        });
+        fs.writeFileSync(`./json/memory.json`, JSON.stringify(Data), { encoding: 'utf-8' });
     }
     GetOsuKey() {
         if (!process.env.OsuKey)
@@ -46,5 +43,9 @@ export default class {
         };
     }
 }
-class Memory {
+export class Memory {
+}
+export class RussianRoulettes {
+}
+export class Cooldowns {
 }

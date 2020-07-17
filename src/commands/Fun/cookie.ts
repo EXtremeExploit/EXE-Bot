@@ -1,7 +1,6 @@
 import discord from 'discord.js';
-import { CookieModel} from '../../util.js';
-import config from '../../config.js'
-let db = new config().GetDB();
+import { createProfile, SocialModel, SocialClass, SocialCheckUndefineds } from '../../util.js';
+import config from '../../config.js';
 let wikis = new config().GetWikis();
 
 export default class {
@@ -20,28 +19,22 @@ export default class {
 					.setColor([255, 0, 0])
 					.setDescription(`You cant give a cookie to youself, that stuff doesn\`t  grow from trees!!`));
 			} else {
-				CookieModel.findOne({
-					id: msg.mentions.members.first().id.toString()
-				}, (err, cookie: any) => {
-					if (err) throw err;
-
-					if (cookie == null) {
-						let Cookie = new CookieModel({
-							id: msg.mentions.members.first().id,
-							count: 1
-						});
-						Cookie.save();
-					} else {
-						let cookies = cookie.count;
-						cookie.count = cookies + 1;
-						cookie.save();
-					}
-				});
-
 				msg.channel.send(new discord.MessageEmbed()
 					.setTitle(`${msg.member.user.username} Has given a cookie to ${msg.mentions.members.first().user.username}`)
 					.setColor([255, 0, 0])
 					.setImage(cookieImg));
+
+				SocialModel.findOne({ id: msg.mentions.members.first().id }, (err, social: SocialClass) => {
+					if (err) throw err;
+
+					if (social == null)
+						social = createProfile(msg.mentions.members.first().id);
+
+					social = SocialCheckUndefineds(social);
+
+					social.set('cookies', social.cookies + 1);
+					social.save();
+				});
 			}
 		} else {
 			msg.channel.send(new discord.MessageEmbed()

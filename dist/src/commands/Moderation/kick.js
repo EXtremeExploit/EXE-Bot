@@ -31,7 +31,7 @@ export default class {
                             msg.channel.send(new discord.MessageEmbed()
                                 .setColor([255, 0, 0])
                                 .setTitle(`Kick Error`)
-                                .setDescription(`I don\`t have permissions to do that`));
+                                .setDescription(`I don't have permissions to do that`));
                         }
                     }
                 }

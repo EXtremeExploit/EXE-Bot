@@ -9,7 +9,7 @@ export default class {
 
 		let _cat: string;
 		let str = ``;
-		let categories = Object.keys(Categories).splice(1).filter((e) => e != 'BotOwner').splice(8);
+		let categories = Object.keys(Categories).splice(1).filter((e) => e != 'BotOwner').splice(9);
 
 		for (_cat in categories) {
 			if (categories.hasOwnProperty(_cat)) {

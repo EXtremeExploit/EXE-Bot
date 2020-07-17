@@ -18,7 +18,7 @@ export default class {
                             msg.channel.send(new discord.MessageEmbed()
                                 .setColor([255, 0, 0])
                                 .setTitle(`If you mute me, im not gonna work on this channel, are you sure?`)
-                                .setDescription(`You \`ll need to unmute me manually whenever you want to use me :3`)
+                                .setDescription(`You 'll need to unmute me manually whenever you want to use me :3`)
                                 .addField(`Yes`, `\`${prefix}mute <@Member> --force\``)
                                 .addField(`No`, `Ignore this`));
                         }

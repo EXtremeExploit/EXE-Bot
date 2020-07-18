@@ -7,7 +7,8 @@ export default class {
         let args = msg.content.split(` `).splice(1);
         let _cat;
         let str = ``;
-        let categories = Object.keys(Categories).splice(1).filter((e) => e != 'BotOwner').splice(9);
+        let numberOfCommands = Object.keys(Categories).length / 2;
+        let categories = Object.keys(Categories).splice(1).filter((e) => e != 'BotOwner').splice(numberOfCommands - 1);
         for (_cat in categories) {
             if (categories.hasOwnProperty(_cat)) {
                 const cat = categories[_cat];

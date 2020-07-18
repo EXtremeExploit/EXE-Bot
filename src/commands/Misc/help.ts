@@ -9,7 +9,8 @@ export default class {
 
 		let _cat: string;
 		let str = ``;
-		let categories = Object.keys(Categories).splice(1).filter((e) => e != 'BotOwner').splice(9);
+		let numberOfCommands = Object.keys(Categories).length / 2;
+		let categories = Object.keys(Categories).splice(1).filter((e) => e != 'BotOwner').splice(numberOfCommands - 1);
 
 		for (_cat in categories) {
 			if (categories.hasOwnProperty(_cat)) {
@@ -34,7 +35,7 @@ export default class {
 				const cat = categories[i];
 				str += `${cat}\n`;
 			}
-			
+
 			msg.channel.send(new discord.MessageEmbed()
 				.setColor(0xFF0000)
 				.setTitle(`Help`)

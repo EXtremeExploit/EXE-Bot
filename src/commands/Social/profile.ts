@@ -35,7 +35,7 @@ export default class {
 					`**OwO's:** ${social.owos}`, true)
 				.addField('Work',
 					`**Money:** ${social.money}\n` +
-					`**Profession:** ${social.money}\n` +
+					`**Profession:** ${social.workName}\n` +
 					`**Work Count:** ${social.workCount}`, true)
 				.addField('Badges', badges, true)
 				.addField('Coinflips',

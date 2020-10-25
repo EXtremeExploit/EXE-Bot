@@ -26,28 +26,6 @@ export function convertDate(date, createdTimestamp) {
         return `${year}/${month}/${day} @ ${hour}:${minutes}:${seconds} UTC (${ct.days} days, ${ct.hours} hours, ${ct.minutes} minutes, ${ct.seconds} seconds ago)`;
     return `${year}/${month}/${day} @ ${hour}:${minutes}:${seconds} UTC`;
 }
-let SocialSchema = new mongoose.Schema({
-    id: String,
-    money: Number,
-    workCount: Number,
-    workName: String,
-    rep: Number,
-    badges: [Number],
-    kills: Number,
-    deaths: Number,
-    alias: String,
-    coinflips: {
-        heads: Number,
-        tails: Number,
-        edges: Number,
-    },
-    sandwichs: Number,
-    cookies: Number,
-    owos: Number,
-});
-export class SocialClass extends mongoose.Document {
-}
-export let SocialModel = mongoose.model('social', SocialSchema);
 export function random(max, min) {
     if (min === undefined)
         return Math.floor(Math.random() * (max + 1));
@@ -76,6 +54,29 @@ export var CoinflipResults;
     CoinflipResults[CoinflipResults["Tails"] = 1] = "Tails";
     CoinflipResults[CoinflipResults["Edge"] = 2] = "Edge";
 })(CoinflipResults || (CoinflipResults = {}));
+//#region Social
+let SocialSchema = new mongoose.Schema({
+    id: String,
+    money: Number,
+    workCount: Number,
+    workName: String,
+    rep: Number,
+    badges: [Number],
+    kills: Number,
+    deaths: Number,
+    alias: String,
+    coinflips: {
+        heads: Number,
+        tails: Number,
+        edges: Number,
+    },
+    sandwichs: Number,
+    cookies: Number,
+    owos: Number,
+});
+export let SocialModel = mongoose.model('social', SocialSchema);
+export class SocialClass extends mongoose.Document {
+}
 export var Badges;
 (function (Badges) {
     Badges[Badges["Owner"] = 0] = "Owner";
@@ -201,3 +202,52 @@ export function SocialCheckUndefineds(social) {
     }
     return social;
 }
+//#endregion
+//#region Server Config
+let ServerConfigSchema = new mongoose.Schema({
+    id: String,
+    repliesEnabled: Boolean,
+    hasSentAReply: Boolean,
+});
+export let ServerConfigModel = mongoose.model('ServerConfig', ServerConfigSchema);
+export class ServerConfigClass extends mongoose.Document {
+}
+export function createServerConfig(serverID) {
+    let config = new ServerConfigModel({
+        id: serverID,
+        repliesEnabled: true,
+        hasSentAReply: false,
+    });
+    return config;
+}
+export function ServerConfigCheckUndefineds(config) {
+    if (config.repliesEnabled == undefined || config.repliesEnabled == null)
+        config.set('repliesEnabled', true);
+    if (config.hasSentAReply == undefined || config.hasSentAReply == null)
+        config.set('hasSentAReply', false);
+    return config;
+}
+//#endregion
+//#region Cooldown
+let CooldownSchema = new mongoose.Schema({
+    id: String,
+    command: String,
+    time: Number,
+});
+export let CooldownModel = mongoose.model('cooldown', CooldownSchema);
+export class CooldownsClass extends mongoose.Document {
+}
+export function createCooldown(id, cmd) {
+    let config = new CooldownModel({
+        id: id,
+        command: cmd,
+        time: 0,
+    });
+    return config;
+}
+export function CooldownCheckUndefineds(cd) {
+    if (cd.time == undefined || cd.time == null)
+        cd.set('time', 0);
+    return cd;
+}
+//#endregion

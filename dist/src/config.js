@@ -1,5 +1,4 @@
 import json from '../json/config.json';
-import fs from 'fs';
 export default class {
     GetToken() {
         if (!process.env.token)
@@ -20,13 +19,6 @@ export default class {
             new Error(`db_url should be given in an enviromental variable`);
         return process.env.db_url;
     }
-    GetMemory() {
-        let content = fs.readFileSync(`./json/memory.json`, { encoding: `utf-8` });
-        return JSON.parse(content);
-    }
-    WriteMemory(Data) {
-        fs.writeFileSync(`./json/memory.json`, JSON.stringify(Data), { encoding: 'utf-8' });
-    }
     GetOsuKey() {
         if (!process.env.OsuKey)
             new Error(`osu! Api Key should be given in an enviromental variable`);
@@ -43,9 +35,8 @@ export default class {
         };
     }
 }
-export class Memory {
-}
-export class RussianRoulettes {
-}
-export class Cooldowns {
-}
+export let ram = {
+    rr: {
+        channels: []
+    }
+};

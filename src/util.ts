@@ -31,50 +31,6 @@ export function convertDate(date: Date, createdTimestamp?: number) {
 	return `${year}/${month}/${day} @ ${hour}:${minutes}:${seconds} UTC`
 }
 
-let SocialSchema = new mongoose.Schema({
-	id: String,
-	money: Number,
-	workCount: Number,
-	workName: String,
-	rep: Number,
-	badges: [Number],
-	kills: Number,
-	deaths: Number,
-	alias: String,
-	coinflips: {
-		heads: Number,
-		tails: Number,
-		edges: Number,
-	},
-	sandwichs: Number,
-	cookies: Number,
-	owos: Number,
-
-});
-
-export class SocialClass extends mongoose.Document {
-	id?: string;
-	money?: number;
-	workCount?: number;
-	workName?: string;
-	rep?: number;
-	//TODO: add a proper type to badges that supports index and set 
-	badges?: any;
-	kills?: number;
-	deaths?: number;
-	alias?: string;
-	coinflips?: {
-		heads?: number;
-		tails?: number;
-		edges?: number;
-	};
-	sandwichs?: number;
-	cookies?: number;
-	owos?: number;
-}
-
-export let SocialModel = mongoose.model('social', SocialSchema);
-
 export function random(max: number, min?: number) {
 	if (min === undefined)
 		return Math.floor(Math.random() * (max + 1));
@@ -105,6 +61,51 @@ export enum CoinflipResults {
 	Head,
 	Tails,
 	Edge
+}
+
+//#region Social
+let SocialSchema = new mongoose.Schema({
+	id: String,
+	money: Number,
+	workCount: Number,
+	workName: String,
+	rep: Number,
+	badges: [Number],
+	kills: Number,
+	deaths: Number,
+	alias: String,
+	coinflips: {
+		heads: Number,
+		tails: Number,
+		edges: Number,
+	},
+	sandwichs: Number,
+	cookies: Number,
+	owos: Number,
+
+});
+
+export let SocialModel = mongoose.model('social', SocialSchema);
+
+export class SocialClass extends mongoose.Document {
+	id?: string;
+	money?: number;
+	workCount?: number;
+	workName?: string;
+	rep?: number;
+	//TODO: add a proper type to badges that supports index and set 
+	badges?: any;
+	kills?: number;
+	deaths?: number;
+	alias?: string;
+	coinflips?: {
+		heads?: number;
+		tails?: number;
+		edges?: number;
+	};
+	sandwichs?: number;
+	cookies?: number;
+	owos?: number;
 }
 
 export enum Badges {
@@ -204,3 +205,67 @@ export function SocialCheckUndefineds(social: SocialClass) {
 	}
 	return social;
 }
+//#endregion
+
+//#region Server Config
+let ServerConfigSchema = new mongoose.Schema({
+	id: String,
+	repliesEnabled: Boolean,
+	hasSentAReply: Boolean,
+});
+
+export let ServerConfigModel = mongoose.model('ServerConfig', ServerConfigSchema);
+
+export class ServerConfigClass extends mongoose.Document {
+	id?: string;
+	repliesEnabled?: boolean;
+	hasSentAReply?: boolean;
+}
+
+export function createServerConfig(serverID: string) {
+	let config = new ServerConfigModel({
+		id: serverID,
+		repliesEnabled: true,
+		hasSentAReply: false,
+	});
+	return config;
+}
+
+export function ServerConfigCheckUndefineds(config: ServerConfigClass) {
+	if (config.repliesEnabled == undefined || config.repliesEnabled == null) config.set('repliesEnabled', true);
+	if (config.hasSentAReply == undefined || config.hasSentAReply == null) config.set('hasSentAReply', false);
+	return config;
+}
+
+//#endregion
+
+//#region Cooldown
+let CooldownSchema = new mongoose.Schema({
+	id: String,
+	command: String,
+	time: Number,
+});
+
+export let CooldownModel = mongoose.model('cooldown', CooldownSchema);
+
+export class CooldownsClass extends mongoose.Document {
+	id?: string;
+	command?: string;
+	time?: number;
+}
+
+export function createCooldown(id: string, cmd: string) {
+	let config = new CooldownModel({
+		id: id,
+		command: cmd,
+		time: 0,
+	});
+	return config;
+}
+
+export function CooldownCheckUndefineds(cd: CooldownsClass) {
+	if (cd.time == undefined || cd.time == null) cd.set('time', 0);
+	return cd;
+}
+
+//#endregion

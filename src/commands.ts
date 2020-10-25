@@ -1,7 +1,8 @@
 import discord from 'discord.js';
 import config from './config.js';
+import { CooldownCheckUndefineds, CooldownModel, CooldownsClass, createCooldown } from './util.js';
 let prefix = new config().GetPrefix();
-let wikis = new config().GetWikis();
+let owner = new config().GetOwner();
 
 class Command {
 	name: string;
@@ -9,6 +10,14 @@ class Command {
 	aliases: string[];
 	cooldown: number; // In seconds
 	needsAsync: boolean;
+	/**
+	 * 
+	 * @param name Command file name
+	 * @param category Category or Folder Name
+	 * @param aliases Aliases for which the command cand get executed
+	 * @param cooldown In Seconds
+	 * @param needsAsync Uses init() function
+	 */
 	constructor(name: string, category: Categories, aliases: string[] = [], cooldown = 0, needsAsync = false) {
 		this.name = name;
 		this.category = category;
@@ -18,44 +27,42 @@ class Command {
 	}
 
 	//TODO: Add a way to reload commands whenever there is support to delete ES modules from memory 
-	Load(client: discord.Client, msg: discord.Message) {
+	async Load(client: discord.Client, msg: discord.Message) {
 		let catName: string = Categories[this.category];
-		import(`./commands/${catName}/${this.name}.js`).then((async e => {
-			try {
-				if (this.needsAsync) {
-					let cmd = new e.default(client, msg);
-					let result = await cmd.init();
-					if (this.cooldown != 0)
-						if (result == true) {
-							let memory = new config().GetMemory();
-							memory.cooldown.push({ userID: msg.author.id, command: this.name, whenCanUse: Math.floor(Date.now() / 1000) + this.cooldown });
-							new config().WriteMemory(memory);
-						}
-				} else {
-					let cmd = new e.default(client, msg);
-					if (this.cooldown != 0) {
-						if (cmd == true) {
-							let memory = new config().GetMemory();
-							memory.cooldown.push({ userID: msg.author.id, command: this.name, whenCanUse: Math.floor(Date.now() / 1000) + this.cooldown });
-							new config().WriteMemory(memory);
-						}
-					}
-				}
+		let cmdImport = await import(`./commands/${catName}/${this.name}.js`);
+		let result = false;
 
-			} catch (E) {
-				try {
-					msg.channel.send(new discord.MessageEmbed()
-						.setColor([255, 0, 0])
-						.setTitle(`Error`)
-						.addField(`Help`, `Check the [wiki](${wikis.commands}#osu) for help!`)
-						.setDescription(`OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!`)
-						.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
-					console.error(E);
-				} catch (E) {
-					throw E;
+		try {
+			let cmd = new cmdImport.default(client, msg);
+
+			if (this.needsAsync)
+				result = await cmd.init();
+			else
+				result = true;
+
+			if (this.cooldown != 0)
+				if (result == true) {
+					let cd: CooldownsClass = await CooldownModel.findOne({ id: msg.author.id, command: this.name });
+					if (cd == null || cd == undefined)
+						cd = createCooldown(msg.author.id, this.name);
+					cd.set('time', Math.floor(Date.now() / 1000) + this.cooldown)
+					cd.save();
 				}
+		} catch (E) {
+			try {
+				msg.channel.send(new discord.MessageEmbed()
+					.setColor([255, 0, 0])
+					.setTitle(`Error`)
+					.setDescription(`OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!`)
+					.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
+
+				(await client.users.fetch(owner.id)).send(`\`\`\`${E.stack}\`\`\``);
+
+				console.error(E);
+			} catch (E) {
+				throw E;
 			}
-		}));
+		}
 	}
 }
 
@@ -74,9 +81,9 @@ export enum Categories {
 
 export let commandsArray: Command[] = [
 	//Bot Owner
-	new Command('clearcooldowns', Categories.BotOwner, ['clrcd', 'clrcds']),
+	new Command('clearcooldowns', Categories.BotOwner, ['clrcd', 'clrcds'], 0, true),
 	new Command(`disconnect`, Categories.BotOwner, ['dc']),
-	new Command(`eval`, Categories.BotOwner),
+	new Command(`eval`, Categories.BotOwner, [], 0, true),
 
 	//Social
 	new Command(`kill`, Categories.Social, [], 86400, true),
@@ -128,6 +135,7 @@ export let commandsArray: Command[] = [
 	new Command(`kick`, Categories.Moderation),
 	new Command(`mute`, Categories.Moderation),
 	new Command(`prune`, Categories.Moderation),
+	new Command(`svcfg`, Categories.Moderation, ['serverconfig', 'svconfig', 'servercfg'], 10, true),
 	new Command(`unmute`, Categories.Moderation),
 
 	//NSFW
@@ -170,11 +178,13 @@ export default class {
 				for (c of commandsArray) {
 					if (c.name == command || c.aliases.includes(command)) {
 						if (c.cooldown != 0) {
-							let memory = new config().GetMemory();
-							let cd = memory.cooldown.find((e) => e.userID == msg.author.id && e.command == c.name && e.whenCanUse > Math.floor(Date.now() / 1000));
-							if (cd != undefined) {
-								let cd = memory.cooldown.find((e) => e.userID == msg.author.id && e.command == c.name);
-								let timeDifference = cd.whenCanUse - Math.floor(Date.now() / 1000);
+							let cd: CooldownsClass = await CooldownModel.findOne({ id: msg.author.id, command: c.name });
+							if (cd == null || cd == undefined) {
+								cd = createCooldown(msg.author.id, c.name);
+							}
+							cd = CooldownCheckUndefineds(cd);
+							if (cd.time > Math.floor(Date.now() / 1000)) {
+								let timeDifference = cd.time - Math.floor(Date.now() / 1000);
 
 								let hours = Math.floor(timeDifference / 60 / 60);
 								let minutes = Math.floor(timeDifference / 60) - (hours * 60);
@@ -183,11 +193,6 @@ export default class {
 								msg.reply(`You are using that command too fast!, try again in **${hours} Hours, ${minutes} Minutes and ${seconds} seconds...**`);
 								return;
 							} else {
-								let ucd = memory.cooldown.findIndex((e) => e.userID == msg.author.id && e.command == c.name);
-								if (ucd != -1) {
-									memory.cooldown.splice(ucd, 1);
-									new config().WriteMemory(memory);
-								}
 								c.Load(client, msg);
 							}
 						} else {

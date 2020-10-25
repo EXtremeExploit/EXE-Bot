@@ -1,33 +1,43 @@
-import discord from 'discord.js';
+import { ServerConfigModel, createServerConfig, ServerConfigCheckUndefineds } from './util.js';
 import config from './config.js';
-let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
+let owner = new config().GetOwner();
 class Reply {
     constructor(fileName, content, aliases = []) {
         this.content = content;
         this.fileName = fileName;
         this.aliases = aliases;
     }
-    Load(client, msg) {
-        import(`./replies/${this.fileName}.js`).then((e => {
+    async Load(client, msg) {
+        try {
+            let replImport = await import(`./replies/${this.fileName}.js`);
+            let ServerConfig = await ServerConfigModel.findOne({ id: msg.guild.id });
+            if (ServerConfig == null || ServerConfig == undefined)
+                ServerConfig = createServerConfig(msg.guild.id);
+            ServerConfig = ServerConfigCheckUndefineds(ServerConfig);
+            if (ServerConfig.repliesEnabled) {
+                new replImport.default(client, msg);
+                if (!ServerConfig.hasSentAReply) {
+                    msg.channel.send('It looks like this is the first reply i send into this server..\n' +
+                        `You can disable them with \`${prefix}svcfg toggle-replies\``);
+                    ServerConfig.set('hasSentAReply', true);
+                    ServerConfig.save().catch((err) => {
+                        throw err;
+                    });
+                }
+            }
+        }
+        catch (E) {
             try {
-                new e.default(client, msg);
+                console.error(E);
+                (await client.users.fetch(owner.id)).send(`\`\`\`${E.stack}\`\`\``);
             }
             catch (E) {
-                try {
-                    msg.channel.send(new discord.MessageEmbed()
-                        .setColor([255, 0, 0])
-                        .setTitle(`Error`)
-                        .addField(`Help`, `Check the [wiki](${wikis.commands}#osu) for help!`)
-                        .setDescription(`OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!`)
-                        .setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
-                    console.error(E);
-                }
-                catch (E) {
-                    throw E;
-                }
+                throw E;
             }
-        }));
+        }
     }
+    ;
 }
 export let repliesArray = [
     new Reply(`ayylmao`, `ayy`),
@@ -48,7 +58,7 @@ export let repliesArray = [
 export default class {
     constructor(client) {
         this.client = client;
-        this.client.on(`message`, (msg) => {
+        this.client.on(`message`, async (msg) => {
             if (!msg.guild)
                 return;
             if (msg.author.bot)
@@ -57,7 +67,7 @@ export default class {
                 let r;
                 for (r of repliesArray) {
                     if (msg.content.toLowerCase() == r.content || r.aliases.includes(msg.content)) {
-                        r.Load(client, msg);
+                        await r.Load(client, msg);
                     }
                 }
             }

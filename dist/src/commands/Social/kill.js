@@ -28,8 +28,8 @@ export default class {
                 }
                 KillerSocial = SocialCheckUndefineds(KillerSocial);
                 KilledSocial = SocialCheckUndefineds(KilledSocial);
-                KillerSocial.set('kills', (KillerSocial.kills ? KillerSocial.kills : 0) + 1);
-                KilledSocial.set('deaths', (KilledSocial.kills ? KilledSocial.kills : 0) + 1);
+                KillerSocial.set('kills', KillerSocial.kills + 1);
+                KilledSocial.set('deaths', KilledSocial.kills + 1);
                 KillerSocial.save();
                 KilledSocial.save();
                 this.msg.channel.send(new discord.MessageEmbed()

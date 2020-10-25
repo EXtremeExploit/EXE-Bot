@@ -35,7 +35,6 @@ export default class {
 		social.set('workCount', social.workCount += 1);
 
 		let workName = social.workName;
-		social.save();
 
 		this.msg.channel.send(new discord.MessageEmbed()
 			.setColor(0x008f18)
@@ -47,7 +46,7 @@ export default class {
 			social.badges.set(Badges.Rich, 1);
 
 
-		social.save();
+		await social.save();
 		return true;
 	}
 }

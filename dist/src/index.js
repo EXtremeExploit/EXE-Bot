@@ -10,10 +10,6 @@ import events from './events.js';
 import replies from './replies.js';
 import * as mongoose from 'mongoose';
 let db = new config().GetDB();
-// Clear the Russian Roullette memory
-let cMemory = new config().GetMemory();
-cMemory.rr.channels = [];
-new config().WriteMemory(cMemory);
 let client = new discord.Client({
     http: {
         api: 'https://discord.com/api',

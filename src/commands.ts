@@ -1,5 +1,5 @@
 import discord from 'discord.js';
-import config from './config.js';
+import config, { ram } from './config.js';
 import { CooldownCheckUndefineds, CooldownModel, CooldownsClass, createCooldown } from './util.js';
 let prefix = new config().GetPrefix();
 let owner = new config().GetOwner();
@@ -48,6 +48,9 @@ class Command {
 					cd.set('time', Math.floor(Date.now() / 1000) + this.cooldown)
 					cd.save();
 				}
+			if (ram.cfg.logcmd) {
+				console.log(`[${new Date}] ${msg.author.tag}/${msg.author.id}; ${msg.content}`)
+			}
 		} catch (E) {
 			try {
 				msg.channel.send(new discord.MessageEmbed()
@@ -84,6 +87,7 @@ export let commandsArray: Command[] = [
 	new Command('clearcooldowns', Categories.BotOwner, ['clrcd', 'clrcds'], 0, true),
 	new Command(`disconnect`, Categories.BotOwner, ['dc']),
 	new Command(`eval`, Categories.BotOwner, [], 0, true),
+	new Command(`logcmd`, Categories.BotOwner, ['logcmds'], 0, true),
 
 	//Social
 	new Command(`kill`, Categories.Social, [], 86400, true),

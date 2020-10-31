@@ -35,5 +35,8 @@ export default class {
 export let ram = {
 	rr: {
 		channels: []
+	},
+	cfg: {
+		logcmd: false
 	}
 }

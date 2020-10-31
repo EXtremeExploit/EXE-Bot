@@ -18,7 +18,7 @@ export default class {
 							.setDescription(`WHY ME!!!???`)
 							.setTitle(`;-;`));
 					} else {
-						if (msg.mentions.members.first().kickable) {
+						if (msg.member.hasPermission(discord.Permissions.FLAGS.KICK_MEMBERS) && (msg.member.roles.highest.comparePositionTo(msg.mentions.members.first().roles.highest) > 0)) {
 							msg.mentions.members.first().kick().then((member) => {
 								msg.channel.send(new discord.MessageEmbed()
 									.setColor([255, 0, 0])
@@ -29,7 +29,7 @@ export default class {
 							msg.channel.send(new discord.MessageEmbed()
 								.setColor([255, 0, 0])
 								.setTitle(`Kick Error`)
-								.setDescription(`I don't have permissions to do that`));
+								.setDescription(`I don't have permissions to do that or you can't kick that member`));
 						}
 					}
 				}

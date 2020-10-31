@@ -1,15 +1,15 @@
 {
-	"prefix": "e!",
-	"owner": {
-		"id": "257556050213994516",
-		"username": "EXtremeExploit",
-		"discriminator": "1133",
-		"tag": "EXtremeExploit#1133"
-	},
-	"wikis": {
-		"home": "https://extremeexploit.github.io/EXE_Bot/Wiki/index.html",
-		"commands": "https://extremeexploit.github.io/EXE_Bot/Wiki/Commands.html",
-		"replies": "https://extremeexploit.github.io/EXE_Bot/Wiki/Replies.html",
-		"faq": "https://extremeexploit.github.io/EXE_Bot/Wiki/FAQ.html"
-	}
+    "prefix": "e!",
+    "owner": {
+        "id": "257556050213994516",
+        "username": "EXtremeExploit",
+        "discriminator": "1133",
+        "tag": "EXtremeExploit#1133"
+    },
+    "wikis": {
+        "home": "https://extremeexploit.github.io/EXE_Bot/Wiki/index.html",
+        "commands": "https://extremeexploit.github.io/EXE_Bot/Wiki/Commands.html",
+        "replies": "https://extremeexploit.github.io/EXE_Bot/Wiki/Replies.html",
+        "faq": "https://extremeexploit.github.io/EXE_Bot/Wiki/FAQ.html"
+    }
 }

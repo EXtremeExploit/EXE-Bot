@@ -20,7 +20,7 @@ export default class {
             .setAuthor(client.user.username, client.user.avatarURL({ dynamic: true, size: 1024, format: `png` }))
             .setColor([255, 0, 0])
             .setThumbnail(client.user.avatarURL({ dynamic: true, size: 1024, format: `png` }));
-        embed.addField('Usages', '**RAM:** ' + ram.used.toFixed(3) + ' MB / ' + ram.total.toFixed(3) + ' MB\n' +
+        embed.addField('Usages', `**RAM:** ${ram.used.toFixed(3)} MB /${ram.total.toFixed(3)} MB\n` +
             '**Free RAM:** ' + ram.free.toFixed(2) + ' MB\n' +
             '**RSS RAM:** ' + ram.rss + ' MB\n' +
             '**External RAM:** ' + ram.external + ' MB', true);
@@ -32,8 +32,7 @@ export default class {
             minutes + ' Minutes\n' +
             seconds + ' Seconds\n' +
             miliseconds + ' Miliseconds', true);
-        embed.addField('Links', '[**Page**](https://extremeexploit.github.io/EXE_Bot)\n' +
-            '[**Discord Server**](https://discord.gg/sJPmDDn)\n' +
+        embed.addField('Links', '[**Discord Server**](https://discord.gg/sJPmDDn)\n' +
             '[**Github Repository**](https://github.com/EXtremeExploit/EXE-Bot)', true);
         embed.addField('Wikies', '[**Home**](' + wikis.home + ')\n' +
             '[**Commands**](' + wikis.commands + ')\n' +

@@ -4,7 +4,7 @@ let r34 = booru.forSite('rule34.xxx');
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		if ((msg.channel as discord.TextChannel).nsfw || (msg.channel as discord.GuildChannel).name.startsWith(`nsfw`)) {
+		if ((msg.channel as discord.TextChannel).nsfw) {
 			try {
 				let query = msg.content.split(` `).slice(1).join(` `);
 				r34.search(query, { limit: 1000, random: true }).then((posts) => {

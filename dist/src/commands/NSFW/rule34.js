@@ -3,7 +3,7 @@ import booru from 'booru';
 let r34 = booru.forSite('rule34.xxx');
 export default class {
     constructor(client, msg) {
-        if (msg.channel.nsfw || msg.channel.name.startsWith(`nsfw`)) {
+        if (msg.channel.nsfw) {
             try {
                 let query = msg.content.split(` `).slice(1).join(` `);
                 r34.search(query, { limit: 1000, random: true }).then((posts) => {

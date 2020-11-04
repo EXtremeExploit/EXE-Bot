@@ -26,13 +26,7 @@ export default class {
                 });
             }
             catch (err) {
-                console.log(err);
-                msg.channel.send(new discord.MessageEmbed()
-                    .setColor([255, 0, 0])
-                    .setDescription(`An error ocurred!`)
-                    .setTitle(`Danbooru`)
-                    .addField(`Message Error`, err)
-                    .setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
+                throw err;
             }
         }
         else {

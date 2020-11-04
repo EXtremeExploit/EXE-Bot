@@ -21,15 +21,11 @@ export default class {
 							.setImage(link)
 							.setDescription(`You Searched: ${query}`));
 					}
+				}).catch((err) => {
+					throw err;
 				});
 			} catch (err) {
-				console.log(err);
-				msg.channel.send(new discord.MessageEmbed()
-					.setColor([255, 0, 0])
-					.setDescription(`An error ocurred!`)
-					.setTitle(`Rule34`)
-					.addField(`Message Error`, err)
-					.setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
+				throw err;
 			}
 		} else {
 			msg.channel.send(new discord.MessageEmbed()

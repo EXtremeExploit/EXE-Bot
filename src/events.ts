@@ -24,7 +24,7 @@ export default class {
 		this.client.user.setPresence({
 			status: 'dnd',
 			activity: {
-				name: prefix + 'help | ' + prefix + 'invite | S: ' + this.client.guilds.cache.size,
+				name: `${this.client.guilds.cache.size} Servers | ${prefix}help | ${prefix}invite`,
 				type: 'LISTENING',
 			}
 		})

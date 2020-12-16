@@ -18,7 +18,7 @@ export default class {
 				msgTime = message;
 				this.participants.push(msg.member.id);
 				ram.rr.channels.push(msg.channel.id);
-				let collector = new discord.MessageCollector(msg.channel, (message) => (message.content == prefix + `rrjoin`), {
+				let collector = new discord.MessageCollector((msg.channel as discord.TextChannel), (message) => (message.content == prefix + `rrjoin`), {
 					time: 20000
 				});
 

@@ -10,12 +10,12 @@ export default class {
 			case `online`: status = `Online`; break;
 			case `dnd`: status = `Do Not Disturb`; break;
 			case `idle`: status = `AFK`; break;
-			case `offline`: status = `Offline/Disconnected`; break;
+			case `offline`: status = `Offline`; break;
 		}
-		let ClientStatus: string;
-		if (user.presence.clientStatus.desktop) ClientStatus = `Desktop`
-		if (user.presence.clientStatus.mobile) ClientStatus = `Mobile`;
-		if (user.presence.clientStatus.web) ClientStatus = `Web`;
+		let ClientStatus = 'NA';
+		if (user.presence?.clientStatus?.desktop) ClientStatus = `Desktop`
+		if (user.presence?.clientStatus?.mobile) ClientStatus = `Mobile`;
+		if (user.presence?.clientStatus?.web) ClientStatus = `Web`;
 
 		msg.channel.send(new discord.MessageEmbed()
 			.setDescription(`${user.user.username} info`)

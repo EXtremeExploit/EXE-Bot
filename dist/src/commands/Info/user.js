@@ -15,15 +15,15 @@ export default class {
                 status = `AFK`;
                 break;
             case `offline`:
-                status = `Offline/Disconnected`;
+                status = `Offline`;
                 break;
         }
-        let ClientStatus;
-        if (user.presence.clientStatus.desktop)
+        let ClientStatus = 'NA';
+        if (user.presence?.clientStatus?.desktop)
             ClientStatus = `Desktop`;
-        if (user.presence.clientStatus.mobile)
+        if (user.presence?.clientStatus?.mobile)
             ClientStatus = `Mobile`;
-        if (user.presence.clientStatus.web)
+        if (user.presence?.clientStatus?.web)
             ClientStatus = `Web`;
         msg.channel.send(new discord.MessageEmbed()
             .setDescription(`${user.user.username} info`)

@@ -17,7 +17,7 @@ export default class {
 						.setDescription(`Please specify a number between 2 and 99!`)
 						.setColor([255, 0, 0]));
 				} else {
-					msg.channel.bulkDelete(deln + 1).then((e) => { })
+					(msg.channel as discord.TextChannel).bulkDelete(deln + 1).then((e) => { })
 				}
 			} else {
 				msg.channel.send(new discord.MessageEmbed()

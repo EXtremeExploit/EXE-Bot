@@ -39,7 +39,7 @@ class Command {
                     cd.save();
                 }
             if (ram.cfg.logcmd) {
-                console.log(`[${new Date}] ${msg.author.tag}/${msg.author.id}; ${msg.content}`);
+                console.log(`[${new Date().toUTCString()}] ${msg.author.tag}/${msg.author.id}; ${msg.content}`);
             }
         }
         catch (E) {

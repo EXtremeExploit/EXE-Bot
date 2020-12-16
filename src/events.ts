@@ -51,10 +51,10 @@ export default class {
 		});
 	}
 	Disconnect() {
-		this.client.on(`disconnect`, () => console.log(`[${new Date}] [DISCONNECTED]`));
+		this.client.on(`disconnect`, () => console.log(`[${new Date().toUTCString()}] [DISCONNECTED]`));
 	}
 	Reconnecting() {
-		this.client.on(`reconnecting`, () => console.log(`[${new Date}] [RECONNECTING...]`));
+		this.client.on(`reconnecting`, () => console.log(`[${new Date().toUTCString()}] [RECONNECTING...]`));
 	}
 
 	RateLimit() {

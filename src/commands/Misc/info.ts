@@ -26,10 +26,7 @@ export default class {
 			.setThumbnail(client.user.avatarURL({ dynamic: true, size: 1024, format: `png` }));
 
 		embed.addField('Usages',
-			`**RAM:** ${ram.used.toFixed(3)} MB /${ram.total.toFixed(3)} MB\n` +
-			'**Free RAM:** ' + ram.free.toFixed(2) + ' MB\n' +
-			'**RSS RAM:** ' + ram.rss + ' MB\n' +
-			'**External RAM:** ' + ram.external + ' MB', true);
+			`**RAM (MB):** ${ram.used.toFixed(2)} / ${ram.total.toFixed(2)}\n`, true);
 
 		embed.addField('Counts',
 			'**Servers:** ' + client.guilds.cache.size + '\n' +
@@ -42,6 +39,13 @@ export default class {
 			minutes + ' Minutes\n' +
 			seconds + ' Seconds\n' +
 			miliseconds + ' Miliseconds', true);
+
+		embed.addField('Neofetch',
+			`**OS:** ${os.platform()}\n` +
+			`**Core:** ${os.type()}\n` +
+			`**Arch:** ${os.arch()}\n` +
+			`**CPU:** ${os.cpus().length}x ${os.cpus()[0].model} @ ${os.cpus()[0].speed} MHz\n` +
+			`**RAM (MB):** ${((os.totalmem() - os.freemem()) / 1048576).toFixed(2)} / ${(os.totalmem() / 1048576).toFixed(2)}`)
 
 		embed.addField('Links',
 			'[**Discord Server**](https://discord.gg/sJPmDDn)\n' +

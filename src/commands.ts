@@ -127,7 +127,7 @@ export let commandsArray: Command[] = [
 
 	//Misc
 	new Command(`help`, Categories.Misc),
-	new Command(`info`, Categories.Misc),
+	new Command(`info`, Categories.Misc, ['neofetch']),
 	new Command(`invite`, Categories.Misc),
 	new Command(`ping`, Categories.Misc),
 	new Command(`pong`, Categories.Misc),

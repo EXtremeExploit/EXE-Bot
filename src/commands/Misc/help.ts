@@ -2,6 +2,7 @@ import discord from 'discord.js';
 import config from '../../config.js';
 import { commandsArray, Categories } from '../../commands.js';
 let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
@@ -38,6 +39,7 @@ export default class {
 
 			msg.channel.send(new discord.MessageEmbed()
 				.setColor(0xFF0000)
+				.setDescription('**Usage:** `' + prefix + 'help [Category]`')
 				.setTitle(`Help`)
 				.addField(`Categories`, str)
 				.addField(`Wikis`,

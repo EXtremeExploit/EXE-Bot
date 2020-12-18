@@ -25,6 +25,8 @@ class Command {
         let cmdImport = await import(`./commands/${catName}/${this.name}.js`);
         let result = false;
         try {
+            if (ram.cfg.logcmd)
+                console.log(`[${new Date().toUTCString()}] ${msg.author.tag}/${msg.author.id}; ${msg.content}`);
             let cmd = new cmdImport.default(client, msg);
             if (this.needsAsync)
                 result = await cmd.init();
@@ -38,9 +40,6 @@ class Command {
                     cd.set('time', Math.floor(Date.now() / 1000) + this.cooldown);
                     cd.save();
                 }
-            if (ram.cfg.logcmd) {
-                console.log(`[${new Date().toUTCString()}] ${msg.author.tag}/${msg.author.id}; ${msg.content}`);
-            }
         }
         catch (E) {
             try {

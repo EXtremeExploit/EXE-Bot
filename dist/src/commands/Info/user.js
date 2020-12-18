@@ -19,13 +19,14 @@ export default class {
                 break;
         }
         let ClientStatus = 'NA';
+        let isWeb, isDesktop, isMobile = false;
         if (user.presence.clientStatus) {
             if (user.presence.clientStatus.web)
-                ClientStatus = `Web`;
+                isWeb = true;
             if (user.presence.clientStatus.desktop)
-                ClientStatus = `Desktop`;
+                isDesktop = true;
             if (user.presence.clientStatus.mobile)
-                ClientStatus = `Mobile`;
+                isMobile = false;
         }
         msg.channel.send(new discord.MessageEmbed()
             .setDescription(`${user.user.username} info`)
@@ -35,7 +36,9 @@ export default class {
             .addField(`Roles`, `**Hoist:** ${user.roles.hoist}\n` +
             `**Highest:** ${user.roles.highest}\n` +
             `**Color:** ${user.roles.color}`, true)
-            .addField(`Presence`, `**Device:** ${ClientStatus}\n` +
+            .addField(`Presence`, `**Web:** ${isWeb}\n` +
+            `**Desktop:** ${isDesktop}\n` +
+            `**Mobile:** ${isMobile}\n` +
             `**Status:** ${status}\n`, true)
             .addField(`Dates`, `**Created:** ${convertDate(user.user.createdAt, user.user.createdTimestamp)}\n` +
             `**Joined:** ${convertDate(user.joinedAt, user.joinedTimestamp)}`, true)

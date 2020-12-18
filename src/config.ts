@@ -37,6 +37,6 @@ export let ram = {
 		channels: []
 	},
 	cfg: {
-		logcmd: false
+		logcmd: true
 	}
 }

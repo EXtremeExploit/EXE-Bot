@@ -13,9 +13,11 @@ export default class {
 			case `offline`: status = `Offline`; break;
 		}
 		let ClientStatus = 'NA';
-		if (user.presence?.clientStatus?.desktop) ClientStatus = `Desktop`
-		if (user.presence?.clientStatus?.mobile) ClientStatus = `Mobile`;
-		if (user.presence?.clientStatus?.web) ClientStatus = `Web`;
+		if (user.presence.clientStatus) {
+			if (user.presence.clientStatus.web) ClientStatus = `Web`;
+			if (user.presence.clientStatus.desktop) ClientStatus = `Desktop`;
+			if (user.presence.clientStatus.mobile) ClientStatus = `Mobile`;
+		}
 
 		msg.channel.send(new discord.MessageEmbed()
 			.setDescription(`${user.user.username} info`)

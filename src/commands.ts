@@ -115,7 +115,6 @@ export let commandsArray: Command[] = [
 
 	//Games
 	new Command(`osu`, Categories.Games),
-	new Command(`osuBest`, Categories.Games),
 
 	//Info
 	new Command(`avatar`, Categories.Info),

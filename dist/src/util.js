@@ -14,7 +14,7 @@ export function convertMS(ms) {
     ms = Math.floor((ms % 1000) * 1000) / 1000;
     return { days: d, hours: h, minutes: m, seconds: s, ms: ms };
 }
-export function convertDate(date, createdTimestamp) {
+export function convertDate(date, createdTimestamp, ago) {
     let ct = convertMS(new Date().valueOf() - createdTimestamp);
     let year = date.getUTCFullYear();
     let month = date.getUTCMonth() + 1;
@@ -24,6 +24,25 @@ export function convertDate(date, createdTimestamp) {
     let seconds = date.getUTCSeconds();
     if (createdTimestamp)
         return `${year}/${month}/${day} @ ${hour}:${minutes}:${seconds} UTC (${ct.days} days, ${ct.hours} hours, ${ct.minutes} minutes, ${ct.seconds} seconds ago)`;
+    if (ago) {
+        let str = '';
+        ct = convertMS(new Date().valueOf() - date.valueOf());
+        if (ct.days != 0)
+            str += `${ct.days} D`;
+        if (str.length != 0 && (ct.days != 0 || ct.hours != 0 || ct.minutes != 0 || ct.seconds != 0))
+            str += ', ';
+        if (ct.hours != 0)
+            str += `${ct.hours} Hr${ct.hours == 1 ? '' : 's'}`;
+        if (str.length != 0 && (ct.hours != 0 || ct.minutes != 0 || ct.seconds != 0))
+            str += ', ';
+        if (ct.minutes != 0)
+            str += `${ct.minutes} Mins`;
+        if (str.length != 0 && ct.minutes != 0 || ct.seconds != 0)
+            str += ', ';
+        if (ct.seconds != 0)
+            str += `${ct.seconds} Secs`;
+        return str + ' Ago';
+    }
     return `${year}/${month}/${day} @ ${hour}:${minutes}:${seconds} UTC`;
 }
 export function random(max, min) {
@@ -47,6 +66,101 @@ export function sleep(ms) {
 }
 export function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+}
+export function cleanMods(Mods) {
+    let cleanModsArray = [];
+    Mods.forEach(element => {
+        switch (element) {
+            case 'FreeModAllowed':
+            case 'ScoreIncreaseMods':
+            case 'TouchDevice':
+            case 'KeyMod':
+            case 'None':
+                element = '';
+                break;
+            case 'NoFail':
+                element = 'NF';
+                break;
+            case 'Easy':
+                element = 'EZ';
+                break;
+            case 'Hidden':
+                element = 'HD';
+                break;
+            case 'HardRock':
+                element = 'HR';
+                break;
+            case 'SuddenDeath':
+                element = 'SD';
+                break;
+            case 'DoubleTime':
+                element = 'DT';
+                break;
+            case 'Relax':
+                element = 'RX';
+                break;
+            case 'HalfTime':
+                element = 'HT';
+                break;
+            case 'Nightcore':
+                element = 'NC';
+                break;
+            case 'Flashlight':
+                element = 'FL';
+                break;
+            case 'SpunOut':
+                element = 'SO';
+                break;
+            case 'Relax2':
+                element = 'AP';
+                break;
+            case 'Perfect':
+                element = 'PF';
+                break;
+            case 'Key1':
+                element = '1K';
+                break;
+            case 'Key2':
+                element = '2K';
+                break;
+            case 'Key3':
+                element = '3K';
+                break;
+            case 'Key4':
+                element = '4K';
+                break;
+            case 'Key5':
+                element = '5K';
+                break;
+            case 'Key6':
+                element = '6K';
+                break;
+            case 'Key7':
+                element = '7K';
+                break;
+            case 'Key8':
+                element = '8K';
+                break;
+            case 'Key9':
+                element = '9K';
+                break;
+            case 'FadeIn':
+                element = 'FI';
+                break;
+            case 'Random':
+                element = 'RD';
+                break;
+            case 'ScoreV2':
+                element = 'ScoreV2';
+                break;
+            case 'Mirror':
+                element = 'MR';
+                break;
+        }
+        if (element != '')
+            cleanModsArray.push(element);
+    });
+    return cleanModsArray.length != 0 ? ' +' + cleanModsArray : '';
 }
 export var CoinflipResults;
 (function (CoinflipResults) {

@@ -99,7 +99,6 @@ export let commandsArray = [
     new Command(`waifu`, Categories.Fun),
     //Games
     new Command(`osu`, Categories.Games),
-    new Command(`osuBest`, Categories.Games),
     //Info
     new Command(`avatar`, Categories.Info),
     new Command(`channel`, Categories.Info),

@@ -146,8 +146,9 @@ export default class {
 
 						let mods = cleanMods((play.mods as string[]));
 
-						desc += `**${i + 1}. ${play.pp}pp**\n[${play.beatmap.artist} - ${play.beatmap.title} [${play.beatmap.version}]](https://osu.ppy.sh/s/${play.beatmap.beatmapSetId})${mods}\n` +
-							`${play.score} / ${play.maxCombo} (${play.beatmap.maxCombo}) {${play.counts[300]}x300 ${play.counts[100]}x100 ${play.counts[50]}x50 ${play.counts.miss}xMiss}\n` +
+						desc += `**${i + 1}. ${play.pp}pp**` +
+							`\n[${play.beatmap.artist} - ${play.beatmap.title} [${play.beatmap.version}]](https://osu.ppy.sh/s/${play.beatmap.beatmapSetId})${mods}\n` +
+							`${play.score} / ${play.maxCombo}x(${play.beatmap.maxCombo}x) {300:${play.counts[300]} 100:${play.counts[100]} 50:${play.counts[50]} M:${play.counts.miss}}\n` +
 							`${((play.accuracy as number) * 100).toFixed(2)}% / ${play.rank} / ${date}\n\n`;
 					}
 
@@ -201,8 +202,9 @@ export default class {
 						if (play.rank == `X`) play.rank = `SS (Gold)`;
 						if (play.rank == `XH`) play.rank = `SS (Silver)`;
 						let date = convertDate(new Date(play.raw_date + ` UTC`), 0, true);
-						desc += `**${i + 1}. ${date}**\n[${play.beatmap.artist} - ${play.beatmap.title} [${play.beatmap.version}]](https://osu.ppy.sh/s/${play.beatmap.beatmapSetId})${mods}\n` +
-							`${play.score} / ${play.maxCombo} (${play.beatmap.maxCombo}) {${play.counts[300]}x300 ${play.counts[100]}x100 ${play.counts[50]}x50 ${play.counts.miss}xMiss}\n` +
+						desc += `**${i + 1}. ${date}**\n` +
+							`[${play.beatmap.artist} - ${play.beatmap.title} [${play.beatmap.version}]](https://osu.ppy.sh/s/${play.beatmap.beatmapSetId})${mods}\n` +
+							`${play.score} / ${play.maxCombo}x(${play.beatmap.maxCombo}x) {${play.counts[300]}x300 ${play.counts[100]}x100 ${play.counts[50]}x50 ${play.counts.miss}xMiss}\n` +
 							`${((play.accuracy as number) * 100).toFixed(2)}% / ${play.rank}\n\n`;
 					}
 					let modestr;

@@ -34,25 +34,16 @@ export function convertDate(date: Date, createdTimestamp?: number, ago?: boolean
 		let str = '';
 		ct = convertMS(new Date().valueOf() - date.valueOf());
 		if (ct.days != 0)
-			str += `${ct.days} D`;
-
-		if (str.length != 0 && (ct.days != 0 || ct.hours != 0 || ct.minutes != 0 || ct.seconds != 0))
-			str += ', ';
-
+			str += `${ct.days} D, `;
 		if (ct.hours != 0)
-			str += `${ct.hours} Hr${ct.hours == 1 ? '' : 's'}`;
-
-		if (str.length != 0 && (ct.hours != 0 || ct.minutes != 0 || ct.seconds != 0))
-			str += ', ';
-
+			str += `${ct.hours} Hr${ct.hours == 1 ? '' : 's'}, `;
 		if (ct.minutes != 0)
-			str += `${ct.minutes} Mins`;
-
-		if (str.length != 0 && ct.minutes != 0 || ct.seconds != 0)
-			str += ', ';
-
+			str += `${ct.minutes} Mins, `;
 		if (ct.seconds != 0)
 			str += `${ct.seconds} Secs`;
+		if (str.endsWith(', ')) {
+			str.substr(0, str.length - 2);
+		}
 
 		return str + ' Ago';
 	}

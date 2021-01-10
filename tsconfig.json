@@ -10,8 +10,8 @@
 		],
 		"esModuleInterop": true,
 		"moduleResolution": "Node",
-		"outDir": "./dist/",
-		"sourceMap": false,
+		"outDir": "./out/",
+		"sourceMap": true
 	},
 	"include": [
 		"src/**/*.*",

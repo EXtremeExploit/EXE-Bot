@@ -2,7 +2,7 @@
   "name": "exe-bot",
   "version": "2.0.0",
   "description": "A Discord Bot made in Node.JS",
-  "main": "dist/index.js",
+  "main": "out/src/index.js",
   "type": "module",
   "dependencies": {
     "booru": "^2.2.3",
@@ -26,9 +26,9 @@
     "@types/node": "^13.7.7"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node --experimental-json-modules --experimental-modules ./dist/src/index.js ",
-    "startnotsc": "node --experimental-json-modules --experimental-modules ./dist/src/index.js "
+    "compile": "tsc",
+    "starttsc": "tsc && node --experimental-json-modules --experimental-modules ./out/src/index.js ",
+    "startnotsc": "node --experimental-json-modules --experimental-modules ./out/src/index.js "
   },
   "repository": {
     "type": "git",

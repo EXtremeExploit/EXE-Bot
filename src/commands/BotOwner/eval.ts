@@ -7,7 +7,7 @@ import { createRequire } from 'module';
 import * as path from 'path'
 import { URL } from 'url';
 const __dirname = path.resolve();
-const require = createRequire(new URL('file://' + __dirname + '/dist/src/commands/BotOwner/eval.js'));
+const require = createRequire(new URL('file://' + __dirname + '/out/src/commands/BotOwner/eval.js'));
 
 export default class {
 	client: discord.Client;
@@ -18,15 +18,17 @@ export default class {
 	}
 
 	async init() {
+		let msg = this.msg;
+		let client = this.client;
 		let args = this.msg.content.split(` `).slice(1).join(` `);
 
 		if (this.msg.member.user.id == owner.id) {
 			try {
-				let evaled = eval(args);
+				let evaled = await eval(args);
 				evaled = util.inspect(evaled);
 
 				if ((evaled as string).length >= 1023)
-					throw Error('Evaled is longer or equal to 1023')
+					evaled = 'Output is longer or equal to 1023';
 
 				await this.msg.channel.send(new discord.MessageEmbed()
 					.setColor([255, 0, 0])
@@ -43,7 +45,7 @@ export default class {
 			await this.msg.channel.send(new discord.MessageEmbed()
 				.setColor([255, 0, 0])
 				.setDescription(`Bot owner only!`)
-				.setFooter(`how did you found this command?`)
+				.setFooter(`how did you find this command?`)
 			);
 		}
 	}

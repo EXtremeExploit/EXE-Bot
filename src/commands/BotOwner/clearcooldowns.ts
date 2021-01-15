@@ -19,7 +19,7 @@ export default class {
 			this.msg.channel.send(new discord.MessageEmbed()
 				.setColor([255, 0, 0])
 				.setDescription(`Bot owner only!`)
-				.setFooter(`how did you found this command?`)
+				.setFooter(`how did you find this command?`)
 			);
 		}
 	}

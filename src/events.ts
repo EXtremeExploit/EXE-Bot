@@ -18,6 +18,17 @@ export default class {
 		this.Ready();
 		this.Reconnecting();
 		this.Warn();
+
+		//This feels wrong
+		process.on('unhandledRejection', async (reason, promise) => {
+			console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+			(await client.users.fetch(owner.id)).send(`Unhandled Rejection at: ${promise}\n reason: ${reason}`);
+		});
+		//This feels worse
+		process.on('uncaughtException', async (err) => {
+			console.error(err);
+			(await client.users.fetch(owner.id)).send(`\`\`\`${err.stack}\`\`\``);
+		})
 	}
 
 	setStatus() {

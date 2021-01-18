@@ -7,10 +7,26 @@ export default class {
 		if (msg.member.hasPermission([`KICK_MEMBERS`]) || msg.member.hasPermission([`ADMINISTRATOR`])) {
 			if (msg.mentions.members.first()) {
 				if (msg.member.user.id == msg.mentions.members.first().id) {
-					msg.channel.send(new discord.MessageEmbed()
-						.setColor([255, 0, 0])
-						.setDescription(`Why do you want to kick yourself...?`)
-						.setTitle(`Are you serious?`));
+					if (!msg.content.includes('--force'))
+						msg.channel.send(new discord.MessageEmbed()
+							.setColor([255, 0, 0])
+							.setDescription(`Why do you want to kick yourself...?`)
+							.setTitle(`Are you serious?`));
+					else {
+						if (msg.member.hasPermission(discord.Permissions.FLAGS.KICK_MEMBERS) && (msg.member.roles.highest.comparePositionTo(msg.mentions.members.first().roles.highest) > 0)) {
+							msg.mentions.members.first().kick().then((member) => {
+								msg.channel.send(new discord.MessageEmbed()
+									.setColor([255, 0, 0])
+									.setTitle(`Kicked`)
+									.setDescription(`Succesfully kicked: ${member.user.tag}`));
+							});
+						} else {
+							msg.channel.send(new discord.MessageEmbed()
+								.setColor([255, 0, 0])
+								.setTitle(`Kick Error`)
+								.setDescription(`I don't have permissions to do that or you can't kick that member`));
+						}
+					}
 				} else {
 					if (msg.mentions.members.first().id == client.user.id) {
 						msg.channel.send(new discord.MessageEmbed()

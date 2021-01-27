@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { User } from 'node-osu';
 
 export function convertMS(ms: number) {
 	if (isNaN(ms) || ms < 0) {
@@ -73,8 +74,10 @@ export function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export function formatNumber(num) {
-	return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+export function formatNumber(num = 0) {
+	if (num !== null)
+		return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+	return 0;
 }
 
 export function cleanMods(Mods: string[]) {
@@ -269,6 +272,26 @@ export function SocialCheckUndefineds(social: SocialClass) {
 	return social;
 }
 //#endregion
+
+export function osuUserCheckUndefinedsOrNulls(user: User) {
+	if (user.pp.raw == null) user.pp.raw = 0;
+	if (user.pp.rank == null) user.pp.rank = 0;
+	if (user.pp.countryRank == null) user.pp.countryRank = 0;
+	if (user.level == null) user.level = 0;
+	if (user.accuracy == null) user.accuracy = 0;
+
+	if (user.counts[100] == null) user.counts[100] = 0;
+	if (user.counts[300] == null) user.counts[300] = 0;
+	if (user.counts[50] == null) user.counts[50] = 0;
+	if (user.counts.A == null) user.counts.A = 0;
+	if (user.counts.S == null) user.counts.S = 0;
+	if (user.counts.SH == null) user.counts.SH = 0;
+	if (user.counts.SS == null) user.counts.SS = 0;
+	if (user.counts.SSH == null) user.counts.SSH = 0;
+	if (user.counts.plays == null) user.counts.plays = 0;
+
+	return user;
+}
 
 //#region Server Config
 let ServerConfigSchema = new mongoose.Schema({

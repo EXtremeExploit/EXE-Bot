@@ -1,5 +1,5 @@
 import discord from 'discord.js';
-import { fixDecimals, formatNumber, convertDate, cleanMods } from '../../util.js';
+import { fixDecimals, formatNumber, convertDate, cleanMods, osuUserCheckUndefinedsOrNulls } from '../../util.js';
 import config from '../../config.js';
 import _osuApi from 'node-osu';
 import olc from 'osulevelcalculator.js';
@@ -86,6 +86,8 @@ export default class {
 							case 2: modestr = 'CatchTheBeat'; break;
 							case 3: modestr = 'Mania'; break;
 						}
+
+						user = osuUserCheckUndefinedsOrNulls(user);
 
 						msg.channel.send(new discord.MessageEmbed()
 							.setColor([255, 58, 255])

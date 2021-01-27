@@ -34,7 +34,7 @@ export default class {
 				KilledSocial = SocialCheckUndefineds(KilledSocial);
 
 				KillerSocial.set('kills', KillerSocial.kills + 1);
-				KilledSocial.set('deaths', KilledSocial.kills + 1);
+				KilledSocial.set('deaths', KilledSocial.deaths + 1);
 				KillerSocial.save();
 				KilledSocial.save();
 

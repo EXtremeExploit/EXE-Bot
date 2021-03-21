@@ -2,7 +2,7 @@ import discord from 'discord.js';
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		let user = (msg.mentions.members.first()) ? (msg.mentions.members.first().user) : (msg.author);
+		let user = msg.guild.member(msg.content.split(` `).slice(1).join(` `)).user;
 
 		msg.channel.send(new discord.MessageEmbed()
 			.setImage(user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))

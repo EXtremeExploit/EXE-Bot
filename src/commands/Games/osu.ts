@@ -6,7 +6,6 @@ import olc from 'osulevelcalculator.js';
 import iso31661alpha2 from 'iso-3166-1-alpha-2';
 let wikis = new config().GetWikis();
 let OsuKey = new config().GetOsuKey();
-let osulevel = new olc.LevelCalculator();
 let osuApi = new _osuApi.Api(OsuKey, {
 	notFoundAsError: false,
 	completeScores: true
@@ -71,7 +70,7 @@ export default class {
 							.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
 					} else {
 						let userTotalScore = (user.scores.total == null) ? 0 : user.scores.total;
-						let nextLevel = osulevel.ScoreLevelCalculator((Math.floor(user.level) + 1), userTotalScore);
+						let nextLevel = olc((Math.floor(user.level) + 1), userTotalScore);
 						if (nextLevel == undefined) nextLevel = null;
 
 						let seconds = Math.floor(user.secondsPlayed) % 60;

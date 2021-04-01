@@ -15,7 +15,7 @@
     "mathjs": "^6.6.4",
     "mongoose": "^5.12.3",
     "node-osu": "^2.2.0",
-    "osulevelcalculator.js": "^2.0.0",
+    "osulevelcalculator.js": "^3.0.0",
     "random.cat.js": "^1.0.4",
     "random.dog.js": "^1.0.2",
     "typescript": "^3.8.3"

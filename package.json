@@ -13,7 +13,7 @@
     "isgd": "^1.1.3",
     "iso-3166-1-alpha-2": "^1.0.0",
     "mathjs": "^6.6.4",
-    "mongoose": "^5.9.3",
+    "mongoose": "^5.12.3",
     "node-osu": "^2.2.0",
     "osulevelcalculator.js": "^2.0.0",
     "random.cat.js": "^1.0.4",
@@ -22,8 +22,7 @@
   },
   "devDependencies": {
     "@types/mathjs": "^6.0.5",
-    "@types/mongoose": "^5.7.21",
-    "@types/node": "^13.7.7"
+    "@types/node": "^13.13.48"
   },
   "scripts": {
     "compile": "tsc",

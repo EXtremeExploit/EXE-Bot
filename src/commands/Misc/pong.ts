@@ -11,7 +11,7 @@ export default class {
 					.setTitle(`Ping!`)
 					.setTimestamp(new Date())
 					.addField(`Bot`, `**${pingMsg.createdTimestamp - msg.createdTimestamp}ms.**`, true)
-					.addField(`API`, `**${client.ws.ping}ms.**`, true));
+					.addField(`WebSocket`, `**${client.ws.ping}ms.**`, true));
 			});
 	}
 }

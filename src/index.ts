@@ -22,7 +22,7 @@ let client: discord.Client = new discord.Client({
 (async () => {
 	console.log('Logging to Database...');
 	await ((mongoose as any).default as mongoose.Mongoose).connect(db, { useNewUrlParser: true, useUnifiedTopology: true });
-	console.log('DB Connected')
+	console.log('DB Connected');
 
 	new commands(client);
 	new events(client);

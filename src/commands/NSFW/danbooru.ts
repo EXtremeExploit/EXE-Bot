@@ -1,6 +1,6 @@
 import discord from 'discord.js';
-import booru from 'booru';
-let danbooru = booru.forSite('danbooru');
+import { forSite } from 'booru';
+let danbooru = forSite('danbooru');
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {

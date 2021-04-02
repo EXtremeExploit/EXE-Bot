@@ -1,6 +1,6 @@
 import discord from 'discord.js';
-import booru from 'booru';
-let r34 = booru.forSite('rule34.xxx');
+import { forSite } from 'booru';
+let r34 = forSite('rule34.xxx');
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {

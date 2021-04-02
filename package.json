@@ -5,7 +5,7 @@
   "main": "out/src/index.js",
   "type": "module",
   "dependencies": {
-    "booru": "^2.2.3",
+    "booru": "^2.4.0",
     "danbooru": "^3.1.0",
     "discord.js": "^12.0.1",
     "dotenv": "^8.2.0",
@@ -26,8 +26,8 @@
   },
   "scripts": {
     "compile": "tsc",
-    "starttsc": "tsc && node --experimental-json-modules --experimental-modules ./out/src/index.js ",
-    "startnotsc": "node --experimental-json-modules --experimental-modules ./out/src/index.js "
+    "starttsc": "tsc && node --experimental-json-modules --experimental-modules ./out/src/index.js",
+    "startnotsc": "node --experimental-json-modules --experimental-modules ./out/src/index.js"
   },
   "repository": {
     "type": "git",

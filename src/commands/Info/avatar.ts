@@ -1,8 +1,9 @@
 import discord from 'discord.js';
+import { getUser } from '../../util.js'
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		let user = msg.guild.member(msg.content.split(` `).slice(1).join(` `)).user;
+		let user = getUser(client, msg);
 
 		msg.channel.send(new discord.MessageEmbed()
 			.setImage(user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))

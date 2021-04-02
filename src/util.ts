@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { User } from 'node-osu';
+import discord from 'discord.js';
 
 export function convertMS(ms: number) {
 	if (isNaN(ms) || ms < 0) {
@@ -127,6 +128,18 @@ export enum CoinflipResults {
 	Head,
 	Tails,
 	Edge
+}
+
+export function getUser(client: discord.Client, msg: discord.Message) {
+	let user: discord.User;
+	if (msg.mentions.members.first())
+		user = msg.mentions.members.first().user;
+	else
+		user = client.users.resolve(msg.content.split(` `).slice(1).join(` `));
+
+	if (!user) user = msg.author;
+
+	return user;
 }
 
 //#region Social

@@ -1,9 +1,13 @@
 import discord from 'discord.js';
-import { convertDate } from '../../util.js';
+import { convertDate, getUser } from '../../util.js';
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
-		let user = (msg.mentions.members.first()) ? (msg.mentions.members.first()) : (msg.member);
+		let user = msg.guild.member(getUser(client, msg));
+		if (!user) {
+			msg.reply('That guy is not in the server or i don\'t know who he is...');
+			return;
+		}
 		let status: string;
 
 		switch (user.presence.status) {

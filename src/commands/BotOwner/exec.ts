@@ -33,7 +33,7 @@ export default class {
 				await this.msg.channel.send(new discord.MessageEmbed()
 					.setColor([255, 0, 0])
 					.addField('Out', `\`\`\`${stdout}\`\`\``));
-				console.log(`stdout: ${stdout}`);
+				console.log(stdout);
 			});
 		} else {
 			await this.msg.channel.send(new discord.MessageEmbed()

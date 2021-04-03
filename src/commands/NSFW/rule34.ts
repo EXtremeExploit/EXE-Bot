@@ -19,7 +19,7 @@ export default class {
 							.setURL(post.postView)
 							.setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
 							.setImage(link)
-							.setDescription(`You Searched: ${query}`));
+							.setDescription(`You Searched: \`${query}\``));
 					}
 				}).catch((err) => {
 					throw err;

@@ -29,4 +29,4 @@ GoogleCseID=''
 db_url=''
 ``` 
 5. Edit it with your desired configuration
-6. `npm run starttsc`
+6. `npm run starttsc`; This will compile and then run, if you want only to run latest compiled: `npm run startnotsc`

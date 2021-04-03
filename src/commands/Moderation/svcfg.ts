@@ -10,6 +10,7 @@ export default class {
 
 	}
 	async init() {
+		if (this.msg.author.id !== this.msg.guild.ownerID) return;
 		let args = this.msg.content.split(` `).slice(1);
 		if (args.join(` `).length < 2) {
 			this.msg.reply('You need to pass some arguments to change...\n' +

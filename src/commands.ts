@@ -88,6 +88,7 @@ export let commandsArray: Command[] = [
 	new Command(`disconnect`, Categories.BotOwner, ['dc']),
 	new Command(`eval`, Categories.BotOwner, [], 0, true),
 	new Command(`logcmd`, Categories.BotOwner, ['logcmds'], 0, true),
+	new Command(`exec`, Categories.BotOwner, ['execute'], 0, true),
 
 	//Social
 	new Command(`kill`, Categories.Social, [], 86400, true),

@@ -14,9 +14,9 @@ class Command {
 	 * 
 	 * @param name Command file name
 	 * @param category Category or Folder Name
-	 * @param aliases Aliases for which the command cand get executed
+	 * @param aliases Aliases for which the command can get executed
 	 * @param cooldown In Seconds
-	 * @param needsAsync Uses init() function
+	 * @param needsAsync Uses async init() function
 	 */
 	constructor(name: string, category: Categories, aliases: string[] = [], cooldown = 0, needsAsync = false) {
 		this.name = name;
@@ -33,15 +33,15 @@ class Command {
 		let result = false;
 
 		try {
-			if (ram.cfg.logcmd)
+			if (ram.cfg.logcmd) // Log CMD if it is enabled
 				console.log(`[${new Date().toUTCString()}] ${msg.author.tag}/${msg.author.id}; ${msg.content}`);
 
 			let cmd = new cmdImport.default(client, msg);
 
-			if (this.needsAsync)
+			if (this.needsAsync) //Use async if the command needs it
 				result = await cmd.init();
 			else
-				result = true;
+				result = true; //Sync commands don't actually return anything it always executes nicely so the result is always true
 
 			if (this.cooldown != 0)
 				if (result == true) {
@@ -138,7 +138,7 @@ export let commandsArray: Command[] = [
 	new Command(`ban`, Categories.Moderation),
 	new Command(`kick`, Categories.Moderation),
 	new Command(`mute`, Categories.Moderation),
-	new Command(`prune`, Categories.Moderation),
+	new Command(`prune`, Categories.Moderation, ['clean', 'bulk']),
 	new Command(`svcfg`, Categories.Moderation, ['serverconfig', 'svconfig', 'servercfg'], 10, true),
 	new Command(`unmute`, Categories.Moderation),
 
@@ -176,33 +176,32 @@ export default class {
 
 			if (!msg.content.startsWith(prefix)) return;
 			if ((msg.channel as discord.GuildChannel).permissionsFor(msg.guild.me).has(`SEND_MESSAGES`) == true) {
-				let command = msg.content.split(` `)[0].replace(prefix, ``);
+				let contentCommand = msg.content.split(` `)[0].replace(prefix, ``);
 
-				let c: Command;
-				for (c of commandsArray) {
-					if (c.name == command || c.aliases.includes(command)) {
-						if (c.cooldown != 0) {
-							let cd: CooldownsClass = await CooldownModel.findOne({ id: msg.author.id, command: c.name });
-							if (cd == null || cd == undefined) {
-								cd = createCooldown(msg.author.id, c.name);
-							}
-							cd = CooldownCheckUndefineds(cd);
-							if (cd.time > Math.floor(Date.now() / 1000)) {
-								let timeDifference = cd.time - Math.floor(Date.now() / 1000);
+				let c = commandsArray.find((c) => c.name == contentCommand || c.aliases.includes(contentCommand));
 
-								let hours = Math.floor(timeDifference / 60 / 60);
-								let minutes = Math.floor(timeDifference / 60) - (hours * 60);
-								let seconds = timeDifference % 60;
+				if (!c) return;
 
-								msg.reply(`You are using that command too fast!, try again in **${hours} Hours, ${minutes} Minutes and ${seconds} seconds...**`);
-								return;
-							} else {
-								c.Load(client, msg);
-							}
-						} else {
-							c.Load(client, msg);
-						}
+				if (c.cooldown != 0) { // If has cooldown
+					let cd: CooldownsClass = await CooldownModel.findOne({ id: msg.author.id, command: c.name });
+					if (cd == null || cd == undefined) { // User never used the command
+						cd = createCooldown(msg.author.id, c.name);
 					}
+					cd = CooldownCheckUndefineds(cd);
+					if (cd.time > Math.floor(Date.now() / 1000)) { //If UNIX Time of cooldown is higher than current time, he has cooldown
+						let timeDifference = cd.time - Math.floor(Date.now() / 1000);
+
+						let hours = Math.floor(timeDifference / 60 / 60);
+						let minutes = Math.floor(timeDifference / 60) - (hours * 60);
+						let seconds = timeDifference % 60;
+
+						msg.reply(`You are using that command too fast!, try again in **${hours} Hours, ${minutes} Minutes and ${seconds} seconds...**`);
+						return;
+					} else { //If cooldown already passed
+						c.Load(client, msg);
+					}
+				} else { // No Cooldown
+					c.Load(client, msg);
 				}
 			}
 		});

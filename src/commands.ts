@@ -131,8 +131,8 @@ export let commandsArray: Command[] = [
 	new Command(`invite`, Categories.Misc),
 	new Command(`ping`, Categories.Misc),
 	new Command(`pong`, Categories.Misc),
-	new Command(`uptime`, Categories.Misc),
-	new Command(`wikis`, Categories.Misc),
+	//new Command(`uptime`, Categories.Misc),
+	//new Command(`wikis`, Categories.Misc),
 
 	//Moderation
 	new Command(`ban`, Categories.Moderation),

@@ -1,6 +1,6 @@
 import discord from 'discord.js';
 import config from '../../config.js';
-let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
@@ -30,9 +30,9 @@ export default class {
 			}
 		} else {
 			msg.channel.send(new discord.MessageEmbed()
-				.setAuthor(msg.member.user.username)
-				.setDescription(`You need to mention someone uwu`)
-				.setColor([255, 0, 0]));
+				.setColor([255, 0, 0])
+				.addField(`Help`, `Check \`${prefix}help touch\``)
+				.setDescription(`Please specify an user!`));
 		}
 	}
 }

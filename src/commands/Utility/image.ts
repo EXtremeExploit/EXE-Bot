@@ -1,7 +1,7 @@
 import discord from 'discord.js';
 import config from '../../config.js';
 import { sleep } from '../../util.js';
-let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
 let googleKeys = new config().GetGoogle();
 import _gimages from 'google-images';
 const gimages = new _gimages(googleKeys.cseID, googleKeys.appApiKey);
@@ -15,7 +15,7 @@ export default class {
 			msg.channel.send(new discord.MessageEmbed()
 				.setColor([255, 0, 0])
 				.setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
-				.addField('Help', 'Check the [wiki](' + wikis.commands + '#utility) for help!')
+				.addField('Help', `Check \`${prefix}help image\``)
 				.setDescription('Please specify a search term!'));
 		} else {
 			gimages.search(args, {

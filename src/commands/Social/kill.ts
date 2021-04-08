@@ -2,7 +2,6 @@ import discord from 'discord.js';
 import { SocialModel, createProfile, SocialClass, SocialCheckUndefineds } from '../../util.js';
 import config from '../../config.js';
 let prefix = new config().GetPrefix();
-let wikis = new config().GetWikis();
 
 export default class {
 	client: discord.Client;
@@ -46,7 +45,7 @@ export default class {
 		} else {
 			this.msg.channel.send(new discord.MessageEmbed()
 				.setColor([255, 0, 0])
-				.addField(`Help`, `Check the [wiki](${wikis.commands}#social) for help!`)
+				.addField(`Help`, `Check \`${prefix}help kill\``)
 				.setDescription(`Please specify an user!`));
 		}
 		return false;

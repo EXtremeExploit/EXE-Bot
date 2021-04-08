@@ -1,6 +1,6 @@
 import discord from 'discord.js';
 import config from '../../config.js';
-let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
@@ -10,7 +10,7 @@ export default class {
 			msg.channel.send(new discord.MessageEmbed()
 				.setColor([255, 0, 0])
 				.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
-				.addField(`Help`, `Check the [wiki](${wikis.commands}#info) for help!`)
+				.addField(`Help`, `Check \`${prefix}help emoji\``)
 				.setDescription(`Please specify an emoji to get!`));
 		} else {
 			let emote = msg.guild.emojis.cache.find((e) => e.name == emojiname);
@@ -18,7 +18,7 @@ export default class {
 				msg.channel.send(new discord.MessageEmbed()
 					.setColor([255, 0, 0])
 					.setTitle(`Error`)
-					.addField(`Help`, `Check the [wiki](${wikis.commands}#info) for help!`)
+					.addField(`Help`, `Check \`${prefix}help emoji\``)
 					.setDescription(`Please insert a valid emoji, it needs to be an emoji from THIS server`)
 					.setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
 			} else {

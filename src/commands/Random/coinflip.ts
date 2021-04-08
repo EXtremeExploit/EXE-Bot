@@ -64,17 +64,19 @@ export default class {
 	}
 
 	FlipCoin() {
-		let max = 1e17;
-		let rng = Math.random() * max;
+		let max = 6000; //1 in x
+		//https://ui.adsabs.harvard.edu/abs/1993PhRvE..48.2547M/abstract
+		
+		let rng = Math.floor(Math.random() * (max - 0 + 1) + 0);
+		
 		if (rng < max / 2) {
-			return CoinflipResults.Head;
+			return CoinflipResults.Head; // 0-49 (50%)
 
 		} else if (rng > max / 2) {
-			return CoinflipResults.Tails;
+			return CoinflipResults.Tails; // 51-100 (50%)
 
 		} else if (rng == max / 2) {
-			return CoinflipResults.Edge;
-
+			return CoinflipResults.Edge; // 50 (1%)
 		}
 	}
 }

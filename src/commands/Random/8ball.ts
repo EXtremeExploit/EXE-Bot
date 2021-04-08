@@ -1,6 +1,6 @@
 import discord from 'discord.js';
 import config from '../../config.js';
-let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
@@ -20,7 +20,7 @@ export default class {
 		if (args == ``) {
 			msg.channel.send(new discord.MessageEmbed()
 				.setColor([0, 0, 0])
-				.addField(`Help`, `Check the [wiki](${wikis.commands}#random) for help!`)
+				.addField(`Help`, `Check \`${prefix}help 8ball\``)
 				.setDescription(`Please specify an ask!`));
 		} else {
 			msg.channel.send(new discord.MessageEmbed()

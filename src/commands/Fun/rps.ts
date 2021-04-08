@@ -1,6 +1,6 @@
 import discord from 'discord.js';
 import config from '../../config.js';
-let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
@@ -29,7 +29,7 @@ export default class {
 			msg.channel.send(new discord.MessageEmbed()
 				.setColor([255, 0, 0])
 				.setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
-				.addField(`Help`, `Check the [wiki](${wikis.commands}#fun) for help!`)
+				.addField(`Help`, `Check \`${prefix}help rps\``)
 				.setDescription(`Please specify an user!`));
 		}
 	}

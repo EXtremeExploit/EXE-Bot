@@ -4,12 +4,13 @@ import { CooldownCheckUndefineds, CooldownModel, CooldownsClass, createCooldown 
 let prefix = new config().GetPrefix();
 let owner = new config().GetOwner();
 
-class Command {
+export class Command {
 	name: string;
 	category: Categories;
 	aliases: string[];
 	cooldown: number; // In seconds
 	needsAsync: boolean;
+	docs: CommandDoc;
 	/**
 	 * 
 	 * @param name Command file name
@@ -18,12 +19,13 @@ class Command {
 	 * @param cooldown In Seconds
 	 * @param needsAsync Uses async init() function
 	 */
-	constructor(name: string, category: Categories, aliases: string[] = [], cooldown = 0, needsAsync = false) {
+	constructor(name: string, category: Categories, aliases: string[], cooldown, needsAsync, docs: CommandDoc) {
 		this.name = name;
 		this.category = category;
 		this.aliases = aliases;
 		this.cooldown = cooldown;
 		this.needsAsync = needsAsync;
+		this.docs = docs;
 	}
 
 	//TODO: Add a way to reload commands whenever there is support to delete ES modules from memory 
@@ -51,7 +53,7 @@ class Command {
 					cd.set('time', Math.floor(Date.now() / 1000) + this.cooldown)
 					cd.save();
 				}
-		} catch (E) {
+		} catch (err1) {
 			try {
 				msg.channel.send(new discord.MessageEmbed()
 					.setColor([255, 0, 0])
@@ -59,11 +61,11 @@ class Command {
 					.setDescription(`OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!`)
 					.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
 
-				(await client.users.fetch(owner.id)).send(`\`\`\`${E.stack}\`\`\``);
+				(await client.users.fetch(owner.id)).send(`\`\`\`${err1.stack}\`\`\``);
 
-				console.error(E);
-			} catch (E) {
-				throw E;
+				console.error(err1);
+			} catch (err2) {
+				throw err2;
 			}
 		}
 	}
@@ -84,82 +86,303 @@ export enum Categories {
 
 export let commandsArray: Command[] = [
 	//Bot Owner
-	new Command('clearcooldowns', Categories.BotOwner, ['clrcd', 'clrcds'], 0, true),
-	new Command(`disconnect`, Categories.BotOwner, ['dc']),
-	new Command(`eval`, Categories.BotOwner, [], 0, true),
-	new Command(`logcmd`, Categories.BotOwner, ['logcmds'], 0, true),
-	new Command(`exec`, Categories.BotOwner, ['execute'], 0, true),
+	new Command('clearcooldowns', Categories.BotOwner, ['clrcd', 'clrcds', 'clearcooldown'], 0, true, {
+		args: 'no documentation for u',
+		desc: 'no documentation for u',
+		ex: 'no documentation for u'
+	}),
+	new Command(`disconnect`, Categories.BotOwner, ['dc'], 0, false, {
+		args: 'no documentation for u',
+		desc: 'no documentation for u',
+		ex: 'no documentation for u'
+	}),
+	new Command(`eval`, Categories.BotOwner, [], 0, true, {
+		args: 'no documentation for u',
+		desc: 'no documentation for u',
+		ex: 'no documentation for u'
+	}),
+	new Command(`logcmd`, Categories.BotOwner, ['logcmds'], 0, true, {
+		args: 'no documentation for u',
+		desc: 'no documentation for u',
+		ex: 'no documentation for u'
+	}),
+	new Command(`exec`, Categories.BotOwner, ['execute'], 0, true, {
+		args: 'no documentation for u',
+		desc: 'no documentation for u',
+		ex: 'no documentation for u'
+	}),
 
 	//Social
-	new Command(`kill`, Categories.Social, [], 86400, true),
-	new Command(`setalias`, Categories.Social, [], 45, true),
-	new Command(`setjob`, Categories.Social, [], 45, true),
-	new Command(`work`, Categories.Social, ['w'], 28800, true),
-	new Command('profile', Categories.Social, ['p']),
-	new Command('rep', Categories.Social, ['reputation'], 86400, true),
+	new Command(`kill`, Categories.Social, [], 86400, true, {
+		args: '<@Member>',
+		ex: 'e!kill @User#0001',
+		desc: 'Kill someone, doesn\'t mute or anything'
+	}),
+	new Command(`setalias`, Categories.Social, [], 45, true, {
+		args: '<text>',
+		ex: 'e!setalias TheLegend27',
+		desc: 'Sets your alias or AKA, whatever'
+	}),
+	new Command(`setjob`, Categories.Social, [], 45, true, {
+		args: '<text>',
+		ex: 'e!setjob Anime girls reviewer',
+		desc: 'Sets your job, you can even be a hentai reviewer!, isn\'t that awesome?'
+	}),
+	new Command(`work`, Categories.Social, ['w'], 28800, true, {
+		args: 'x',
+		ex: 'e!work',
+		desc: 'Do your job, you get money, that soon you will be able to spend on bodypillows',
+	}),
+	new Command('profile', Categories.Social, ['p'], 0, false, {
+		args: '[@Member]',
+		ex: 'e!profile @User#0001',
+		desc: 'Shows the profile of the user you mention or youself, flex those coinflips',
+	}),
+	new Command('rep', Categories.Social, ['reputation'], 86400, true, {
+		args: '<@Member>',
+		ex: 'e!rep @User#0001',
+		desc: 'Give reputation to someone'
+	}),
 
 
 	//Fun
-	new Command(`cookie`, Categories.Fun),
-	new Command(`dicksize`, Categories.Fun),
-	new Command(`jokes`, Categories.Fun),
-	new Command(`lenny`, Categories.Fun),
-	new Command(`owo`, Categories.Fun),
-	new Command(`pat`, Categories.Fun, [`headpat`]),
-	new Command(`reverse`, Categories.Fun),
-	new Command(`rps`, Categories.Fun),
-	new Command(`rr`, Categories.Fun),
-	new Command(`sandwich`, Categories.Fun),
-	new Command(`say`, Categories.Fun),
-	new Command(`touch`, Categories.Fun),
-	new Command(`waifu`, Categories.Fun),
+	new Command(`cookie`, Categories.Fun, [], 5, false, {
+		args: '<@Member>',
+		ex: 'e!cookie @User#0001',
+		desc: 'Gives a cookie to someone'
+	}),
+	new Command(`dicksize`, Categories.Fun, [], 0, false, {
+		args: '[@Member]',
+		ex: 'e!dicksize @User#0001',
+		desc: 'What\'s your penis lenght? ( ͡° ͜ʖ ͡°)',
+	}),
+	new Command(`jokes`, Categories.Fun, [], 0, false, {
+		args: 'x',
+		ex: 'e!jokes',
+		desc: 'Bad jokes xd'
+	}),
+	new Command(`lenny`, Categories.Fun, [], 0, false, {
+		args: 'x',
+		ex: 'e!lenny',
+		desc: 'Sends the lenny face'
+	}),
+	new Command(`owo`, Categories.Fun, [], 5, false, {
+		args: 'x',
+		ex: 'e!owo',
+		desc: 'You go OwO'
+	}),
+	new Command(`pat`, Categories.Fun, [`headpat`], 0, false, {
+		args: '<@Member>',
+		ex: 'e!pat @User#0001',
+		desc: 'Gives a headpat to someone'
+	}),
+	new Command(`reverse`, Categories.Fun, [], 0, false, {
+		args: '<text>',
+		ex: 'e!reverse very nice',
+		desc: 'Returns the given text but reversed'
+	}),
+	new Command(`rps`, Categories.Fun, [], 0, false, {
+		args: '<@Member>',
+		ex: 'e!rps @User#0001',
+		desc: 'Play Rock, Paper and Scissors'
+	}),
+	new Command(`rr`, Categories.Fun, [], 0, false, {
+		args: '<@Member>',
+		ex: 'e!rps @User#0001',
+		desc: 'Play Russian Roulette'
+	}),
+	new Command(`sandwich`, Categories.Fun, [], 5, false, {
+		args: '<@Member>',
+		ex: 'e!sandwich @User#0001',
+		desc: 'Gives a sandwich to someone'
+	}),
+	new Command(`say`, Categories.Fun, [], 3, false, {
+		args: '<text>',
+		ex: 'e!say òwó',
+		desc: 'Says whatever you want'
+	}),
+	new Command(`touch`, Categories.Fun, [], 10, false, {
+		args: '<@Member>',
+		ex: 'e!touch @User#0001',
+		desc: 'Touch someone'
+	}),
+	new Command(`waifu`, Categories.Fun, [], 0, false, {
+		args: 'x',
+		ex: 'e!waifu',
+		desc: 'Waifu or laifu?'
+	}),
 
 	//Games
-	new Command(`osu`, Categories.Games),
+	new Command(`osu`, Categories.Games, [], 5, false, {
+		args: '<osu!Username>\n[Modifiers]',
+		ex: 'e!osu peppy --std --recent',
+		desc: 'Retieves your profile, check Modifiers to learn more'
+	}),
 
 	//Info
-	new Command(`avatar`, Categories.Info),
-	new Command(`channel`, Categories.Info),
-	new Command(`emoji`, Categories.Info),
-	new Command(`role`, Categories.Info),
-	new Command(`server`, Categories.Info),
-	new Command(`user`, Categories.Info),
+	new Command(`avatar`, Categories.Info, [], 0, false, {
+		args: '[@Member]',
+		ex: 'e!avatar @User#0001',
+		desc: 'Gets your/someone ‘s Avatar'
+	}),
+	new Command(`channel`, Categories.Info, [], 0, false, {
+		args: '[#channel]',
+		ex: 'e!channel',
+		desc: 'Info about a channel'
+	}),
+	new Command(`emoji`, Categories.Info, [], 0, false, {
+		args: '<Emoji>',
+		ex: 'e!emoji :kappa:',
+		desc: 'Info about an emoji'
+	}),
+	new Command(`role`, Categories.Info, [], 0, false, {
+		args: '<Role>',
+		ex: 'e!role @Admins',
+		desc: 'Info about a role'
+	}),
+	new Command(`server`, Categories.Info, [], 0, false, {
+		args: 'x',
+		ex: 'e!server',
+		desc: 'Info about the server'
+	}),
+	new Command(`user`, Categories.Info, [], 0, false, {
+		args: '[@Member]',
+		ex: 'e!user @User#0001',
+		desc: 'Info about you/someone'
+	}),
 
 	//Misc
-	new Command(`help`, Categories.Misc),
-	new Command(`info`, Categories.Misc, ['neofetch']),
-	new Command(`invite`, Categories.Misc),
-	new Command(`ping`, Categories.Misc),
-	new Command(`pong`, Categories.Misc),
-	//new Command(`uptime`, Categories.Misc),
-	//new Command(`wikis`, Categories.Misc),
+	new Command(`help`, Categories.Misc, [], 0, false, {
+		args: '[Command or Category]',
+		ex: 'e!help osu',
+		desc: 'It displays a list of categories, if you provide a category name then it will give all the commands on that category, if command is given it will send command usage'
+	}),
+	new Command(`info`, Categories.Misc, ['neofetch'], 0, false, {
+		args: 'x',
+		ex: 'e!info',
+		desc: 'Shows info about the bot, like RAM, servers and member count, etc. Aliases'
+	}),
+	new Command(`invite`, Categories.Misc, [], 5, false, {
+		args: 'x',
+		ex: 'e!invite',
+		desc: 'Send the invitation link to add the bot to your server'
+	}),
+	new Command(`ping`, Categories.Misc, [], 5, false, {
+		args: 'x',
+		ex: 'e!ping',
+		desc: 'Pings the bot and the Discord API'
+	}),
+	new Command(`pong`, Categories.Misc, [], 5, false, {
+		args: 'x',
+		ex: 'e!pong',
+		desc: 'Pongs the bot and the Discord API'
+	}),
 
 	//Moderation
-	new Command(`ban`, Categories.Moderation),
-	new Command(`kick`, Categories.Moderation),
-	new Command(`mute`, Categories.Moderation),
-	new Command(`prune`, Categories.Moderation, ['clean', 'bulk']),
-	new Command(`svcfg`, Categories.Moderation, ['serverconfig', 'svconfig', 'servercfg'], 10, true),
-	new Command(`unmute`, Categories.Moderation),
+	new Command(`ban`, Categories.Moderation, [], 0, false, {
+		args: '<@Member>',
+		ex: 'e!ban @User#0001',
+		desc: 'Bans someone'
+	}),
+	new Command(`kick`, Categories.Moderation, [], 0, false, {
+		args: '<@Member>',
+		ex: 'e!kick @User#0001',
+		desc: 'Kicks someone'
+	}),
+	new Command(`mute`, Categories.Moderation, [], 0, false, {
+		args: '<@Member>',
+		ex: 'e!mute @User#0001',
+		desc: 'Mutes someone'
+	}),
+	new Command(`prune`, Categories.Moderation, ['clean', 'bulk'], 0, false, {
+		args: 'x',
+		ex: 'e!prune 16',
+		desc: 'Deletes a count of messages in a channel'
+	}),
+	new Command(`svcfg`, Categories.Moderation, ['serverconfig', 'svconfig', 'servercfg'], 10, true, {
+		args: '<toggle-replies|...>',
+		ex: 'e!svcfg toggle-replies',
+		desc: 'Toggles some server configuration about the bot, for example replies'
+	}),
+	new Command(`unmute`, Categories.Moderation, [], 0, false, {
+		args: '<@Member>',
+		ex: 'e!unmute @User#0001',
+		desc: 'Unmutes someone'
+	}),
 
 	//NSFW
-	new Command(`danbooru`, Categories.NSFW),
-	new Command(`rule34`, Categories.NSFW, [`r34`]),
+	new Command(`danbooru`, Categories.NSFW, [], 5, false, {
+		args: '[SearchTerms]',
+		ex: 'e!danbooru touhou',
+		desc: 'Searchs on danbooru with your terms, no blocked tags'
+	}),
+	new Command(`rule34`, Categories.NSFW, [`r34`], 5, false, {
+		args: '[SearchTerms]',
+		ex: 'e!rule34 touhou',
+		desc: 'Searchs your terms on the rule34'
+	}),
 
 	//Random
-	new Command(`8ball`, Categories.Random),
-	new Command(`cat`, Categories.Random),
-	new Command(`coinflip`, Categories.Random, [], 3),
-	new Command(`dice`, Categories.Random),
-	new Command(`dog`, Categories.Random),
-	new Command(`rate`, Categories.Random),
-	new Command(`roll`, Categories.Random),
+	new Command(`8ball`, Categories.Random, [], 0, false, {
+		args: '<question>',
+		ex: 'e!8ball are traps gay?',
+		desc: 'Asks the 8ball a question'
+	}),
+	new Command(`cat`, Categories.Random, [], 5, false, {
+		args: 'x',
+		ex: 'e!cat',
+		desc: 'Gets a random cat image'
+	}),
+	new Command(`coinflip`, Categories.Random, [], 3, false, {
+		args: 'x',
+		ex: 'e!coinflip',
+		desc: 'Flips a coin'
+	}),
+	new Command(`dice`, Categories.Random, [], 0, false, {
+		args: 'x',
+		ex: 'e!dice',
+		desc: 'Rolls a dice'
+	}),
+	new Command(`dog`, Categories.Random, [], 5, false, {
+		args: 'x',
+		ex: 'e!dog',
+		desc: 'Gets a random dog image'
+	}),
+	new Command(`rate`, Categories.Random, [], 0, false, {
+		args: '<text>',
+		ex: 'e!rate memes',
+		desc: 'Rates something'
+	}),
+	new Command(`roll`, Categories.Random, [], 0, false, {
+		args: 'x',
+		ex: 'e!roll',
+		desc: 'Rolls a number between 1 and 100'
+	}),
 
 	//Utility
-	new Command(`image`, Categories.Utility, [`img`]),
-	new Command(`math`, Categories.Utility),
-	new Command(`shorturl`, Categories.Utility)
+	new Command(`image`, Categories.Utility, [`img`], 5, false, {
+		args: '<SearchTerm>',
+		ex: 'e!image Hifumi Takimoto',
+		desc: 'Searches images from google'
+	}),
+	new Command(`math`, Categories.Utility, [], 0, false, {
+		args: 'x',
+		ex: 'e!math',
+		desc: 'Does math, what else do you expect?'
+	}),
+	new Command(`shorturl`, Categories.Utility, [], 5, false, {
+		args: '<text>',
+		ex: 'e!shorturl https://www.youtube.com/watch?v=ARn5vjeQRVs',
+		desc: 'Shortes the url given with is.gd'
+	})
 ];
+
+
+export class CommandDoc {
+	args: string;
+	ex: string;
+	desc: string;
+}
 
 /**
  * Commands
@@ -196,7 +419,6 @@ export default class {
 						let seconds = timeDifference % 60;
 
 						msg.reply(`You are using that command too fast!, try again in **${hours} Hours, ${minutes} Minutes and ${seconds} seconds...**`);
-						return;
 					} else { //If cooldown already passed
 						c.Load(client, msg);
 					}

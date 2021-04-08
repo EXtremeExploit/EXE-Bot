@@ -1,7 +1,7 @@
 import discord from 'discord.js';
 import config from '../../config.js';
 import isgd from 'isgd';
-let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
@@ -13,14 +13,14 @@ export default class {
 		if (args == '') {
 			msg.channel.send(new discord.MessageEmbed()
 				.setColor([255, 0, 0])
-				.addField('Help', 'Check the [wiki](' + wikis.commands + '#utility) for help!')
+				.addField('Help', `Check \`${prefix}help shorturl\``)
 				.setDescription('Please specify something to short!'));
 		} else {
 			isgd.shorten(args, (res) => {
 				if (res.startsWith('Error:')) {
 					msg.channel.send(new discord.MessageEmbed()
 						.setColor([255, 0, 0])
-						.addField('Help', 'Check the [wiki](' + wikis.commands + '#utility) for help!')
+						.addField('Help', `Check \`${prefix}help shorturl\``)
 						.setDescription('Please specify a valid URL to short!'));
 				} else {
 					msg.channel.send(res);

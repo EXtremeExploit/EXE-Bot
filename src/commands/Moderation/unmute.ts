@@ -1,6 +1,5 @@
 import discord from 'discord.js';
 import config from '../../config.js';
-let wikis = new config().GetWikis();
 let prefix = new config().GetPrefix();
 
 export default class {
@@ -27,7 +26,7 @@ export default class {
 			} else {
 				msg.channel.send(new discord.MessageEmbed()
 					.setColor([255, 0, 0])
-					.addField(`Help`, `Check the [wiki](${wikis.commands}#moderation) for help!`)
+					.addField(`Help`, `Check \`${prefix}help unmute\``)
 					.setDescription(`Please specify an user!`));
 
 			}

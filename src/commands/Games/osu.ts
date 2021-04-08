@@ -4,7 +4,7 @@ import config from '../../config.js';
 import _osuApi from 'node-osu';
 import olc from 'osulevelcalculator.js';
 import iso31661alpha2 from 'iso-3166-1-alpha-2';
-let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
 let OsuKey = new config().GetOsuKey();
 let osuApi = new _osuApi.Api(OsuKey, {
 	notFoundAsError: false,
@@ -20,7 +20,7 @@ export default class {
 			msg.channel.send(new discord.MessageEmbed()
 				.setColor([255, 0, 0])
 				.setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
-				.addField(`Help`, `Check the [wiki](${wikis.commands}#osu) for help!`)
+				.addField(`Help`, `Check \`${prefix}help osu\``)
 				.setDescription(`Please specify an username!`));
 			return;
 		}
@@ -63,7 +63,7 @@ export default class {
 						msg.channel.send(new discord.MessageEmbed()
 							.setColor([255, 0, 0])
 							.setTitle(`Error`)
-							.addField(`Help`, `Check the [wiki](${wikis.commands}#osu) for help!`)
+							.addField(`Help`, `Check \`${prefix}help osu\``)
 							.setDescription(`**Possible reasons:** \n` +
 								`User does not exists \n` +
 								`You entered the wrong modifiers`)
@@ -177,7 +177,7 @@ export default class {
 						msg.channel.send(new discord.MessageEmbed()
 							.setColor([255, 0, 0])
 							.setTitle(`Error`)
-							.addField(`Help`, `Check the [wiki](${wikis.commands}#osu) for help!`)
+							.addField(`Help`, `Check \`${prefix}help osu\``)
 							.setDescription(`**Possible reasons:**\n` +
 								`User does not exists\n` +
 								`Doesnt have any play in your search\n` +
@@ -233,7 +233,7 @@ export default class {
 						msg.channel.send(new discord.MessageEmbed()
 							.setColor([255, 0, 0])
 							.setTitle(`Error`)
-							.addField(`Help`, `Check the [wiki](${wikis.commands}#osu) for help!`)
+							.addField(`Help`, `Check \`${prefix}help osu\``)
 							.setDescription(`**Possible reasons:**\n` +
 								`User does not exists\n` +
 								`Doesnt have any play in your search\n` +

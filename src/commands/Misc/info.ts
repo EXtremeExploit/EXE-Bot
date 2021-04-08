@@ -68,8 +68,8 @@ export default class {
 			'[**Github Repository**](https://github.com/EXtremeExploit/EXE-Bot)', true);
 
 
-		embed.addField('Wikies', '[**Home**](' + wikis.home + ')\n' +
-			'[**Commands**](' + wikis.commands + ')\n' +
+		embed.addField('Wikies',
+			'[**Home**](' + wikis.home + ')\n' +
 			'[**Replies**](' + wikis.replies + ')\n' +
 			'[**FAQ**](' + wikis.faq + ')', true);
 

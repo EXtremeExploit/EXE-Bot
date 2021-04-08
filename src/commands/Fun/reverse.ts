@@ -1,7 +1,7 @@
 import discord from 'discord.js';
 import { reverseString } from '../../util.js';
 import config from '../../config.js';
-let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
@@ -17,7 +17,7 @@ export default class {
 		} else {
 			msg.channel.send(new discord.MessageEmbed()
 				.setColor([255, 0, 0])
-				.addField(`Help`, `Check the [wiki](${wikis.commands}#fun) for help!`)
+				.addField(`Help`, `Check \`${prefix}help reverse\``)
 				.setDescription(`Please specify something to reverse!`));
 		}
 	}

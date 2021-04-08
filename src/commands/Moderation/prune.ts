@@ -1,6 +1,6 @@
 import discord from 'discord.js';
 import config from '../../config.js';
-let wikis = new config().GetWikis();
+let prefix = new config().GetPrefix();
 
 export default class {
 	constructor(client: discord.Client, msg: discord.Message) {
@@ -13,7 +13,7 @@ export default class {
 				if (isNaN(deln)) deln = 1;
 				if (deln < 2 || deln > 99) {
 					msg.channel.send(new discord.MessageEmbed()
-						.addField(`Help`, `Check the [wiki](${wikis.commands}#moderation) for help!`)
+						.addField(`Help`, `Check \`${prefix}help prune\``)
 						.setDescription(`Please specify a number between 2 and 99!`)
 						.setColor([255, 0, 0]));
 				} else {
@@ -22,7 +22,7 @@ export default class {
 			} else {
 				msg.channel.send(new discord.MessageEmbed()
 					.setColor([255, 0, 0])
-					.addField(`Help`, `Check the [wiki](${wikis.commands}#moderation) for help!`)
+					.addField(`Help`, `Check \`${prefix}help prune\``)
 					.setDescription(`Please specify a number!`));
 			}
 		} else {

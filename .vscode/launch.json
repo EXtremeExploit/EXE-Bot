@@ -35,6 +35,9 @@
 				"--experimental-modules"
 			],
 			"program": "${workspaceFolder}/out/src/index.js",
+			"outFiles": [
+				"${workspaceFolder}/out/**/*.js"
+			]
 		}
 	]
 }

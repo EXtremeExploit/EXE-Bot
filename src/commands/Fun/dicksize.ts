@@ -49,12 +49,7 @@ export default class {
 
 		let member = (msg.mentions.members.first()) ? msg.mentions.members.first() : (msg.member);
 
-		let int = member.id.split(``);
-		let sum = 0;
-		for (let i of int)
-			sum += Number(i);
-		let length = sum % 10 + 1;
-
+		let length = Math.floor(Math.random() * (10 - 1 + 1) + 1);
 		let str = `8`;
 		for (let i = 0; i < length; i++)
 			str += `=`;

@@ -130,15 +130,32 @@ export enum CoinflipResults {
 	Edge
 }
 
-export function getUser(client: discord.Client, msg: discord.Message) {
+export function getUser(client: discord.Client, msg: discord.Message, enableAuthor = true) {
 	let user: discord.User;
 	if (msg.mentions.members.first())
 		user = msg.mentions.members.first().user;
 	else
 		user = client.users.resolve(msg.content.split(` `).slice(1).join(` `));
 
-	if (!user) user = msg.author;
+	if (enableAuthor)
+		if (!user)
+			user = msg.author;
+	if (!user && !enableAuthor) return new discord.User(client, { id: '0' });
+	return user;
+}
 
+
+export function getMember(client: discord.Client, msg: discord.Message, guild: discord.Guild, enableAuthor = true) {
+	let user: discord.GuildMember;
+	if (msg.mentions.members.first())
+		user = msg.mentions.members.first();
+	else
+		user = guild.member(msg.content.split(` `).slice(1).join(` `));
+
+	if (enableAuthor)
+		if (!user)
+			user = guild.member(msg.author.id);
+	if (!user && !enableAuthor) return new discord.GuildMember(client, {user:{id: 0}}, msg.guild);
 	return user;
 }
 

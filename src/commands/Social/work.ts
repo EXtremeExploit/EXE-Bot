@@ -42,7 +42,7 @@ export default class {
 			.addField('Money', `${money} -> ${money + moneyMade} (+${moneyMade})`)
 			.addField('Work Count', `${workCount} -> ${workCount + 1} (+1)`));
 
-		if (money + moneyMade >= 1000000 && Badges.Rich != 1)
+		if (money + moneyMade >= 1000000 && social.badges[Badges.Rich] != 1)
 			social.badges.set(Badges.Rich, 1);
 
 

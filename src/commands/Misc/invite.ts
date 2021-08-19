@@ -1,26 +1,36 @@
-import { Client, Message } from "discord.js";
-import discord from 'discord.js';
+import discord, { Permissions } from 'discord.js';
 
 export default class {
-	constructor(client: Client, msg: Message) {
-		client.generateInvite({
+	client: discord.Client;
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
+		this.client = client;
+		this.int = int;
+	}
+
+	async init() {
+		const link = this.client.generateInvite({
 			permissions: [
-				'SEND_MESSAGES',
-				'READ_MESSAGE_HISTORY',
-				'KICK_MEMBERS',
-				'BAN_MEMBERS',
-				'MANAGE_MESSAGES',
-				'MANAGE_ROLES',
-				'MANAGE_CHANNELS',
-				'EMBED_LINKS'
-			]
-		}).then((link) => {
-			msg.channel.send(new discord.MessageEmbed()
+				Permissions.FLAGS.SEND_MESSAGES,
+				Permissions.FLAGS.READ_MESSAGE_HISTORY,
+				Permissions.FLAGS.KICK_MEMBERS,
+				Permissions.FLAGS.BAN_MEMBERS,
+				Permissions.FLAGS.MANAGE_MESSAGES,
+				Permissions.FLAGS.MANAGE_ROLES,
+				Permissions.FLAGS.MANAGE_CHANNELS,
+				Permissions.FLAGS.EMBED_LINKS
+			],
+			scopes: ['bot'],
+		});
+
+		await this.int.reply({
+			embeds: [new discord.MessageEmbed()
 				.setTitle('Invite me to your server!')
-				.setAuthor(client.user.username, client.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
+				.setAuthor(this.client.user.username, this.client.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
 				.setColor([255, 0, 0])
 				.setDescription(link)
-				.setURL(link));
+				.setURL(link)]
 		});
+		return true;
 	}
 }

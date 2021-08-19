@@ -1,15 +1,24 @@
 import discord from 'discord.js';
 import _randomCat from 'random.cat.js';
-let randomCat = _randomCat.api();
+const randomCat = _randomCat.api();
 
 export default class {
-	constructor(client: discord.Client, msg: discord.Message) {
-		randomCat.getCat().then((cat) => {
-			msg.channel.send(new discord.MessageEmbed()
+	client: discord.Client;
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
+		this.client = client;
+		this.int = int;
+	}
+
+	async init() {
+		const cat = await randomCat.getCat();
+
+		await this.int.reply({
+			embeds: [new discord.MessageEmbed()
 				.setImage(cat.file)
 				.setColor([255, 0, 0])
 				.setTitle('Random Cat')
-				.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
+				.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))]
 		});
 	}
 }

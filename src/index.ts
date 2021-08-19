@@ -1,33 +1,36 @@
-console.log(`Starting...`);
+console.log('Starting...');
 import dotenv from 'dotenv';
 dotenv.config({
-	path: `./json/.env`
+	path: './json/.env'
 });
 
-import discord from 'discord.js';
+import discord, { Intents } from 'discord.js';
 import commands from './commands.js';
 import config from './config.js';
 import events from './events.js';
-import replies from './replies.js';
-import * as mongoose from 'mongoose';
-let db = new config().GetDB();
+import mongoose from 'mongoose';
+const db = new config().getDB();
 
-let client: discord.Client = new discord.Client({
-	http: {
-		api: 'https://discord.com/api',
-		cdn: 'https://cdn.discordapp.com'
-	}
+const client: discord.Client = new discord.Client({
+	intents: [
+		Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MEMBERS
+	]
 });
 
 (async () => {
 	console.log('Logging to Database...');
-	await ((mongoose as any).default as mongoose.Mongoose).connect(db, { useNewUrlParser: true, useUnifiedTopology: true });
+	await mongoose.connect(db,
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		});
 	console.log('DB Connected');
 
-	new commands(client);
+	const c = new commands(client);
 	new events(client);
-	new replies(client);
 
 	console.log('Logging to Discord...');
-	client.login(new config().GetToken()).catch((e) => console.error(e));
+	await client.login(new config().getToken()).catch((e) => console.error(e));
+	c.register();
 })();

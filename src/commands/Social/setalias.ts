@@ -3,34 +3,34 @@ import { SocialModel, createProfile, SocialClass, SocialCheckUndefineds } from '
 
 export default class {
 	client: discord.Client;
-	msg: discord.Message;
-	constructor(client: discord.Client, msg: discord.Message) {
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
 		this.client = client;
-		this.msg = msg;
+		this.int = int;
 	}
 
 	async init() {
-		let args = this.msg.content.split(` `).slice(1).join(` `);
-		if (args.length < 2) {
-			this.msg.reply('Your alias can\'t be less than 2 characteres long');
-			return;
-		}
+		const newAlias = this.int.options.getString('alias');
 
 		let social: SocialClass = await SocialModel.findOne({
-			id: this.msg.author.id
-		})
+			id: this.int.user.id
+		});
 
 		if (social == undefined)
-			social = createProfile(this.msg.author.id);
+			social = createProfile(this.int.user.id);
 
+
+		social.set('alias', newAlias ? newAlias : '');
 		social = SocialCheckUndefineds(social);
 
-		social.set('alias', args);
-		social.save();
+		this.int.reply({
+			embeds: [new discord.MessageEmbed()
+				.setTitle(social.alias ? `You are now recognized as ${social.alias}` : 'You now don\'t have an alias')
+				.setColor([255, 0, 0])]
+		});
 
-		this.msg.channel.send(new discord.MessageEmbed()
-			.setTitle(`${this.msg.member.user.username} is now recognized as ${social.alias}`)
-			.setColor([255, 0, 0]));
+		await social.save();
+
 		return true;
 	}
 }

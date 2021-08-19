@@ -1,12 +1,23 @@
 import discord from 'discord.js';
 
 export default class {
-	constructor(client: discord.Client, msg: discord.Message) {
+	client: discord.Client;
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
+		this.client = client;
+		this.int = int;
+	}
+
+	async init() {
 		const dice = Math.floor(Math.random() * 6) + 1;
-		msg.channel.send(new discord.MessageEmbed()
-			.setColor([255, 0, 0])
-			.setTitle('Dice')
-			.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
-			.setDescription('You took a **' + dice + '**'));
+
+		await this.int.reply({
+			embeds: [new discord.MessageEmbed()
+				.setColor([255, 0, 0])
+				.setTitle('Dice')
+				.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+				.setDescription(`The dice landed on: ${dice}`)]
+		});
+		return true;
 	}
 }

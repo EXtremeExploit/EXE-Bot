@@ -7,8 +7,6 @@
 
 ## Commands & Info
 * [Home](https://extremeexploit.github.io/EXE_Bot/Wiki/)
-* [Commands](https://extremeexploit.github.io/EXE_Bot/Wiki/Commands)
-* [Replies](https://extremeexploit.github.io/EXE_Bot/Wiki/Replies)
 * [FAQ](https://extremeexploit.github.io/EXE_Bot/Wiki/FAQ)
 
 
@@ -19,14 +17,17 @@
 4. Open `json/config.json` and edit as your liking
 5. Create a file in `json/` called `.env` and add the next:
 ```
-token=''
+tokenBeta=''
+tokenRelease=''
+useBeta='false'
 
-OsuKey=''
+osuKey=''
 
-GoogleAppApiKey=''
-GoogleCseID=''
+googleAppApiKey=''
+googleCseID=''
 
-db_url=''
-``` 
+dbUrl='mongodb+srv://<YOURUSERNAME>:<YOURPASSWORD>@<YOURHOST>/<YOURDB>?retryWrites=true'
+```
 5. Edit it with your desired configuration
+    * If you don't plan on using a testing bot, leave tokenBeta blank and useBeta on `'false'`
 6. `npm run starttsc`; This will compile and then run, if you want only to run latest compiled: `npm run startnotsc`

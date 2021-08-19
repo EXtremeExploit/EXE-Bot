@@ -1,59 +1,68 @@
 import discord from 'discord.js';
 
 export default class {
-	constructor(client: discord.Client, msg: discord.Message) {
-		let xsmall = [
-			`Life hates you.`,
-			`Did you know that the ancient Greek considered small penises as a symbol of fertility?`,
-			`At least it won't get any smaller.`,
-			`What a cute little thing...`
+	client: discord.Client;
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
+		this.client = client;
+		this.int = int;
+	}
+
+	async init() {
+		const xsmall = [
+			'Life hates you.',
+			'Did you know that the ancient Greek considered small penises as a symbol of fertility?',
+			'At least it won\'t get any smaller.',
+			'What a cute little thing...'
 		];
 
-		let small = [
-			`It's almost cute.`,
-			`Well... it could have been worse...`,
-			`I'm sorry about that.`,
-			`Is that your finger?.`
+		const small = [
+			'It\'s almost cute.',
+			'Well... it could have been worse...',
+			'I\'m sorry about that.',
+			'Is that your finger?.'
 		];
 
-		let smedium = [
-			`Seems like it's normal sized to me.`,
-			`The average.`,
-			`A decent size.`,
-			`Something I would be ok with.`
+		const smedium = [
+			'Seems like it\'s normal sized to me.',
+			'The average.',
+			'A decent size.',
+			'Something I would be ok with.'
 		];
 
-		let medium = [
-			`You 're slightly above the average.`,
-			`Good job.`,
-			`To be honest it's not that impressive.`,
-			`A little impressive.`,
-			`Almost 4 oranges in size.`
+		const medium = [
+			'You \'re slightly above the average.',
+			'Good job.',
+			'To be honest it\'s not that impressive.',
+			'A little impressive.',
+			'Almost 4 oranges in size.'
 		];
 
-		let large = [`My horse is jealous.`,
-			`This is something I would be proud of.`,
-			`Almost as long as my arm.`,
-			`Almost as long as my RTX 2080`
+		const large = ['My horse is jealous.',
+			'This is something I would be proud of.',
+			'Almost as long as my arm.',
+			'Almost as long as my RTX 2080'
 		];
 
-		let xlarge = [
-			`Keep that thing away from me! D:`,
-			`You could knock down someone with that.`,
-			`Do you sometimes bang it on the ceiling?`,
-			`Don't trip over it.`,
-			`Damn son.`,
-			`What the fuck is that thing.`,
-			`Did you born with a sexual leg?`
+		const xlarge = [
+			'Keep that thing away from me! D:',
+			'You could knock down someone with that.',
+			'Do you sometimes bang it on the ceiling?',
+			'Don\'t trip over it.',
+			'Damn son.',
+			'What the fuck is that thing.',
+			'Did you born with a sexual leg?'
 		];
 
-		let member = (msg.mentions.members.first()) ? msg.mentions.members.first() : (msg.member);
+		let user = this.int.options.getMember('user') as discord.GuildMember;
 
-		let length = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-		let str = `8`;
+		if (!user) user = this.int.member as discord.GuildMember;
+
+		const length = Math.floor(Math.random() * 10 + 1);
+		let str = '8';
 		for (let i = 0; i < length; i++)
-			str += `=`;
-		str += `D`;
+			str += '=';
+		str += 'D';
 
 		let comment: string;
 		switch (true) {
@@ -65,12 +74,13 @@ export default class {
 			case length == 10: comment = xlarge[Math.floor(Math.random() * xlarge.length)]; break;
 		}
 
-		let embed = new discord.MessageEmbed()
-			.setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
+		const embed = new discord.MessageEmbed()
+			.setAuthor(user.user.username, user.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
 			.setColor([255, 0, 0])
 			.setTitle(`Dick Size: ${str} (${length})`)
 			.setDescription(comment);
 
-		msg.channel.send(embed);
+		await this.int.reply({ embeds: [embed] });
+		return true;
 	}
 }

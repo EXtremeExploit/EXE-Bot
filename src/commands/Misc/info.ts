@@ -1,27 +1,33 @@
 import discord from 'discord.js';
-import config from '../../config.js';
 import { convertMS } from '../../util.js';
-let wikis = new config().GetWikis();
-
 import os from 'os';
 
 export default class {
-	constructor(client: discord.Client, msg: discord.Message) {
-		let miliseconds = client.uptime % 1000;
-		let seconds = Math.floor(client.uptime / 1000) % 60;
-		let minutes = Math.floor(Math.floor(client.uptime / 1000) / 60) % 60;
-		let hours = Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) % 24;
-		let days = Math.floor(Math.floor(Math.floor(Math.floor(client.uptime / 1000) / 60) / 60) / 24);
+	client: discord.Client;
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
+		this.client = client;
+		this.int = int;
+	}
 
-		let ram = {
-			total: os.totalmem() / 1048576,
-			used: Math.round(process.memoryUsage().heapTotal / 1024 / 1024 * 100) / 100,
-			free: os.freemem() / 1048576,
+	async init() {
+		const miliseconds = this.client.uptime % 1000;
+		const seconds = Math.floor(this.client.uptime / 1000) % 60;
+		const minutes = Math.floor(Math.floor(this.client.uptime / 1000) / 60) % 60;
+		const hours = Math.floor(Math.floor(Math.floor(this.client.uptime / 1000) / 60) / 60) % 24;
+		const days = Math.floor(Math.floor(Math.floor(Math.floor(this.client.uptime / 1000) / 60) / 60) / 24);
+
+		const ram = {
+			heapTotal: Math.round(process.memoryUsage().heapTotal / 1024 / 1024 * 100) / 100,
+			heapUsed: Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100,
 			rss: Math.round(process.memoryUsage().rss / 1024 / 1024 * 100) / 100,
+			arrayBuffers: Math.round(process.memoryUsage().arrayBuffers / 1024 / 1024 * 100) / 100,
+			external: Math.round(process.memoryUsage().external / 1024 / 1024 * 100) / 100,
+			total: os.totalmem() / 1048576,
 		};
 
 		let sysuptimestr = '';
-		let sysuptime = convertMS(os.uptime() * 1000);
+		const sysuptime = convertMS(os.uptime() * 1000);
 		if (sysuptime.days != 0)
 			sysuptimestr += `${sysuptime.days} D, `;
 		if (sysuptime.hours != 0)
@@ -30,49 +36,53 @@ export default class {
 			sysuptimestr += `${sysuptime.minutes} Mins, `;
 		if (sysuptime.seconds != 0)
 			sysuptimestr += `${sysuptime.seconds} Secs`;
-		if (sysuptimestr.endsWith(', ')) {
+
+		if (sysuptimestr.endsWith(', '))
 			sysuptimestr.substr(0, sysuptimestr.length - 2);
-		}
 
 
-		let embed = new discord.MessageEmbed()
-			.setAuthor(client.user.username, client.user.avatarURL({ dynamic: true, size: 1024, format: `png` }))
+		const embed = new discord.MessageEmbed()
+			.setAuthor(this.client.user.username, this.client.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
 			.setColor([255, 0, 0])
-			.setThumbnail(client.user.avatarURL({ dynamic: true, size: 1024, format: `png` }));
+			.setThumbnail(this.client.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }));
 
-		embed.addField('Device Info',
-			`**System Uptime** ${sysuptimestr}\n` +
-			`**RAM (MB):** ${ram.used.toFixed(2)} / ${ram.total.toFixed(2)}\n`, true);
+		embed.addField('Bot Resources (MiB)',
+			`**Heap Total:** ${ram.heapTotal.toFixed(2)}\n` +
+			`**Heap Used:** ${ram.heapUsed.toFixed(2)}\n` +
+			`**Array Buffers:** ${ram.arrayBuffers.toFixed(2)}\n` +
+			`**External:** ${ram.external.toFixed(2)}\n` +
+			`**RSS:** ${ram.rss.toFixed(2)}`, true);
 
 		embed.addField('Stats',
-			'**Servers:** ' + client.guilds.cache.size + '\n' +
-			'**Users:** ' + client.users.cache.size + '\n' +
-			'**Channels:** ' + client.channels.cache.size, true);
+			'**Servers:** ' + this.client.guilds.cache.size + '\n' +
+			'**Users:** ' + this.client.users.cache.size + '\n' +
+			'**Channels:** ' + this.client.channels.cache.size, true);
 
-		embed.addField('Uptime',
-			days + ' Days\n' +
-			hours + ' Hours\n' +
-			minutes + ' Minutes\n' +
-			seconds + ' Seconds\n' +
-			miliseconds + ' Miliseconds', true);
+		embed.addField('Bot Uptime',
+			`${days} Days\n` +
+			`${hours} Hours\n` +
+			`${minutes} Minutes\n` +
+			`${seconds} Seconds\n` +
+			`${miliseconds} Miliseconds`, true);
 
 		embed.addField('Neofetch',
 			`**OS:** ${os.platform()}\n` +
 			`**Core:** ${os.type()}\n` +
 			`**Arch:** ${os.arch()}\n` +
-			`**CPU:** ${os.cpus().length}x ${os.cpus()[0].model} @ ${os.cpus()[0].speed} MHz\n` +
-			`**RAM (MB):** ${((os.totalmem() - os.freemem()) / 1048576).toFixed(2)} / ${ram.total.toFixed(2)}`)
+			`**CPU:** ${os.cpus()[0].model} @ ${os.cpus()[0].speed} MHz\n` +
+			`**RAM (MiB):** ${((os.totalmem() - os.freemem()) / 1048576).toFixed(2)} / ${ram.total.toFixed(2)}\n` +
+			`**Uptime:** ${sysuptimestr}`);
 
 		embed.addField('Links',
 			'[**Discord Server**](https://discord.gg/sJPmDDn)\n' +
 			'[**Github Repository**](https://github.com/EXtremeExploit/EXE-Bot)', true);
 
 
-		embed.addField('Wikies',
-			'[**Home**](' + wikis.home + ')\n' +
-			'[**Replies**](' + wikis.replies + ')\n' +
-			'[**FAQ**](' + wikis.faq + ')', true);
+		// embed.addField('Wikies',
+		// 	'[**Home**](' + wikis.home + ')\n' +
+		// 	'[**FAQ**](' + wikis.faq + ')', true);
 
-		(msg.channel as discord.TextChannel).send(embed);
+		await this.int.reply({ embeds: [embed] });
+		return true;
 	}
 }

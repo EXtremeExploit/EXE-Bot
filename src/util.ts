@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { User } from 'node-osu';
+import { ram } from './config.js';
 import discord from 'discord.js';
 
 export function convertMS(ms: number) {
@@ -7,34 +8,24 @@ export function convertMS(ms: number) {
 		return null;
 	}
 
-	let d: number, h: number, m: number, s: number;
+	let h: number;
+	let m: number;
+	let s: number;
 	s = Math.floor(ms / 1000);
 	m = Math.floor(s / 60);
 	s = s % 60;
 	h = Math.floor(m / 60);
 	m = m % 60;
-	d = Math.floor(Math.floor(Math.floor(Math.floor(ms / 1000) / 60) / 60) / 24);
 	h = h % 24;
+	const d = Math.floor(Math.floor(Math.floor(Math.floor(ms / 1000) / 60) / 60) / 24);
 	ms = Math.floor((ms % 1000) * 1000) / 1000;
 	return { days: d, hours: h, minutes: m, seconds: s, ms: ms };
 }
 
 export function convertDate(date: Date, createdTimestamp?: number, ago?: boolean) {
-	let ct = convertMS(new Date().valueOf() - createdTimestamp);
-
-	let year = date.getUTCFullYear();
-	let month = date.getUTCMonth() + 1;
-	let day = date.getUTCDate();
-	let hour = date.getUTCHours();
-	let minutes = date.getUTCMinutes();
-	let seconds = date.getUTCSeconds();
-
-	if (createdTimestamp)
-		return `${year}/${month}/${day} @ ${hour}:${minutes}:${seconds} UTC (${ct.days} days, ${ct.hours} hours, ${ct.minutes} minutes, ${ct.seconds} seconds ago)`;
-
 	if (ago) {
 		let str = '';
-		ct = convertMS(new Date().valueOf() - date.valueOf());
+		const ct = convertMS(new Date().valueOf() - date.valueOf());
 		if (ct.days != 0)
 			str += `${ct.days} D, `;
 		if (ct.hours != 0)
@@ -49,8 +40,37 @@ export function convertDate(date: Date, createdTimestamp?: number, ago?: boolean
 
 		return str + ' Ago';
 	}
+	const ct = convertMS(new Date().valueOf() - createdTimestamp);
 
-	return `${year}/${month}/${day} @ ${hour}:${minutes}:${seconds} UTC`
+	const year = date.getUTCFullYear();
+	const month = date.getUTCMonth() + 1;
+	const day = date.getUTCDate();
+	const hour = date.getUTCHours();
+	const minutes = date.getUTCMinutes();
+	const seconds = date.getUTCSeconds();
+
+	if (createdTimestamp)
+		return `${year}/${month}/${day} @ ${hour}:${minutes}:${seconds} UTC (${ct.days} D, ${ct.hours} H, ${ct.minutes} M, ${ct.seconds} S ago)`;
+
+	return `${year}/${month}/${day} @ ${hour}:${minutes}:${seconds} UTC`;
+}
+
+export function LOG_DATE() {
+	const d = new Date();
+	let month = '' + (d.getUTCMonth() + 1);
+	let day = '' + d.getUTCDate();
+	const year = d.getUTCFullYear();
+
+	if (month.length < 2)
+		month = '0' + month;
+	if (day.length < 2)
+		day = '0' + day;
+
+	const hour = d.getUTCHours();
+	const min = d.getUTCMinutes();
+	const sec = d.getUTCSeconds();
+
+	return [year, month, day].join('-') + `@${hour}:${min}:${sec}+UTC`;
 }
 
 export function random(max: number, min?: number) {
@@ -58,12 +78,12 @@ export function random(max: number, min?: number) {
 		return Math.floor(Math.random() * (max + 1));
 	else
 		return Math.floor(Math.random() * (max - min)) + min;
-};
+}
 
 export function reverseString(string) {
-	let splitString = string.split(``);
-	let reverseArray = splitString.reverse();
-	let joinArray = reverseArray.join(``);
+	const splitString = string.split('');
+	const reverseArray = splitString.reverse();
+	const joinArray = reverseArray.join('');
 	return joinArray;
 }
 
@@ -72,7 +92,7 @@ export function fixDecimals(number) {
 }
 
 export function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export function formatNumber(num = 0) {
@@ -82,8 +102,8 @@ export function formatNumber(num = 0) {
 }
 
 export function cleanMods(Mods: string[]) {
-	let cleanModsArray = [];
-	(Mods as string[]).forEach(element => {
+	const cleanModsArray = [];
+	(Mods as string[]).forEach((element) => {
 		switch (element) {
 			case 'FreeModAllowed':
 			case 'ScoreIncreaseMods':
@@ -130,37 +150,56 @@ export enum CoinflipResults {
 	Edge
 }
 
-export function getUser(client: discord.Client, msg: discord.Message, enableAuthor = true) {
-	let user: discord.User;
-	if (msg.mentions.members.first())
-		user = msg.mentions.members.first().user;
-	else
-		user = client.users.resolve(msg.content.split(` `).slice(1).join(` `));
+export function osuUserCheckUndefinedsOrNulls(user: User) {
+	if (user.pp.raw == null) user.pp.raw = 0;
+	if (user.pp.rank == null) user.pp.rank = 0;
+	if (user.pp.countryRank == null) user.pp.countryRank = 0;
+	if (user.level == null) user.level = 0;
+	if (user.accuracy == null) user.accuracy = 0;
 
-	if (enableAuthor)
-		if (!user)
-			user = msg.author;
-	if (!user && !enableAuthor) return new discord.User(client, { id: '0' });
+	if (user.counts[100] == null) user.counts[100] = 0;
+	if (user.counts[300] == null) user.counts[300] = 0;
+	if (user.counts[50] == null) user.counts[50] = 0;
+	if (user.counts.A == null) user.counts.A = 0;
+	if (user.counts.S == null) user.counts.S = 0;
+	if (user.counts.SH == null) user.counts.SH = 0;
+	if (user.counts.SS == null) user.counts.SS = 0;
+	if (user.counts.SSH == null) user.counts.SSH = 0;
+	if (user.counts.plays == null) user.counts.plays = 0;
+
 	return user;
 }
 
+export function rounds(channelId: string): discord.MessageEmbed {
+	const round_embed = new discord.MessageEmbed()
+		.setAuthor('Russian Roulette Rounds')
+		.setColor(0xFF0000);
 
-export function getMember(client: discord.Client, msg: discord.Message, guild: discord.Guild, enableAuthor = true) {
-	let user: discord.GuildMember;
-	if (msg.mentions.members.first())
-		user = msg.mentions.members.first();
-	else
-		user = guild.member(msg.content.split(` `).slice(1).join(` `));
+	for (let n = 0; n < ram.rr.sessions[channelId].participants.length + n; n++) {
+		const idOfDeadParticipant = DecideWhoDies(ram.rr.sessions[channelId]);
 
-	if (enableAuthor)
-		if (!user)
-			user = guild.member(msg.author.id);
-	if (!user && !enableAuthor) return new discord.GuildMember(client, {user:{id: 0}}, msg.guild);
-	return user;
+		let field_desc = '';
+		ram.rr.sessions[channelId].participants.forEach((id, index) => {
+			field_desc += `${index + 1}. <@${id}> ${id == idOfDeadParticipant ? 'Died' : 'Survived'}\n`;
+		});
+
+		round_embed.addField(`Round ${(n + 1)}`, field_desc);
+
+		// Remove the dead one so it isn't in the next round
+		const indexOfDead = ram.rr.sessions[channelId].participants.indexOf(idOfDeadParticipant);
+		ram.rr.sessions[channelId].participants.splice(indexOfDead, 1);
+		if (ram.rr.sessions[channelId].participants.length == 1) break;
+	}
+	round_embed.addField('Winner', `<@${ram.rr.sessions[channelId].participants[0]}>`);
+	return round_embed;
 }
 
-//#region Social
-let SocialSchema = new mongoose.Schema({
+function DecideWhoDies(session) {
+	return session.participants[Math.floor(Math.random() * session.participants.length)];
+}
+
+// #region Social
+const SocialSchema = new mongoose.Schema({
 	id: String,
 	money: Number,
 	workCount: Number,
@@ -181,7 +220,7 @@ let SocialSchema = new mongoose.Schema({
 
 });
 
-export let SocialModel = mongoose.model('social', SocialSchema);
+export const SocialModel = mongoose.model('social', SocialSchema);
 
 export class SocialClass extends mongoose.Document {
 	id?: string;
@@ -189,7 +228,7 @@ export class SocialClass extends mongoose.Document {
 	workCount?: number;
 	workName?: string;
 	rep?: number;
-	//TODO: add a proper type to badges that supports index and set 
+	// TODO: add a proper type to badges that supports index and set
 	badges?: any;
 	kills?: number;
 	deaths?: number;
@@ -235,12 +274,12 @@ export function GetStringFromBadges(rawBadges: number[]) {
 }
 
 export function createProfile(userID) {
-	let numberOfBadges = Object.keys(Badges).length / 2;
-	let badges = [];
+	const numberOfBadges = Object.keys(Badges).length / 2;
+	const badges = [];
 	for (let i = 0; i < numberOfBadges; i++) {
 		badges[i] = 0;
 	}
-	let Social = new SocialModel({
+	const Social = new SocialModel({
 		id: userID,
 		money: 0,
 		workCount: 0,
@@ -265,19 +304,19 @@ export function createProfile(userID) {
 export function SocialCheckUndefineds(social: SocialClass) {
 	if (social.rep == undefined || social.rep == null) social.set('rep', 0);
 
-	if (social.workName == null || social.workName == undefined) social.set('workName', '');
+	if (social.workName == undefined || social.workName == null) social.set('workName', '');
 
 	if (social.cookies == undefined || social.cookies == null) social.set('cookies', 0);
 	if (social.sandwichs == undefined || social.sandwichs == null) social.set('sandwichs', 0);
 
-	if (social.kills == null || social.kills == undefined) social.set('kills', 0);
-	if (social.deaths == null || social.deaths == undefined) social.set('deaths', 0);
+	if (social.kills == undefined || social.kills == null) social.set('kills', 0);
+	if (social.deaths == undefined || social.deaths == null) social.set('deaths', 0);
 
-	if (social.alias == null || social.alias == undefined) social.set('alias', '');
+	if (social.alias == undefined || social.alias == null) social.set('alias', '');
 
 	if (social.owos == undefined || social.owos == null) social.set('owos', 0);
 
-	//Coinflips
+	// Coinflips
 	if (social.coinflips.heads == undefined) social.set('coinflips', {
 		heads: 0,
 		tails: social.coinflips.tails,
@@ -295,74 +334,56 @@ export function SocialCheckUndefineds(social: SocialClass) {
 		edges: 0,
 	});
 
+	// Badges
+
 	for (let i = 0; i < Object.keys(Badges).length / 2; i++) {
 		if (social.badges[i] == undefined || social.badges[i] == null)
 			social.badges.set(i, 0);
 	}
 	return social;
 }
-//#endregion
+// #endregion
 
-export function osuUserCheckUndefinedsOrNulls(user: User) {
-	if (user.pp.raw == null) user.pp.raw = 0;
-	if (user.pp.rank == null) user.pp.rank = 0;
-	if (user.pp.countryRank == null) user.pp.countryRank = 0;
-	if (user.level == null) user.level = 0;
-	if (user.accuracy == null) user.accuracy = 0;
+// //#region Server Config
+// let ServerConfigSchema = new mongoose.Schema({
+// 	id: String,
+// 	repliesEnabled: Boolean,
+// 	hasSentAReply: Boolean,
+// });
 
-	if (user.counts[100] == null) user.counts[100] = 0;
-	if (user.counts[300] == null) user.counts[300] = 0;
-	if (user.counts[50] == null) user.counts[50] = 0;
-	if (user.counts.A == null) user.counts.A = 0;
-	if (user.counts.S == null) user.counts.S = 0;
-	if (user.counts.SH == null) user.counts.SH = 0;
-	if (user.counts.SS == null) user.counts.SS = 0;
-	if (user.counts.SSH == null) user.counts.SSH = 0;
-	if (user.counts.plays == null) user.counts.plays = 0;
+// export let ServerConfigModel = mongoose.model('ServerConfig', ServerConfigSchema);
 
-	return user;
-}
+// export class ServerConfigClass extends mongoose.Document {
+// 	id?: string;
+// 	repliesEnabled?: boolean;
+// 	hasSentAReply?: boolean;
+// }
 
-//#region Server Config
-let ServerConfigSchema = new mongoose.Schema({
-	id: String,
-	repliesEnabled: Boolean,
-	hasSentAReply: Boolean,
-});
+// export function createServerConfig(serverID: string) {
+// 	let config = new ServerConfigModel({
+// 		id: serverID,
+// 		repliesEnabled: true,
+// 		hasSentAReply: false,
+// 	});
+// 	return config;
+// }
 
-export let ServerConfigModel = mongoose.model('ServerConfig', ServerConfigSchema);
+// export function ServerConfigCheckUndefineds(config: ServerConfigClass) {
+// 	if (config.repliesEnabled == undefined || config.repliesEnabled == null) config.set('repliesEnabled', true);
+// 	if (config.hasSentAReply == undefined || config.hasSentAReply == null) config.set('hasSentAReply', false);
+// 	return config;
+// }
 
-export class ServerConfigClass extends mongoose.Document {
-	id?: string;
-	repliesEnabled?: boolean;
-	hasSentAReply?: boolean;
-}
+// //#endregion
 
-export function createServerConfig(serverID: string) {
-	let config = new ServerConfigModel({
-		id: serverID,
-		repliesEnabled: true,
-		hasSentAReply: false,
-	});
-	return config;
-}
-
-export function ServerConfigCheckUndefineds(config: ServerConfigClass) {
-	if (config.repliesEnabled == undefined || config.repliesEnabled == null) config.set('repliesEnabled', true);
-	if (config.hasSentAReply == undefined || config.hasSentAReply == null) config.set('hasSentAReply', false);
-	return config;
-}
-
-//#endregion
-
-//#region Cooldown
-let CooldownSchema = new mongoose.Schema({
+// #region Cooldown
+const CooldownSchema = new mongoose.Schema({
 	id: String,
 	command: String,
 	time: Number,
 });
 
-export let CooldownModel = mongoose.model('cooldown', CooldownSchema);
+export const CooldownModel = mongoose.model('cooldown', CooldownSchema);
 
 export class CooldownsClass extends mongoose.Document {
 	id?: string;
@@ -371,7 +392,7 @@ export class CooldownsClass extends mongoose.Document {
 }
 
 export function createCooldown(id: string, cmd: string) {
-	let config = new CooldownModel({
+	const config = new CooldownModel({
 		id: id,
 		command: cmd,
 		time: 0,
@@ -384,4 +405,4 @@ export function CooldownCheckUndefineds(cd: CooldownsClass) {
 	return cd;
 }
 
-//#endregion
+// #endregion

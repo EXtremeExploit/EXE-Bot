@@ -1,47 +1,44 @@
 import discord from 'discord.js';
 import { SocialModel, createProfile, SocialClass, SocialCheckUndefineds } from '../../util.js';
-import config from '../../config.js';
-let prefix = new config().GetPrefix();
 
 export default class {
 	client: discord.Client;
-	msg: discord.Message;
-	constructor(client: discord.Client, msg: discord.Message) {
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
 		this.client = client;
-		this.msg = msg;
+		this.int = int;
 
 	}
 	async init() {
-		if (this.msg.mentions.members.first()) {
-			if (this.msg.mentions.members.first().id == this.msg.member.id) {
-				this.msg.channel.send(new discord.MessageEmbed()
-					.setAuthor(this.msg.author.username, this.msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
+		let user = this.int.options.getMember('user') as discord.GuildMember;
+
+		if (!user) user = this.int.member as discord.GuildMember;
+
+		if (user.id == this.int.user.id) {
+			await this.int.reply({
+				embeds: [new discord.MessageEmbed()
+					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
 					.setColor([255, 0, 0])
-					.setDescription(`You cant rep youself, that stuff doesn't  grow from trees!!`));
-				return;
-			} else {
-				this.msg.channel.send(new discord.MessageEmbed()
-					.setTitle(`${this.msg.member.user.username} has given reputation to ${this.msg.mentions.members.first().user.username}`)
-					.setColor([0, 0, 255]));
-
-				let social: SocialClass = await SocialModel.findOne({ id: this.msg.mentions.members.first().id });
-				if (social == null)
-					social = createProfile(this.msg.mentions.members.first().id);
-
-				social = SocialCheckUndefineds(social);
-
-				social.set('rep', social.rep += 1);
-				social.save();
-
-				return true;
-			}
-
-		} else {
-			this.msg.channel.send(new discord.MessageEmbed()
-				.setColor([255, 0, 0])
-				.addField(`Help`, `Check \`${prefix}help rep\``)
-				.setDescription(`Please specify an user!`));
+					.setDescription('You cant rep youself, that stuff doesn\'t grow from trees!!')]
+			});
+			return false;
 		}
-		return false;
+
+		await this.int.reply({
+			embeds: [new discord.MessageEmbed()
+				.setTitle(`${this.int.user.username} has given reputation to ${user.user.username}`)
+				.setColor([0, 0, 255])]
+		});
+
+		let social: SocialClass = await SocialModel.findOne({ id: user.id });
+		if (social == null)
+			social = createProfile(user.id);
+
+		social = SocialCheckUndefineds(social);
+
+		social.set('rep', ++social.rep);
+		await social.save();
+
+		return true;
 	}
 }

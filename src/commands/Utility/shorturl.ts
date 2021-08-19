@@ -1,31 +1,29 @@
 import discord from 'discord.js';
-import config from '../../config.js';
 import isgd from 'isgd';
-let prefix = new config().GetPrefix();
 
 export default class {
-	constructor(client: discord.Client, msg: discord.Message) {
-		let messageArray = msg.content.split(' ');
-		let args = messageArray.slice(1).join(' ');
+	client: discord.Client;
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
+		this.client = client;
+		this.int = int;
+	}
 
-		//https://is.gd/exe_bot
+	async init() {
+		const url = this.int.options.getString('url');
 
-		if (args == '') {
-			msg.channel.send(new discord.MessageEmbed()
-				.setColor([255, 0, 0])
-				.addField('Help', `Check \`${prefix}help shorturl\``)
-				.setDescription('Please specify something to short!'));
-		} else {
-			isgd.shorten(args, (res) => {
-				if (res.startsWith('Error:')) {
-					msg.channel.send(new discord.MessageEmbed()
-						.setColor([255, 0, 0])
-						.addField('Help', `Check \`${prefix}help shorturl\``)
-						.setDescription('Please specify a valid URL to short!'));
-				} else {
-					msg.channel.send(res);
-				}
+		// https://is.gd/exe_bot
+
+		const res = await isgd.shorten(url);
+		if (res.startsWith('Error:')) {
+			await this.int.reply({
+				embeds: [new discord.MessageEmbed()
+					.setColor([255, 0, 0])
+					.setDescription('Please specify a valid URL to short!')]
 			});
+			return false;
 		}
+		await this.int.reply(res);
+		return true;
 	}
 }

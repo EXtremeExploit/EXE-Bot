@@ -1,27 +1,29 @@
 import discord from 'discord.js';
-import config from '../../config.js';
-let prefix = new config().GetPrefix();
 
 export default class {
-	constructor(client: discord.Client, msg: discord.Message) {
-		let messageArray = msg.content.split(` `);
-		let args = messageArray.slice(1).join(` `);
+	client: discord.Client;
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
+		this.client = client;
+		this.int = int;
+	}
 
-		if (args !== `` || args == null) {
-			if (msg.content.includes(`@everyone`) || msg.content.includes(`@here`)) {
-				msg.channel.send(new discord.MessageEmbed()
+	async init() {
+		const text = this.int.options.getString('text');
+
+		if (text.includes('@everyone') || text.includes('@here')) {
+			await this.int.reply({
+				embeds: [new discord.MessageEmbed()
 					.setColor([255, 0, 0])
-					.setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
-					.setTitle(`Say`)
-					.setDescription(`You cannot mention @everyone or @here`));
-			} else {
-				msg.channel.send(args);
-			}
-		} else {
-			msg.channel.send(new discord.MessageEmbed()
-				.setColor([255, 0, 0])
-				.addField(`Help`, `Check \`${prefix}help say\``)
-				.setDescription(`Please specify something to say!`));
+					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+					.setTitle('Say')
+					.setDescription('You cannot mention @everyone or @here')]
+			});
+			return false;
 		}
+
+		await this.int.reply({ content: text });
+		return true;
+
 	}
 }

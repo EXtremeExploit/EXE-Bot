@@ -1,26 +1,29 @@
 import discord from 'discord.js';
-import config, { ram } from '../../config.js';
-import { CooldownModel } from '../../util.js'
-let owner = new config().GetOwner();
-
+import config from '../../config.js';
+import { CooldownModel } from '../../util.js';
+const ownerId = new config().getOwnerId();
 
 export default class {
 	client: discord.Client;
-	msg: discord.Message;
-	constructor(client: discord.Client, msg: discord.Message) {
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
 		this.client = client;
-		this.msg = msg;
+		this.int = int;
 	}
+
 	async init() {
-		if (this.msg.member.user.id == owner.id) {
-			await CooldownModel.collection.deleteMany({});
-			this.msg.reply('Cooldowns cleared');
-		} else {
-			this.msg.channel.send(new discord.MessageEmbed()
-				.setColor([255, 0, 0])
-				.setDescription(`Bot owner only!`)
-				.setFooter(`how did you find this command?`)
-			);
+		if (this.int.user.id !== ownerId) {
+			await this.int.reply({
+				embeds: [new discord.MessageEmbed()
+					.setColor([255, 0, 0])
+					.setDescription('Bot owner only!')
+					.setFooter('how did you find this command?')]
+			});
+			return false;
 		}
+
+		await CooldownModel.collection.deleteMany({});
+		await this.int.reply({ content: 'Cooldowns cleared', ephemeral: true });
+		return true;
 	}
 }

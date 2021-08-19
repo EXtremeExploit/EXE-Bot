@@ -1,15 +1,25 @@
 import discord from 'discord.js';
 import _randomDog from 'random.dog.js';
-let randomDog = _randomDog.api();
+const randomDog = _randomDog.api();
 
 export default class {
-	constructor(client: discord.Client, msg: discord.Message) {
-		randomDog.getDog().then((dog) => {
-			msg.channel.send(new discord.MessageEmbed()
+	client: discord.Client;
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
+		this.client = client;
+		this.int = int;
+	}
+
+	async init() {
+		const dog = await randomDog.getDog();
+
+		await this.int.reply({
+			embeds: [new discord.MessageEmbed()
 				.setImage(dog.url)
 				.setColor([255, 0, 0])
 				.setTitle('Random Dog')
-				.setAuthor(msg.member.user.username, msg.member.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` })));
+				.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))]
 		});
+		return true;
 	}
 }

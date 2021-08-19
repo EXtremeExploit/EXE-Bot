@@ -1,30 +1,41 @@
 import discord from 'discord.js';
 import { SocialModel, GetStringFromBadges, createProfile, SocialClass, SocialCheckUndefineds } from '../../util.js';
-import config from '../../config.js';
-let prefix = new config().GetPrefix();
 
 export default class {
-	constructor(client: discord.Client, msg: discord.Message) {
-		let user = (msg.mentions.members.first()) ? (msg.mentions.members.first()) : (msg.member);
+	client: discord.Client;
+	int: discord.CommandInteraction;
+	constructor(client: discord.Client, int: discord.CommandInteraction) {
+		this.client = client;
+		this.int = int;
+	}
 
-		SocialModel.findOne({
-			id: user.id
-		}, (err, social: SocialClass) => {
-			if (err) throw err;
-			if (social == null)
-				social = createProfile(user.id);
+	async init() {
+		let user = this.int.options.getMember('user') as discord.GuildMember;
 
-			social = SocialCheckUndefineds(social);
+		if (!user) user = this.int.member as discord.GuildMember;
 
-			let workText = social.workName == '' ? `${social.alias == '' ? user.user.username : social.alias} Doesn't have a job` : `${social.alias == '' ? user.user.username : social.alias} works as ${social.workName}`;
-			let badges = GetStringFromBadges(social.badges);
-			let kd = social.kills / social.deaths;
-			msg.channel.send(new discord.MessageEmbed()
+		let social: SocialClass = await SocialModel.findOne({ id: user.id });
+		if (social == null)
+			social = createProfile(user.id);
+
+		social = SocialCheckUndefineds(social);
+
+		let workText = '';
+		if (social.workName == '')
+			workText = `${social.alias == '' ? user.user.username : social.alias} Doesn't have a job`;
+		else
+			workText = `${social.alias == '' ? user.user.username : social.alias} works as ${social.workName}`;
+
+		const badges = GetStringFromBadges(social.badges);
+		const kd = social.kills / social.deaths;
+
+		await this.int.reply({
+			embeds: [new discord.MessageEmbed()
 				.setTitle(`${social.alias == '' ? user.user.username : social.alias} Profile`)
 				.setColor(0x0000FF)
-				.setThumbnail(user.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
+				.setThumbnail(user.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
 				.setDescription(workText)
-				.setAuthor(user.user.username, user.user.displayAvatarURL({ dynamic: true, size: 1024, format: `png` }))
+				.setAuthor(user.user.username, user.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
 				.addField('Info',
 					`**Reputation:** ${social.rep} \n` +
 					`**Kills:** ${social.kills} \n` +
@@ -42,8 +53,8 @@ export default class {
 					`**Heads:** ${social.coinflips.heads}\n` +
 					`**Tails:** ${social.coinflips.tails}\n` +
 					`**Edges:** ${social.coinflips.edges}`)
-				.setTimestamp(new Date));
-
+				.setTimestamp(new Date)]
 		});
+		return true;
 	}
 }

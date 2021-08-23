@@ -14,9 +14,8 @@ export default class {
 
 		if (expression == '') {
 			await this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setDescription('Enter an expression to evaluate')
-					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))]
+				content: 'Enter an expression to evaluate',
+				ephemeral: true
 			});
 			return false;
 		}
@@ -25,17 +24,15 @@ export default class {
 			await this.int.reply({
 				embeds: [new discord.MessageEmbed()
 					.setColor([8, 145, 1])
-					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ size: 1024 }))
 					.setTitle('Math')
 					.setDescription(expression + ' = ' + evaluate(expression))]
 			});
 			return true;
 		} catch (e) {
 			await this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setDescription(e.message)
-					.setColor([255, 0, 0])
-					.setTitle('An Error Ocurred!')]
+				content: 'An Error Ocurred!',
+				ephemeral: true
 			});
 			return false;
 		}

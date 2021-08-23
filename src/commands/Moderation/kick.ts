@@ -12,11 +12,8 @@ export default class {
 		if (!(this.int.member as discord.GuildMember).permissions.has(discord.Permissions.FLAGS.KICK_MEMBERS) &&
 			!(this.int.member as discord.GuildMember).permissions.has(discord.Permissions.FLAGS.ADMINISTRATOR)) {
 			this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
-					.setTitle('ERROR')
-					.setDescription('You dont have permissions to run that command.')
-					.setColor([255, 0, 0])]
+				content: 'You dont have permissions to run that command.',
+				ephemeral: true
 			});
 			return false;
 		}
@@ -28,7 +25,8 @@ export default class {
 				embeds: [new discord.MessageEmbed()
 					.setColor([255, 0, 0])
 					.setDescription('Why do you want to kick yourself...?')
-					.setTitle('Are you serious?')]
+					.setTitle('Are you serious?')],
+				ephemeral: true
 			});
 			return false;
 		}
@@ -38,7 +36,8 @@ export default class {
 				embeds: [new discord.MessageEmbed()
 					.setColor([255, 0, 0])
 					.setDescription('WHY ME!!!???')
-					.setTitle(';-;')]
+					.setTitle(';-;')],
+				ephemeral: true
 			});
 			return false;
 		}
@@ -48,10 +47,8 @@ export default class {
 
 		if (!memberCanKick || !isLowerRole || user.id == this.int.guild.ownerId) {
 			await this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setColor([255, 0, 0])
-					.setTitle('Kick Error')
-					.setDescription('You don\'t have permissions to kick that member')]
+				content: 'You don\'t have permissions to kick that member',
+				ephemeral: true
 			});
 			return false;
 		}
@@ -60,10 +57,8 @@ export default class {
 
 		if (!iCanKick || !user.kickable) {
 			await this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setColor([255, 0, 0])
-					.setTitle('Kick Error')
-					.setDescription('I don\'t have permissions to do that')]
+				content: 'I don\'t have permissions to do that',
+				ephemeral: true
 			});
 			return false;
 		}

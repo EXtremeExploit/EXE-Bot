@@ -1,35 +1,11 @@
 {
-	// Use IntelliSense para saber los atributos posibles.
-	// Mantenga el puntero para ver las descripciones de los existentes atributos.
-	// Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Compile (tsc)",
-			"preLaunchTask": "npm: compile",
-			"type": "node-terminal",
-			"request": "launch",
-			"command": "exit"
-		},
-		
-		{
 			"type": "node",
 			"request": "launch",
-			"name": "Start (Compile)",
-			"program": "${workspaceFolder}/src/index.ts",
-			"runtimeArgs": [
-				"--experimental-json-modules",
-				"--experimental-modules"
-			],
-			"preLaunchTask": "npm: compile",
-			"outFiles": [
-				"${workspaceFolder}/out/**/*.js"
-			]
-		},
-		{
-			"type": "node",
-			"request": "launch",
-			"name": "Start (No Compile)",
+			"name": "Start",
+			"preLaunchTask": "",
 			"runtimeArgs": [
 				"--experimental-json-modules",
 				"--experimental-modules"

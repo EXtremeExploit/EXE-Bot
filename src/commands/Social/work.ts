@@ -20,7 +20,10 @@ export default class {
 		SocialCheckUndefineds(social);
 
 		if (social.workName == '') {
-			this.int.reply('It seems that you don\'t have a job jet, get one with /setjob');
+			this.int.reply({
+				content: 'It seems that you don\'t have a job jet, get one with /setjob',
+				ephemeral: true
+			});
 			return;
 		}
 

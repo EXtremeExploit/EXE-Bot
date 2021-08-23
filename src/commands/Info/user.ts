@@ -48,9 +48,9 @@ export default class {
 					`**Joined:** ${convertDate(user.joinedAt, user.joinedTimestamp)}`, true)
 				.addField('Bot', user.user.bot ? 'Yes' : 'No', true)
 				.addField('Avatar',
-					`**displayAvatarURL:** ${user.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' })}`, true)
-				.setAuthor(user.user.username, user.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
-				.setThumbnail(user.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))]
+					`**displayAvatarURL:** ${user.user.displayAvatarURL({ size: 1024 })}`, true)
+				.setAuthor(user.user.username, user.user.displayAvatarURL({ size: 1024 }))
+				.setThumbnail(user.user.displayAvatarURL({ size: 1024 }))]
 		});
 		return true;
 	}

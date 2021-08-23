@@ -42,9 +42,9 @@ export default class {
 		const botCount = (await this.int.guild.members.fetch()).filter((e) => e.user.bot == true).size;
 
 		const embed = new discord.MessageEmbed()
-			.setAuthor(this.int.guild.name, this.int.guild.iconURL({ dynamic: true, size: 1024, format: 'png' }))
+			.setAuthor(this.int.guild.name, this.int.guild.iconURL())
 			.setColor([0, 0, 255])
-			.setThumbnail(this.int.guild.iconURL({ dynamic: true, size: 1024, format: 'png' }))
+			.setThumbnail(this.int.guild.iconURL())
 			.addField('ID', this.int.guild.id, true)
 			.addField('AFK',
 				`**Channel;ID** ${afkchannelname};${this.int.guild.afkChannelId}\n` +
@@ -61,7 +61,7 @@ export default class {
 			.addField('Verification Level', verificationLevel, true)
 			.addField('NSFW Level', this.int.guild.nsfwLevel, true)
 			.addField('Icon',
-				`**Icon URL:** ${this.int.guild.iconURL({ dynamic: true, size: 1024, format: 'png' })}`, true);
+				`**Icon URL:** ${this.int.guild.iconURL()}`, true);
 
 		if (this.int.guild.bannerURL())
 			embed.setImage(this.int.guild.bannerURL({ format: 'png', size: 4096 }));

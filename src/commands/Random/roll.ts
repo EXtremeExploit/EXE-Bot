@@ -15,7 +15,7 @@ export default class {
 			embeds: [new discord.MessageEmbed()
 				.setColor([255, 0, 0])
 				.setTitle('Roll')
-				.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+				.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ size: 1024 }))
 				.setDescription('You Rolled a: **' + roll + '**')]
 		});
 		return true;

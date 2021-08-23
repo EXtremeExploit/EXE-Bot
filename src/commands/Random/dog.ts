@@ -18,7 +18,7 @@ export default class {
 				.setImage(dog.url)
 				.setColor([255, 0, 0])
 				.setTitle('Random Dog')
-				.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))]
+				.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ size: 1024 }))]
 		});
 		return true;
 	}

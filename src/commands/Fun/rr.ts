@@ -12,7 +12,10 @@ export default class {
 
 	async init() {
 		if (ram.rr[this.int.channelId]) {
-			this.int.reply('There is already a russian roulette in this channel!');
+			this.int.reply({
+				content: 'There is already a russian roulette in this channel!',
+				ephemeral: true
+			});
 			return false;
 		}
 

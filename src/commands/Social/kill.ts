@@ -14,10 +14,8 @@ export default class {
 
 		if (user.id == this.int.user.id) {
 			this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
-					.setColor([255, 0, 0])
-					.setDescription('You can\'t kill youself, No good man')]
+				content: 'You can\'t kill youself, No good man',
+				ephemeral: true
 			});
 			return false;
 		}

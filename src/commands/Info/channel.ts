@@ -9,7 +9,6 @@ export default class {
 		this.int = int;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	async init() {
 		const channel = this.int.options.getChannel('channel') as discord.GuildChannel;
 

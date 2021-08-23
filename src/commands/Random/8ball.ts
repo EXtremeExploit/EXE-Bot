@@ -25,7 +25,7 @@ export default class {
 			embeds: [new discord.MessageEmbed()
 				.setColor([0, 0, 0])
 				.setTitle(question)
-				.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+				.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ size: 1024 }))
 				.setDescription(response[Math.floor(Math.random() * response.length)])]
 		});
 	}

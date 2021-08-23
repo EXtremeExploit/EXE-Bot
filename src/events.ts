@@ -45,18 +45,20 @@ export default class {
 		this.client.on('ready', async () => {
 			const me = this.client.user;
 
-			console.log('==================================================');
+			console.log('=================================');
+			console.log(`Time: ${LOG_DATE()}`);
 			console.log(`TS=>JS; Node.JS ${process.version}; discord.js v${discord.version}`);
-			console.log(`ID;TAG: ${me.id};${me.tag}`);
-			console.log(`OwnerID;OwnerTag: ${ownerId};${(await this.client.users.fetch(ownerId)).tag}`);
+			console.log(`ID: ${me.id}`);
+			console.log(`TAG:${me.tag}`);
+			console.log(`OwnerId: ${ownerId}`);
+			console.log(`OwnerTag: ${(await this.client.users.fetch(ownerId)).tag}`);
 			console.log(`Commands;Servers: ${commandsArray.length};${this.client.guilds.cache.size}`);
-			console.log('==================================================');
+			console.log('=================================');
 
 			this.setStatus();
 			setInterval(() => {
 				this.setStatus();
 			}, 30000);
-
 		});
 	}
 	Disconnect() {
@@ -68,27 +70,27 @@ export default class {
 
 	RateLimit() {
 		this.client.on('rateLimit', (e) => {
-			console.log('====================RATE LIMIT====================');
+			console.log('RATELIMIT:');
 			console.log(`${e.method} ${e.path}`);
 			console.log(`Limit;Timeout: ${e.limit};${e.timeout}`);
 			console.log(`Route: ${e.route}`);
-			console.log('==================================================');
+			console.log('=================================');
 		});
 	}
 	Warn() {
 		this.client.on('warn', (info) => {
-			console.log('====================WARN====================');
+			console.log('WARN:');
 			console.warn(info);
-			console.log('============================================');
+			console.log('=================================');
 		});
 	}
 	Error() {
 		this.client.on('error', (error) => {
-			console.log('====================ERROR====================');
+			console.log('ERROR:');
 			console.log(`Error Message: ${error.message}`);
 			console.log(`Error Name: ${error.name}`);
 			console.log(`Error Stack: ${error.stack}`);
-			console.log('=============================================');
+			console.log('==================================');
 		});
 	}
 
@@ -100,7 +102,10 @@ export default class {
 			switch (int.customId) {
 				case 'rrjoin': {
 					if (ram.rr.sessions[int.channelId].participants.includes(int.user.id)) { // if user isn't participating
-						int.reply({ content: 'You are already in', ephemeral: true });
+						int.reply({
+							content: 'You are already in',
+							ephemeral: true
+						});
 						return;
 					}
 
@@ -115,7 +120,10 @@ export default class {
 					});
 					embed.setDescription(participantsText);
 
-					int.reply({ content: 'Joined!', ephemeral: true });
+					int.reply({
+						content: 'Joined!',
+						ephemeral: true
+					});
 
 					if (ram.rr.sessions[int.channelId].participants.length == 6) { // The lobby is full
 						(int.message as discord.Message).edit({

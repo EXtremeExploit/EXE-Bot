@@ -21,18 +21,15 @@ export default class {
 
 		if (images.length == 0) {
 			this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
-					.setColor([255, 0, 0])
-					.setTitle('Error')
-					.setDescription('Could not find any image on your search')]
+				content: 'Could not find any image on your search',
+				ephemeral: true
 			});
 			return false;
 		}
 
 		const embed = new discord.MessageEmbed()
 			.setColor([255, 0, 0])
-			.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+			.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ size: 1024 }))
 			.setDescription(`Displaying 1/${images.length} Images`)
 			.setURL(images[0].url)
 			.setImage(images[0].url)

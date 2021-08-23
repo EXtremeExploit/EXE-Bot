@@ -32,5 +32,5 @@ const client: discord.Client = new discord.Client({
 
 	console.log('Logging to Discord...');
 	await client.login(new config().getToken()).catch((e) => console.error(e));
-	c.register();
+	await c.register();
 })();

@@ -20,13 +20,13 @@ export default class {
 				Permissions.FLAGS.MANAGE_CHANNELS,
 				Permissions.FLAGS.EMBED_LINKS
 			],
-			scopes: ['bot'],
+			scopes: ['bot', 'applications.commands'],
 		});
 
 		await this.int.reply({
 			embeds: [new discord.MessageEmbed()
 				.setTitle('Invite me to your server!')
-				.setAuthor(this.client.user.username, this.client.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+				.setAuthor(this.client.user.username, this.client.user.displayAvatarURL({ size: 1024 }))
 				.setColor([255, 0, 0])
 				.setDescription(link)
 				.setURL(link)]

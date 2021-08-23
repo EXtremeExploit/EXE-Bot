@@ -13,11 +13,8 @@ export default class {
 
 		if (text.includes('@everyone') || text.includes('@here')) {
 			await this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setColor([255, 0, 0])
-					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
-					.setTitle('Say')
-					.setDescription('You cannot mention @everyone or @here')]
+				content: 'You cannot mention @everyone or @here',
+				ephemeral: true
 			});
 			return false;
 		}

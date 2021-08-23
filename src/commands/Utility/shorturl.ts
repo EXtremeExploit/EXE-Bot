@@ -17,9 +17,8 @@ export default class {
 		const res = await isgd.shorten(url);
 		if (res.startsWith('Error:')) {
 			await this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setColor([255, 0, 0])
-					.setDescription('Please specify a valid URL to short!')]
+				content: 'Please specify a valid URL to short!',
+				ephemeral: true
 			});
 			return false;
 		}

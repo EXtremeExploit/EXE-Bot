@@ -42,7 +42,8 @@ export default class {
 								.setDescription('**Possible reasons:** \n' +
 									'User does not exists \n' +
 									'osu! servers are down')
-								.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))]
+								.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ size: 1024 }))],
+							ephemeral: true
 						});
 						return false;
 					}
@@ -102,7 +103,8 @@ export default class {
 								.setAuthor('osu! Server failure!', 'https://pbs.twimg.com/profile_images/706719922596900864/xTzREmuc_400x400.jpg')
 								.setColor([255, 0, 0])
 								.setFooter('this is bad af')
-								.addField('osu! Servers got down!', 'Check [@osustatus](https://twitter.com/osustatus) for info')]
+								.addField('osu! Servers got down!', 'Check [@osustatus](https://twitter.com/osustatus) for info')],
+							ephemeral: true
 						});
 					} else {
 						await this.int.reply({
@@ -113,7 +115,8 @@ export default class {
 									'User does not exists\n' +
 									'Doesnt have any plays in your search\n' +
 									'osu! servers are down')
-								.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))]
+								.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ size: 1024 }))],
+							ephemeral: true
 						});
 					}
 					return false;
@@ -169,7 +172,8 @@ export default class {
 								.setAuthor('osu! Server failure!', 'https://pbs.twimg.com/profile_images/706719922596900864/xTzREmuc_400x400.jpg')
 								.setColor([255, 0, 0])
 								.setFooter('this is bad af')
-								.addField('osu! Servers got down!', 'Check [@osustatus](https://twitter.com/osustatus) for info')]
+								.addField('osu! Servers got down!', 'Check [@osustatus](https://twitter.com/osustatus) for info')],
+							ephemeral: true
 						});
 					} else {
 						await this.int.reply({
@@ -180,7 +184,8 @@ export default class {
 									'User does not exists\n' +
 									'Doesnt have any plays in your search\n' +
 									'osu! servers are down')
-								.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))]
+								.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ size: 1024 }))],
+							ephemeral: true
 						});
 					}
 					return false;
@@ -234,7 +239,8 @@ export default class {
 								.setAuthor('osu! Server failure!', 'https://pbs.twimg.com/profile_images/706719922596900864/xTzREmuc_400x400.jpg')
 								.setColor([255, 0, 0])
 								.setFooter('this is bad af')
-								.addField('osu! Servers got down!', 'Check [@osustatus](https://twitter.com/osustatus) for info')]
+								.addField('osu! Servers got down!', 'Check [@osustatus](https://twitter.com/osustatus) for info')],
+							ephemeral: true
 						});
 					} else {
 						await this.int.reply({
@@ -245,7 +251,8 @@ export default class {
 									'User does not exists\n' +
 									'Doesnt have any play in your search\n' +
 									'You entered the wrong modifiers')
-								.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))]
+								.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ size: 1024 }))],
+							ephemeral: true
 						});
 					}
 					return false;

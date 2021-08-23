@@ -13,10 +13,8 @@ export default class {
 	async init() {
 		if (this.int.user.id !== ownerId) {
 			await this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setColor([255, 0, 0])
-					.setDescription('Bot owner only!')
-					.setFooter('how did you find this command?')]
+				content: 'how did you find this command?',
+				ephemeral: true
 			});
 			return false;
 		}

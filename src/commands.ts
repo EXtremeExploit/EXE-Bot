@@ -57,7 +57,7 @@ export class Command {
 						.setColor([255, 0, 0])
 						.setTitle('Error')
 						.setDescription('OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix!')
-						.setAuthor(int.user.username, int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))]
+						.setAuthor(int.user.username, int.user.displayAvatarURL({ size: 1024 }))]
 				});
 
 				(await client.users.fetch(ownerId)).send(`\`\`\`${err1.stack}\`\`\``);
@@ -390,7 +390,10 @@ export default class {
 					const minutes = Math.floor(timeDifference / 60) - (hours * 60);
 					const seconds = timeDifference % 60;
 
-					await int.reply({ content: `You are using that command too fast!, try again in **${hours} Hours, ${minutes} Minutes and ${seconds} seconds...**`, ephemeral: true });
+					await int.reply({
+						content: `You are using that command too fast!, try again in **${hours} Hours, ${minutes} Minutes and ${seconds} seconds...**`,
+						ephemeral: true
+					});
 					return;
 				}
 			}
@@ -416,9 +419,14 @@ export default class {
 			data.push(obj);
 		}
 
-		if (new config().useBeta() == 'true')
+		console.log('Commands registered');
+		if (new config().useBeta() == 'true') {
 			await this.client.guilds.cache.get('411598333002514432').commands.set(data);
-		else
-			this.client.application?.commands.set(data);
+			await this.client.application.commands.set([]);
+		} else {
+			await this.client.application.commands.set(data);
+			await this.client.guilds.cache.get('411598333002514432').commands.set([]);
+		}
+		console.log('Commands registered');
 	}
 }

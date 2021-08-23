@@ -20,7 +20,8 @@ export default class {
 				embeds: [new discord.MessageEmbed()
 					.setColor([255, 0, 0])
 					.setDescription('Why do you want to play with yourself...?')
-					.setTitle('Are you serious?')]
+					.setTitle('Are you serious?')],
+				ephemeral: true
 			});
 			return false;
 		}

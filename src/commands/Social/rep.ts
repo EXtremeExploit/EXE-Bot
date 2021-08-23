@@ -16,10 +16,8 @@ export default class {
 
 		if (user.id == this.int.user.id) {
 			await this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
-					.setColor([255, 0, 0])
-					.setDescription('You cant rep youself, that stuff doesn\'t grow from trees!!')]
+				content: 'You cant rep youself, that stuff doesn\'t grow from trees!!',
+				ephemeral: true
 			});
 			return false;
 		}

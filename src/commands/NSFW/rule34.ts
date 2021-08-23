@@ -13,11 +13,8 @@ export default class {
 	async init() {
 		if (!(this.int.channel as discord.TextChannel).nsfw) {
 			await this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
-					.setColor([255, 0, 0])
-					.setTitle('NSFW Error!')
-					.setDescription('NSFW channels only!')]
+				content: 'NSFW channels only!',
+				ephemeral: true
 			});
 			return false;
 		}
@@ -34,7 +31,7 @@ export default class {
 					.setColor([255, 0, 0])
 					.setTitle('rule34.xxx')
 					.setURL(post.postView)
-					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+					.setAuthor(this.int.user.username, this.int.user.displayAvatarURL({ size: 1024 }))
 					.setImage(link)
 					.setDescription(`You Searched: \`${query}\``)]
 			});

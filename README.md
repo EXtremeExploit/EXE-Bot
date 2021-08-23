@@ -30,4 +30,6 @@ dbUrl='mongodb+srv://<YOURUSERNAME>:<YOURPASSWORD>@<YOURHOST>/<YOURDB>?retryWrit
 ```
 5. Edit it with your desired configuration
     * If you don't plan on using a testing bot, leave tokenBeta blank and useBeta on `'false'`
-6. `npm run starttsc`; This will compile and then run, if you want only to run latest compiled: `npm run startnotsc`
+6. Instal typescript npm module: `npm i typescript -g`. It will install globaly so if you've done this before you don't need this step
+7. Compile: `tsc`. Run this command inside the folder that has the main files, like `.eslintrc`, `tsconfig.json`
+8. `npm run start`; This will run latest compiled

@@ -13,10 +13,8 @@ export default class {
 	async init() {
 		if (this.int.user.id !== ownerId) {
 			await this.int.reply({
-				embeds: [new discord.MessageEmbed()
-					.setColor([255, 0, 0])
-					.setDescription('Bot owner only!')
-					.setFooter('how did you find this command?')]
+				content: 'how did you find this command?',
+				ephemeral: true
 			});
 			return false;
 		}
@@ -24,7 +22,7 @@ export default class {
 		await this.int.reply({
 			embeds: [new discord.MessageEmbed()
 				.setColor([255, 0, 0])
-				.setAuthor(this.client.user.username, this.client.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+				.setAuthor(this.client.user.username, this.client.user.displayAvatarURL({ size: 1024 }))
 				.setDescription('Disconnecting...')
 				.setTitle('Disconnect')]
 		});

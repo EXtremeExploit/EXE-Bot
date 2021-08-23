@@ -15,9 +15,9 @@ export default class {
 
 		await this.int.reply({
 			embeds: [new discord.MessageEmbed()
-				.setImage(user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+				.setImage(user.displayAvatarURL({ size: 1024 }))
 				.setColor([255, 0, 0])
-				.setURL(user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+				.setURL(user.displayAvatarURL({ size: 1024 }))
 				.setTitle('URL')
 				.setDescription(`${user.username}'s Avatar`)]
 		});

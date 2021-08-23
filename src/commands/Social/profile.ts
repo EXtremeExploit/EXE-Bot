@@ -33,9 +33,9 @@ export default class {
 			embeds: [new discord.MessageEmbed()
 				.setTitle(`${social.alias == '' ? user.user.username : social.alias} Profile`)
 				.setColor(0x0000FF)
-				.setThumbnail(user.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+				.setThumbnail(user.user.displayAvatarURL({ size: 1024 }))
 				.setDescription(workText)
-				.setAuthor(user.user.username, user.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+				.setAuthor(user.user.username, user.user.displayAvatarURL({ size: 1024 }))
 				.addField('Info',
 					`**Reputation:** ${social.rep} \n` +
 					`**Kills:** ${social.kills} \n` +

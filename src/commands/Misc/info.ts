@@ -42,9 +42,9 @@ export default class {
 
 
 		const embed = new discord.MessageEmbed()
-			.setAuthor(this.client.user.username, this.client.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }))
+			.setAuthor(this.client.user.username, this.client.user.displayAvatarURL({ size: 1024 }))
 			.setColor([255, 0, 0])
-			.setThumbnail(this.client.user.displayAvatarURL({ dynamic: true, size: 1024, format: 'png' }));
+			.setThumbnail(this.client.user.displayAvatarURL({ size: 1024 }));
 
 		embed.addField('Bot Resources (MiB)',
 			`**Heap Total:** ${ram.heapTotal.toFixed(2)}\n` +

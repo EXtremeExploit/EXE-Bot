@@ -1,5 +1,4 @@
 import { MessageEmbed } from 'discord.js';
-import json from '../json/config.json';
 
 export default class {
 	getToken() {
@@ -18,7 +17,8 @@ export default class {
 			throw 'useBeta should only be string true or false';
 	}
 	getOwnerId() {
-		return json.ownerId;
+		if(!process.env.ownerId) throw 'ownerId should be given in an enviromental variable';
+		return process.env.ownerId;
 	}
 	getDB() {
 		if (!process.env.dbUrl) throw 'dbUrl should be given in an enviromental variable';

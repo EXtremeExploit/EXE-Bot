@@ -1,3 +1,6 @@
+* Not updating anymore due to being forced to reapply again for privileged intents which takes like 2 months to get verified (again, although im already verified, so fuck you discord), and because discord loves to deprecate and change the rules of already working endpoints in their API, making bot developers change every single command to use x and not y, etc. discord moment
+* i also dont like discord in itself, the developers dont give a fuck about the linux community or how bad the client is, made for gaming my balls, it takes like 30% CPU usage and about 1GiB of RAM, like BRUH come on its intended to have in the background while gaming so dont use more resources than the fucking game
+
 # EXE-Bot
 
 * [**Invite Link**](https://discordapp.com/oauth2/authorize?client_id=353661793199194112&permissions=8&scope=bot)
